@@ -1,0 +1,9 @@
+node_modules/
+.next/
+out/
+quote-requests/
+*.log
+*.tsbuildinfo
+.DS_Store
+# marketing skills reference checkout (own nested repo) — not part of the site
+marketingskills/
