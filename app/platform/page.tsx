@@ -1,5 +1,8 @@
 import type { Metadata } from "next";
-import { Section, CtaRow, Breadcrumbs } from "../components/ui";
+import Link from "next/link";
+import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../components/ui";
+import OfficeDashboardMock from "../components/OfficeDashboardMock";
+import { Search, Filter, Lock, Download, ShieldCheck, CheckCircle2, Database, Layers, ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "Platform — Your Office View of Every Survey",
@@ -9,34 +12,81 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div>
+    <div className="space-y-12 pb-16">
       <div className="mx-auto max-w-6xl px-4 pt-8">
-        <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/platform", label: "Platform" }]} />
-        <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">Platform — your firm&apos;s office view</h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">All your teams&apos; jobs, all vessels, one register. No spreadsheets lost in email.</p>
+        <Breadcrumbs
+          trail={[
+            { href: "/", label: "Home" },
+            { href: "/platform", label: "Platform" },
+          ]}
+        />
+        <div className="mt-4 flex items-center gap-2">
+          <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
+            Supervisor & Office Console
+          </span>
+          <span className="text-xs text-slate-500 font-mono">Real-Time Fleet Oversight</span>
+        </div>
+        <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
+          Platform — your firm&apos;s centralized command center
+        </h1>
+        <p className="mt-3 max-w-3xl text-lg text-slate-600">
+          All your surveyors&apos; jobs, all vessels, one immutable register. No loose spreadsheets or disputed figures lost in email chains.
+        </p>
       </div>
-      <Section eyebrow="Register" title="Find anything in seconds">
-        <ul className="list-disc space-y-2 pl-5 text-slate-700">
-          <li>Search by survey number, vessel, port, inspector or BDN.</li>
-          <li>Filter by status and fuel grade. Total MT in footer.</li>
-          <li>Soft-delete protection: finalised surveys cannot be deleted.</li>
-        </ul>
-      </Section>
-      <Section eyebrow="Dashboard" title="Trends without analysis work">
-        <ul className="list-disc space-y-2 pl-5 text-slate-700">
-          <li>Total surveys, this-month MT, drafts, average correction factor.</li>
-          <li>Trend by day/week/month, status donut, quantity by grade, top vessels.</li>
-          <li>Recent surveys + needs-attention list.</li>
-        </ul>
-      </Section>
-      <Section eyebrow="Trust" title="Audit on every line">
-        <ul className="list-disc space-y-2 pl-5 text-slate-700">
-          <li>Status: Draft → Calculated → Under Review → Finalised (locked).</li>
-          <li>Each tank line shows table ID, revision, method, interpolated flags, warnings.</li>
-          <li>Live preview while typing. Export blocked until calculated.</li>
-          <li>PDF certificate + 4-sheet Excel. Register PDF + Excel.</li>
-        </ul>
-        <div className="mt-6"><CtaRow /></div>
+
+      <div className="mx-auto max-w-6xl px-4">
+        <AnswerBlock>
+          <p>
+            The Space BQS platform provides survey firm supervisors and operations admins with a live overview of every field inspection. Track jobs as they advance from Draft on deck to Calculated, Under Review, and Finalised. Manage vessel calibration booklets centrally, monitor fleet-wide VCF averages, and generate client-ready PDF and Excel packages with a single click.
+          </p>
+        </AnswerBlock>
+      </div>
+
+      {/* Interactive Platform Mockup */}
+      <section className="mx-auto max-w-6xl px-4">
+        <OfficeDashboardMock />
+      </section>
+
+      {/* Core Capabilities */}
+      <Section eyebrow="Core Capabilities" title="Built for high-volume survey operations">
+        <div className="grid gap-6 md:grid-cols-3">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-xl bg-ocean-50 p-3 text-ocean-700 w-fit">
+              <Search className="h-6 w-6" />
+            </div>
+            <h3 className="font-display font-bold text-ocean-950 text-lg mt-4">Unified Survey Register</h3>
+            <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+              Instant multi-attribute search by survey ID, vessel IMO, port, inspector, or BDN reference. Filter by fuel grade (VLSFO, MGO, ULSFO) and execution status.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-xl bg-sea-50 p-3 text-sea-700 w-fit">
+              <Lock className="h-6 w-6" />
+            </div>
+            <h3 className="font-display font-bold text-ocean-950 text-lg mt-4">Immutable Finalization Lock</h3>
+            <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+              Once a survey is finalised by an authorized supervisor, it is cryptographically locked with SHA-256. Figures cannot be altered or soft-deleted by field surveyors or external parties.
+            </p>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <div className="rounded-xl bg-ocean-50 p-3 text-ocean-700 w-fit">
+              <Database className="h-6 w-6" />
+            </div>
+            <h3 className="font-display font-bold text-ocean-950 text-lg mt-4">Vessel Master Data</h3>
+            <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+              Maintain verified vessel tank calibration tables, trim and heel correction curves, and Table 54B matrix versions centrally so surveyors always use verified data.
+            </p>
+          </div>
+        </div>
+
+        <div className="mt-8 flex flex-wrap gap-4 items-center">
+          <CtaRow />
+          <Link href="/portal-roadmap" className="text-xs font-semibold text-ocean-700 hover:underline">
+            Read about our upcoming Client Portal roadmap →
+          </Link>
+        </div>
       </Section>
     </div>
   );

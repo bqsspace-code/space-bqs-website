@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/platform",
     "/mobile-app",
     "/how-we-measure",
+    "/order-lifecycle",
+    "/portal-roadmap",
     "/why-independent",
     "/who-its-for",
     "/integrations-api",

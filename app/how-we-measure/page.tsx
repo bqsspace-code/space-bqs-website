@@ -1,6 +1,9 @@
 import type { Metadata } from "next";
 import { Section, AnswerBlock, CtaRow, Breadcrumbs } from "../components/ui";
 import { ENGINE_VERSION } from "../lib/site";
+import EnginePipelineGraphic from "../components/EnginePipelineGraphic";
+import LiveCalculator from "../components/LiveCalculator";
+import { ShieldCheck, Ruler, Droplets, Thermometer, Scale, AlertOctagon } from "lucide-react";
 
 export const metadata: Metadata = {
   title: "How the Engine Calculates — From Tank Reading to Tonnes",
@@ -10,40 +13,103 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <div>
+    <div className="space-y-12 pb-16">
       <div className="mx-auto max-w-6xl px-4 pt-8">
-        <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/how-we-measure", label: "How It Calculates" }]} />
-        <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">How the engine calculates — in plain words</h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">Four steps. Same every time. Engine v{ENGINE_VERSION}.</p>
+        <Breadcrumbs
+          trail={[
+            { href: "/", label: "Home" },
+            { href: "/how-we-measure", label: "How It Calculates" },
+          ]}
+        />
+        <div className="mt-4 flex items-center gap-2">
+          <span className="rounded-full bg-sea-100 px-3 py-1 text-xs font-semibold text-sea-800">
+            Engine v{ENGINE_VERSION} Implementation Spec
+          </span>
+          <span className="text-xs text-slate-500 font-mono">ASTM D1250-04 Standard</span>
+        </div>
+        <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
+          How the engine calculates — in plain words
+        </h1>
+        <p className="mt-3 max-w-3xl text-lg text-slate-600">
+          Four steps. Exact mathematical precision. Zero black-box estimates. Engine v{ENGINE_VERSION}.
+        </p>
       </div>
-      <Section eyebrow="Method" title="Measure → Subtract → Adjust → Convert">
-        <div className="grid gap-4 md:grid-cols-4">
-          {[
-            { t: "1. Measure", d: "The surveyor reads ullage or sounding in metres. The system looks up volume in that tank's calibration (strapping) table." },
-            { t: "2. Subtract water", d: "Free water in m³ is deducted. Clients do not pay fuel price for water." },
-            { t: "3. Adjust for heat", d: "VCF from ASTM D1250 Table 54B is applied using grade, density and temperature." },
-            { t: "4. Convert", d: "Corrected volume × density = mass. Divide by 1000 = MT." },
-          ].map((s) => (
-            <div key={s.t} className="rounded-xl bg-slate-50 p-5">
-              <p className="font-bold">{s.t}</p>
-              <p className="mt-2 text-sm text-slate-600">{s.d}</p>
-            </div>
-          ))}
+
+      <div className="mx-auto max-w-6xl px-4">
+        <AnswerBlock>
+          <p>
+            The Space BQS calculation core converts physical tape measurements (ullage or sounding) into certified metric tonnes through four deterministic steps: (1) 1D linear strapping table lookup without extrapolation, (2) exact free water volume deduction, (3) ASTM D1250 Table 54B volume correction factor (VCF) lookup based on temperature and density, and (4) density-based mass conversion in air or vacuum.
+          </p>
+        </AnswerBlock>
+      </div>
+
+      {/* 4-Stage Graphic & Strapping Curve */}
+      <section className="mx-auto max-w-6xl px-4">
+        <EnginePipelineGraphic />
+      </section>
+
+      {/* Interactive Simulator on the Method Page */}
+      <section className="mx-auto max-w-6xl px-4">
+        <div className="mb-4">
+          <h2 className="font-display text-2xl font-bold text-ocean-950">
+            Live Engine Simulator
+          </h2>
+          <p className="text-xs text-slate-500">
+            Test custom densities and temperatures or verify the 457.819 MT benchmark.
+          </p>
         </div>
-        <div className="mt-6">
-          <AnswerBlock>
-            <p>Grades: VLSFO, HFO, MGO, LSMGO, ULSFO. Mass basis: in air or vacuum. Precision: volume 3 decimals, VCF 4, mass 2, MT 3. Readings outside the table are flagged Out of Range — never extrapolated or guessed.</p>
-          </AnswerBlock>
+        <LiveCalculator />
+      </section>
+
+      {/* Mathematical Rigor & Proof Standards */}
+      <Section eyebrow="Mathematical Proof" title="Every number shows its origin">
+        <div className="grid gap-6 md:grid-cols-2">
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="font-display font-bold text-ocean-950 text-lg">Table 54B Matrix Boundaries</h3>
+            <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+              Standard ASTM D1250-04 matrices are hardcoded and verified against international test vectors:
+            </p>
+            <ul className="mt-4 space-y-2 text-xs text-slate-700">
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-ocean-600"></span>
+                <span><strong>Fuel Oils:</strong> 0.9000 to 1.0000 kg/L density range across 0°C to 90°C.</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-ocean-600"></span>
+                <span><strong>Middle Distillates:</strong> 0.8200 to 0.9000 kg/L density range across 0°C to 60°C.</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <span className="h-1.5 w-1.5 rounded-full bg-ocean-600"></span>
+                <span><strong>Thermal Sensitivity:</strong> Computes <code>dVCF/dT</code> rate of change per tank.</span>
+              </li>
+            </ul>
+          </div>
+
+          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+            <h3 className="font-display font-bold text-ocean-950 text-lg">Defensive Safeguards & Anomaly Flags</h3>
+            <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+              Real ships encounter unusual conditions. The engine protects surveyors by flagging anomalies instead of failing silently:
+            </p>
+            <ul className="mt-4 space-y-2 text-xs text-slate-700">
+              <li className="flex items-center gap-2">
+                <AlertOctagon className="h-4 w-4 text-amber-500 shrink-0" />
+                <span><strong>OutOfRangeError:</strong> Triggered if sounding exceeds tank calibration height.</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <AlertOctagon className="h-4 w-4 text-amber-500 shrink-0" />
+                <span><strong>Water Cut &gt; 2.0%:</strong> Alert generated when free water exceeds standard settling.</span>
+              </li>
+              <li className="flex items-center gap-2">
+                <ShieldCheck className="h-4 w-4 text-sea-600 shrink-0" />
+                <span><strong>Immutable Signatures:</strong> SHA-256 fingerprint seals all parameters upon finalization.</span>
+              </li>
+            </ul>
+          </div>
         </div>
-      </Section>
-      <Section eyebrow="Proof" title="Every number shows its source">
-        <ul className="list-disc space-y-2 pl-5 text-slate-700">
-          <li>Tank table ID + revision, VCF table ID + revision + method.</li>
-          <li>Interpolated flags when between table points.</li>
-          <li>Warnings: water over 2%, extreme temperature, VCF outlier.</li>
-          <li>Worked check: density 0.9500 at 40°C → VCF 0.9677 → 457.819 MT example.</li>
-        </ul>
-        <div className="mt-6"><CtaRow /></div>
+
+        <div className="mt-8">
+          <CtaRow />
+        </div>
       </Section>
     </div>
   );
