@@ -442,7 +442,7 @@ export default function Home() {
               <div>
                 <div className="rounded-2xl overflow-hidden h-44 mb-5 relative border border-[#D3E9F3]/60 bg-[#EAF4F9]">
                   <img
-                    src="/assets/image/csm_Bunkering_STW150_UTS150_9880832433.jpg"
+                    src="/assets/web_image/csm_Bunkering_STW150_UTS150_9880832433.jpg"
                     alt="Bunker delivery operations alongside vessel"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
@@ -479,7 +479,7 @@ export default function Home() {
               <div>
                 <div className="rounded-2xl overflow-hidden h-44 mb-5 relative border border-[#D3E9F3]/60 bg-[#EAF4F9]">
                   <img
-                    src="/assets/image/Oil%20Tankers.jpg"
+                    src="/assets/web_image/Oil%20Tankers.jpg"
                     alt="Tanker vessel for ROB remaining on board survey"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
@@ -516,7 +516,7 @@ export default function Home() {
               <div>
                 <div className="rounded-2xl overflow-hidden h-44 mb-5 relative border border-[#D3E9F3]/60 bg-[#EAF4F9]">
                   <img
-                    src="/assets/image/3.-Hose-connections-between-the-Green-Pioneer-and-the-Navigator-Global-for-ammonia-transfer-2048x1536.jpg"
+                    src="/assets/web_image/3.-Hose-connections-between-the-Green-Pioneer-and-the-Navigator-Global-for-ammonia-transfer-2048x1536.jpg"
                     alt="Manifold hose connections during fuel debunkering"
                     className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                     loading="lazy"
