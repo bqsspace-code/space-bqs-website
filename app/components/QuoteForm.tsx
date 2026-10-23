@@ -62,9 +62,25 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
         <option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option>
       </select>
       <textarea name="message" placeholder="What should the demo cover? Ports you serve, grades, current tools" className="rounded-lg border p-3 md:col-span-2" rows={4} />
-      {status === "error" ? <p className="text-sm text-red-600 md:col-span-2">{message}</p> : null}
       <div className="md:col-span-2">
-        <button className="rounded-lg bg-ocean-900 px-5 py-3 font-semibold text-white">Request demo</button>
+        <button
+          type="submit"
+          className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#032AAC] hover:bg-[#1B4FD1] text-white font-semibold text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+        >
+          <span>Request a demo</span>
+          <svg
+            width="13"
+            height="13"
+            viewBox="0 0 14 14"
+            fill="none"
+            stroke="currentColor"
+            strokeWidth="2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          >
+            <path d="M3 11L11 3M11 3H5M11 3V9" />
+          </svg>
+        </button>
         <p className="mt-2 text-xs text-slate-500">For survey firms evaluating software — not a per-job booking form.</p>
       </div>
     </form>
