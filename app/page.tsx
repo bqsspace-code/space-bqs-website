@@ -24,6 +24,13 @@ import LiquidTankStage from "./components/LiquidTankStage";
 import KineticWave from "./components/KineticWave";
 import WaveDivider from "./components/WaveDivider";
 import WeightText from "./components/WeightText";
+import {
+  AppStoreBadges,
+  ProblemSection,
+  SurveyWarehouseSection,
+  SpreadsheetCompareSection,
+  WhoItsForSection,
+} from "./components/HomeEnhancements";
 
 export const metadata: Metadata = {
   title: "BQS Software for Marine Surveyors — Capture, Calculate, Certify",
@@ -33,20 +40,32 @@ export const metadata: Metadata = {
 
 const FAQ_ITEMS = [
   {
-    q: "Are you a survey company?",
-    a: "No. We make software for survey firms. We do not attend vessels.",
+    q: "What is Space BQS?",
+    a: "Space BQS is bunker quantity survey software built specifically for survey firms. It captures tank readings on deck, runs ASTM D1250 Table 54B calculations, and produces locked, tamper-evident certificates.",
   },
   {
-    q: "Which jobs does it cover?",
-    a: "Bunker delivery, ROB (including on-hire and off-hire), and debunkering.",
+    q: "Does the mobile app work without internet on deck?",
+    a: "Yes. The mobile app carries your vessel tank register and ASTM correction tables cached locally. It computes quantities offline in engine rooms and barges, with a 72-hour offline lease that syncs automatically when signal returns.",
   },
   {
-    q: "Does it do lab or quality testing?",
-    a: "No. It is quantity only. BDN numbers are recorded for cross-reference.",
+    q: "Which fuel grades and calculation standards are supported?",
+    a: "Grades include VLSFO, HFO, MGO, LSMGO, and ULSFO, using ASTM D1250-04 Table 54B for temperature volume correction factor (VCF), with density ranges 0.820–1.000 kg/L and temperatures 0–90°C.",
   },
   {
-    q: "How do we evaluate it?",
-    a: "Book a 20-minute demo. We quote a team license after we know your team size and volume.",
+    q: "What does the client receive?",
+    a: "Clients receive a locked, tamper-evident A4 PDF certificate, plus an audit-ready four-sheet Excel workbook detailing particulars, soundings, strapping interpolations, and Table 54B correction factors.",
+  },
+  {
+    q: "Do surveyors need an account to use the mobile app?",
+    a: "The app is free to install on iPhone, iPad, and Android from the official App Store and Google Play. Surveyors sign in with an account provisioned by their survey firm's administrator.",
+  },
+  {
+    q: "Does Space BQS perform fuel quality or lab testing?",
+    a: "No. Space BQS is strictly quantity-only. Quality testing is a separate laboratory discipline. Bunker Delivery Note (BDN) numbers are recorded for cross-reference and reconciliation.",
+  },
+  {
+    q: "What happens to survey data after sign-off?",
+    a: "Every finalised survey is permanently stored in the Survey Warehouse with its raw tank readings, calibration table revisions, engine version, and certificate. When a dispute arrives months later, you open the verifiable record instead of rebuilding it.",
   },
 ];
 
@@ -342,6 +361,9 @@ export default function Home() {
               <CtaRow className="justify-center" />
             </div>
 
+            {/* Official Store Badges */}
+            <AppStoreBadges className="pt-1 pb-1" />
+
             {/* Feature trust chips */}
             <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 pt-2 text-xs font-medium text-[#031038]/70">
               <span className="inline-flex items-center gap-1.5">
@@ -393,7 +415,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────────── SECTION 2 — WORKFLOWS ──────────── */}
+      {/* ──────────── SECTION 2 — THE PROBLEM (OPERATIONAL FRICTION) ──────────── */}
+      <ProblemSection />
+
+      {/* ──────────── SECTION 3 — WORKFLOWS ──────────── */}
       <section id="section-workflows" className="pt-20 lg:pt-24 pb-0 bg-mist-100">
         <div className="mx-auto max-w-6xl px-6">
           {/* Header row */}
@@ -407,26 +432,40 @@ export default function Home() {
             </p>
           </div>
 
-          {/* 3-column grid */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10 pb-20">
+          {/* 3-column grid with authentic maritime photography */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 pb-20">
             {/* /services/bunker-delivery-survey */}
             <Link
               href="/services/bunker-delivery-survey"
-              className="group rounded-3xl p-7 bg-white/85 border border-[#D3E9F3] transition-all duration-300 hover:border-[#A5D3E8] hover:shadow-xl hover:-translate-y-0.5 flex flex-col justify-between"
+              className="group rounded-3xl p-6 bg-white/95 border border-[#D3E9F3] transition-all duration-300 hover:border-[#19B5C9] hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between">
-                  <Fuel className="w-[26px] h-[26px] text-[#032AAC]" strokeWidth={1.3} />
-                  <span className="font-mono text-xs text-[#031038]/40 tracking-wider">01</span>
+                <div className="rounded-2xl overflow-hidden h-44 mb-5 relative border border-[#D3E9F3]/60 bg-[#EAF4F9]">
+                  <img
+                    src="/assets/image/csm_Bunkering_STW150_UTS150_9880832433.jpg"
+                    alt="Bunker delivery operations alongside vessel"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-[#031038]/80 backdrop-blur-xs font-mono text-[10px] font-bold text-white tracking-wider">
+                    01
+                  </div>
                 </div>
-                <h3 className="mt-10 font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
+
+                <div className="flex items-center gap-2 mb-2">
+                  <Fuel className="w-4 h-4 text-[#032AAC]" strokeWidth={2} />
+                  <span className="font-mono text-[11px] font-semibold text-[#032AAC] uppercase tracking-wider">
+                    Delivery Workflow
+                  </span>
+                </div>
+                <h3 className="font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
                   Bunker delivery
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-[#031038]/65">
-                  Measure what came aboard and compare it with the BDN.
+                  Check what was delivered against the delivery note (BDN), tank by tank.
                 </p>
               </div>
-              <div className="mt-8 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
+              <div className="mt-6 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
                 <span>See workflow</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
@@ -435,21 +474,35 @@ export default function Home() {
             {/* /services/rob-survey */}
             <Link
               href="/services/rob-survey"
-              className="group rounded-3xl p-7 bg-white/85 border border-[#D3E9F3] transition-all duration-300 hover:border-[#A5D3E8] hover:shadow-xl hover:-translate-y-0.5 flex flex-col justify-between"
+              className="group rounded-3xl p-6 bg-white/95 border border-[#D3E9F3] transition-all duration-300 hover:border-[#19B5C9] hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between">
-                  <Ship className="w-[26px] h-[26px] text-[#032AAC]" strokeWidth={1.3} />
-                  <span className="font-mono text-xs text-[#031038]/40 tracking-wider">02</span>
+                <div className="rounded-2xl overflow-hidden h-44 mb-5 relative border border-[#D3E9F3]/60 bg-[#EAF4F9]">
+                  <img
+                    src="/assets/image/Oil%20Tankers.jpg"
+                    alt="Tanker vessel for ROB remaining on board survey"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-[#031038]/80 backdrop-blur-xs font-mono text-[10px] font-bold text-white tracking-wider">
+                    02
+                  </div>
                 </div>
-                <h3 className="mt-10 font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
-                  ROB survey
+
+                <div className="flex items-center gap-2 mb-2">
+                  <Ship className="w-4 h-4 text-[#032AAC]" strokeWidth={2} />
+                  <span className="font-mono text-[11px] font-semibold text-[#032AAC] uppercase tracking-wider">
+                    Charter Fuel
+                  </span>
+                </div>
+                <h3 className="font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
+                  ROB & on/off-hire
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-[#031038]/65">
-                  Record what is left on board for on-hire and off-hire legs.
+                  Pair two surveys and settle charter fuel with a record both sides can follow.
                 </p>
               </div>
-              <div className="mt-8 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
+              <div className="mt-6 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
                 <span>See workflow</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
@@ -458,21 +511,35 @@ export default function Home() {
             {/* /services/debunkering-survey */}
             <Link
               href="/services/debunkering-survey"
-              className="group rounded-3xl p-7 bg-white/85 border border-[#D3E9F3] transition-all duration-300 hover:border-[#A5D3E8] hover:shadow-xl hover:-translate-y-0.5 flex flex-col justify-between"
+              className="group rounded-3xl p-6 bg-white/95 border border-[#D3E9F3] transition-all duration-300 hover:border-[#19B5C9] hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between"
             >
               <div>
-                <div className="flex items-center justify-between">
-                  <ArrowDownToLine className="w-[26px] h-[26px] text-[#032AAC]" strokeWidth={1.3} />
-                  <span className="font-mono text-xs text-[#031038]/40 tracking-wider">03</span>
+                <div className="rounded-2xl overflow-hidden h-44 mb-5 relative border border-[#D3E9F3]/60 bg-[#EAF4F9]">
+                  <img
+                    src="/assets/image/3.-Hose-connections-between-the-Green-Pioneer-and-the-Navigator-Global-for-ammonia-transfer-2048x1536.jpg"
+                    alt="Manifold hose connections during fuel debunkering"
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                    loading="lazy"
+                  />
+                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-[#031038]/80 backdrop-blur-xs font-mono text-[10px] font-bold text-white tracking-wider">
+                    03
+                  </div>
                 </div>
-                <h3 className="mt-10 font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
+
+                <div className="flex items-center gap-2 mb-2">
+                  <ArrowDownToLine className="w-4 h-4 text-[#032AAC]" strokeWidth={2} />
+                  <span className="font-mono text-[11px] font-semibold text-[#032AAC] uppercase tracking-wider">
+                    Fuel Removal
+                  </span>
+                </div>
+                <h3 className="font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
                   Debunkering
                 </h3>
                 <p className="mt-2 text-sm leading-relaxed text-[#031038]/65">
-                  Prove how much fuel was removed from the vessel.
+                  Record what left the tank, with before and after on a single certificate.
                 </p>
               </div>
-              <div className="mt-8 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
+              <div className="mt-6 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
                 <span>See workflow</span>
                 <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
@@ -657,7 +724,10 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────────── SECTION 6 — TEMPERATURE / TABLE 54B EXPLAINER ──────────── */}
+      {/* ──────────── SECTION 6 — THE ARCHIVE / SURVEY WAREHOUSE ──────────── */}
+      <SurveyWarehouseSection />
+
+      {/* ──────────── SECTION 7 — TEMPERATURE / TABLE 54B EXPLAINER ──────────── */}
       <WaveDivider
         layers={4}
         colors={["#A5D3E8", "#4E8DEB", "#1B4FD1", "#032AAC"]}
@@ -762,7 +832,13 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ──────────── SECTION 7 — EVIDENCE, DELIVERED ──────────── */}
+      {/* ──────────── SECTION 8 — SPREADSHEETS VS SPACE BQS ──────────── */}
+      <SpreadsheetCompareSection />
+
+      {/* ──────────── SECTION 9 — WHO IT'S FOR ──────────── */}
+      <WhoItsForSection />
+
+      {/* ──────────── SECTION 10 — EVIDENCE, DELIVERED ──────────── */}
       <section className="py-20 lg:py-24 bg-[#F7FBFD]">
         <div className="mx-auto max-w-6xl px-6">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 items-center">
