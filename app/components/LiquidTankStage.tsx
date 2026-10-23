@@ -421,12 +421,24 @@ export default function LiquidTankStage() {
           <p className="text-body leading-relaxed">
             A finalised survey cannot be edited or deleted. Owners and charterers get PDF and Excel proof without a login.
           </p>
-          <div className="flex flex-wrap gap-3 justify-center pt-2">
-            <a href="/request-demo" className="btn-primary">
-              Request a demo
+          <div className="flex flex-wrap items-center gap-3.5 justify-center pt-2">
+            <a
+              href="/request-demo"
+              className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-[#032AAC] hover:bg-[#1B4FD1] text-white font-semibold text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <span>Request a demo</span>
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 11L11 3M11 3H5M11 3V9" />
+              </svg>
             </a>
-            <a href="/sample-report" className="btn-secondary">
-              See sample report
+            <a
+              href="/sample-report"
+              className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-[#031038] font-semibold text-sm shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+            >
+              <span>See sample report</span>
+              <svg width="13" height="13" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                <path d="M3 11L11 3M11 3H5M11 3V9" />
+              </svg>
             </a>
           </div>
           <p className="text-xs text-muted italic">

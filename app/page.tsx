@@ -1,11 +1,28 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Section, AnswerBlock, CtaRow, Faq, Breadcrumbs } from "./components/ui";
-import HeroCertificateMock from "./components/HeroCertificateMock";
+import {
+  Fuel,
+  Ship,
+  ArrowDownToLine,
+  ArrowUpRight,
+  LockKeyhole,
+  WifiOff,
+  Check,
+  FileText,
+  Table2,
+} from "lucide-react";
+import {
+  Section,
+  Eyebrow,
+  H2,
+  AnswerBlock,
+  CtaRow,
+  Faq,
+  Breadcrumbs,
+} from "./components/ui";
 import LiquidTankStage from "./components/LiquidTankStage";
 import KineticWave from "./components/KineticWave";
 import WaveDivider from "./components/WaveDivider";
-import RippleField from "./components/RippleField";
 import WeightText from "./components/WeightText";
 
 export const metadata: Metadata = {
@@ -14,24 +31,277 @@ export const metadata: Metadata = {
     "Space BQS is software for bunker surveyors and survey firms: offline mobile capture, temperature-corrected MT engine, locked certificates, fleet dashboard. Quantity-only.",
 };
 
-const FAQ = [
+const FAQ_ITEMS = [
   {
     q: "Are you a survey company?",
-    a: "No. Space BQS builds software for surveyors and survey firms. Your teams attend vessels; our web and mobile apps handle capture, calculation, certificates, and fleet records. We do not attend ships and do not compete with survey firms.",
+    a: "No. We make software for survey firms. We do not attend vessels.",
   },
   {
-    q: "What survey types does the software support?",
-    a: "Bunker delivery (custody transfer), ROB (remaining on board, including on/off-hire legs), and debunkering — all quantity-only with the same ASTM D1250 Table 54B engine and audit trail.",
+    q: "Which jobs does it cover?",
+    a: "Bunker delivery, ROB (including on-hire and off-hire), and debunkering.",
   },
   {
-    q: "Does it test fuel quality or sludge?",
-    a: "No. Space BQS is strictly quantity-only. We do not perform or fabricate lab testing, sludge surveys, or sampling-for-quality.",
+    q: "Does it do lab or quality testing?",
+    a: "No. It is quantity only. BDN numbers are recorded for cross-reference.",
   },
   {
-    q: "How do we evaluate and what does it cost?",
-    a: "We offer a 20-minute walkthrough followed by a pilot workspace for your survey team. Pricing is per team and usage — contact us and we quote transparently based on surveyors, vessels, and monthly survey volume.",
+    q: "How do we evaluate it?",
+    a: "Book a 20-minute demo. We quote a team license after we know your team size and volume.",
   },
 ];
+
+/* ─── OfficePreview (Section 4 Mock Browser) ─── */
+function OfficePreview() {
+  return (
+    <div className="rounded-3xl overflow-hidden border border-[#D3E9F3] bg-white shadow-xl">
+      {/* Chrome bar */}
+      <div className="bg-[#EAF4F9]/80 border-b border-[#D3E9F3] px-4 py-2.5 flex items-center justify-between">
+        <div className="flex items-center gap-1.5">
+          <div className="w-2.5 h-2.5 rounded-full bg-[#A5D3E8]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#A5D3E8]" />
+          <div className="w-2.5 h-2.5 rounded-full bg-[#A5D3E8]" />
+        </div>
+        <div className="flex items-center gap-1.5 text-xs font-mono text-[#031038]/60">
+          <span>Space BQS / Surveys</span>
+          <LockKeyhole className="w-3 h-3 text-[#031038]/40" />
+        </div>
+        <div className="w-10" />
+      </div>
+
+      {/* Inside browser: 94px sidebar + Survey register panel */}
+      <div className="flex min-h-[320px]">
+        {/* 94px sidebar */}
+        <div className="w-[94px] border-r border-[#D3E9F3] bg-[#F7FBFD]/60 p-3 flex flex-col justify-between shrink-0 select-none">
+          <div className="space-y-4">
+            {/* Logo */}
+            <div className="flex items-center gap-1 text-[#032AAC] font-display font-black text-xs px-1">
+              <span>≈</span>
+              <span className="tracking-tighter">BQS</span>
+            </div>
+            {/* Nav items */}
+            <div className="space-y-1">
+              <div className="bg-[#EAF4F9] text-[#032AAC] font-semibold text-[10px] px-2 py-1.5 rounded-lg flex items-center">
+                Surveys
+              </div>
+              <div className="text-[#031038]/50 text-[10px] px-2 py-1.5 rounded-lg">
+                Vessels
+              </div>
+              <div className="text-[#031038]/50 text-[10px] px-2 py-1.5 rounded-lg">
+                Team
+              </div>
+            </div>
+          </div>
+          <div className="text-[#031038]/40 text-[10px] px-2 py-1">
+            Settings
+          </div>
+        </div>
+
+        {/* Survey register panel */}
+        <div className="flex-1 p-5 sm:p-6 bg-white space-y-4">
+          <div>
+            <h4 className="font-display font-bold text-sm text-[#031038]">
+              Survey register
+            </h4>
+            <p className="text-[11px] text-[#031038]/50 font-medium">
+              Bunker delivery · Quantity only
+            </p>
+          </div>
+
+          {/* 3-cell summary strip */}
+          <div className="grid grid-cols-3 gap-2 bg-[#F7FBFD] border border-[#D3E9F3] rounded-2xl p-3">
+            <div>
+              <span className="text-[10px] text-[#031038]/45 font-mono block uppercase">Survey no.</span>
+              <span className="font-mono text-xs font-bold text-[#031038] block mt-0.5">BQS-2026-0042</span>
+            </div>
+            <div>
+              <span className="text-[10px] text-[#031038]/45 font-mono block uppercase">Grade</span>
+              <span className="font-mono text-xs font-bold text-[#031038] block mt-0.5">VLSFO</span>
+            </div>
+            <div>
+              <span className="text-[10px] text-[#031038]/45 font-mono block uppercase">Mass in air</span>
+              <span className="font-mono text-xs sm:text-sm font-bold text-[#032AAC] tabular-nums block mt-0.5">457.819 MT</span>
+            </div>
+          </div>
+
+          {/* Table Tank / VCF / Review */}
+          <div className="border border-[#D3E9F3] rounded-xl overflow-hidden">
+            <div className="grid grid-cols-3 bg-[#EAF4F9]/50 px-3 py-1.5 text-[10px] font-mono font-semibold text-[#031038]/60 border-b border-[#D3E9F3]">
+              <span>Tank</span>
+              <span>VCF</span>
+              <span className="text-right">Review</span>
+            </div>
+            {[
+              { tank: "1P", vcf: "0.9677" },
+              { tank: "1S", vcf: "0.9677" },
+              { tank: "2C", vcf: "0.9677" },
+            ].map((row, i) => (
+              <div
+                key={row.tank}
+                className={`grid grid-cols-3 px-3 py-2 text-xs font-mono items-center ${
+                  i < 2 ? "border-b border-[#D3E9F3]/50" : ""
+                }`}
+              >
+                <span className="font-bold text-[#031038]">{row.tank}</span>
+                <span className="text-[#031038]/70 tabular-nums">{row.vcf}</span>
+                <span className="text-right font-medium text-[#032AAC]">✓ Checked</span>
+              </div>
+            ))}
+          </div>
+
+          {/* Footer */}
+          <div className="flex items-center justify-between pt-2 border-t border-[#D3E9F3]/60 text-[10px] font-mono">
+            <span className="text-[#031038]/40">Engine v1.0.0</span>
+            <span className="font-semibold text-[#032AAC] flex items-center gap-1">
+              <span>🔒</span> FINALISED
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── MobilePreview (Section 5 Mock Phone) ─── */
+function MobilePreview() {
+  return (
+    <div className="flex justify-center">
+      <div className="w-full max-w-[310px] rounded-[40px] p-3.5 bg-[#031038] shadow-2xl relative border-4 border-[#031038]">
+        {/* Notch */}
+        <div className="w-28 h-4 bg-[#031038] rounded-b-xl mx-auto absolute top-3.5 left-1/2 -translate-x-1/2 z-20" />
+
+        {/* Screen */}
+        <div className="rounded-[28px] overflow-hidden bg-white p-4 pt-6 space-y-3.5">
+          {/* Status row */}
+          <div className="flex items-center justify-between pb-2 border-b border-[#D3E9F3]/60">
+            <span className="font-display font-bold text-xs text-[#031038]">Space BQS</span>
+            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#EAF4F9] text-[#032AAC] text-[10px] font-semibold border border-[#D3E9F3]">
+              <WifiOff className="w-3 h-3 text-[#032AAC]" />
+              Offline
+            </span>
+          </div>
+
+          {/* Breadcrumb */}
+          <p className="text-[10px] font-mono text-[#031038]/50">
+            Vessel &gt; Tanks &gt; Review
+          </p>
+
+          {/* Headings */}
+          <div>
+            <h3 className="font-display font-bold text-base text-[#031038]">
+              Tank reading
+            </h3>
+            <p className="text-xs text-[#031038]/60 mt-0.5">
+              Tank 1P · VLSFO
+            </p>
+          </div>
+
+          {/* 4 bordered field rows with primary checkmarks */}
+          <div className="space-y-2">
+            {[
+              { label: "Reading mode", value: "Ullage" },
+              { label: "Net volume", value: "212.400 m³" },
+              { label: "Temperature", value: "40°C" },
+              { label: "Density @ 15°C", value: "0.9500 kg/L" },
+            ].map((field) => (
+              <div
+                key={field.label}
+                className="flex items-center justify-between p-2.5 rounded-xl border border-[#D3E9F3] bg-[#F7FBFD] text-xs"
+              >
+                <div>
+                  <span className="text-[10px] text-[#031038]/50 block font-mono">{field.label}</span>
+                  <span className="font-mono font-semibold text-[#031038] tabular-nums">{field.value}</span>
+                </div>
+                <div className="w-5 h-5 rounded-full bg-[#EAF4F9] flex items-center justify-center text-[#032AAC]">
+                  <Check className="w-3 h-3 text-[#032AAC]" strokeWidth={2.5} />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Footer */}
+          <div className="pt-2 border-t border-[#D3E9F3]/60 text-center">
+            <p className="text-[10px] font-mono font-semibold text-[#032AAC]">
+              ✓ Saved on device · 72 h offline lease
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/* ─── ReportPreview (Section 7 Deliverables Mock) ─── */
+function ReportPreview() {
+  return (
+    <div className="relative pt-6 pb-4 max-w-lg mx-auto">
+      {/* Tilted Excel card behind (-5deg) */}
+      <div className="rounded-3xl p-6 bg-[#EAF4F9] border border-[#D3E9F3] shadow-md transform -rotate-5 transition-transform hover:rotate-0 duration-300">
+        <div className="flex items-center gap-2.5 text-[#032AAC]">
+          <Table2 className="w-5 h-5 text-[#032AAC]" />
+          <span className="font-display font-bold text-sm text-[#031038]">Excel / 4 sheets</span>
+        </div>
+        <div className="mt-3 grid grid-cols-4 gap-2 text-[10px] font-mono text-[#031038]/60">
+          <div className="rounded-lg bg-white/70 p-1.5 border border-[#D3E9F3]/60 text-center">
+            Sheet 1
+          </div>
+          <div className="rounded-lg bg-white/70 p-1.5 border border-[#D3E9F3]/60 text-center">
+            Sheet 2
+          </div>
+          <div className="rounded-lg bg-white/70 p-1.5 border border-[#D3E9F3]/60 text-center">
+            Sheet 3
+          </div>
+          <div className="rounded-lg bg-white/70 p-1.5 border border-[#D3E9F3]/60 text-center">
+            Sheet 4
+          </div>
+        </div>
+        <p className="mt-2.5 text-[11px] text-[#031038]/50">
+          Particulars · Tank readings · Table 54B VCF · Audit log
+        </p>
+      </div>
+
+      {/* Certificate card in front */}
+      <div className="rounded-3xl p-6 sm:p-7 bg-white/95 border border-[#D3E9F3] shadow-2xl relative -mt-14 sm:-mt-16 ml-4 sm:ml-8 backdrop-blur-md">
+        {/* Header */}
+        <div className="flex items-center justify-between pb-3 border-b border-[#D3E9F3]">
+          <div className="flex items-center gap-2">
+            <FileText className="w-4 h-4 text-[#032AAC]" />
+            <span className="font-display font-bold text-xs text-[#031038]">
+              Space BQS / Certificate
+            </span>
+          </div>
+          <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#FF6A3D]/10 text-[#FF6A3D] text-[10px] font-mono font-bold">
+            <LockKeyhole className="w-2.5 h-2.5 text-[#FF6A3D]" />
+            LOCKED
+          </span>
+        </div>
+
+        {/* Certificate body */}
+        <div className="py-4 space-y-3">
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-mono text-[#031038]/50">Document</span>
+            <span className="font-mono text-xs font-bold text-[#031038]">BQS-2026-0042</span>
+          </div>
+          <div className="flex items-center justify-between">
+            <span className="text-[11px] font-mono text-[#031038]/50">Total mass in air</span>
+            <span className="font-display text-2xl sm:text-3xl font-extrabold text-[#032AAC] tabular-nums">
+              457.819 MT
+            </span>
+          </div>
+          <div className="flex items-center justify-between text-[11px] font-mono pt-1">
+            <span className="text-[#031038]/50">Factors applied</span>
+            <span className="text-[#031038]/70 tabular-nums">0.9500 / 40°C / 0.9677</span>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="pt-3 border-t border-[#D3E9F3] flex items-center justify-between text-[10px] font-mono text-[#031038]/40">
+          <span>PDF certificate · Finalised record</span>
+          <span className="text-[#032AAC] font-semibold">Engine v1.0.0</span>
+        </div>
+      </div>
+    </div>
+  );
+}
 
 export default function Home() {
   return (
@@ -48,10 +318,6 @@ export default function Home() {
 
         <div className="relative mx-auto max-w-[1000px] px-4">
           <div className="flex flex-col items-center text-center space-y-6 pt-6 pb-12">
-            <div className="inline-flex items-center justify-center">
-              <Breadcrumbs trail={[{ href: "/", label: "Home" }]} />
-            </div>
-
             <WeightText
               tag="h1"
               mode="cursor-radius"
@@ -61,22 +327,38 @@ export default function Home() {
               activeColor="#032AAC"
               baseColor="#031038"
               accentColor="#19B5C9"
-              className="font-display text-[clamp(32px,5.5vw,74px)] leading-[1.08] tracking-[-0.03em] max-w-4xl w-full mx-auto"
+              className="font-display text-[clamp(32px,5.2vw,70px)] leading-[1.08] tracking-[-0.03em] max-w-4xl w-full mx-auto"
             >
-              BQS software for surveyors: capture, calculate, issue locked certificates.
+              BQS software built for surveyors: capture on deck, calculate in MT, lock the proof.
             </WeightText>
 
             <p className="text-lg sm:text-xl max-w-2xl leading-relaxed" style={{ color: "rgba(3,16,56,0.68)" }}>
-              Your team attends the vessel. The software does the rest.
+              Your surveyors attend the vessel. Space BQS delivers tamper-proof bunker certificates in seconds.
             </p>
 
             <div className="pt-2">
               <CtaRow className="justify-center" />
             </div>
 
-            <p className="text-xs" style={{ color: "rgba(3,16,56,0.44)" }}>
-              Quantity only. Delivery, ROB and debunkering.
-            </p>
+            {/* Feature trust chips */}
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-2 text-xs font-medium text-[#031038]/70">
+              <span className="inline-flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-[#032AAC]" strokeWidth={2.5} />
+                72h offline deck capture
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-[#032AAC]" strokeWidth={2.5} />
+                ASTM D1250-04 Table 54B
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-[#032AAC]" strokeWidth={2.5} />
+                Immutable SHA-256 lock
+              </span>
+              <span className="inline-flex items-center gap-1.5">
+                <Check className="w-3.5 h-3.5 text-[#032AAC]" strokeWidth={2.5} />
+                Quantity-only · Zero dispute
+              </span>
+            </div>
           </div>
         </div>
 
@@ -88,381 +370,290 @@ export default function Home() {
         />
       </section>
 
-      {/* ──────────── TRUST STRIP ──────────── */}
-      <WaveDivider
-        layers={5}
-        colors={["#D3E9F3", "#A5D3E8", "#4E8DEB", "#1B4FD1", "#032AAC"]}
-        height={60}
-        direction="up"
-        className="-mt-1"
-      />
+      {/* ──────────── PINNED LIQUID TANK STORY ──────────── */}
+      <LiquidTankStage />
 
-      <section className="py-10" style={{ background: "#F7FBFD" }}>
-        <div className="mx-auto max-w-[1200px] px-4">
-          <div
-            className="rounded-3xl p-5"
-            style={{
-              background: "rgba(255,255,255,0.7)",
-              border: "1px solid #D3E9F3",
-              boxShadow: "0 2px 12px rgba(3,16,56,0.03)",
-            }}
-          >
-            <div className="grid grid-cols-2 md:grid-cols-5 gap-4 text-center">
-              {[
-                { label: "Engine", value: "v1.0.0", sub: "Pure math, zero drift" },
-                { label: "Standard", value: "ASTM D1250-04", sub: "Table 54B VCF" },
-                { label: "Grades", value: "5 Fuel Grades", sub: "VLSFO · HFO · MGO · LSMGO · ULSFO" },
-                { label: "Modes", value: "Ullage & Sounding", sub: "Auto bounds check" },
-                { label: "Mass", value: "Air & Vacuum", sub: "Commercial MT" },
-              ].map((item) => (
-                <div key={item.label} className="p-2">
-                  <span className="text-[10px] font-bold uppercase tracking-[0.15em] block" style={{ color: "rgba(3,16,56,0.35)" }}>
-                    {item.label}
-                  </span>
-                  <span className="font-display font-bold text-abyss-900 text-sm block mt-0.5">
-                    {item.value}
-                  </span>
-                  <span className="text-[11px] block mt-0.5" style={{ color: "rgba(3,16,56,0.45)" }}>
-                    {item.sub}
-                  </span>
-                </div>
-              ))}
+      {/* ──────────── SECTION 1 — TRUST STRIP ──────────── */}
+      <section id="section-trust" className="py-8 bg-[#F7FBFD] border-b border-[#D3E9F3]/60">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="flex flex-wrap items-center justify-center gap-x-10 gap-y-3 text-[10px] font-mono text-[#031038]/50 uppercase tracking-widest">
+            <div className="flex items-center">
+              <span className="w-1.5 h-1.5 rounded-full bg-[#032AAC] inline-block mr-2" />
+              <span>Engine v1.0.0</span>
             </div>
+            <span>ASTM D1250-04 Table 54B</span>
+            <span>VLSFO · HFO · MGO · LSMGO · ULSFO</span>
+            <span>Ullage or sounding</span>
+            <span>In air or in vacuum</span>
           </div>
         </div>
       </section>
 
-      {/* ──────────── PINNED LIQUID TANK STORY ──────────── */}
-      <LiquidTankStage />
+      {/* ──────────── SECTION 2 — WORKFLOWS ──────────── */}
+      <section id="section-workflows" className="pt-20 lg:pt-24 pb-0 bg-mist-100">
+        <div className="mx-auto max-w-6xl px-6">
+          {/* Header row */}
+          <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 pb-12 border-b border-[#D3E9F3]/70">
+            <div>
+              <Eyebrow>Three workflows. One engine.</Eyebrow>
+              <H2>Every quantity job.<br />The same confidence.</H2>
+            </div>
+            <p className="max-w-[290px] text-sm text-[#031038]/65 leading-relaxed font-normal">
+              From delivery to fuel remaining on board, keep the reading and the proof together.
+            </p>
+          </div>
 
-      {/* ──────────── WAVE TRANSITION ──────────── */}
-      <WaveDivider
-        layers={3}
-        colors={["#EAF4F9", "#D3E9F3", "#A5D3E8"]}
-        height={100}
-        direction="down"
-      />
-
-      {/* ──────────── 3 WORKFLOW CARDS ──────────── */}
-      <Section
-        eyebrow="Workflows"
-        title="One engine for your three core survey jobs"
-        lede="Your surveyors conduct delivery, ROB, and debunkering jobs using the exact same audit standard and locked certificate generation."
-        bg="mist"
-      >
-        <div className="grid gap-6 md:grid-cols-3">
-          {[
-            {
-              href: "/services/bunker-delivery-survey",
-              title: "Bunker Delivery",
-              desc: "Before and after tank soundings, temperature tracking, free water deduction, and cross-referencing against the BDN number.",
-              link: "Delivery workflow",
-            },
-            {
-              href: "/services/rob-survey",
-              title: "ROB / On-Off Hire",
-              desc: "Verify fuel remaining on board at vessel delivery and redelivery so owners and time-charterers settle fairly.",
-              link: "ROB workflow",
-            },
-            {
-              href: "/services/debunkering-survey",
-              title: "Debunkering",
-              desc: "Measured removal when off-spec or contaminated fuel must be de-bunkered back to barge or shore facilities.",
-              link: "Debunkering workflow",
-            },
-          ].map((card) => (
+          {/* 3-column grid */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-5 mt-10 pb-20">
+            {/* /services/bunker-delivery-survey */}
             <Link
-              key={card.href}
-              href={card.href}
-              className="group rounded-3xl p-6 card-hover"
-              style={{
-                background: "rgba(255,255,255,0.85)",
-                border: "1px solid #D3E9F3",
-              }}
+              href="/services/bunker-delivery-survey"
+              className="group rounded-3xl p-7 bg-white/85 border border-[#D3E9F3] transition-all duration-300 hover:border-[#A5D3E8] hover:shadow-xl hover:-translate-y-0.5 flex flex-col justify-between"
             >
-              <h3 className="font-display text-xl font-bold text-abyss-900 group-hover:text-marine-700 transition-colors">
-                {card.title}
-              </h3>
-              <p className="mt-3 text-sm leading-relaxed" style={{ color: "rgba(3,16,56,0.6)" }}>
-                {card.desc}
-              </p>
-              <span className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-marine-700 group-hover:gap-2.5 transition-all">
-                {card.link}
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M3 7h8M8 4l3 3-3 3" />
-                </svg>
-              </span>
-              {/* Bottom wave hint on hover */}
-              <div
-                className="mt-4 h-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
-                style={{ background: "linear-gradient(90deg, #D3E9F3, #19B5C9, #032AAC)" }}
-              />
-            </Link>
-          ))}
-        </div>
-      </Section>
-
-      <WaveDivider
-        layers={2}
-        colors={["#EAF4F9", "#D3E9F3"]}
-        height={80}
-        direction="down"
-      />
-
-      {/* ──────────── HOW IT WORKS ──────────── */}
-      <Section
-        eyebrow="How it works"
-        title="Capture, calculate, proof"
-        lede="Three steps from the vessel deck to a locked certificate your clients can defend."
-      >
-        <div className="relative">
-          {/* Horizontal waterline */}
-          <div className="absolute top-8 left-0 right-0 h-[2px]" style={{ background: "linear-gradient(90deg, #D3E9F3, #19B5C9, #032AAC, #19B5C9, #D3E9F3)" }} />
-
-          <div className="grid md:grid-cols-3 gap-8 relative">
-            {[
-              {
-                step: "01",
-                title: "Capture on deck",
-                desc: "Surveyor picks ullage or sounding for each tank. Readings turn into volume via the vessel strapping table. Works offline for 72 hours.",
-              },
-              {
-                step: "02",
-                title: "Calculate and check",
-                desc: "Net volume minus free water. ASTM Table 54B correction factor applied. Each tank checked individually. Failures shown inline.",
-              },
-              {
-                step: "03",
-                title: "Lock and issue proof",
-                desc: "Supervisor reviews. Finalised survey is immutable. PDF and Excel certificates exported. Clients receive proof without a login.",
-              },
-            ].map((item) => (
-              <div key={item.step} className="relative pt-12">
-                {/* Step number on the waterline */}
-                <div
-                  className="absolute top-0 left-0 w-16 h-16 rounded-2xl flex items-center justify-center font-display font-bold text-xl"
-                  style={{
-                    background: "linear-gradient(135deg, #032AAC, #1B4FD1)",
-                    color: "#fff",
-                    boxShadow: "0 4px 16px rgba(3,42,172,0.2)",
-                  }}
-                >
-                  {item.step}
+              <div>
+                <div className="flex items-center justify-between">
+                  <Fuel className="w-[26px] h-[26px] text-[#032AAC]" strokeWidth={1.3} />
+                  <span className="font-mono text-xs text-[#031038]/40 tracking-wider">01</span>
                 </div>
-                <h3 className="font-display text-lg font-bold text-abyss-900 mt-4">
-                  {item.title}
+                <h3 className="mt-10 font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
+                  Bunker delivery
                 </h3>
-                <p className="mt-2 text-sm leading-relaxed" style={{ color: "rgba(3,16,56,0.6)" }}>
-                  {item.desc}
+                <p className="mt-2 text-sm leading-relaxed text-[#031038]/65">
+                  Measure what came aboard and compare it with the BDN.
                 </p>
               </div>
-            ))}
-          </div>
-        </div>
-      </Section>
-
-      <WaveDivider
-        layers={2}
-        colors={["#F7FBFD", "#EAF4F9"]}
-        height={80}
-        direction="down"
-      />
-
-      {/* ──────────── PLATFORM PREVIEW + LOCK STORY ──────────── */}
-      <Section
-        eyebrow="Platform"
-        title="Real-time visibility across every survey job"
-        lede="Search by ship name, IMO, port, date, or BDN. Track progress through Draft, Calculated, Under Review, Finalised."
-        bg="mist"
-      >
-        {/* Browser frame mock */}
-        <div
-          className="rounded-3xl overflow-hidden"
-          style={{
-            border: "1px solid #D3E9F3",
-            boxShadow: "0 8px 48px rgba(3,16,56,0.06)",
-          }}
-        >
-          {/* Browser chrome */}
-          <div className="flex items-center gap-2 px-4 py-3" style={{ background: "rgba(234,244,249,0.6)" }}>
-            <div className="flex gap-1.5">
-              <div className="w-3 h-3 rounded-full" style={{ background: "#D3E9F3" }} />
-              <div className="w-3 h-3 rounded-full" style={{ background: "#D3E9F3" }} />
-              <div className="w-3 h-3 rounded-full" style={{ background: "#D3E9F3" }} />
-            </div>
-            <div
-              className="flex-1 mx-4 rounded-lg px-3 py-1.5 text-xs font-mono"
-              style={{ background: "rgba(255,255,255,0.6)", color: "rgba(3,16,56,0.3)" }}
-            >
-              app.spacebqs.example/bqs/surveys
-            </div>
-          </div>
-
-          {/* Dashboard content */}
-          <div className="p-6 space-y-4" style={{ background: "#fff" }}>
-            {/* Lifecycle chips */}
-            <div className="flex flex-wrap gap-2">
-              {[
-                { label: "DRAFT", color: "rgba(3,16,56,0.08)", text: "rgba(3,16,56,0.5)" },
-                { label: "CALCULATED", color: "rgba(25,181,201,0.1)", text: "#19B5C9" },
-                { label: "UNDER REVIEW", color: "rgba(3,42,172,0.08)", text: "#032AAC" },
-                { label: "FINALISED", color: "rgba(3,42,172,0.12)", text: "#032AAC", bold: true },
-              ].map((chip) => (
-                <span
-                  key={chip.label}
-                  className={`rounded-full px-3 py-1.5 text-[11px] ${chip.bold ? "font-bold" : "font-medium"}`}
-                  style={{ background: chip.color, color: chip.text }}
-                >
-                  {chip.label}
-                </span>
-              ))}
-            </div>
-
-            {/* Mock survey rows */}
-            <div
-              className="rounded-2xl overflow-hidden"
-              style={{ border: "1px solid #D3E9F3" }}
-            >
-              {[
-                { survey: "BQS-2026-0142", vessel: "Pacific Mariner", status: "FINALISED", mt: "457.819" },
-                { survey: "BQS-2026-0141", vessel: "Atlantic Pioneer", status: "UNDER REVIEW", mt: "312.450" },
-                { survey: "BQS-2026-0140", vessel: "Nordic Spirit", status: "CALCULATED", mt: "628.102" },
-              ].map((row, i) => (
-                <div
-                  key={row.survey}
-                  className="flex items-center justify-between px-4 py-3 text-xs"
-                  style={{ borderBottom: i < 2 ? "1px solid rgba(211,233,243,0.5)" : "none" }}
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="font-mono font-medium text-abyss-900">{row.survey}</span>
-                    <span style={{ color: "rgba(3,16,56,0.5)" }}>{row.vessel}</span>
-                  </div>
-                  <div className="flex items-center gap-3">
-                    <span
-                      className="rounded-full px-2 py-0.5 text-[10px] font-medium"
-                      style={{
-                        background: row.status === "FINALISED" ? "rgba(3,42,172,0.1)" : "rgba(25,181,201,0.1)",
-                        color: row.status === "FINALISED" ? "#032AAC" : "#19B5C9",
-                      }}
-                    >
-                      {row.status}
-                    </span>
-                    <span className="font-mono font-bold text-marine-700">{row.mt} MT</span>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </Section>
-
-      <WaveDivider
-        layers={2}
-        colors={["#EAF4F9", "#D3E9F3"]}
-        height={80}
-        direction="down"
-      />
-
-      {/* ──────────── MOBILE PREVIEW ──────────── */}
-      <Section
-        eyebrow="Deck tool"
-        title="Built for the vessel deck, not the office desk"
-        lede="Surveyors scan the vessel QR code, follow a 3-step wizard, and calculate offline with a 72-hour lease."
-      >
-        <div className="grid gap-8 lg:grid-cols-2 items-center">
-          {/* Phone mock */}
-          <div className="flex justify-center">
-            <div
-              className="w-[280px] rounded-[40px] p-3 relative"
-              style={{
-                background: "#031038",
-                boxShadow: "0 24px 80px rgba(3,16,56,0.15)",
-              }}
-            >
-              <div className="rounded-[28px] overflow-hidden" style={{ background: "#F7FBFD" }}>
-                {/* Status bar */}
-                <div className="px-4 py-2 flex justify-between text-[10px] font-medium" style={{ color: "rgba(3,16,56,0.4)" }}>
-                  <span>9:41</span>
-                  <span>BQS App</span>
-                </div>
-
-                {/* App content */}
-                <div className="px-4 pb-6 space-y-3">
-                  <h4 className="font-display text-base font-bold text-abyss-900">New Survey</h4>
-
-                  {/* Step indicators */}
-                  <div className="flex gap-2">
-                    {["Ship", "Fuel", "Tanks"].map((step, i) => (
-                      <div
-                        key={step}
-                        className="flex-1 rounded-lg py-1.5 text-center text-[10px] font-medium"
-                        style={{
-                          background: i === 0 ? "#032AAC" : "rgba(211,233,243,0.5)",
-                          color: i === 0 ? "#fff" : "rgba(3,16,56,0.4)",
-                        }}
-                      >
-                        {step}
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* QR scan */}
-                  <div
-                    className="rounded-2xl p-4 text-center"
-                    style={{ border: "2px dashed #D3E9F3" }}
-                  >
-                    <svg className="mx-auto mb-2" width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#032AAC" strokeWidth="1.5">
-                      <rect x="3" y="3" width="7" height="7" rx="1" />
-                      <rect x="14" y="3" width="7" height="7" rx="1" />
-                      <rect x="3" y="14" width="7" height="7" rx="1" />
-                      <rect x="14" y="14" width="3" height="3" />
-                      <rect x="18" y="18" width="3" height="3" />
-                    </svg>
-                    <p className="text-[11px] font-medium text-abyss-900">Scan vessel QR</p>
-                    <p className="text-[10px]" style={{ color: "rgba(3,16,56,0.4)" }}>IMO 7-digit verified</p>
-                  </div>
-
-                  {/* Offline badge */}
-                  <div
-                    className="rounded-xl p-2.5 flex items-center gap-2 text-[11px]"
-                    style={{ background: "rgba(25,181,201,0.08)", border: "1px solid rgba(25,181,201,0.15)" }}
-                  >
-                    <span className="w-2 h-2 rounded-full" style={{ background: "#19B5C9" }} />
-                    <span className="font-medium" style={{ color: "#19B5C9" }}>Offline ready · 72 h lease</span>
-                  </div>
-                </div>
+              <div className="mt-8 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
+                <span>See workflow</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
               </div>
-            </div>
-          </div>
+            </Link>
 
-          {/* Features grid */}
-          <div className="space-y-4">
-            {[
-              { title: "QR code vessel lock", desc: "Scans vessel IMO particulars. Rejects anything that is not a valid 7-digit IMO." },
-              { title: "1-second autosave", desc: "Drafts save locally on every keystroke. Battery loss or app close never loses a measurement." },
-              { title: "72-hour offline lease", desc: "Full calculation autonomy at sea. Lease expiry blocks writes but never deletes data." },
-              { title: "Supervisor review gating", desc: "Surveyors submit from deck. Only supervisors can finalise and issue locked certificates." },
-            ].map((feat) => (
-              <div
-                key={feat.title}
-                className="rounded-2xl p-5"
-                style={{ background: "rgba(234,244,249,0.4)", border: "1px solid #D3E9F3" }}
-              >
-                <h4 className="font-display font-bold text-abyss-900 text-sm">{feat.title}</h4>
-                <p className="mt-1.5 text-xs leading-relaxed" style={{ color: "rgba(3,16,56,0.6)" }}>
-                  {feat.desc}
+            {/* /services/rob-survey */}
+            <Link
+              href="/services/rob-survey"
+              className="group rounded-3xl p-7 bg-white/85 border border-[#D3E9F3] transition-all duration-300 hover:border-[#A5D3E8] hover:shadow-xl hover:-translate-y-0.5 flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between">
+                  <Ship className="w-[26px] h-[26px] text-[#032AAC]" strokeWidth={1.3} />
+                  <span className="font-mono text-xs text-[#031038]/40 tracking-wider">02</span>
+                </div>
+                <h3 className="mt-10 font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
+                  ROB survey
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#031038]/65">
+                  Record what is left on board for on-hire and off-hire legs.
                 </p>
               </div>
-            ))}
+              <div className="mt-8 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
+                <span>See workflow</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </div>
+            </Link>
 
-            <p className="text-xs italic" style={{ color: "rgba(3,16,56,0.4)" }}>
-              Photos and signatures are on the roadmap.
+            {/* /services/debunkering-survey */}
+            <Link
+              href="/services/debunkering-survey"
+              className="group rounded-3xl p-7 bg-white/85 border border-[#D3E9F3] transition-all duration-300 hover:border-[#A5D3E8] hover:shadow-xl hover:-translate-y-0.5 flex flex-col justify-between"
+            >
+              <div>
+                <div className="flex items-center justify-between">
+                  <ArrowDownToLine className="w-[26px] h-[26px] text-[#032AAC]" strokeWidth={1.3} />
+                  <span className="font-mono text-xs text-[#031038]/40 tracking-wider">03</span>
+                </div>
+                <h3 className="mt-10 font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
+                  Debunkering
+                </h3>
+                <p className="mt-2 text-sm leading-relaxed text-[#031038]/65">
+                  Prove how much fuel was removed from the vessel.
+                </p>
+              </div>
+              <div className="mt-8 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
+                <span>See workflow</span>
+                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </div>
+            </Link>
+          </div>
+        </div>
+
+        {/* Closed by WaveDivider */}
+        <WaveDivider
+          direction="up"
+          layers={3}
+          colors={["#A5D3E8", "#D3E9F3", "#EAF4F9"]}
+          height={80}
+        />
+      </section>
+
+      {/* ──────────── SECTION 3 — HOW IT WORKS ──────────── */}
+      <Section
+        align="center"
+        className="bg-[#F7FBFD]"
+      >
+        <div className="text-center max-w-2xl mx-auto">
+          <Eyebrow className="justify-center">How it works</Eyebrow>
+          <H2>Capture. Calculate. Prove.</H2>
+          <p className="mt-3 text-base text-[#031038]/65">
+            A clear path from the tank reading to the client's report.
+          </p>
+        </div>
+
+        {/* Ordered 3-column list */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mt-16 text-left">
+          {/* 01 Capture */}
+          <div className="border-t border-[#D3E9F3] relative pt-6 flex flex-col">
+            <div className="w-2 h-2 rounded-full bg-[#032AAC] absolute -top-1 left-0" />
+            <span className="font-mono text-xs font-semibold text-[#032AAC] tracking-widest mb-3">
+              01
+            </span>
+            <h3 className="font-display text-xl font-bold text-[#031038] tracking-tight mb-2.5">
+              Capture
+            </h3>
+            <p className="text-sm leading-relaxed text-[#031038]/65 max-w-[310px]">
+              Surveyors enter ullage or sounding, temperature, and free water per tank. Works offline on deck.
+            </p>
+          </div>
+
+          {/* 02 Calculate */}
+          <div className="border-t border-[#D3E9F3] relative pt-6 flex flex-col">
+            <div className="w-2 h-2 rounded-full bg-[#032AAC] absolute -top-1 left-0" />
+            <span className="font-mono text-xs font-semibold text-[#032AAC] tracking-widest mb-3">
+              02
+            </span>
+            <h3 className="font-display text-xl font-bold text-[#031038] tracking-tight mb-2.5">
+              Calculate
+            </h3>
+            <p className="text-sm leading-relaxed text-[#031038]/65 max-w-[310px]">
+              The engine reads the strapping table, deducts water, applies VCF, and gives mass in MT.
+            </p>
+          </div>
+
+          {/* 03 Prove */}
+          <div className="border-t border-[#D3E9F3] relative pt-6 flex flex-col">
+            <div className="w-2 h-2 rounded-full bg-[#032AAC] absolute -top-1 left-0" />
+            <span className="font-mono text-xs font-semibold text-[#032AAC] tracking-widest mb-3">
+              03
+            </span>
+            <h3 className="font-display text-xl font-bold text-[#031038] tracking-tight mb-2.5">
+              Prove
+            </h3>
+            <p className="text-sm leading-relaxed text-[#031038]/65 max-w-[310px]">
+              A supervisor finalises. The survey locks. Clients get a PDF and Excel they can check.
             </p>
           </div>
         </div>
       </Section>
 
-      {/* ──────────── TEMPERATURE ANSWER BLOCK (marine band) ──────────── */}
+      {/* ──────────── SECTION 4 — IN THE OFFICE ──────────── */}
+      <section className="pt-20 lg:pt-24 pb-0 bg-mist-100">
+        <div className="mx-auto max-w-6xl px-6 pb-20">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 items-center">
+            {/* Left col */}
+            <div className="lg:col-span-6 space-y-6">
+              <div>
+                <Eyebrow>In the office</Eyebrow>
+                <H2>Once finalised, it stays put.</H2>
+                <p className="mt-4 text-base leading-relaxed text-[#031038]/65">
+                  Supervisors review before a report is issued. A finalised survey is locked. It cannot be edited or deleted.
+                </p>
+              </div>
+
+              {/* Status chips */}
+              <div className="flex flex-wrap items-center gap-2 pt-2">
+                <span className="px-3 py-1 rounded-full text-[11px] font-mono border border-[#031038]/20 text-[#031038]/60 bg-transparent">
+                  DRAFT
+                </span>
+                <span className="px-3 py-1 rounded-full text-[11px] font-mono border border-[#031038]/20 text-[#031038]/60 bg-transparent">
+                  CALCULATED
+                </span>
+                <span className="px-3 py-1 rounded-full text-[11px] font-mono border border-[#031038]/20 text-[#031038]/60 bg-transparent">
+                  UNDER REVIEW
+                </span>
+                <span className="px-3.5 py-1 rounded-full text-[11px] font-mono font-semibold bg-[#032AAC] text-white flex items-center gap-1.5 shadow-sm">
+                  <LockKeyhole className="w-3 h-3 text-white" />
+                  FINALISED
+                </span>
+              </div>
+
+              <div>
+                <Link
+                  href="/sample-report"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#032AAC] hover:text-[#1B4FD1] transition-colors"
+                >
+                  <span>See sample report →</span>
+                </Link>
+              </div>
+            </div>
+
+            {/* Right col: OfficePreview mock browser */}
+            <div className="lg:col-span-6">
+              <OfficePreview />
+            </div>
+          </div>
+        </div>
+
+        {/* Closed by WaveDivider */}
+        <WaveDivider
+          direction="up"
+          layers={3}
+          colors={["#A5D3E8", "#D3E9F3", "#EAF4F9"]}
+          height={80}
+        />
+      </section>
+
+      {/* ──────────── SECTION 5 — ON DECK ──────────── */}
+      <section className="py-20 lg:py-24 bg-[#F7FBFD]">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 items-center">
+            {/* Desktop Left / Mobile Second: MobilePreview */}
+            <div className="order-2 lg:order-1 lg:col-span-5">
+              <MobilePreview />
+            </div>
+
+            {/* Desktop Right / Mobile First: Copy */}
+            <div className="order-1 lg:order-2 lg:col-span-7 space-y-6">
+              <div>
+                <Eyebrow>On deck</Eyebrow>
+                <H2>No signal. No lost readings.</H2>
+                <p className="mt-4 text-base leading-relaxed text-[#031038]/65">
+                  The deck app saves every second and calculates offline. Scan the vessel QR code to start. A 72-hour offline lease keeps data safe.
+                </p>
+              </div>
+
+              {/* Compact icon list */}
+              <div className="space-y-3 pt-2">
+                <div className="flex items-center gap-3 text-sm text-[#031038]">
+                  <div className="w-8 h-8 rounded-xl bg-[#EAF4F9] flex items-center justify-center shrink-0">
+                    <WifiOff className="w-4 h-4 text-[#032AAC]" />
+                  </div>
+                  <span className="font-medium">Calculate offline</span>
+                </div>
+
+                <div className="flex items-center gap-3 text-sm text-[#031038]">
+                  <div className="w-8 h-8 rounded-xl bg-[#EAF4F9] flex items-center justify-center shrink-0">
+                    <Check className="w-4 h-4 text-[#032AAC]" strokeWidth={2.5} />
+                  </div>
+                  <span className="font-medium">Ullage or sounding, per tank</span>
+                </div>
+
+                <div className="flex items-center gap-3 text-sm text-[#031038]">
+                  <div className="w-8 h-8 rounded-xl bg-[#EAF4F9] flex items-center justify-center shrink-0">
+                    <FileText className="w-4 h-4 text-[#032AAC]" />
+                  </div>
+                  <span className="font-medium">The same engine as the office</span>
+                </div>
+              </div>
+
+              {/* Small footnote */}
+              <p className="text-xs text-[#031038]/45 italic pt-2">
+                On the roadmap: tank photos and signatures.
+              </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────── SECTION 6 — TEMPERATURE / TABLE 54B EXPLAINER ──────────── */}
       <WaveDivider
         layers={4}
         colors={["#A5D3E8", "#4E8DEB", "#1B4FD1", "#032AAC"]}
@@ -476,288 +667,174 @@ export default function Home() {
           background: "linear-gradient(180deg, #032AAC 0%, #031038 100%)",
         }}
       >
-        {/* Faint aqua glow */}
+        {/* Subtle aqua glow & grid */}
         <div
-          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[400px] rounded-full pointer-events-none"
+          className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[450px] rounded-full pointer-events-none"
           style={{ background: "radial-gradient(circle, rgba(25,181,201,0.08) 0%, transparent 70%)" }}
         />
-        <div className="absolute inset-0 bg-grid-marine pointer-events-none" />
+        <div className="absolute inset-0 bg-grid-marine pointer-events-none opacity-40" />
 
-        <div className="relative mx-auto max-w-[1200px] px-4">
-          <div className="max-w-2xl mx-auto text-center space-y-6">
-            <p className="text-[11px] font-bold uppercase tracking-[0.15em]" style={{ color: "rgba(25,181,201,0.8)" }}>
-              Why temperature correction matters
-            </p>
-            <h2 className="font-display text-2xl font-bold sm:text-3xl lg:text-4xl text-white tracking-tight">
-              Hot fuel looks like more fuel
-            </h2>
-            <div
-              className="rounded-2xl p-6 text-left"
-              style={{
-                background: "rgba(255,255,255,0.06)",
-                border: "1px solid rgba(255,255,255,0.1)",
-              }}
-            >
-              <p className="text-[11px] font-bold uppercase tracking-[0.15em] mb-2" style={{ color: "#19B5C9" }}>
-                In short
-              </p>
-              <p className="leading-relaxed" style={{ color: "rgba(247,251,253,0.78)" }}>
-                Marine fuel expands when heated and shrinks when cooled. The engine corrects observed volume to standard 15°C using ASTM D1250-04 Table 54B. Worked example: density 0.9500 at 40°C gives VCF 0.9677, producing 457.819 MT. Clients pay for mass, not expanded litres.
-              </p>
+        <div className="relative mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+            {/* Left col */}
+            <div className="lg:col-span-7 space-y-6">
+              <div>
+                <span className="text-[10px] font-mono tracking-widest text-[#19B5C9] uppercase block mb-3 font-semibold">
+                  Temperature / Table 54B
+                </span>
+                <WeightText
+                  tag="h2"
+                  mode="scroll-reveal"
+                  restWeight={400}
+                  activeWeight={800}
+                  activeColor="#19B5C9"
+                  baseColor="#FFFFFF"
+                  accentColor="#19B5C9"
+                  className="font-display text-3xl sm:text-4xl lg:text-[42px] xl:text-5xl font-bold text-white tracking-tight leading-[1.12]"
+                >
+                  Same fuel. Different volume.
+                </WeightText>
+                <p className="mt-3 text-sm sm:text-base text-white/70">
+                  Why does temperature change the quantity?
+                </p>
+              </div>
+
+              <AnswerBlock dark>
+                Fuel expands when warm. The same tonnes take more space at 40°C than at 15°C. The engine uses a volume correction factor from Table 54B to bring volume back to 15°C. For density 0.9500 at 40°C, the factor is 0.9677.
+              </AnswerBlock>
+
+              <div>
+                <Link
+                  href="/how-we-measure"
+                  className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#19B5C9] hover:text-white transition-colors"
+                >
+                  <span>How the engine calculates →</span>
+                </Link>
+              </div>
             </div>
-            <Link
-              href="/how-we-measure"
-              className="inline-flex items-center gap-2 text-sm font-medium text-white hover:text-lagoon-500 transition-colors"
-            >
-              Read how the engine calculates step-by-step
-              <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <path d="M3 7h8M8 4l3 3-3 3" />
-              </svg>
-            </Link>
+
+            {/* Right col: Worked check panel with left border */}
+            <div className="lg:col-span-5">
+              <div className="rounded-3xl border-l-[3px] border-[#19B5C9] bg-white/[0.05] border-t border-r border-b border-white/10 p-7 sm:p-8 backdrop-blur-md space-y-6">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-[#19B5C9] font-bold block">
+                  A worked check
+                </span>
+
+                {/* 2-col figure pair */}
+                <div className="grid grid-cols-2 gap-4 pb-6 border-b border-white/10">
+                  <div>
+                    <span className="text-[11px] font-mono text-white/60 block">Density @ 15°C</span>
+                    <span className="font-display text-2xl sm:text-3xl font-bold text-white tabular-nums block mt-1">
+                      0.9500
+                    </span>
+                  </div>
+                  <div>
+                    <span className="text-[11px] font-mono text-white/60 block">Observed temperature</span>
+                    <span className="font-display text-2xl sm:text-3xl font-bold text-white tabular-nums block mt-1">
+                      40°C
+                    </span>
+                  </div>
+                </div>
+
+                {/* Bordered band with Volume correction factor and display 6xl tabular 0.9677 */}
+                <div className="rounded-2xl border border-white/15 bg-white/[0.04] p-5 text-center">
+                  <span className="text-xs font-mono uppercase tracking-wider text-white/70 block mb-1">
+                    Volume correction factor
+                  </span>
+                  <span className="font-display text-5xl sm:text-6xl font-extrabold text-[#19B5C9] tracking-tight tabular-nums block">
+                    0.9677
+                  </span>
+                </div>
+
+                {/* Mono footnote */}
+                <div className="pt-2 text-center">
+                  <span className="text-[10px] font-mono text-white/40 tracking-wider">
+                    ASTM D1250-04 · Table 54B · v1.0.0
+                  </span>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </section>
 
-      <WaveDivider
-        layers={4}
-        colors={["#032AAC", "#1B4FD1", "#4E8DEB", "#A5D3E8"]}
-        height={120}
-        direction="up"
-      />
-
-      {/* ──────────── SAMPLE REPORT TEASER ──────────── */}
-      <Section
-        eyebrow="Deliverables"
-        title="What your surveyors issue and your clients defend"
-        lede="Dual export package upon supervisory sign-off: an executive PDF certificate and a 4-sheet analytical Excel workbook."
-      >
-        <div className="grid gap-6 md:grid-cols-2">
-          {[
-            {
-              type: "PDF",
-              title: "BQS Inspection Certificate",
-              badge: "A4 Standard",
-              desc: "Survey reference BQS-YYYY-0001, vessel IMO, port, grade, BDN reference. Tank-by-tank table with metric tonnes, calculation timestamps, and tamper-proof fingerprint.",
-              link: { href: "/sample-report", label: "View certificate layout" },
-            },
-            {
-              type: "Excel",
-              title: "4-Sheet Audit Workbook",
-              badge: "Claims Grade",
-              desc: "Sheet 1: Survey particulars. Sheet 2: Raw tank readings and water cuts. Sheet 3: Table 54B VCF factor steps. Sheet 4: Complete immutable audit log with table revisions.",
-              link: { href: "/features/calculation-audit", label: "Inspect audit specification" },
-            },
-          ].map((doc) => (
-            <div
-              key={doc.type}
-              className="rounded-3xl p-6 card-hover"
-              style={{ background: "#fff", border: "1px solid #D3E9F3" }}
-            >
-              <div className="flex items-center justify-between pb-3 border-b" style={{ borderColor: "#D3E9F3" }}>
-                <div className="flex items-center gap-2">
-                  <div
-                    className="w-8 h-8 rounded-lg flex items-center justify-center text-xs font-bold"
-                    style={{
-                      background: doc.type === "PDF" ? "rgba(3,42,172,0.08)" : "rgba(25,181,201,0.08)",
-                      color: doc.type === "PDF" ? "#032AAC" : "#19B5C9",
-                    }}
-                  >
-                    {doc.type}
-                  </div>
-                  <span className="font-display font-bold text-abyss-900">{doc.title}</span>
-                </div>
-                <span
-                  className="rounded-full px-2 py-0.5 text-[10px] font-bold"
-                  style={{
-                    background: "rgba(3,42,172,0.06)",
-                    color: "#032AAC",
-                  }}
-                >
-                  {doc.badge}
-                </span>
+      {/* ──────────── SECTION 7 — EVIDENCE, DELIVERED ──────────── */}
+      <section className="py-20 lg:py-24 bg-[#F7FBFD]">
+        <div className="mx-auto max-w-6xl px-6">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 items-center">
+            {/* Left col */}
+            <div className="lg:col-span-6 space-y-6">
+              <div>
+                <Eyebrow>Evidence, delivered</Eyebrow>
+                <H2>A report they can read. Figures they can check.</H2>
+                <p className="mt-4 text-base leading-relaxed text-[#031038]/65">
+                  One A4 PDF certificate. One Excel workbook with four sheets. Every tank, factor, and total, ready for the client.
+                </p>
               </div>
-              <p className="mt-3 text-sm leading-relaxed" style={{ color: "rgba(3,16,56,0.6)" }}>
-                {doc.desc}
+
+              <div className="pt-2">
+                <CtaRow />
+              </div>
+            </div>
+
+            {/* Right col: ReportPreview */}
+            <div className="lg:col-span-6">
+              <ReportPreview />
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ──────────── SECTION 8 — PRICING TEASER ──────────── */}
+      <section className="pt-20 lg:pt-24 pb-0 bg-mist-100">
+        <div className="mx-auto max-w-6xl px-6 pb-20">
+          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 rounded-3xl p-8 sm:p-10 bg-white/85 border border-[#D3E9F3] shadow-sm">
+            <div className="space-y-2">
+              <Eyebrow>Simple team licensing</Eyebrow>
+              <H2>One team. One licence.</H2>
+              <p className="text-sm sm:text-base text-[#031038]/65 max-w-lg leading-relaxed">
+                No per-job fees. A quote based on your team size and volume.
+              </p>
+            </div>
+
+            <div className="md:text-right shrink-0">
+              <p className="font-display text-2xl sm:text-3xl font-bold text-[#032AAC]">
+                Contact for quote
               </p>
               <Link
-                href={doc.link.href}
-                className="mt-4 inline-flex items-center gap-1.5 text-xs font-semibold text-marine-700 hover:gap-2.5 transition-all"
+                href="/pricing"
+                className="inline-flex items-center gap-1.5 text-sm font-semibold text-[#1B4FD1] hover:text-[#032AAC] mt-2 transition-colors"
               >
-                {doc.link.label}
-                <svg width="14" height="14" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M3 7h8M8 4l3 3-3 3" />
-                </svg>
+                <span>See what's included →</span>
               </Link>
             </div>
-          ))}
-        </div>
-      </Section>
-
-      <WaveDivider
-        layers={2}
-        colors={["#F7FBFD", "#EAF4F9"]}
-        height={80}
-        direction="down"
-      />
-
-      {/* ──────────── PRICING TEASER ──────────── */}
-      <Section
-        eyebrow="Pricing"
-        title="Per-team licence. No per-survey fees."
-        lede="All certificate and Excel exports included. We quote based on surveyors, vessels, and monthly volume."
-        bg="mist"
-      >
-        <div
-          className="rounded-3xl p-8 text-center"
-          style={{
-            background: "rgba(255,255,255,0.7)",
-            border: "1px solid #D3E9F3",
-          }}
-        >
-          <p className="text-sm" style={{ color: "rgba(3,16,56,0.6)" }}>
-            Contact us with your team size and monthly survey volume. We reply with a transparent quote.
-          </p>
-          <div className="mt-6">
-            <CtaRow className="justify-center" />
           </div>
         </div>
-      </Section>
 
-      <WaveDivider
-        layers={2}
-        colors={["#EAF4F9", "#D3E9F3"]}
-        height={80}
-        direction="down"
-      />
-
-      {/* ──────────── RESOURCES ×3 ──────────── */}
-      <Section
-        eyebrow="Resources"
-        title="Plain-English guides for surveyors and operators"
-      >
-        <div className="grid gap-5 md:grid-cols-3">
-          {[
-            {
-              href: "/resources/what-is-bunker-quantity-survey",
-              title: "What is a Bunker Quantity Survey?",
-              desc: "Why independent attendance is necessary during custody transfer and how teams compare physical tanks against the supplier BDN.",
-              time: "5 min read",
-            },
-            {
-              href: "/resources/ullage-vs-sounding",
-              title: "Ullage vs. Sounding",
-              desc: "Top-down ullage measurement versus bottom-up sounding, and how the system prevents table mismatch errors.",
-              time: "4 min read",
-            },
-            {
-              href: "/resources/temperature-correction-explained",
-              title: "Temperature Correction Explained",
-              desc: "How fuel expands when heated, why Table 54B matters, and the worked 0.9500 at 40°C example.",
-              time: "6 min read",
-            },
-          ].map((guide) => (
-            <Link
-              key={guide.href}
-              href={guide.href}
-              className="group rounded-3xl p-6 card-hover"
-              style={{
-                background: "#fff",
-                border: "1px solid #D3E9F3",
-              }}
-            >
-              <div className="flex items-center gap-2 text-[10px] font-medium mb-3" style={{ color: "rgba(3,16,56,0.4)" }}>
-                <span>{guide.time}</span>
-                <span>·</span>
-                <span>Last updated Oct 2026</span>
-              </div>
-              <h4 className="font-display font-bold text-abyss-900 text-base group-hover:text-marine-700 transition-colors">
-                {guide.title}
-              </h4>
-              <p className="mt-2 text-xs leading-relaxed" style={{ color: "rgba(3,16,56,0.6)" }}>
-                {guide.desc}
-              </p>
-              <span className="mt-3 inline-flex items-center gap-1 text-xs font-semibold text-marine-700 group-hover:gap-2 transition-all">
-                Read guide
-                <svg width="12" height="12" viewBox="0 0 14 14" fill="none" stroke="currentColor" strokeWidth="1.5">
-                  <path d="M3 7h8M8 4l3 3-3 3" />
-                </svg>
-              </span>
-            </Link>
-          ))}
-        </div>
-      </Section>
-
-      <WaveDivider
-        layers={2}
-        colors={["#F7FBFD", "#EAF4F9"]}
-        height={80}
-        direction="down"
-      />
-
-      {/* ──────────── FAQ ──────────── */}
-      <Section
-        eyebrow="FAQ"
-        title="Common questions"
-      >
-        <div className="max-w-3xl">
-          <Faq items={FAQ} />
-        </div>
-      </Section>
-
-      {/* ──────────── PILOT CTA (deep marine band) ──────────── */}
-      <WaveDivider
-        layers={4}
-        colors={["#A5D3E8", "#4E8DEB", "#1B4FD1", "#032AAC"]}
-        height={120}
-        direction="down"
-      />
-
-      <section
-        className="relative py-24 lg:py-32"
-        style={{
-          background: "linear-gradient(180deg, #032AAC 0%, #031038 100%)",
-        }}
-      >
-        {/* Water Impact behind */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <RippleField
-            color1="#FFFFFF"
-            color2="#19B5C9"
-            opacity={0.14}
-            ringCount={3}
-            maxRadius={480}
-            dropFrequency={2600}
-            shape="circle"
-          />
-        </div>
-
-        <div className="absolute inset-0 bg-grid-marine pointer-events-none" />
-
-        <div className="relative mx-auto max-w-[1200px] px-4 text-center space-y-6">
-          <WeightText
-            tag="h2"
-            mode="scroll-reveal"
-            restWeight={300}
-            activeWeight={800}
-            activeColor="#FFFFFF"
-            baseColor="rgba(247,251,253,0.6)"
-            accentColor="#19B5C9"
-            className="font-display text-3xl sm:text-4xl lg:text-5xl tracking-tight mx-auto max-w-2xl"
-          >
-            Evaluate Space BQS with your survey team.
-          </WeightText>
-
-          <p className="max-w-xl mx-auto" style={{ color: "rgba(247,251,253,0.65)" }}>
-            We provide a 20-minute walkthrough, import your vessels&apos; strapping tables, and let your field surveyors run real jobs in a pilot environment.
-          </p>
-
-          <div className="pt-4 flex justify-center">
-            <a href="/request-demo" className="btn-white">
-              Request a demo
-            </a>
-          </div>
-        </div>
+        {/* Closed by WaveDivider */}
+        <WaveDivider
+          direction="up"
+          layers={2}
+          colors={["#D3E9F3", "#EAF4F9"]}
+          height={75}
+        />
       </section>
+
+      {/* ──────────── SECTION 9 — FAQ ──────────── */}
+      <Section className="bg-[#F7FBFD]">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16">
+          <div className="lg:col-span-5">
+            <Eyebrow>A little more clarity</Eyebrow>
+            <H2>Common<br />questions.</H2>
+            <p className="mt-3 text-base text-[#031038]/65 leading-relaxed">
+              The details that matter to your firm.
+            </p>
+          </div>
+          <div className="lg:col-span-7">
+            <Faq items={FAQ_ITEMS} />
+          </div>
+        </div>
+      </Section>
     </div>
   );
 }

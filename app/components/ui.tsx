@@ -3,6 +3,49 @@
 import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
+import WeightText from "./WeightText";
+
+/* ─── Eyebrow ─── */
+export function Eyebrow({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <p
+      className={`text-[10px] font-mono font-semibold uppercase tracking-widest text-[#032AAC] mb-3 ${className}`}
+    >
+      {children}
+    </p>
+  );
+}
+
+/* ─── H2 ─── */
+export function H2({
+  children,
+  className = "",
+}: {
+  children: React.ReactNode;
+  className?: string;
+}) {
+  return (
+    <WeightText
+      tag="h2"
+      mode="scroll-reveal"
+      restWeight={400}
+      activeWeight={800}
+      activeColor="#032AAC"
+      baseColor="#031038"
+      accentColor="#19B5C9"
+      className={`font-display text-2xl font-bold text-[#031038] sm:text-3xl lg:text-4xl tracking-tight leading-tight ${className}`}
+    >
+      {children}
+    </WeightText>
+  );
+}
+
 /* ─── Section ─── */
 export function Section({
   eyebrow,
@@ -11,13 +54,17 @@ export function Section({
   children,
   bg = "foam",
   id,
+  align = "left",
+  className = "",
 }: {
   eyebrow?: string;
-  title: string;
+  title?: string;
   lede?: string;
   children: React.ReactNode;
   bg?: "foam" | "mist";
   id?: string;
+  align?: "left" | "center";
+  className?: string;
 }) {
   const ref = useRef<HTMLElement>(null);
   const [visible, setVisible] = useState(false);
@@ -42,41 +89,67 @@ export function Section({
     <section
       ref={ref}
       id={id}
-      className={`py-20 lg:py-28 ${bg === "mist" ? "bg-mist-100" : ""}`}
+      className={`py-20 lg:py-24 ${bg === "mist" ? "bg-mist-100" : ""} ${className}`}
     >
       <div
-        className={`mx-auto max-w-[1200px] px-4 transition-all duration-700 ${
+        className={`mx-auto max-w-6xl px-6 transition-all duration-700 ${
           visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-        }`}
+        } ${align === "center" ? "text-center" : ""}`}
         style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
       >
         {eyebrow && (
-          <p className="text-xs font-semibold uppercase tracking-[0.15em] text-marine-700 mb-3">
+          <p className="text-[10px] font-mono font-semibold uppercase tracking-widest text-marine-700 mb-3">
             {eyebrow}
           </p>
         )}
-        <h2 className="font-display text-2xl font-bold text-abyss-900 sm:text-3xl lg:text-4xl tracking-tight leading-tight">
-          {title}
-        </h2>
+        {title && (
+          <h2 className="font-display text-2xl font-bold text-abyss-900 sm:text-3xl lg:text-4xl tracking-tight leading-tight">
+            {title}
+          </h2>
+        )}
         {lede && (
-          <p className="mt-4 max-w-3xl text-base leading-relaxed" style={{ color: "rgba(3,16,56,0.68)" }}>
+          <p
+            className={`mt-4 max-w-3xl text-base leading-relaxed ${
+              align === "center" ? "mx-auto" : ""
+            }`}
+            style={{ color: "rgba(3,16,56,0.68)" }}
+          >
             {lede}
           </p>
         )}
-        <div className="mt-10">{children}</div>
+        <div className={title || eyebrow ? "mt-10" : ""}>{children}</div>
       </div>
     </section>
   );
 }
 
 /* ─── AnswerBlock ("In short") ─── */
-export function AnswerBlock({ children }: { children: React.ReactNode }) {
+export function AnswerBlock({
+  children,
+  dark = false,
+}: {
+  children: React.ReactNode;
+  dark?: boolean;
+}) {
+  if (dark) {
+    return (
+      <div className="rounded-2xl border-l-[3px] border-[#19B5C9] p-6 bg-white/[0.06] border-t border-r border-b border-white/10 backdrop-blur-sm">
+        <p className="text-[11px] font-mono font-bold uppercase tracking-[0.15em] text-[#19B5C9] mb-2">
+          In short
+        </p>
+        <div className="leading-relaxed text-white/80 text-sm sm:text-base">
+          {children}
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div
       className="rounded-2xl border-l-[3px] border-marine-700 p-6"
       style={{ background: "#EAF4F9" }}
     >
-      <p className="text-[11px] font-bold uppercase tracking-[0.15em] text-marine-700 mb-2">
+      <p className="text-[11px] font-mono font-bold uppercase tracking-[0.15em] text-marine-700 mb-2">
         In short
       </p>
       <div className="leading-relaxed" style={{ color: "rgba(3,16,56,0.72)" }}>
@@ -89,12 +162,42 @@ export function AnswerBlock({ children }: { children: React.ReactNode }) {
 /* ─── CtaRow ─── */
 export function CtaRow({ className = "" }: { className?: string }) {
   return (
-    <div className={`flex flex-wrap gap-3 ${className}`}>
-      <Link href="/request-demo" className="btn-primary">
-        Request a demo
+    <div className={`flex flex-wrap items-center gap-3.5 sm:gap-4 ${className}`}>
+      <Link
+        href="/request-demo"
+        className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-[#032AAC] hover:bg-[#1B4FD1] text-white font-semibold text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+      >
+        <span>Request a demo</span>
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 14 14"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M3 11L11 3M11 3H5M11 3V9" />
+        </svg>
       </Link>
-      <Link href="/sample-report" className="btn-secondary">
-        See sample report
+      <Link
+        href="/sample-report"
+        className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-[#031038] font-semibold text-sm shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+      >
+        <span>See sample report</span>
+        <svg
+          width="13"
+          height="13"
+          viewBox="0 0 14 14"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        >
+          <path d="M3 11L11 3M11 3H5M11 3V9" />
+        </svg>
       </Link>
     </div>
   );

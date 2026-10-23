@@ -5,7 +5,7 @@ import { useRef, useEffect, useState, useCallback, Fragment } from "react";
 type WeightMode = "cursor-radius" | "scroll-reveal" | "scroll-scrub" | "whole-text";
 
 interface WeightTextProps {
-  children: string;
+  children: React.ReactNode;
   tag?: "h1" | "h2" | "h3" | "p" | "span";
   mode?: WeightMode;
   restWeight?: number;
@@ -15,6 +15,33 @@ interface WeightTextProps {
   baseColor?: string;
   accentColor?: string;
   className?: string;
+}
+
+type TextSegment =
+  | { type: "text"; text: string }
+  | { type: "br"; className?: string };
+
+function parseSegments(node: React.ReactNode): TextSegment[] {
+  const segments: TextSegment[] = [];
+
+  function traverse(child: React.ReactNode) {
+    if (child == null || typeof child === "boolean") return;
+    if (typeof child === "string" || typeof child === "number") {
+      segments.push({ type: "text", text: String(child) });
+    } else if (Array.isArray(child)) {
+      child.forEach(traverse);
+    } else if (typeof child === "object" && child !== null && "type" in child) {
+      const el = child as React.ReactElement<{ className?: string; children?: React.ReactNode }>;
+      if (el.type === "br") {
+        segments.push({ type: "br", className: el.props?.className });
+      } else if (el.props && "children" in el.props) {
+        traverse(el.props.children);
+      }
+    }
+  }
+
+  traverse(node);
+  return segments;
 }
 
 /**
@@ -48,9 +75,22 @@ export default function WeightText({
   const mousePosRef = useRef<{ x: number; y: number } | null>(null);
   const animRef = useRef<number>(0);
 
-  // Split into words so text can wrap cleanly between words
-  const words = children.split(" ");
-  const totalLetters = words.reduce((sum, w) => sum + w.length, 0);
+  // Parse text segments and br line breaks
+  const segments = parseSegments(children);
+
+  let totalLetters = 0;
+  segments.forEach((seg) => {
+    if (seg.type === "text") {
+      const words = seg.text.split(" ");
+      totalLetters += words.reduce((sum, w) => sum + w.length, 0);
+    }
+  });
+
+  const plainText = segments
+    .map((s) => (s.type === "text" ? s.text : " "))
+    .join(" ")
+    .replace(/\s+/g, " ")
+    .trim();
 
   const [letterWeights, setLetterWeights] = useState<number[]>(() =>
     new Array(totalLetters).fill(restWeight)
@@ -145,33 +185,30 @@ export default function WeightText({
     };
 
     const onFrame = () => {
-      if (effectiveMode === "cursor-radius") {
-        if (isDirty) {
-          updateWeights();
-          isDirty = false;
-        }
-      } else {
+      if (isDirty) {
         updateWeights();
+        isDirty = false;
       }
       animRef.current = requestAnimationFrame(onFrame);
     };
 
+    window.addEventListener("scroll", onScrollOrResize, { passive: true });
+    window.addEventListener("resize", onScrollOrResize, { passive: true });
+
     if (effectiveMode === "cursor-radius") {
       window.addEventListener("mousemove", onMouseMove, { passive: true });
       window.addEventListener("mouseleave", onMouseLeave, { passive: true });
-      window.addEventListener("scroll", onScrollOrResize, { passive: true });
-      window.addEventListener("resize", onScrollOrResize, { passive: true });
     }
 
     animRef.current = requestAnimationFrame(onFrame);
 
     return () => {
       cancelAnimationFrame(animRef.current);
+      window.removeEventListener("scroll", onScrollOrResize);
+      window.removeEventListener("resize", onScrollOrResize);
       if (effectiveMode === "cursor-radius") {
         window.removeEventListener("mousemove", onMouseMove);
         window.removeEventListener("mouseleave", onMouseLeave);
-        window.removeEventListener("scroll", onScrollOrResize);
-        window.removeEventListener("resize", onScrollOrResize);
       }
     };
   }, [effectiveMode, updateWeights, reducedMotion]);
@@ -208,50 +245,94 @@ export default function WeightText({
     <Tag
       className={className}
       ref={containerRef as React.RefObject<HTMLHeadingElement>}
-      aria-label={children}
+      aria-label={plainText}
     >
       <span aria-hidden="true" className="inline">
-        {words.map((word, wordIndex) => {
+        {segments.map((seg, segIndex) => {
+          if (seg.type === "br") {
+            return <br key={`br-${segIndex}`} className={seg.className} />;
+          }
+
+          const words = seg.text.split(" ");
+
           return (
-            <Fragment key={wordIndex}>
-              <span className="inline-block whitespace-nowrap">
-                {word.split("").map((letter) => {
-                  const i = letterCounter++;
-                  const weight = letterWeights[i] || restWeight;
-                  const t = (weight - restWeight) / (activeWeight - restWeight);
+            <Fragment key={`seg-${segIndex}`}>
+              {words.map((word, wordIndex) => {
+                if (!word) {
+                  return wordIndex < words.length - 1 ? " " : null;
+                }
 
-                  // Accent color on final punctuation
-                  const isLastPunctuation =
-                    i === totalLetters - 1 && /[.!?]/.test(letter);
+                return (
+                  <Fragment key={wordIndex}>
+                    <span className="inline-block whitespace-nowrap">
+                      {word.split("").map((letter) => {
+                        const i = letterCounter++;
+                        const weight = letterWeights[i] || restWeight;
+                        const t = (weight - restWeight) / (activeWeight - restWeight);
 
-                  let color: string;
-                  if (isLastPunctuation) {
-                    color = accentColor;
-                  } else {
-                    color = t > 0.1 ? activeColor : baseColor;
-                  }
+                        // Accent color on final punctuation
+                        const isLastPunctuation =
+                          i === totalLetters - 1 && /[.!?]/.test(letter);
 
-                  return (
-                    <span
-                      key={i}
-                      data-letter
-                      style={{
-                        fontVariationSettings: `"wght" ${weight}`,
-                        color,
-                        transition:
-                          effectiveMode === "cursor-radius"
-                            ? "none"
-                            : "font-variation-settings 0.15s ease",
-                        display: "inline-block",
-                        willChange: "font-variation-settings",
-                      }}
-                    >
-                      {letter}
+                        let color: string;
+                        if (isLastPunctuation) {
+                          color = accentColor;
+                        } else {
+                          color = t > 0.1 ? activeColor : baseColor;
+                        }
+
+                        return (
+                          <span
+                            key={i}
+                            className="inline-grid text-center"
+                            style={{
+                              gridTemplateAreas: '"char"',
+                              verticalAlign: "baseline",
+                              lineHeight: "inherit",
+                            }}
+                          >
+                            {/* Sizing anchor at activeWeight: locks width from initial render so text never moves lines on scroll */}
+                            <span
+                              aria-hidden="true"
+                              className="invisible select-none pointer-events-none"
+                              style={{
+                                gridArea: "char",
+                                fontVariationSettings: `"wght" ${activeWeight}`,
+                                fontWeight: activeWeight,
+                                lineHeight: "inherit",
+                              }}
+                            >
+                              {letter}
+                            </span>
+
+                            {/* Visible animated letter */}
+                            <span
+                              data-letter
+                              style={{
+                                gridArea: "char",
+                                fontVariationSettings: `"wght" ${weight}`,
+                                color,
+                                transition:
+                                  effectiveMode === "cursor-radius"
+                                    ? "none"
+                                    : "font-variation-settings 0.15s ease",
+                                lineHeight: "inherit",
+                                display: "inline-block",
+                                justifySelf: "center",
+                                alignSelf: "baseline",
+                                willChange: "font-variation-settings",
+                              }}
+                            >
+                              {letter}
+                            </span>
+                          </span>
+                        );
+                      })}
                     </span>
-                  );
-                })}
-              </span>
-              {wordIndex < words.length - 1 ? " " : null}
+                    {wordIndex < words.length - 1 ? " " : null}
+                  </Fragment>
+                );
+              })}
             </Fragment>
           );
         })}

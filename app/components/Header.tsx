@@ -59,10 +59,25 @@ export default function Header() {
       }}
     >
       <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
-        {/* Wordmark */}
-        <Link href="/" className="flex items-center gap-2">
+        {/* Wordmark + Logo */}
+        <Link href="/" className="flex items-center gap-2.5 group">
+          <svg
+            width="22"
+            height="18"
+            viewBox="0 0 24 20"
+            fill="none"
+            stroke="#032AAC"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            className="group-hover:stroke-[#1B4FD1] transition-colors"
+          >
+            <path d="M3 5c3-2.5 6-2.5 9 0s6 2.5 9 0" />
+            <path d="M3 10c3-2.5 6-2.5 9 0s6 2.5 9 0" />
+            <path d="M3 15c3-2.5 6-2.5 9 0s6 2.5 9 0" />
+          </svg>
           <span
-            className="font-display text-lg font-semibold tracking-tight"
+            className="font-display text-lg font-bold tracking-tight"
             style={{ color: "#031038" }}
           >
             Space BQS
@@ -99,21 +114,25 @@ export default function Header() {
           </Link>
           <Link
             href="/request-demo"
-            className="inline-flex items-center gap-2 rounded-[12px] px-5 py-2.5 text-[13px] font-semibold text-white transition-all duration-300"
+            className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-[13px] font-semibold text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
             style={{
               background: "linear-gradient(135deg, #032AAC 0%, #1B4FD1 100%)",
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.12), 0 2px 6px rgba(3,42,172,0.15)",
-            }}
-            onMouseEnter={(e) => {
-              e.currentTarget.style.boxShadow =
-                "inset 0 1px 0 rgba(255,255,255,0.15), 0 4px 16px rgba(25,181,201,0.2), 0 2px 6px rgba(3,42,172,0.15)";
-            }}
-            onMouseLeave={(e) => {
-              e.currentTarget.style.boxShadow =
-                "inset 0 1px 0 rgba(255,255,255,0.12), 0 2px 6px rgba(3,42,172,0.15)";
+              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 8px rgba(3,42,172,0.18)",
             }}
           >
-            Request a demo
+            <span>Request a demo</span>
+            <svg
+              width="12"
+              height="12"
+              viewBox="0 0 14 14"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            >
+              <path d="M3 11L11 3M11 3H5M11 3V9" />
+            </svg>
           </Link>
 
           {/* Mobile toggle */}

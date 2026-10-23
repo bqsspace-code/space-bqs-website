@@ -39,13 +39,6 @@ export default function Page() {
         </div>
       </section>
 
-      <WaveDivider
-        layers={2}
-        colors={["#D3E9F3", "#EAF4F9"]}
-        height={80}
-        direction="up"
-      />
-
       {/* Comparison table */}
       <Section eyebrow="Compare" title="Which workflow does the job need?">
         <div className="overflow-x-auto">
@@ -109,9 +102,9 @@ export default function Page() {
 
       <WaveDivider
         layers={2}
-        colors={["#F7FBFD", "#EAF4F9"]}
-        height={80}
-        direction="down"
+        colors={["#D3E9F3", "#EAF4F9"]}
+        height={75}
+        direction="up"
       />
 
       {/* FAQ */}

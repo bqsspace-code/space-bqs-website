@@ -19,7 +19,7 @@
 
   /* ─── Spacing / Radius ─── */
   --radius-card: 24px;
-  --radius-button: 14px;
+  --radius-button: 9999px;
 }
 
 /* ─── Custom properties beyond Tailwind tokens ─── */
