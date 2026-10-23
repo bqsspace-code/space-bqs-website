@@ -48,9 +48,26 @@
   --glow-marine: 0 0 60px rgba(3, 42, 172, 0.12);
 }
 
-/* ─── Base ─── */
-html {
-  scroll-behavior: smooth;
+/* ─── Base & Lenis Smooth Scroll ─── */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-scrolling iframe {
+  pointer-events: none;
 }
 
 body {

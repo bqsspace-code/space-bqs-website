@@ -3,6 +3,7 @@ import { Inter, Bricolage_Grotesque, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
+import SmoothScroll from "./components/SmoothScroll";
 import { SITE_URL, SITE_NAME } from "./lib/site";
 
 const inter = Inter({
@@ -67,9 +68,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }}
         />
-        <Header />
-        <main>{children}</main>
-        <Footer />
+        <SmoothScroll>
+          <Header />
+          <main>{children}</main>
+          <Footer />
+        </SmoothScroll>
       </body>
     </html>
   );
