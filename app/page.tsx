@@ -308,7 +308,7 @@ export default function Home() {
     <div>
       {/* ──────────── HERO ──────────── */}
       <section
-        className="relative overflow-hidden pt-28 pb-0"
+        className="relative overflow-hidden pt-28 pb-0 min-h-screen min-h-[100dvh] flex flex-col justify-between"
         style={{
           background: "radial-gradient(ellipse 80% 60% at 50% 20%, #FFFFFF 0%, #EAF4F9 50%, #D3E9F3 100%)",
         }}
@@ -316,8 +316,8 @@ export default function Home() {
         {/* Subtle grid */}
         <div className="absolute inset-0 bg-grid-subtle pointer-events-none" />
 
-        <div className="relative mx-auto max-w-[1000px] px-4">
-          <div className="flex flex-col items-center text-center space-y-6 pt-6 pb-12">
+        <div className="relative mx-auto max-w-[1000px] px-4 w-full flex-1 flex flex-col justify-center my-auto">
+          <div className="flex flex-col items-center text-center space-y-7 pt-4 pb-6">
             <WeightText
               tag="h1"
               mode="cursor-radius"
@@ -327,13 +327,15 @@ export default function Home() {
               activeColor="#032AAC"
               baseColor="#031038"
               accentColor="#19B5C9"
-              className="font-display text-[clamp(32px,5.2vw,70px)] leading-[1.08] tracking-[-0.03em] max-w-4xl w-full mx-auto"
+              className="font-display text-[clamp(34px,5.6vw,74px)] leading-[1.08] tracking-[-0.03em] max-w-4xl w-full mx-auto"
             >
-              BQS software built for surveyors: capture on deck, calculate in MT, lock the proof.
+              Engineered for the deck.
+              <br className="hidden sm:inline" />
+              {" "}Calibrated for absolute proof.
             </WeightText>
 
             <p className="text-lg sm:text-xl max-w-2xl leading-relaxed" style={{ color: "rgba(3,16,56,0.68)" }}>
-              Your surveyors attend the vessel. Space BQS delivers tamper-proof bunker certificates in seconds.
+              Space BQS turns raw deck soundings into ASTM-corrected, tamper-proof bunker certificates in seconds.
             </p>
 
             <div className="pt-2">
@@ -341,7 +343,7 @@ export default function Home() {
             </div>
 
             {/* Feature trust chips */}
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 pt-2 text-xs font-medium text-[#031038]/70">
+            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 pt-2 text-xs font-medium text-[#031038]/70">
               <span className="inline-flex items-center gap-1.5">
                 <Check className="w-3.5 h-3.5 text-[#032AAC]" strokeWidth={2.5} />
                 72h offline deck capture
@@ -363,11 +365,13 @@ export default function Home() {
         </div>
 
         {/* Hero water — Kinetic Wave at base */}
-        <KineticWave
-          mode="toward"
-          colors={["#A5D3E8", "#1B4FD1", "#032AAC"]}
-          height={120}
-        />
+        <div className="relative w-full shrink-0">
+          <KineticWave
+            mode="toward"
+            colors={["#A5D3E8", "#1B4FD1", "#032AAC"]}
+            height={130}
+          />
+        </div>
       </section>
 
       {/* ──────────── PINNED LIQUID TANK STORY ──────────── */}
