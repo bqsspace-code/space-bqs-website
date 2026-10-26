@@ -1,82 +1,82 @@
 "use client";
 
-import { useRef, useEffect, useState, useCallback } from "react";
+import { useRef, useEffect, useCallback } from "react";
 import { useLenis } from "lenis/react";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import WeightText from "./WeightText";
 import { CtaRow } from "./ui";
 import { AppStoreBadges } from "./HomeEnhancements";
 
-// 4 distinct tiered wave layers:
-// Layer 0 (highest crest): soft pale shallow cyan #A5D3E8 / #D3E9F3
-// Layer 1 (mid-high crest): soft sky azure #5B9BE6
-// Layer 2 (mid-low crest): vibrant ocean cobalt #1B4FD1
+// 4 distinct tiered wave layers matching brand palette:
+// Layer 0 (highest crest): soft pale shallow cyan
+// Layer 1 (mid-high crest): soft sky azure
+// Layer 2 (mid-low crest): vibrant ocean cobalt
 // Layer 3 (front/bottom crest): primary deep marine blue #032AAC
 const WAVE_LAYERS = [
   {
     name: "pale-shallow",
-    color: "rgba(165, 211, 232, 0.45)", // --shallow
+    color: "rgba(165, 211, 232, 0.45)",
     strokeColor: "rgba(211, 233, 243, 0.85)",
-    baseOffset: -30, // sits highest
+    baseOffset: -22,
     freq: 0.0035,
     speed: 0.70,
-    amp: 14,
+    amp: 10,
   },
   {
     name: "soft-azure",
     color: "rgba(91, 155, 230, 0.55)",
     strokeColor: "rgba(125, 185, 245, 0.90)",
-    baseOffset: -20, // second highest
+    baseOffset: -14,
     freq: 0.0042,
     speed: 0.85,
-    amp: 16,
+    amp: 12,
   },
   {
     name: "vibrant-cobalt",
-    color: "rgba(27, 79, 209, 0.75)", // --cobalt
+    color: "rgba(27, 79, 209, 0.75)",
     strokeColor: "rgba(80, 140, 240, 0.85)",
-    baseOffset: -10, // third
+    baseOffset: -7,
     freq: 0.0048,
     speed: 1.00,
-    amp: 18,
+    amp: 14,
   },
   {
     name: "primary-marine",
-    color: "#032AAC", // primary marine blue
+    color: "#032AAC",
     strokeColor: "rgba(255, 255, 255, 0.90)",
-    baseOffset: 0, // lowest, anchors base
+    baseOffset: 0,
     freq: 0.0052,
     speed: 1.15,
-    amp: 20,
+    amp: 16,
   },
 ];
 
 interface HeroLiquidSectionProps {
   className?: string;
-  heightVh?: number; // Snappy scroll track in vh (default 125vh for zero dead space)
+  heightVh?: number; // Total scroll track in vh (default 130vh for snappy submerge with zero dead void)
 }
 
 /**
  * HeroLiquidSection
- * 
- * Merges the Space BQS Hero with the Framer-inspired Liquid Wave Scroll Transition:
- * 1. Hero starts full viewport with Aurora ambient lighting, display H1, subtitle, CTAs and app store badges.
- * 2. At the base of the hero sits 4 tiered, multi-harmonic canvas liquid waves.
- * 3. As the visitor scrolls, scroll velocity agitates/stirs the liquid.
- * 4. The liquid rises up snappily, submerging the badges, buttons, and typography.
- * 5. At the exit (100% scroll), the wave immediately reveals the Product Video Section directly beneath it
- *    with zero dead scroll void.
+ *
+ * Sticky Hero with Framer-inspired Liquid Wave Scroll Transition:
+ * 1. Hero starts pinned (sticky top-0 h-screen) so typography, buttons and badges stay anchored.
+ * 2. 4 tiered, multi-harmonic canvas liquid waves rise up dynamically over the hero on scroll.
+ * 3. As the user scrolls, the water physically submerges badges, then CTA buttons, then the headline.
+ * 4. At 100% submerge, the container unpins immediately, transitioning seamlessly into ProductVideoSection.
+ * 5. Direct 1:1 synchronization with Lenis smooth-scroll eliminates double-lerp lag and skipping.
  */
 export default function HeroLiquidSection({
   className = "",
-  heightVh = 125,
+  heightVh = 130,
 }: HeroLiquidSectionProps) {
   const containerRef = useRef<HTMLDivElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animFrameRef = useRef<number>(0);
+  const ctaRowRef = useRef<HTMLDivElement>(null);
+  const badgesRef = useRef<HTMLDivElement>(null);
 
-  // Scroll and physics tracking refs (60fps animation loop)
-  const targetProgressRef = useRef(0);
+  // Scroll and physics tracking
   const currentProgressRef = useRef(0);
   const scrollVelRef = useRef(0);
   const lastScrollYRef = useRef(0);
@@ -86,34 +86,31 @@ export default function HeroLiquidSection({
   const isVisibleRef = useRef(true);
   const reducedMotionRef = useRef(false);
 
-  // React state for DOM updates (opacity, pointer events)
-  const [progress, setProgress] = useState(0);
-
-  // Calculate target scroll progress
-  const updateScrollProgress = useCallback(() => {
+  // Sync scroll progress directly from DOM layout position (no double-lerp lag)
+  const updateScroll = useCallback(() => {
     if (!containerRef.current) return;
     const rect = containerRef.current.getBoundingClientRect();
     const windowH = window.innerHeight;
     const totalScrollable = rect.height - windowH;
 
-    if (totalScrollable <= 0) return;
+    if (totalScrollable <= 0) {
+      currentProgressRef.current = 0;
+      return;
+    }
 
-    // Progress from 0 (at page top) to 1 (when hero finishes scroll-scrub)
     const scrolled = -rect.top;
     const rawProgress = Math.max(0, Math.min(1, scrolled / totalScrollable));
-    targetProgressRef.current = rawProgress;
+    currentProgressRef.current = rawProgress;
 
-    // Track scroll velocity for liquid stirring
     const currentScrollY = window.scrollY;
     const deltaY = currentScrollY - lastScrollYRef.current;
     lastScrollYRef.current = currentScrollY;
 
-    const velMagnitude = Math.abs(deltaY) / 24;
+    const velMagnitude = Math.abs(deltaY) / 20;
     scrollVelRef.current = deltaY;
-    // Gentle stirring accumulation capped at 0.6
-    agitationRef.current = Math.min(agitationRef.current + velMagnitude * 0.05, 0.6);
+    agitationRef.current = Math.min(agitationRef.current + velMagnitude * 0.06, 0.7);
 
-    isVisibleRef.current = rect.bottom > -100 && rect.top < windowH + 100;
+    isVisibleRef.current = rect.bottom > -50 && rect.top < windowH + 50;
   }, []);
 
   // Sync directly with Lenis smooth-scroll loop
@@ -121,19 +118,18 @@ export default function HeroLiquidSection({
     if (reducedMotionRef.current) return;
     if (lenis?.velocity !== undefined) {
       scrollVelRef.current = lenis.velocity;
-      agitationRef.current = Math.min(agitationRef.current + Math.abs(lenis.velocity) * 0.015, 0.6);
+      agitationRef.current = Math.min(agitationRef.current + Math.abs(lenis.velocity) * 0.02, 0.7);
     }
-    updateScrollProgress();
+    updateScroll();
   });
 
   // Pointer interaction: moving cursor adds subtle localized water ripples
   const handlePointerMove = (e: React.PointerEvent<HTMLDivElement>) => {
-    pointerAgitationRef.current = Math.min(pointerAgitationRef.current + 0.02, 0.3);
+    pointerAgitationRef.current = Math.min(pointerAgitationRef.current + 0.02, 0.35);
   };
 
   // Main Canvas Liquid Wave Loop
   useEffect(() => {
-    // Accessibility: check reduced motion
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     reducedMotionRef.current = mediaQuery.matches;
 
@@ -159,25 +155,21 @@ export default function HeroLiquidSection({
       ctx.scale(dpr, dpr);
     };
 
+    const onResize = () => {
+      handleResize();
+      updateScroll();
+    };
+
     handleResize();
-    window.addEventListener("resize", handleResize);
-    window.addEventListener("scroll", updateScrollProgress, { passive: true });
-    updateScrollProgress();
+    updateScroll();
+    window.addEventListener("resize", onResize);
+    window.addEventListener("scroll", updateScroll, { passive: true });
 
     // 60fps RAF Liquid Wave Render Loop
     const render = () => {
-      if (isVisibleRef.current) {
-        // Responsive, snappy lerp on scroll progress (zero lag)
-        const pDiff = targetProgressRef.current - currentProgressRef.current;
-        currentProgressRef.current += pDiff * 0.22;
-        const curProgress = currentProgressRef.current;
-
-        if (Math.abs(curProgress - progress) > 0.005) {
-          setProgress(curProgress);
-        }
-
-        // Fast decay so water quickly settles into a glassy, calm state
-        agitationRef.current *= 0.90;
+      if (isVisibleRef.current && width > 0 && height > 0) {
+        // Fast decay so water quickly settles into a calm glassy state
+        agitationRef.current *= 0.92;
         pointerAgitationRef.current *= 0.90;
         scrollVelRef.current *= 0.90;
 
@@ -186,7 +178,7 @@ export default function HeroLiquidSection({
           : agitationRef.current + pointerAgitationRef.current;
 
         // Fluid breathing animation speed
-        const speed = 0.014 + effectiveAgitation * 0.015;
+        const speed = 0.015 + effectiveAgitation * 0.018;
         timeRef.current += speed;
         const t = timeRef.current;
 
@@ -194,27 +186,36 @@ export default function HeroLiquidSection({
         ctx.clearRect(0, 0, width, height);
 
         // Water level calculation:
-        // Progress = 0: water baseline sits safely lowered at ~89% of screen height (zero text disturbance)
-        // Progress = 1: water baseline reaches -30px (flooding full screen)
-        const startLevel = height * 0.89;
-        const endLevel = -30;
-        const baseWaterY = startLevel - curProgress * (startLevel - endLevel);
+        // Automatically adapts to any viewport height so wave is ALWAYS visible at the bottom at rest,
+        // and dynamically swells and rises up on scroll to gracefully submerge the badges, CTAs and headline.
+        const isCompact = height < 650;
+        const layerScale = isCompact ? 0.65 : 1.0;
+        const startLevel = isCompact ? height - 42 : height * 0.88;
+        const endLevel = -35;
 
-        // Organic, natural wave amplitude (waves like before: ~18px at rest, up to ~25px under scroll)
-        const baseAmp = reducedMotionRef.current ? 8 : 18 + effectiveAgitation * 12;
-        const tilt = reducedMotionRef.current ? 0 : Math.max(-10, Math.min(10, scrollVelRef.current * 0.25));
+        // Progress directly drives the water rise from 0 (rest) to 1 (fully submerged at unpin boundary)
+        const progress = reducedMotionRef.current ? 0 : currentProgressRef.current;
+        const baseWaterY = startLevel - progress * (startLevel - endLevel);
+        const convergence = 1 - progress * 0.55;
 
-        // ─────────────────────────────────────────────
-        // 4 TIERED WAVE LAYERS (Visible simultaneously at rest, rising together on scroll)
-        // ─────────────────────────────────────────────
-        const convergence = 1 - curProgress * 0.65;
+        // Disable pointer events on submerged buttons without triggering React re-renders
+        if (ctaRowRef.current) {
+          ctaRowRef.current.style.pointerEvents = progress > 0.45 ? "none" : "auto";
+        }
+        if (badgesRef.current) {
+          badgesRef.current.style.pointerEvents = progress > 0.25 ? "none" : "auto";
+        }
 
+        // Responsive wave amplitude & tilt: expands during upward surge
+        const baseAmp = (reducedMotionRef.current ? 4 : 10 + effectiveAgitation * 12 + progress * 6) * layerScale;
+        const tilt = (reducedMotionRef.current ? 0 : Math.max(-6, Math.min(6, scrollVelRef.current * 0.18))) * layerScale;
+
+        // 4 TIERED WAVE LAYERS
         for (let i = 0; i < WAVE_LAYERS.length; i++) {
           const l = WAVE_LAYERS[i];
-          const layerBaseY = baseWaterY + l.baseOffset * convergence;
-          const layerAmp = reducedMotionRef.current
-            ? l.amp * 0.6
-            : l.amp + effectiveAgitation * 8;
+          const scaledOffset = l.baseOffset * layerScale * convergence;
+          const layerBaseY = baseWaterY + scaledOffset;
+          const layerAmp = (reducedMotionRef.current ? l.amp * 0.5 : l.amp + effectiveAgitation * 7 + progress * 4) * layerScale;
 
           ctx.beginPath();
           ctx.moveTo(0, height);
@@ -225,7 +226,7 @@ export default function HeroLiquidSection({
           for (let x = 0; x <= width + step; x += step) {
             const nx = x / width;
             const wave1 = Math.sin(x * l.freq + t * l.speed + i * 0.8) * layerAmp;
-            const wave2 = Math.sin(x * l.freq * 2.2 - t * l.speed * 0.7) * (layerAmp * 0.28);
+            const wave2 = Math.sin(x * l.freq * 2.2 - t * l.speed * 0.7) * (layerAmp * 0.3);
             const slosh = (nx - 0.5) * tilt * (0.6 + i * 0.15);
             const y = layerBaseY + wave1 + wave2 + slosh;
 
@@ -246,20 +247,18 @@ export default function HeroLiquidSection({
               ctx.lineTo(crestPoints[ptIdx].x, crestPoints[ptIdx].y);
             }
             ctx.strokeStyle = l.strokeColor;
-            ctx.lineWidth = i === 3 ? 2.2 : 1.5;
+            ctx.lineWidth = i === 3 ? 2.0 : 1.3;
             ctx.stroke();
           }
         }
 
-        // ─────────────────────────────────────────────
-        // 5. FLOATING MICRO-BUBBLES (Soft, subtle stirring feedback)
-        // ─────────────────────────────────────────────
+        // Floating Micro-Bubbles on scroll agitation
         if (effectiveAgitation > 0.18 && !reducedMotionRef.current) {
-          ctx.fillStyle = "rgba(255, 255, 255, 0.30)";
-          const bubbleCount = Math.floor(effectiveAgitation * 4);
+          ctx.fillStyle = "rgba(255, 255, 255, 0.40)";
+          const bubbleCount = Math.floor(effectiveAgitation * 5);
           for (let i = 0; i < bubbleCount; i++) {
-            const bx = ((Math.sin(t * 1.5 + i * 3.7) * 0.5 + 0.5) * width);
-            const by = baseWaterY + 20 + ((Math.cos(t * 1.2 + i * 2.1) * 0.5 + 0.5) * (height - baseWaterY) * 0.4);
+            const bx = (Math.sin(t * 1.5 + i * 3.7) * 0.5 + 0.5) * width;
+            const by = baseWaterY + 10 + (Math.cos(t * 1.2 + i * 2.1) * 0.5 + 0.5) * (height - baseWaterY) * 0.5;
             const bRadius = 1.0 + (i % 2) * 0.6;
             ctx.beginPath();
             ctx.arc(bx, by, bRadius, 0, Math.PI * 2);
@@ -275,10 +274,10 @@ export default function HeroLiquidSection({
 
     return () => {
       cancelAnimationFrame(animFrameRef.current);
-      window.removeEventListener("resize", handleResize);
-      window.removeEventListener("scroll", updateScrollProgress);
+      window.removeEventListener("resize", onResize);
+      window.removeEventListener("scroll", updateScroll);
     };
-  }, [updateScrollProgress, progress]);
+  }, [updateScroll]);
 
   return (
     <div
@@ -288,75 +287,62 @@ export default function HeroLiquidSection({
     >
       {/* Pinned Sticky Viewport Container */}
       <div
-        className="sticky top-0 h-screen min-h-[100dvh] w-full overflow-hidden flex flex-col justify-between select-none"
+        className="sticky top-0 h-screen min-h-[500px] w-full overflow-hidden flex flex-col justify-between select-none"
         onPointerMove={handlePointerMove}
       >
         {/* ──────────── AURORA BACKGROUND ENGINE ──────────── */}
         <AuroraBackground
           as="div"
-          className="absolute inset-0 w-full h-full pt-0 pb-0 flex flex-col justify-between bg-white text-slate-950"
+          className="absolute inset-0 w-full h-full flex flex-col justify-between bg-white text-slate-950 pointer-events-none"
           showRadialGradient={true}
         >
-          {/* Subtle grid */}
+          {/* Subtle technical grid pattern */}
           <div className="absolute inset-0 bg-grid-subtle pointer-events-none opacity-40 z-0" />
-
-          {/* ──────────── HERO EDITORIAL CONTENT ──────────── */}
-          {/* Placed at z-10 behind the rising wave canvas */}
-          <div className="relative z-10 mx-auto max-w-[1000px] px-4 w-full flex-1 flex flex-col justify-center my-auto pt-20 sm:pt-24 pb-12">
-            <div className="flex flex-col items-center text-center space-y-6 pt-2 pb-4">
-              {/* Main Headline with variable font interaction */}
-              <WeightText
-                tag="h1"
-                mode="cursor-radius"
-                restWeight={300}
-                activeWeight={800}
-                radius={160}
-                activeColor="#032AAC"
-                baseColor="#031038"
-                accentColor="#19B5C9"
-                className="font-display text-[clamp(34px,5.6vw,74px)] leading-[1.08] tracking-[-0.03em] max-w-4xl w-full mx-auto select-none"
-              >
-                Engineered for the deck.
-                <br className="hidden sm:inline" />
-                {" "}Calibrated for absolute proof.
-              </WeightText>
-
-              {/* Subtitle */}
-              <p
-                className="text-lg sm:text-xl max-w-2xl leading-relaxed select-none"
-                style={{ color: "rgba(3,16,56,0.68)" }}
-              >
-                Space BQS turns raw deck soundings into ASTM-corrected, tamper-proof bunker certificates in seconds.
-              </p>
-
-              {/* CTA Row */}
-              <div className={`pt-2 transition-opacity duration-200 ${progress > 0.4 ? "pointer-events-none opacity-30" : "pointer-events-auto opacity-100"}`}>
-                <CtaRow className="justify-center" />
-              </div>
-
-              {/* Official Store Badges (App Store & Google Play) */}
-              <div className={`pt-2 transition-opacity duration-200 ${progress > 0.25 ? "pointer-events-none opacity-30" : "pointer-events-auto opacity-100"}`}>
-                <AppStoreBadges showSubtitle={false} />
-              </div>
-            </div>
-          </div>
         </AuroraBackground>
 
-        {/* ──────────── CANVAS LIQUID WAVE ──────────── */}
-        {/* Sits at z-20 above the hero text to physically submerge it as water rises */}
+        {/* ──────────── HERO EDITORIAL CONTENT (Centered vertically with safe margins) ──────────── */}
+        <div className="relative z-10 mx-auto max-w-[1000px] px-4 w-full flex-1 flex flex-col justify-center my-auto pt-14 sm:pt-16 pb-16 sm:pb-20">
+          <div className="flex flex-col items-center text-center space-y-3 sm:space-y-4 md:space-y-5 pt-1 pb-1">
+            {/* Main Headline with variable font interaction */}
+            <WeightText
+              tag="h1"
+              mode="cursor-radius"
+              restWeight={300}
+              activeWeight={800}
+              radius={160}
+              activeColor="#032AAC"
+              baseColor="#031038"
+              accentColor="#19B5C9"
+              className="font-display text-[clamp(26px,4.5vw,68px)] leading-[1.12] sm:leading-[1.08] tracking-[-0.03em] max-w-4xl w-full mx-auto select-none"
+            >
+              Engineered for the deck.
+              <br className="hidden sm:inline" />
+              {" "}Calibrated for absolute proof.
+            </WeightText>
+
+            {/* Subtitle */}
+            <p
+              className="text-xs sm:text-sm md:text-base lg:text-lg max-w-2xl leading-normal sm:leading-relaxed select-none text-[#031038]/70"
+            >
+              Space BQS turns raw deck soundings into ASTM-corrected, tamper-proof bunker certificates in seconds.
+            </p>
+
+            {/* CTA Row */}
+            <div ref={ctaRowRef} className="pt-1.5 sm:pt-2">
+              <CtaRow className="justify-center" />
+            </div>
+
+            {/* Official Store Badges (App Store & Google Play) */}
+            <div ref={badgesRef} className="pt-1.5 sm:pt-2">
+              <AppStoreBadges showSubtitle={false} />
+            </div>
+          </div>
+        </div>
+
+        {/* ──────────── CANVAS LIQUID WAVE (Full bleed across hero, anchored at base) ──────────── */}
         <canvas
           ref={canvasRef}
           className="absolute inset-0 z-20 w-full h-full pointer-events-none"
-        />
-
-        {/* ──────────── SUBMERGED EXIT HANDOFF OVERLAY ──────────── */}
-        {/* Instantaneous clean handoff right at exit boundary (zero lingering dead space) */}
-        <div
-          className="absolute inset-0 z-30 pointer-events-none transition-opacity duration-100"
-          style={{
-            backgroundColor: "#032AAC",
-            opacity: Math.max(0, (progress - 0.96) / 0.04),
-          }}
         />
       </div>
     </div>
