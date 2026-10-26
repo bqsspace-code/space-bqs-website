@@ -186,13 +186,13 @@ export default function ProductVideoSection({
   return (
     <section
       id="product-video"
-      className={`relative pt-10 pb-20 lg:pt-14 lg:pb-28 bg-[#F7FBFD] overflow-hidden ${className}`}
+      className={`relative pt-6 sm:pt-10 lg:pt-14 pb-16 sm:pb-20 lg:pb-28 bg-[#F7FBFD] overflow-hidden ${className}`}
     >
       {/* Top Marine Wave Transition from Hero Liquid Flood */}
       <div className="absolute top-0 inset-x-0 w-full pointer-events-none z-10">
         <WaveDivider
           direction="up"
-          height={65}
+          height={55}
           colors={["#A5D3E8", "#1B4FD1", "#032AAC"]}
         />
       </div>
@@ -202,7 +202,7 @@ export default function ProductVideoSection({
 
       <div className="relative mx-auto max-w-6xl px-6">
         {/* ──────────── SECTION HEADER ──────────── */}
-        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-9">
+        <div className="flex flex-col items-center text-center max-w-3xl mx-auto mb-6 sm:mb-8 lg:mb-10">
           {/* Stage label rule */}
           <div className="inline-flex items-center gap-3 mb-4">
             <span className="w-7 h-[2px] bg-[#19B5C9]" />
