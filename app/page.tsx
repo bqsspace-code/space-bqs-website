@@ -36,6 +36,7 @@ import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
 
 
 
+
 export const metadata: Metadata = {
   title: "BQS Software for Marine Surveyors — Capture, Calculate, Certify",
   description:
@@ -435,8 +436,8 @@ export default function Home() {
       </section>
 
       {/* ──────────── SECTION 5 — ON DECK (INTERACTIVE BEVEL-STYLE SHOWCASE) ──────────── */}
-      <DeckInteractiveShowcase />
-
+      <DeckInteractiveShowcase />
+
       {/* ──────────── SECTION 6 — THE ARCHIVE / SURVEY WAREHOUSE ──────────── */}
       <SurveyWarehouseSection />
 

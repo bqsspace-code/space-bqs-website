@@ -1,36 +1,39 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Section, CtaRow, Breadcrumbs } from "../components/ui";
-import { DemoShowcase } from "./DemoShowcase";
-
+import { Breadcrumbs } from "../components/ui";
+import AppDemoVideoSection from "../components/AppDemoVideoSection";
 
 export const metadata: Metadata = {
-  title: "Demo — 20-Minute Platform Walkthrough for Survey Firms",
+  title: "Demo & Mobile App Walkthrough — Space BQS",
   description:
-    "See the Space BQS register, dashboard, calculation audit, vessels and reports your teams would run on. Then a pilot workspace for your firm.",
+    "Watch the Space BQS mobile deck tool in action, explore our ASTM Table 54B calculation engine, and request a pilot workspace for your survey firm.",
 };
 
 export default function Page() {
   return (
-    <div>
+    <div className="space-y-8 pb-16">
+      {/* Page Header */}
       <div className="mx-auto max-w-6xl px-4 pt-8">
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/demo", label: "Demo" }]} />
-        <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">Demo — for survey firms</h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">See the register, dashboard, audit trail and reports your teams would run on. For a pilot workspace, use <Link href="/request-demo" className="font-semibold text-ocean-700 underline">Request a demo</Link>.</p>
+        <div className="mt-4 flex items-center gap-2">
+          <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
+            Interactive Product Demo
+          </span>
+          <span className="text-xs text-slate-500 font-mono">Mobile Deck Tool</span>
+        </div>
+        <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
+          Space BQS Demo &amp; App Walkthrough
+        </h1>
+        <p className="mt-3 max-w-3xl text-lg text-slate-600">
+          See how surveyors capture tank soundings offline on deck and compute temperature-corrected quantities. For a tailored 1-on-1 team pilot, use{" "}
+          <Link href="/request-demo" className="font-semibold text-ocean-700 underline hover:text-ocean-900">
+            Request a demo
+          </Link>.
+        </p>
       </div>
-      <Section eyebrow="What we show" title="20-minute walkthrough">
-        <ul className="list-disc space-y-2 pl-5 text-slate-700">
-          <li>Survey register: search by ship, port, date, BDN; status and grade filters.</li>
-          <li>Dashboard: total MT, this month, by grade and vessel, needs-attention.</li>
-          <li>Calculation audit: per-tank steps, table versions, warnings, lock.</li>
-          <li>Reports: PDF certificate + 4-sheet Excel + register exports.</li>
-          <li>Mobile: QR scan, 3-step wizard, offline calculation, supervisor review.</li>
-        </ul>
-        <div className="mt-6"><CtaRow /></div>
 
-        <DemoShowcase />
-      </Section>
-
+      {/* Mobile App Demo Video Player */}
+      <AppDemoVideoSection />
     </div>
   );
 }

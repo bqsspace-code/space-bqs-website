@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../components/ui";
-import DeckInteractiveShowcase from "../components/DeckInteractiveShowcase";
+import DeckInteractiveShowcase from "../components/DeckInteractiveShowcase";
+import AppDemoVideoSection from "../components/AppDemoVideoSection";
 import { QrCode, WifiOff, Clock, ShieldCheck, CheckCircle2, AlertCircle, Smartphone } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -42,6 +43,9 @@ export default function Page() {
         </AnswerBlock>
       </div>
 
+      {/* Mobile App Demo Video */}
+      <AppDemoVideoSection />
+
       {/* Visual Interactive Mobile Showcase */}
       <DeckInteractiveShowcase />
 

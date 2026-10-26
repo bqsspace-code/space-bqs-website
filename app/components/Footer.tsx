@@ -178,6 +178,14 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
                 <ul className="space-y-3 text-sm">
                   <li>
                     <Link
+                      href="/demo"
+                      className="text-slate-300 hover:text-white transition-colors"
+                    >
+                      App &amp; product demo
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
                       href="/how-we-measure"
                       className="text-slate-300 hover:text-white transition-colors"
                     >
