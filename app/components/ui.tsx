@@ -163,10 +163,10 @@ export function AnswerBlock({
 /* ─── CtaRow ─── */
 export function CtaRow({ className = "" }: { className?: string }) {
   return (
-    <div className={`flex flex-wrap items-center gap-3.5 sm:gap-4 ${className}`}>
+    <div className={`flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 ${className}`}>
       <Link
         href="/request-demo"
-        className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-[#032AAC] hover:bg-[#1B4FD1] text-white font-semibold text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
+        className="inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#032AAC] hover:bg-[#1B4FD1] text-white font-semibold text-xs sm:text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
       >
         <span>Request a demo</span>
         <svg
@@ -184,7 +184,7 @@ export function CtaRow({ className = "" }: { className?: string }) {
       </Link>
       <Link
         href="/sample-report"
-        className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-[#031038] font-semibold text-sm shadow-sm transition-all hover:scale-[1.02] active:scale-[0.98]"
+        className="inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-[#031038] font-semibold text-xs sm:text-sm shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98]"
       >
         <span>See sample report</span>
         <svg
