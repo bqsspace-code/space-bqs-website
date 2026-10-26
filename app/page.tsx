@@ -19,8 +19,8 @@ import {
   Faq,
   Breadcrumbs,
 } from "./components/ui";
-import LiquidTankStage from "./components/LiquidTankStage";
-import KineticWave from "./components/KineticWave";
+import HeroLiquidSection from "./components/HeroLiquidSection";
+import ProductVideoSection from "./components/ProductVideoSection";
 import WaveDivider from "./components/WaveDivider";
 import WeightText from "./components/WeightText";
 import {
@@ -31,7 +31,6 @@ import {
   WhoItsForSection,
 } from "./components/HomeEnhancements";
 import DeckInteractiveShowcase from "./components/DeckInteractiveShowcase";
-import { AuroraBackground } from "@/components/ui/aurora-background";
 import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
 
 
@@ -263,63 +262,11 @@ function ReportPreview() {
 export default function Home() {
   return (
     <div>
-      <AuroraBackground
-        as="section"
-        className="relative overflow-hidden pt-28 pb-0 min-h-screen min-h-[100dvh] h-auto flex flex-col justify-between bg-white dark:bg-zinc-950 text-slate-950"
-        showRadialGradient={true}
-      >
-        {/* Subtle grid */}
-        <div className="absolute inset-0 bg-grid-subtle pointer-events-none opacity-40 z-0" />
+      {/* ──────────── HERO SECTION WITH SCROLL-DRIVEN LIQUID WAVE TRANSITION ──────────── */}
+      <HeroLiquidSection />
 
-        <div className="relative z-10 mx-auto max-w-[1000px] px-4 w-full flex-1 flex flex-col justify-center my-auto">
-          <div className="flex flex-col items-center text-center space-y-7 pt-4 pb-6">
-            <WeightText
-              tag="h1"
-              mode="cursor-radius"
-              restWeight={300}
-              activeWeight={800}
-              radius={160}
-              activeColor="#032AAC"
-              baseColor="#031038"
-              accentColor="#19B5C9"
-              className="font-display text-[clamp(34px,5.6vw,74px)] leading-[1.08] tracking-[-0.03em] max-w-4xl w-full mx-auto"
-            >
-              Engineered for the deck.
-              <br className="hidden sm:inline" />
-              {" "}Calibrated for absolute proof.
-            </WeightText>
-
-            <p className="text-lg sm:text-xl max-w-2xl leading-relaxed" style={{ color: "rgba(3,16,56,0.68)" }}>
-              Space BQS turns raw deck soundings into ASTM-corrected, tamper-proof bunker certificates in seconds.
-            </p>
-
-            <div className="pt-2">
-              <CtaRow className="justify-center" />
-            </div>
-
-            {/* Official Store Badges */}
-            <AppStoreBadges className="pt-1 pb-1" showSubtitle={false} />
-
-            {/* Dedicated Next Line: Download & Account info */}
-            <p className="text-xs sm:text-[13px] font-medium text-[#031038]/75 tracking-tight text-center">
-              Free to download on iOS & Android · Account provided by your administrator
-            </p>
-          </div>
-        </div>
-
-        {/* Hero water — Wave divider at base */}
-        <div className="relative z-10 w-full shrink-0">
-          <KineticWave
-            mode="toward"
-            colors={["#A5D3E8", "#1B4FD1", "#032AAC"]}
-            height={130}
-          />
-        </div>
-      </AuroraBackground>
-
-
-      {/* ──────────── PINNED LIQUID TANK STORY ──────────── */}
-      <LiquidTankStage />
+      {/* ──────────── PRODUCT VIDEO SHOWCASE ──────────── */}
+      <ProductVideoSection />
 
       {/* ──────────── SECTION 1 — TRUST STRIP ──────────── */}
       <section id="section-trust" className="py-8 bg-[#F7FBFD] border-b border-[#D3E9F3]/60">

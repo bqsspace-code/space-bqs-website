@@ -1,5 +1,7 @@
 "use client";
 
+import { useState } from "react";
+
 import Link from "next/link";
 import {
   FileText,
@@ -20,7 +22,6 @@ import {
   Clock,
 } from "lucide-react";
 import { Eyebrow, H2 } from "./ui";
-import InkOrbitFeatures from "@/components/ui/ink-orbit-features";
 
 /* ─── Official Store Badges ─── */
 export function AppStoreBadges({
@@ -95,49 +96,17 @@ export function AppStoreBadges({
   );
 }
 
-/* ─── Section 2: The Problem (The Operational Friction) ─── */
-export function ProblemSection() {
-  return (
-    <section id="section-problem" className="py-20 lg:py-24 bg-[#F7FBFD] border-b border-[#D3E9F3]/70">
-      <div className="mx-auto max-w-6xl px-6">
-        {/* Interactive Ink Orbit Engine Showcase - Customized for Friction 01, 02, and 03 */}
-        <div className="rounded-3xl overflow-hidden border border-[#D3E9F3] shadow-xl">
-          <InkOrbitFeatures
-            theme="dark"
-            brand="SPACE BQS"
-            tag="The Operational Friction"
-            title="The survey is only as good as the *paperwork* behind it."
-          />
-        </div>
+import { WhereNumbersGoWrong } from "./WhereNumbersGoWrong";
+export { ProblemCardsSaved } from "./ProblemCardsSaved";
+export {
+  MASTER_OCEAN_FLOW,
+  MASTER_JAMES_SMITH_FOOTER,
+  MASTER_TOPO_WAVY_BASE,
+  TOPO_FOOTER_WAVES,
+} from "./problem-card-waves";
 
-        {/* Solution Banner with authentic image */}
-        <div className="mt-8 rounded-3xl overflow-hidden bg-gradient-to-r from-[#032AAC] to-[#031038] text-white p-7 sm:p-10 flex flex-col lg:flex-row items-center justify-between gap-8 shadow-xl">
-          <div className="max-w-xl space-y-2.5">
-            <span className="text-[10px] font-mono font-bold tracking-widest uppercase text-[#19B5C9]">
-              The Space BQS Standard
-            </span>
-            <h3 className="font-display text-2xl sm:text-3xl font-bold tracking-tight text-white">
-              Space BQS keeps the reading, the maths and the proof together.
-            </h3>
-            <p className="text-sm text-white/75 leading-relaxed">
-              Every sounding recorded on deck links directly to the strapping table interpolation, the ASTM Table 54B VCF factor, and the locked client certificate.
-            </p>
-          </div>
-
-          <div className="shrink-0 flex items-center gap-3">
-            <Link
-              href="/how-we-measure"
-              className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-[#19B5C9] hover:bg-[#1495A5] text-[#031038] font-bold text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
-            >
-              <span>See the calculation method</span>
-              <ArrowUpRight className="w-4 h-4" />
-            </Link>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
+// Where survey numbers go wrong (Continuous Story Section with Waterline Spine)
+export const ProblemSection = WhereNumbersGoWrong;
 
 /* ─── Section: Survey Warehouse (The Archive) ─── */
 export function SurveyWarehouseSection() {
