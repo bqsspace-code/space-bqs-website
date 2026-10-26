@@ -7,7 +7,6 @@ import {
   ArrowUpRight,
   LockKeyhole,
   WifiOff,
-  Check,
   FileText,
   Table2,
 } from "lucide-react";
@@ -31,6 +30,12 @@ import {
   SpreadsheetCompareSection,
   WhoItsForSection,
 } from "./components/HomeEnhancements";
+import DeckInteractiveShowcase from "./components/DeckInteractiveShowcase";
+import { AuroraBackground } from "@/components/ui/aurora-background";
+import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
+
+
+
 
 export const metadata: Metadata = {
   title: "BQS Software for Marine Surveyors — Capture, Calculate, Certify",
@@ -180,74 +185,7 @@ function OfficePreview() {
   );
 }
 
-/* ─── MobilePreview (Section 5 Mock Phone) ─── */
-function MobilePreview() {
-  return (
-    <div className="flex justify-center">
-      <div className="w-full max-w-[310px] rounded-[40px] p-3.5 bg-[#031038] shadow-2xl relative border-4 border-[#031038]">
-        {/* Notch */}
-        <div className="w-28 h-4 bg-[#031038] rounded-b-xl mx-auto absolute top-3.5 left-1/2 -translate-x-1/2 z-20" />
 
-        {/* Screen */}
-        <div className="rounded-[28px] overflow-hidden bg-white p-4 pt-6 space-y-3.5">
-          {/* Status row */}
-          <div className="flex items-center justify-between pb-2 border-b border-[#D3E9F3]/60">
-            <span className="font-display font-bold text-xs text-[#031038]">Space BQS</span>
-            <span className="inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-[#EAF4F9] text-[#032AAC] text-[10px] font-semibold border border-[#D3E9F3]">
-              <WifiOff className="w-3 h-3 text-[#032AAC]" />
-              Offline
-            </span>
-          </div>
-
-          {/* Breadcrumb */}
-          <p className="text-[10px] font-mono text-[#031038]/50">
-            Vessel &gt; Tanks &gt; Review
-          </p>
-
-          {/* Headings */}
-          <div>
-            <h3 className="font-display font-bold text-base text-[#031038]">
-              Tank reading
-            </h3>
-            <p className="text-xs text-[#031038]/60 mt-0.5">
-              Tank 1P · VLSFO
-            </p>
-          </div>
-
-          {/* 4 bordered field rows with primary checkmarks */}
-          <div className="space-y-2">
-            {[
-              { label: "Reading mode", value: "Ullage" },
-              { label: "Net volume", value: "212.400 m³" },
-              { label: "Temperature", value: "40°C" },
-              { label: "Density @ 15°C", value: "0.9500 kg/L" },
-            ].map((field) => (
-              <div
-                key={field.label}
-                className="flex items-center justify-between p-2.5 rounded-xl border border-[#D3E9F3] bg-[#F7FBFD] text-xs"
-              >
-                <div>
-                  <span className="text-[10px] text-[#031038]/50 block font-mono">{field.label}</span>
-                  <span className="font-mono font-semibold text-[#031038] tabular-nums">{field.value}</span>
-                </div>
-                <div className="w-5 h-5 rounded-full bg-[#EAF4F9] flex items-center justify-center text-[#032AAC]">
-                  <Check className="w-3 h-3 text-[#032AAC]" strokeWidth={2.5} />
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Footer */}
-          <div className="pt-2 border-t border-[#D3E9F3]/60 text-center">
-            <p className="text-[10px] font-mono font-semibold text-[#032AAC]">
-              ✓ Saved on device · 72 h offline lease
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-  );
-}
 
 /* ─── ReportPreview (Section 7 Deliverables Mock) ─── */
 function ReportPreview() {
@@ -325,17 +263,15 @@ function ReportPreview() {
 export default function Home() {
   return (
     <div>
-      {/* ──────────── HERO ──────────── */}
-      <section
-        className="relative overflow-hidden pt-28 pb-0 min-h-screen min-h-[100dvh] flex flex-col justify-between"
-        style={{
-          background: "radial-gradient(ellipse 80% 60% at 50% 20%, #FFFFFF 0%, #EAF4F9 50%, #D3E9F3 100%)",
-        }}
+      <AuroraBackground
+        as="section"
+        className="relative overflow-hidden pt-28 pb-0 min-h-screen min-h-[100dvh] h-auto flex flex-col justify-between bg-white dark:bg-zinc-950 text-slate-950"
+        showRadialGradient={true}
       >
         {/* Subtle grid */}
-        <div className="absolute inset-0 bg-grid-subtle pointer-events-none" />
+        <div className="absolute inset-0 bg-grid-subtle pointer-events-none opacity-40 z-0" />
 
-        <div className="relative mx-auto max-w-[1000px] px-4 w-full flex-1 flex flex-col justify-center my-auto">
+        <div className="relative z-10 mx-auto max-w-[1000px] px-4 w-full flex-1 flex flex-col justify-center my-auto">
           <div className="flex flex-col items-center text-center space-y-7 pt-4 pb-6">
             <WeightText
               tag="h1"
@@ -362,39 +298,25 @@ export default function Home() {
             </div>
 
             {/* Official Store Badges */}
-            <AppStoreBadges className="pt-1 pb-1" />
+            <AppStoreBadges className="pt-1 pb-1" showSubtitle={false} />
 
-            {/* Feature trust chips */}
-            <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-2.5 pt-2 text-xs font-medium text-[#031038]/70">
-              <span className="inline-flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-[#032AAC]" strokeWidth={2.5} />
-                72h offline deck capture
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-[#032AAC]" strokeWidth={2.5} />
-                ASTM D1250-04 Table 54B
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-[#032AAC]" strokeWidth={2.5} />
-                Immutable SHA-256 lock
-              </span>
-              <span className="inline-flex items-center gap-1.5">
-                <Check className="w-3.5 h-3.5 text-[#032AAC]" strokeWidth={2.5} />
-                Quantity-only · Zero dispute
-              </span>
-            </div>
+            {/* Dedicated Next Line: Download & Account info */}
+            <p className="text-xs sm:text-[13px] font-medium text-[#031038]/75 tracking-tight text-center">
+              Free to download on iOS & Android · Account provided by your administrator
+            </p>
           </div>
         </div>
 
-        {/* Hero water — Kinetic Wave at base */}
-        <div className="relative w-full shrink-0">
+        {/* Hero water — Wave divider at base */}
+        <div className="relative z-10 w-full shrink-0">
           <KineticWave
             mode="toward"
             colors={["#A5D3E8", "#1B4FD1", "#032AAC"]}
             height={130}
           />
         </div>
-      </section>
+      </AuroraBackground>
+
 
       {/* ──────────── PINNED LIQUID TANK STORY ──────────── */}
       <LiquidTankStage />
@@ -432,120 +354,13 @@ export default function Home() {
             </p>
           </div>
 
-          {/* 3-column grid with authentic maritime photography */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-10 pb-20">
-            {/* /services/bunker-delivery-survey */}
-            <Link
-              href="/services/bunker-delivery-survey"
-              className="group rounded-3xl p-6 bg-white/95 border border-[#D3E9F3] transition-all duration-300 hover:border-[#19B5C9] hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between"
-            >
-              <div>
-                <div className="rounded-2xl overflow-hidden h-44 mb-5 relative border border-[#D3E9F3]/60 bg-[#EAF4F9]">
-                  <img
-                    src="/assets/web_image/csm_Bunkering_STW150_UTS150_9880832433.jpg"
-                    alt="Bunker delivery operations alongside vessel"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-[#031038]/80 backdrop-blur-xs font-mono text-[10px] font-bold text-white tracking-wider">
-                    01
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 mb-2">
-                  <Fuel className="w-4 h-4 text-[#032AAC]" strokeWidth={2} />
-                  <span className="font-mono text-[11px] font-semibold text-[#032AAC] uppercase tracking-wider">
-                    Delivery Workflow
-                  </span>
-                </div>
-                <h3 className="font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
-                  Bunker delivery
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#031038]/65">
-                  Check what was delivered against the delivery note (BDN), tank by tank.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
-                <span>See workflow</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
-            </Link>
-
-            {/* /services/rob-survey */}
-            <Link
-              href="/services/rob-survey"
-              className="group rounded-3xl p-6 bg-white/95 border border-[#D3E9F3] transition-all duration-300 hover:border-[#19B5C9] hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between"
-            >
-              <div>
-                <div className="rounded-2xl overflow-hidden h-44 mb-5 relative border border-[#D3E9F3]/60 bg-[#EAF4F9]">
-                  <img
-                    src="/assets/web_image/Oil%20Tankers.jpg"
-                    alt="Tanker vessel for ROB remaining on board survey"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-[#031038]/80 backdrop-blur-xs font-mono text-[10px] font-bold text-white tracking-wider">
-                    02
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 mb-2">
-                  <Ship className="w-4 h-4 text-[#032AAC]" strokeWidth={2} />
-                  <span className="font-mono text-[11px] font-semibold text-[#032AAC] uppercase tracking-wider">
-                    Charter Fuel
-                  </span>
-                </div>
-                <h3 className="font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
-                  ROB & on/off-hire
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#031038]/65">
-                  Pair two surveys and settle charter fuel with a record both sides can follow.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
-                <span>See workflow</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
-            </Link>
-
-            {/* /services/debunkering-survey */}
-            <Link
-              href="/services/debunkering-survey"
-              className="group rounded-3xl p-6 bg-white/95 border border-[#D3E9F3] transition-all duration-300 hover:border-[#19B5C9] hover:shadow-xl hover:-translate-y-1 flex flex-col justify-between"
-            >
-              <div>
-                <div className="rounded-2xl overflow-hidden h-44 mb-5 relative border border-[#D3E9F3]/60 bg-[#EAF4F9]">
-                  <img
-                    src="/assets/web_image/3.-Hose-connections-between-the-Green-Pioneer-and-the-Navigator-Global-for-ammonia-transfer-2048x1536.jpg"
-                    alt="Manifold hose connections during fuel debunkering"
-                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    loading="lazy"
-                  />
-                  <div className="absolute top-3 right-3 px-2 py-0.5 rounded-md bg-[#031038]/80 backdrop-blur-xs font-mono text-[10px] font-bold text-white tracking-wider">
-                    03
-                  </div>
-                </div>
-
-                <div className="flex items-center gap-2 mb-2">
-                  <ArrowDownToLine className="w-4 h-4 text-[#032AAC]" strokeWidth={2} />
-                  <span className="font-mono text-[11px] font-semibold text-[#032AAC] uppercase tracking-wider">
-                    Fuel Removal
-                  </span>
-                </div>
-                <h3 className="font-display text-xl font-bold text-[#031038] group-hover:text-[#032AAC] transition-colors">
-                  Debunkering
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-[#031038]/65">
-                  Record what left the tank, with before and after on a single certificate.
-                </p>
-              </div>
-              <div className="mt-6 pt-4 flex items-center justify-between text-xs font-semibold text-[#032AAC] border-t border-[#D3E9F3]/40">
-                <span>See workflow</span>
-                <ArrowUpRight className="w-4 h-4 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </div>
-            </Link>
+          {/* Bevel-style 3 Workflow Cards with sleek cut-out iPhone */}
+          <div className="mt-10 pb-20">
+            <BevelWorkflowCards />
           </div>
         </div>
+
+
 
         {/* Closed by WaveDivider */}
         <WaveDivider
@@ -672,57 +487,8 @@ export default function Home() {
         />
       </section>
 
-      {/* ──────────── SECTION 5 — ON DECK ──────────── */}
-      <section className="py-20 lg:py-24 bg-[#F7FBFD]">
-        <div className="mx-auto max-w-6xl px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-14 items-center">
-            {/* Desktop Left / Mobile Second: MobilePreview */}
-            <div className="order-2 lg:order-1 lg:col-span-5">
-              <MobilePreview />
-            </div>
-
-            {/* Desktop Right / Mobile First: Copy */}
-            <div className="order-1 lg:order-2 lg:col-span-7 space-y-6">
-              <div>
-                <Eyebrow>On deck</Eyebrow>
-                <H2>No signal. No lost readings.</H2>
-                <p className="mt-4 text-base leading-relaxed text-[#031038]/65">
-                  The deck app saves every second and calculates offline. Scan the vessel QR code to start. A 72-hour offline lease keeps data safe.
-                </p>
-              </div>
-
-              {/* Compact icon list */}
-              <div className="space-y-3 pt-2">
-                <div className="flex items-center gap-3 text-sm text-[#031038]">
-                  <div className="w-8 h-8 rounded-xl bg-[#EAF4F9] flex items-center justify-center shrink-0">
-                    <WifiOff className="w-4 h-4 text-[#032AAC]" />
-                  </div>
-                  <span className="font-medium">Calculate offline</span>
-                </div>
-
-                <div className="flex items-center gap-3 text-sm text-[#031038]">
-                  <div className="w-8 h-8 rounded-xl bg-[#EAF4F9] flex items-center justify-center shrink-0">
-                    <Check className="w-4 h-4 text-[#032AAC]" strokeWidth={2.5} />
-                  </div>
-                  <span className="font-medium">Ullage or sounding, per tank</span>
-                </div>
-
-                <div className="flex items-center gap-3 text-sm text-[#031038]">
-                  <div className="w-8 h-8 rounded-xl bg-[#EAF4F9] flex items-center justify-center shrink-0">
-                    <FileText className="w-4 h-4 text-[#032AAC]" />
-                  </div>
-                  <span className="font-medium">The same engine as the office</span>
-                </div>
-              </div>
-
-              {/* Small footnote */}
-              <p className="text-xs text-[#031038]/45 italic pt-2">
-                On the roadmap: tank photos and signatures.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
+      {/* ──────────── SECTION 5 — ON DECK (INTERACTIVE BEVEL-STYLE SHOWCASE) ──────────── */}
+      <DeckInteractiveShowcase />
 
       {/* ──────────── SECTION 6 — THE ARCHIVE / SURVEY WAREHOUSE ──────────── */}
       <SurveyWarehouseSection />

@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../components/ui";
-import DeckToolMock from "../components/DeckToolMock";
+import DeckInteractiveShowcase from "../components/DeckInteractiveShowcase";
 import { QrCode, WifiOff, Clock, ShieldCheck, CheckCircle2, AlertCircle, Smartphone } from "lucide-react";
 
 export const metadata: Metadata = {
@@ -42,56 +42,20 @@ export default function Page() {
         </AnswerBlock>
       </div>
 
-      {/* Visual Mobile Mock Showcase */}
+      {/* Visual Interactive Mobile Showcase */}
+      <DeckInteractiveShowcase />
+
+      {/* Product Roadmap Disclosure */}
       <section className="mx-auto max-w-6xl px-4">
-        <div className="grid gap-12 lg:grid-cols-12 items-center rounded-3xl border border-slate-200 bg-white p-8 sm:p-12 shadow-sm">
-          <div className="lg:col-span-5 flex justify-center">
-            <DeckToolMock />
-          </div>
-
-          <div className="lg:col-span-7 space-y-6">
-            <h3 className="font-display text-2xl font-bold text-ocean-950 sm:text-3xl">
-              Engineered for the realities of offshore bunkering
-            </h3>
-
-            <div className="space-y-4 text-xs text-slate-700">
-              <div className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50 p-4">
-                <QrCode className="h-5 w-5 text-ocean-700 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-ocean-950 text-sm block">Vessel QR Plate Verification</strong>
-                  <p className="mt-1 text-slate-600 leading-relaxed">
-                    Surveyors scan the vessel QR plate on arrival. The app verifies the 7-digit IMO number and automatically pulls that ship&apos;s specific tank calibration tables. Eliminates manual typing errors on deck.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50 p-4">
-                <WifiOff className="h-5 w-5 text-amber-600 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-ocean-950 text-sm block">72-Hour Autonomous Offline Lease</strong>
-                  <p className="mt-1 text-slate-600 leading-relaxed">
-                    Surveyors can stay offshore for days. The 72-hour cryptographic lease permits full calculations and draft saves while disconnected. When signal is re-established, the completed draft syncs securely to the office console.
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-start gap-3 rounded-xl border border-slate-100 bg-slate-50 p-4">
-                <Clock className="h-5 w-5 text-sea-700 shrink-0 mt-0.5" />
-                <div>
-                  <strong className="text-ocean-950 text-sm block">1-Second Autosave to Encrypted Local DB</strong>
-                  <p className="mt-1 text-slate-600 leading-relaxed">
-                    Every sounding, temperature cut, and water measurement is immediately stored to persistent device memory. If the phone runs out of battery, simply plug in and resume from the exact last tank.
-                  </p>
-                </div>
-              </div>
-            </div>
-
-            <div className="rounded-xl border border-amber-200 bg-amber-50/70 p-4 text-xs text-amber-900 flex items-start gap-2.5">
-              <AlertCircle className="h-4 w-4 text-amber-700 shrink-0 mt-0.5" />
-              <div>
-                <strong>Honest Product Roadmap Disclosure:</strong> Tank photos and Chief Engineer digital signatures are currently in active development for v1.2. The production app today captures verified numerical figures and notes.
-              </div>
-            </div>
+        <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-5 text-xs text-amber-900 flex items-start gap-3">
+          <AlertCircle className="h-5 w-5 text-amber-700 shrink-0 mt-0.5" />
+          <div className="space-y-1">
+            <strong className="text-amber-950 font-semibold block text-sm">
+              Honest Product Roadmap Disclosure
+            </strong>
+            <p className="leading-relaxed">
+              Tank photos and Chief Engineer digital signatures are currently in active testing for v1.2 release. The production app deployed today captures verified numerical figures, water cuts, temperature probes, and generates immutable SHA-256 certificate hashes.
+            </p>
           </div>
         </div>
       </section>

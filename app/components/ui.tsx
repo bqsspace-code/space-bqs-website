@@ -46,6 +46,7 @@ export function H2({
   );
 }
 
+
 /* ─── Section ─── */
 export function Section({
   eyebrow,
