@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Section, CtaRow, Breadcrumbs } from "../components/ui";
+import { DemoShowcase } from "./DemoShowcase";
+
 
 export const metadata: Metadata = {
   title: "Demo — 20-Minute Platform Walkthrough for Survey Firms",
@@ -25,7 +27,10 @@ export default function Page() {
           <li>Mobile: QR scan, 3-step wizard, offline calculation, supervisor review.</li>
         </ul>
         <div className="mt-6"><CtaRow /></div>
+
+        <DemoShowcase />
       </Section>
+
     </div>
   );
 }

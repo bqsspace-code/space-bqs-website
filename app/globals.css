@@ -20,10 +20,96 @@
   /* ─── Spacing / Radius ─── */
   --radius-card: 24px;
   --radius-button: 9999px;
+
+  /* ─── Aurora animation ─── */
+  --animate-aurora: aurora 60s linear infinite;
+  --animate-aurora-drift: aurora-drift 38s linear infinite;
+  --animate-aurora-glow: aurora-glow 18s ease-in-out infinite alternate;
+
+  @keyframes aurora {
+    from {
+      background-position: 50% 50%, 50% 50%;
+    }
+    to {
+      background-position: 350% 50%, 350% 50%;
+    }
+  }
+
+  @keyframes aurora-drift {
+    0% {
+      transform: translate3d(-33.333%, 0, 0);
+    }
+    100% {
+      transform: translate3d(0%, 0, 0);
+    }
+  }
+
+  @keyframes aurora-glow {
+    0% {
+      transform: translate3d(-4%, -3%, 0) scale(1) rotate(0deg);
+      opacity: 0.55;
+    }
+    50% {
+      transform: translate3d(4%, 3%, 0) scale(1.1) rotate(2deg);
+      opacity: 0.85;
+    }
+    100% {
+      transform: translate3d(-3%, 4%, 0) scale(0.96) rotate(-2deg);
+      opacity: 0.60;
+    }
+  }
+
+  @keyframes aurora-float-1 {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(8%, 10%, 0) scale(1.12);
+    }
+    100% {
+      transform: translate3d(-6%, 5%, 0) scale(0.96);
+    }
+  }
+
+  @keyframes aurora-float-2 {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(-10%, -6%, 0) scale(1.08);
+    }
+    100% {
+      transform: translate3d(6%, -12%, 0) scale(0.94);
+    }
+  }
+
+  @keyframes aurora-float-3 {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+    50% {
+      transform: translate3d(6%, -8%, 0) scale(1.15);
+    }
+    100% {
+      transform: translate3d(-8%, 6%, 0) scale(0.92);
+    }
+  }
 }
+
+
 
 /* ─── Custom properties beyond Tailwind tokens ─── */
 :root {
+  /* Aurora color variables */
+  --white: #ffffff;
+  --black: #000000;
+  --transparent: transparent;
+  --blue-500: #3b82f6;
+  --blue-400: #60a5fa;
+  --blue-300: #93c5fd;
+  --indigo-300: #a5b4fc;
+  --violet-200: #ddd6fe;
+
   /* Text on light */
   --text-heading: #031038;
   --text-body: rgba(3, 16, 56, 0.68);
@@ -287,6 +373,20 @@ body {
   overflow: hidden;
 }
 
+/* ─── Floating Pill & Widget Animation ─── */
+@keyframes softFloat {
+  0%, 100% {
+    transform: translateY(0px);
+  }
+  50% {
+    transform: translateY(-6px);
+  }
+}
+
+.animate-soft-float {
+  animation: softFloat 4s ease-in-out infinite;
+}
+
 /* ─── Focus rings ─── */
 :focus-visible {
   outline: 2px solid #19B5C9;
@@ -329,4 +429,8 @@ body {
   html {
     scroll-behavior: auto;
   }
+}
+
+.transition-bg {
+  transition: background-color 0.3s ease;
 }

@@ -20,9 +20,18 @@ import {
   Clock,
 } from "lucide-react";
 import { Eyebrow, H2 } from "./ui";
+import InkOrbitFeatures from "@/components/ui/ink-orbit-features";
 
 /* ─── Official Store Badges ─── */
-export function AppStoreBadges({ className = "" }: { className?: string }) {
+export function AppStoreBadges({
+  className = "",
+  dark = false,
+  showSubtitle = true,
+}: {
+  className?: string;
+  dark?: boolean;
+  showSubtitle?: boolean;
+}) {
   return (
     <div className={`flex flex-col sm:flex-row items-center justify-center gap-3.5 ${className}`}>
       <div className="flex items-center gap-3">
@@ -31,14 +40,20 @@ export function AppStoreBadges({ className = "" }: { className?: string }) {
           href="https://apps.apple.com/in/app/space-bqs/id6812992991"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-[#031038] hover:bg-[#032AAC] text-white border border-[#D3E9F3]/30 shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98]"
+          className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-xl text-white transition-all hover:scale-[1.02] active:scale-[0.98] ${
+            dark
+              ? "bg-white/10 hover:bg-white/20 border border-white/25 shadow-md"
+              : "bg-[#031038] hover:bg-[#032AAC] border border-[#D3E9F3]/30 shadow-xs"
+          }`}
           title="Download Space BQS on the Apple App Store"
         >
           <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
             <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.37c.62-.75 1.04-1.8 0.92-2.85-.9.04-1.99.6-2.64 1.35-.57.65-1.07 1.71-.93 2.73.99.08 2.02-.48 2.65-1.23z" />
           </svg>
           <div className="text-left leading-none">
-            <span className="text-[9px] uppercase tracking-wider text-white/60 block">Download on the</span>
+            <span className={`text-[9px] uppercase tracking-wider block ${dark ? "text-white/70" : "text-white/60"}`}>
+              Download on the
+            </span>
             <span className="text-xs font-bold tracking-tight block mt-0.5">App Store</span>
           </div>
         </a>
@@ -48,87 +63,51 @@ export function AppStoreBadges({ className = "" }: { className?: string }) {
           href="https://play.google.com/store/apps/details?id=com.spaceai.bqs"
           target="_blank"
           rel="noopener noreferrer"
-          className="inline-flex items-center gap-2.5 px-4 py-2 rounded-xl bg-[#031038] hover:bg-[#032AAC] text-white border border-[#D3E9F3]/30 shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98]"
+          className={`inline-flex items-center gap-2.5 px-4 py-2 rounded-xl text-white transition-all hover:scale-[1.02] active:scale-[0.98] ${
+            dark
+              ? "bg-white/10 hover:bg-white/20 border border-white/25 shadow-md"
+              : "bg-[#031038] hover:bg-[#032AAC] border border-[#D3E9F3]/30 shadow-xs"
+          }`}
           title="Download Space BQS on Google Play"
         >
           <svg className="w-5 h-5 fill-current" viewBox="0 0 24 24">
             <path d="M3.609 1.814L13.793 12 3.61 22.186a2.006 2.006 0 0 1-.22-.916V2.73c0-.336.08-.654.22-.916zm11.242 11.243l2.257 2.257-11.75 6.78 9.493-9.037zm0-2.114L5.358 1.906l11.75 6.78-2.257 2.257zm1.414 1.057l3.868-2.233a1.99 1.99 0 0 0 0 3.452l-3.868-2.219z" />
           </svg>
           <div className="text-left leading-none">
-            <span className="text-[9px] uppercase tracking-wider text-white/60 block">GET IT ON</span>
+            <span className={`text-[9px] uppercase tracking-wider block ${dark ? "text-white/70" : "text-white/60"}`}>
+              GET IT ON
+            </span>
             <span className="text-xs font-bold tracking-tight block mt-0.5">Google Play</span>
           </div>
         </a>
       </div>
 
-      <p className="text-xs text-[#031038]/60 font-mono">
-        Free to download on iOS & Android · Account provided by your administrator
-      </p>
+      {showSubtitle && (
+        <p
+          className={`text-xs sm:text-[13px] font-medium tracking-tight text-center ${
+            dark ? "text-white/90" : "text-[#031038]/75"
+          }`}
+        >
+          Free to download on iOS & Android · Account provided by your administrator
+        </p>
+      )}
     </div>
   );
 }
 
-/* ─── Section 2: The Problem ─── */
+/* ─── Section 2: The Problem (The Operational Friction) ─── */
 export function ProblemSection() {
-  const frictions = [
-    {
-      num: "01",
-      title: "Paper that gets retyped",
-      bold: "Numbers written on deck are typed again at a desk, and every copy is a chance for a slip.",
-      desc: "Soundings transcribed from rain-soaked deck notebooks into office Excel create discrepancies between the surveyor's observation and the final report that are impossible to defend.",
-    },
-    {
-      num: "02",
-      title: "Formulas that quietly break",
-      bold: "A spreadsheet copied between jobs carries its mistakes with it.",
-      desc: "Pasted strapping tables, hard-coded density lookups, and unverified Table 54B approximations skew metric tonnage without any error warning.",
-    },
-    {
-      num: "03",
-      title: "Files nobody can find",
-      bold: "When a claim arrives months later, the proof is somewhere in an inbox.",
-      desc: "Charterers or suppliers question quantities 90 days after delivery. Trying to reconstruct the surveyor's exact math from scattered email threads leads to painful settlements.",
-    },
-  ];
-
   return (
     <section id="section-problem" className="py-20 lg:py-24 bg-[#F7FBFD] border-b border-[#D3E9F3]/70">
       <div className="mx-auto max-w-6xl px-6">
-        {/* Header */}
-        <div className="max-w-3xl">
-          <Eyebrow>The Operational Friction</Eyebrow>
-          <H2>The survey is only as good as the paperwork behind it.</H2>
-          <p className="mt-4 text-base sm:text-lg text-[#031038]/70 leading-relaxed font-normal">
-            Quantity disputes are rarely about the reading itself. They are about what you can prove afterwards.
-          </p>
-        </div>
-
-        {/* 3 Friction Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
-          {frictions.map((f) => (
-            <div
-              key={f.num}
-              className="rounded-3xl p-7 bg-white border border-[#D3E9F3] shadow-xs flex flex-col justify-between hover:border-[#19B5C9] hover:shadow-md transition-all duration-300"
-            >
-              <div>
-                <div className="flex items-center justify-between pb-4 border-b border-[#D3E9F3]/60">
-                  <span className="font-mono text-xs font-bold text-[#FF6A3D] tracking-widest">
-                    FRICTION {f.num}
-                  </span>
-                  <AlertTriangle className="w-4 h-4 text-[#FF6A3D]/80" />
-                </div>
-                <h3 className="mt-5 font-display text-lg font-bold text-[#031038]">
-                  {f.title}
-                </h3>
-                <p className="mt-2 text-sm font-semibold text-[#031038]/85 leading-snug">
-                  {f.bold}
-                </p>
-                <p className="mt-2.5 text-xs text-[#031038]/60 leading-relaxed">
-                  {f.desc}
-                </p>
-              </div>
-            </div>
-          ))}
+        {/* Interactive Ink Orbit Engine Showcase - Customized for Friction 01, 02, and 03 */}
+        <div className="rounded-3xl overflow-hidden border border-[#D3E9F3] shadow-xl">
+          <InkOrbitFeatures
+            theme="dark"
+            brand="SPACE BQS"
+            tag="The Operational Friction"
+            title="The survey is only as good as the *paperwork* behind it."
+          />
         </div>
 
         {/* Solution Banner with authentic image */}

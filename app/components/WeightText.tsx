@@ -1,6 +1,7 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback, Fragment } from "react";
+import { useLenis } from "lenis/react";
 
 type WeightMode = "cursor-radius" | "scroll-reveal" | "scroll-scrub" | "whole-text";
 
@@ -15,6 +16,7 @@ interface WeightTextProps {
   baseColor?: string;
   accentColor?: string;
   className?: string;
+  style?: React.CSSProperties;
 }
 
 type TextSegment =
@@ -68,6 +70,7 @@ export default function WeightText({
   baseColor = "#031038",
   accentColor = "#19B5C9",
   className = "",
+  style,
 }: WeightTextProps) {
   const containerRef = useRef<HTMLElement>(null);
   const [isTouch, setIsTouch] = useState(false);
@@ -96,12 +99,45 @@ export default function WeightText({
     new Array(totalLetters).fill(restWeight)
   );
 
+  const letterCentersRef = useRef<{ x: number; y: number }[]>([]);
+  const spansRef = useRef<HTMLSpanElement[]>([]);
+  const lastProgressRef = useRef<number>(-1);
+  const isUpdatingRef = useRef<boolean>(false);
+
+  const measureLetterCenters = useCallback(() => {
+    const container = containerRef.current;
+    if (!container) return;
+    const spans = spansRef.current.length
+      ? spansRef.current
+      : Array.from(container.querySelectorAll<HTMLSpanElement>("[data-letter]"));
+    spansRef.current = spans;
+    letterCentersRef.current = spans.map((span) => {
+      const rect = span.getBoundingClientRect();
+      return {
+        x: rect.left + rect.width / 2,
+        y: rect.top + rect.height / 2,
+      };
+    });
+  }, []);
+
   useEffect(() => {
     setIsTouch("ontouchstart" in window);
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mql.matches);
     setLetterWeights(new Array(totalLetters).fill(restWeight));
-  }, [totalLetters, restWeight]);
+
+    // Cache spans on mount
+    const timer = setTimeout(() => {
+      if (containerRef.current) {
+        spansRef.current = Array.from(
+          containerRef.current.querySelectorAll<HTMLSpanElement>("[data-letter]")
+        );
+      }
+      measureLetterCenters();
+    }, 50);
+
+    return () => clearTimeout(timer);
+  }, [totalLetters, restWeight, measureLetterCenters]);
 
   // Determine effective mode (touch fallback)
   const effectiveMode: WeightMode =
@@ -112,58 +148,123 @@ export default function WeightText({
     const container = containerRef.current;
     if (!container || reducedMotion) return;
 
-    const spans = container.querySelectorAll<HTMLSpanElement>("[data-letter]");
+    const spans = spansRef.current.length
+      ? spansRef.current
+      : Array.from(container.querySelectorAll<HTMLSpanElement>("[data-letter]"));
     if (!spans.length) return;
-
-    const newWeights: number[] = [];
+    spansRef.current = spans;
 
     if (effectiveMode === "cursor-radius") {
       const mouse = mousePosRef.current;
-      spans.forEach((span) => {
-        if (!mouse) {
-          newWeights.push(restWeight);
-          return;
+      if (!letterCentersRef.current.length) {
+        measureLetterCenters();
+      }
+      const centers = letterCentersRef.current;
+      for (let i = 0; i < spans.length; i++) {
+        const span = spans[i];
+        const center = centers[i];
+        if (!mouse || !center) {
+          span.style.fontVariationSettings = `"wght" ${restWeight}`;
+          span.style.fontWeight = String(restWeight);
+          span.style.color = baseColor;
+          continue;
         }
-        const rect = span.getBoundingClientRect();
-        const letterCenterX = rect.left + rect.width / 2;
-        const letterCenterY = rect.top + rect.height / 2;
         const dist = Math.hypot(
-          mouse.x - letterCenterX,
-          mouse.y - letterCenterY
+          mouse.x - center.x,
+          mouse.y - center.y
         );
         const influence = Math.max(0, 1 - dist / radius);
         const eased = influence * influence;
-        newWeights.push(Math.round(restWeight + (activeWeight - restWeight) * eased));
-      });
+        const w = Math.round(restWeight + (activeWeight - restWeight) * eased);
+
+        const isLast = i === spans.length - 1 && /[.!?]/.test(span.textContent || "");
+        const col = isLast
+          ? (eased > 0.15 ? accentColor : baseColor)
+          : (eased > 0.15 ? activeColor : baseColor);
+
+        span.style.fontVariationSettings = `"wght" ${w}`;
+        span.style.fontWeight = String(w);
+        span.style.color = col;
+      }
     } else if (effectiveMode === "scroll-reveal") {
       const containerRect = container.getBoundingClientRect();
       const viewportH = window.innerHeight;
-      const triggerPoint = viewportH * 0.8;
-      const progress = Math.max(0, Math.min(1, (triggerPoint - containerRect.top) / (containerRect.height + 200)));
 
-      spans.forEach((_, i) => {
-        const letterProgress = i / (spans.length - 1 || 1);
-        const stagger = Math.max(0, Math.min(1, (progress - letterProgress * 0.5) * 2.5));
-        newWeights.push(Math.round(restWeight + (activeWeight - restWeight) * stagger));
-      });
+      // Off-screen early exit: skip 100% of calculation if already past or not yet visible
+      if (containerRect.top > viewportH + 60) {
+        if (lastProgressRef.current === 0) return;
+        lastProgressRef.current = 0;
+      } else if (containerRect.bottom < -60) {
+        if (lastProgressRef.current === 1) return;
+        lastProgressRef.current = 1;
+      }
+
+      // Smooth trigger window: begins as top reaches 90% of screen height, completes by 35%
+      const startY = viewportH * 0.90;
+      const endY = viewportH * 0.35;
+      const progress = Math.max(0, Math.min(1, (startY - containerRect.top) / (startY - endY)));
+      lastProgressRef.current = progress;
+
+      for (let i = 0; i < spans.length; i++) {
+        const span = spans[i];
+        const letterRatio = i / (spans.length - 1 || 1);
+        const letterStart = letterRatio * 0.45;
+        const letterP = Math.max(0, Math.min(1, (progress - letterStart) / 0.55));
+        const w = Math.round(restWeight + (activeWeight - restWeight) * letterP);
+
+        const isLast = i === spans.length - 1 && /[.!?]/.test(span.textContent || "");
+        const col = isLast
+          ? (letterP > 0.15 ? accentColor : baseColor)
+          : (letterP > 0.15 ? activeColor : baseColor);
+
+        span.style.fontVariationSettings = `"wght" ${w}`;
+        span.style.fontWeight = String(w);
+        span.style.color = col;
+      }
     } else if (effectiveMode === "scroll-scrub") {
       const containerRect = container.getBoundingClientRect();
       const viewportH = window.innerHeight;
       const progress = Math.max(0, Math.min(1, (viewportH - containerRect.top) / (viewportH + containerRect.height)));
 
-      spans.forEach((_, i) => {
+      for (let i = 0; i < spans.length; i++) {
+        const span = spans[i];
         const letterProgress = i / (spans.length - 1 || 1);
         const bandWidth = 0.2;
         const dist = Math.abs(progress - letterProgress);
         const influence = Math.max(0, 1 - dist / bandWidth);
-        newWeights.push(Math.round(restWeight + (activeWeight - restWeight) * influence * influence));
-      });
-    } else if (effectiveMode === "whole-text") {
-      return;
-    }
+        const w = Math.round(restWeight + (activeWeight - restWeight) * influence * influence);
 
-    setLetterWeights(newWeights);
-  }, [effectiveMode, restWeight, activeWeight, radius, reducedMotion]);
+        const isLast = i === spans.length - 1 && /[.!?]/.test(span.textContent || "");
+        const col = isLast
+          ? (influence > 0.15 ? accentColor : baseColor)
+          : (influence > 0.15 ? activeColor : baseColor);
+
+        span.style.fontVariationSettings = `"wght" ${w}`;
+        span.style.fontWeight = String(w);
+        span.style.color = col;
+      }
+    }
+  }, [
+    effectiveMode,
+    restWeight,
+    activeWeight,
+    radius,
+    baseColor,
+    activeColor,
+    accentColor,
+    reducedMotion,
+    measureLetterCenters,
+  ]);
+
+  // Hook directly into Lenis smooth-scroll loop with frame deduplication
+  useLenis(() => {
+    if (reducedMotion || effectiveMode === "whole-text" || isUpdatingRef.current) return;
+    isUpdatingRef.current = true;
+    requestAnimationFrame(() => {
+      updateWeights();
+      isUpdatingRef.current = false;
+    });
+  });
 
   useEffect(() => {
     if (reducedMotion || effectiveMode === "whole-text") return;
@@ -181,6 +282,9 @@ export default function WeightText({
     };
 
     const onScrollOrResize = () => {
+      if (effectiveMode === "cursor-radius") {
+        measureLetterCenters();
+      }
       isDirty = true;
     };
 
@@ -189,7 +293,9 @@ export default function WeightText({
         updateWeights();
         isDirty = false;
       }
-      animRef.current = requestAnimationFrame(onFrame);
+      if (effectiveMode === "cursor-radius") {
+        animRef.current = requestAnimationFrame(onFrame);
+      }
     };
 
     window.addEventListener("scroll", onScrollOrResize, { passive: true });
@@ -198,9 +304,11 @@ export default function WeightText({
     if (effectiveMode === "cursor-radius") {
       window.addEventListener("mousemove", onMouseMove, { passive: true });
       window.addEventListener("mouseleave", onMouseLeave, { passive: true });
+      animRef.current = requestAnimationFrame(onFrame);
+    } else {
+      // Run once on mount for scroll modes
+      updateWeights();
     }
-
-    animRef.current = requestAnimationFrame(onFrame);
 
     return () => {
       cancelAnimationFrame(animRef.current);
@@ -211,7 +319,7 @@ export default function WeightText({
         window.removeEventListener("mouseleave", onMouseLeave);
       }
     };
-  }, [effectiveMode, updateWeights, reducedMotion]);
+  }, [effectiveMode, updateWeights, reducedMotion, measureLetterCenters]);
 
   const Tag = tag;
 
@@ -223,6 +331,7 @@ export default function WeightText({
         style={{
           fontVariationSettings: `"wght" ${restWeight}`,
           transition: "font-variation-settings 0.3s ease",
+          ...style,
         }}
       >
         {children}
@@ -233,7 +342,7 @@ export default function WeightText({
   // Static for reduced motion
   if (reducedMotion) {
     return (
-      <Tag className={className} style={{ fontWeight: activeWeight }}>
+      <Tag className={className} style={{ fontWeight: activeWeight, ...style }}>
         {children}
       </Tag>
     );
@@ -244,6 +353,7 @@ export default function WeightText({
   return (
     <Tag
       className={className}
+      style={style}
       ref={containerRef as React.RefObject<HTMLHeadingElement>}
       aria-label={plainText}
     >
@@ -276,9 +386,9 @@ export default function WeightText({
 
                         let color: string;
                         if (isLastPunctuation) {
-                          color = accentColor;
+                          color = t > 0.15 ? accentColor : baseColor;
                         } else {
-                          color = t > 0.1 ? activeColor : baseColor;
+                          color = t > 0.15 ? activeColor : baseColor;
                         }
 
                         return (
@@ -311,16 +421,14 @@ export default function WeightText({
                               style={{
                                 gridArea: "char",
                                 fontVariationSettings: `"wght" ${weight}`,
+                                fontWeight: weight,
                                 color,
-                                transition:
-                                  effectiveMode === "cursor-radius"
-                                    ? "none"
-                                    : "font-variation-settings 0.15s ease",
+                                transition: "none",
                                 lineHeight: "inherit",
                                 display: "inline-block",
                                 justifySelf: "center",
                                 alignSelf: "baseline",
-                                willChange: "font-variation-settings",
+                                willChange: "font-variation-settings, font-weight, color",
                               }}
                             >
                               {letter}
