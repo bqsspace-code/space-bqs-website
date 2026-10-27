@@ -8,11 +8,13 @@ export default function AmbientVideo({
   poster,
   label,
   className = "",
+  active = true,
 }: {
   src: string;
   poster: string;
   label: string;
   className?: string;
+  active?: boolean;
 }) {
   const videoRef = useRef<HTMLVideoElement>(null);
 
@@ -21,15 +23,20 @@ export default function AmbientVideo({
     if (!video) return;
     const preference = window.matchMedia("(prefers-reduced-motion: reduce)");
     let visible = false;
+    const load = () => {
+      if (video.getAttribute("src") !== src) {
+        video.src = src;
+        video.load();
+      }
+    };
     const sync = () => {
-      if (!visible || document.hidden || preference.matches) video.pause();
-      else void video.play().catch(() => {});
+      if (!active || !visible || document.hidden || preference.matches) video.pause();
+      else { load(); void video.play().catch(() => {}); }
     };
     const preload = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting) {
-          video.src = src;
-          video.load();
+        if (entry.isIntersecting && active && !preference.matches) {
+          load();
           sync();
           preload.disconnect();
         }
@@ -54,7 +61,7 @@ export default function AmbientVideo({
       document.removeEventListener("visibilitychange", sync);
       video.pause();
     };
-  }, [src]);
+  }, [src, active]);
 
   return (
     <video

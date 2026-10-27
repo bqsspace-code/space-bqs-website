@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
 @import "tailwindcss";
+@import "./marine-design.css";
 
 .warehouse-showcase {
   background: radial-gradient(ellipse at 80% 15%, rgba(174,206,255,.25), transparent 50%), radial-gradient(ellipse at 5% 75%, rgba(149,222,235,.2), transparent 45%), #eaf4f9;

@@ -24,6 +24,7 @@ import ProductVideoSection from "./components/ProductVideoSection";
 import AmbientVideo from "./components/AmbientVideo";
 import WaveDivider from "./components/WaveDivider";
 import WeightText from "./components/WeightText";
+import ScrollReveal from "./components/ScrollReveal";
 import {
   AppStoreBadges,
   ProblemSection,
@@ -436,7 +437,7 @@ export default function Home() {
 
             {/* Right col: OfficePreview mock browser */}
             <div className="lg:col-span-6">
-              <OfficePreview />
+              <ScrollReveal><OfficePreview /></ScrollReveal>
             </div>
           </div>
         </div>
@@ -593,7 +594,7 @@ export default function Home() {
 
             {/* Right col: ReportPreview */}
             <div className="lg:col-span-6">
-              <ReportPreview />
+              <ScrollReveal><ReportPreview /></ScrollReveal>
             </div>
           </div>
         </div>

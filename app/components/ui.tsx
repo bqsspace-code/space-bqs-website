@@ -4,6 +4,8 @@ import Link from "next/link";
 import { useState, useRef, useEffect } from "react";
 
 import WeightText from "./WeightText";
+import { ShinyButton } from "@/components/ui/shiny-button";
+import ScrollReveal from "./ScrollReveal";
 
 /* ─── Eyebrow ─── */
 export function Eyebrow({
@@ -67,37 +69,12 @@ export function Section({
   align?: "left" | "center";
   className?: string;
 }) {
-  const ref = useRef<HTMLElement>(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setVisible(true);
-          observer.disconnect();
-        }
-      },
-      { threshold: 0.1 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-
   return (
     <section
-      ref={ref}
       id={id}
       className={`py-20 lg:py-24 ${bg === "mist" ? "bg-mist-100" : ""} ${className}`}
     >
-      <div
-        className={`mx-auto max-w-6xl px-6 transition-all duration-700 ${
-          visible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-5"
-        } ${align === "center" ? "text-center" : ""}`}
-        style={{ transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)" }}
-      >
+      <ScrollReveal className={`mx-auto max-w-6xl px-6 ${align === "center" ? "text-center" : ""}`}>
         {eyebrow && (
           <p className="text-[10px] font-mono font-semibold uppercase tracking-widest text-marine-700 mb-3">
             {eyebrow}
@@ -119,7 +96,7 @@ export function Section({
           </p>
         )}
         <div className={title || eyebrow ? "mt-10" : ""}>{children}</div>
-      </div>
+      </ScrollReveal>
     </section>
   );
 }
@@ -164,7 +141,7 @@ export function AnswerBlock({
 export function CtaRow({ className = "" }: { className?: string }) {
   return (
     <div className={`flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 ${className}`}>
-      <Link
+      <ShinyButton
         href="/request-demo"
         className="inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#032AAC] hover:bg-[#1B4FD1] text-white font-semibold text-xs sm:text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
       >
@@ -181,8 +158,9 @@ export function CtaRow({ className = "" }: { className?: string }) {
         >
           <path d="M3 11L11 3M11 3H5M11 3V9" />
         </svg>
-      </Link>
-      <Link
+      </ShinyButton>
+      <ShinyButton
+        variant="secondary"
         href="/sample-report"
         className="inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-[#031038] font-semibold text-xs sm:text-sm shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98]"
       >
@@ -199,7 +177,7 @@ export function CtaRow({ className = "" }: { className?: string }) {
         >
           <path d="M3 11L11 3M11 3H5M11 3V9" />
         </svg>
-      </Link>
+      </ShinyButton>
     </div>
   );
 }

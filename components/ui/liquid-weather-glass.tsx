@@ -100,15 +100,15 @@ export function LiquidGlassCard({
       <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{
         borderRadius,
         background: soft
-          ? "linear-gradient(145deg, rgba(255,255,255,.07), rgba(255,255,255,.015))"
+          ? "radial-gradient(ellipse at 100% 0%, rgba(25,181,201,.18), transparent 65%), linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.035))"
           : "linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.015) 45%, rgba(125,211,252,.065))",
         filter: reduceMotion || soft ? undefined : `url(#${filterId})`,
-        boxShadow: soft ? "0 8px 24px -12px rgba(0,12,50,.22)" : `0 24px 64px -24px rgba(0,8,40,.65), 0 0 ${12 + glow * 8}px rgba(125,211,252,${glow * 0.025})`,
+        boxShadow: soft ? "0 16px 36px -16px rgba(0,12,50,.38)" : `0 24px 64px -24px rgba(0,8,40,.65), 0 0 ${12 + glow * 8}px rgba(125,211,252,${glow * 0.025})`,
       }} />
       <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{
         borderRadius,
         boxShadow: soft
-          ? "inset 0 1px 0 rgba(255,255,255,.12)"
+          ? "inset 0 1px 0 rgba(255,255,255,.42), inset 0 -1px 0 rgba(25,181,201,.16)"
           : `inset 0 ${edge ? 1 : 0}px 0 rgba(255,255,255,${edge * 0.1}), inset 0 -1px 0 rgba(125,211,252,.1)`,
       }} />
       <div className="relative z-10">{children}</div>

@@ -2,6 +2,10 @@
 
 import { useState, useEffect, useCallback } from "react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
+import { motion, useReducedMotion } from "framer-motion";
+import { ShinyButton } from "@/components/ui/shiny-button";
+import { useLenis } from "lenis/react";
 
 const NAV_LINKS = [
   { href: "/services", label: "Services" },
@@ -14,6 +18,10 @@ const NAV_LINKS = [
 ];
 
 export default function Header() {
+  const pathname = usePathname();
+  const lenis = useLenis();
+  const reducedMotion = useReducedMotion();
+  const [hovered, setHovered] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [scrollProgress, setScrollProgress] = useState(0);
@@ -36,29 +44,41 @@ export default function Header() {
   // Lock body scroll when mobile menu open
   useEffect(() => {
     if (mobileMenuOpen) {
+      lenis?.stop();
       document.body.style.overflow = "hidden";
     } else {
+      lenis?.start();
       document.body.style.overflow = "";
     }
-    return () => { document.body.style.overflow = ""; };
+    return () => { lenis?.start(); document.body.style.overflow = ""; };
+  }, [mobileMenuOpen, lenis]);
+
+  useEffect(() => {
+    const desktop = matchMedia("(min-width: 1280px)");
+    const closeOnDesktop = () => { if (desktop.matches) setMobileMenuOpen(false); };
+    desktop.addEventListener("change", closeOnDesktop);
+    return () => desktop.removeEventListener("change", closeOnDesktop);
+  }, []);
+
+  useEffect(() => { setMobileMenuOpen(false); }, [pathname]);
+  useEffect(() => {
+    const close = (event: KeyboardEvent) => {
+      if (event.key === "Escape" && mobileMenuOpen) {
+        setMobileMenuOpen(false);
+        document.getElementById("navigation-toggle")?.focus();
+      }
+    };
+    window.addEventListener("keydown", close);
+    return () => window.removeEventListener("keydown", close);
   }, [mobileMenuOpen]);
 
   return (
     <header
-      className="fixed top-0 left-0 right-0 z-50 transition-all duration-500"
-      style={{
-        transitionTimingFunction: "cubic-bezier(0.22, 1, 0.36, 1)",
-        background: scrolled
-          ? "rgba(247, 251, 253, 0.72)"
-          : "transparent",
-        backdropFilter: scrolled ? "blur(20px) saturate(140%)" : "none",
-        WebkitBackdropFilter: scrolled ? "blur(20px) saturate(140%)" : "none",
-        borderBottom: scrolled
-          ? "1px solid rgba(3, 42, 172, 0.08)"
-          : "1px solid transparent",
-      }}
+      className="marine-header fixed top-0 left-0 right-0 z-50"
+      data-scrolled={scrolled}
     >
-      <div className="mx-auto flex h-14 max-w-6xl items-center justify-between px-4">
+      <div className="marine-nav-shell mx-auto">
+      <div className="flex h-16 items-center justify-between gap-3 px-4 xl:px-5">
         {/* Wordmark + Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <svg
@@ -85,21 +105,22 @@ export default function Header() {
         </Link>
 
         {/* Desktop Nav */}
-        <nav aria-label="Primary" className="hidden items-center gap-1 lg:flex">
+         <nav aria-label="Primary" className="hidden items-center gap-0.5 xl:flex" onMouseLeave={() => setHovered(null)}>
           {NAV_LINKS.map((l) => (
             <Link
               key={l.href}
               href={l.href}
-              className="relative px-3 py-2 text-[13px] font-medium transition-colors duration-200"
-              style={{ color: "rgba(3, 16, 56, 0.68)" }}
-              onMouseEnter={(e) => {
-                e.currentTarget.style.color = "#032AAC";
-              }}
-              onMouseLeave={(e) => {
-                e.currentTarget.style.color = "rgba(3, 16, 56, 0.68)";
-              }}
+              className="marine-nav-link relative rounded-full px-3 py-2.5 text-[13px] font-medium"
+              aria-current={pathname === l.href || pathname.startsWith(`${l.href}/`) ? "page" : undefined}
+              onMouseEnter={() => setHovered(l.href)}
+              onFocus={() => setHovered(l.href)}
+              onBlur={() => setHovered(null)}
             >
-              {l.label}
+              {(hovered === l.href || (!hovered && (pathname === l.href || pathname.startsWith(`${l.href}/`)))) && (
+                <motion.span aria-hidden="true" layoutId="marine-nav-highlight" className="marine-nav-highlight"
+                  transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 32 }} />
+              )}
+              <span className="relative z-10">{l.label}</span>
             </Link>
           ))}
         </nav>
@@ -108,11 +129,11 @@ export default function Header() {
         <div className="flex items-center gap-2">
           <Link
             href="/request-demo"
-            className="btn-ghost hidden sm:inline-flex text-[13px]"
+            className="btn-ghost marine-demo-link text-[13px]"
           >
             Demo
           </Link>
-          <Link
+          <ShinyButton
             href="/request-demo"
             className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-[13px] font-semibold text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
             style={{
@@ -133,14 +154,17 @@ export default function Header() {
             >
               <path d="M3 11L11 3M11 3H5M11 3V9" />
             </svg>
-          </Link>
+          </ShinyButton>
 
           {/* Mobile toggle */}
           <button
+            id="navigation-toggle"
             onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex h-10 w-10 items-center justify-center rounded-xl transition-colors lg:hidden"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors xl:hidden"
             style={{ color: "#031038" }}
             aria-label="Toggle navigation"
+            aria-expanded={mobileMenuOpen}
+            aria-controls="mobile-navigation"
           >
             {mobileMenuOpen ? (
               <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
@@ -160,19 +184,21 @@ export default function Header() {
 
       {/* Scroll progress line */}
       <div
-        className="h-[2px] transition-all duration-100"
+        className="marine-scroll-progress h-[2px]"
         style={{
           width: `${scrollProgress * 100}%`,
           background: scrollProgress > 0 ? "#19B5C9" : "transparent",
           opacity: scrolled ? 0.6 : 0,
         }}
       />
+      </div>
 
       {/* Mobile menu — full-screen foam-white sheet */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 top-14 z-40 lg:hidden"
-          style={{ background: "#F7FBFD" }}
+          id="mobile-navigation"
+          className="marine-mobile-menu fixed inset-x-3 top-[88px] bottom-3 z-40 overflow-y-auto overscroll-contain rounded-3xl xl:hidden"
+          data-lenis-prevent
         >
           <nav className="flex flex-col gap-1 p-6" aria-label="Mobile navigation">
             {NAV_LINKS.map((l) => (

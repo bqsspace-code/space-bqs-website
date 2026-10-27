@@ -2,23 +2,25 @@
 
 import Link from "next/link";
 import { useRef } from "react";
-import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { motion, useReducedMotion, useScroll, useSpring, useTransform } from "framer-motion";
 import { ArrowUpRight, Play } from "lucide-react";
 import AmbientVideo from "./AmbientVideo";
 
-export default function OceanVideoSection({ embedded = false }: { embedded?: boolean }) {
+export default function OceanVideoSection({ embedded = false, active = true }: { embedded?: boolean; active?: boolean }) {
   const sectionRef = useRef<HTMLDivElement>(null);
   const reducedMotion = useReducedMotion();
   const { scrollYProgress } = useScroll({
     target: sectionRef,
     offset: ["start end", "start 15%"],
   });
-  const clipPath = useTransform(scrollYProgress, [0, 1], ["inset(0% 4% 0% 4% round 36px)", "inset(0% 0% 0% 0% round 0px)"]);
+  const progress = useSpring(scrollYProgress, { stiffness: 100, damping: 28, restDelta: 0.001 });
+  const clipPath = useTransform(progress, [0, 1], ["inset(0% 4% 0% 4% round 36px)", "inset(0% 0% 0% 0% round 0px)"]);
 
   return (
     <div ref={sectionRef} className={embedded ? "h-full bg-[#073D50]" : "bg-[#F7FBFD]"}>
     <motion.section style={{ clipPath: reducedMotion || embedded ? undefined : clipPath }} aria-labelledby="ocean-video-heading" className={`relative isolate overflow-hidden bg-[#073D50] text-white ${embedded ? "flex h-full items-center" : ""}`}>
       <AmbientVideo
+        active={active}
         src="/assets/videos/ocean-boat-web.mp4"
         poster="/assets/videos/ocean-boat-poster.webp"
         label="ocean background video"

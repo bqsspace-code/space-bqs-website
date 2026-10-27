@@ -40,7 +40,7 @@ export default function HeroLiquidSection({ className = "", transitionMode = "wa
     <section ref={containerRef} className={`relative bg-[#073D50] ${className}`} style={{ height: reducedMotion ? "auto" : "calc(max(100svh, 740px) + 90svh)" }}>
       <div className={reducedMotion ? "relative" : "sticky top-0 h-svh min-h-[740px] overflow-hidden"}>
        {!reducedMotion && <motion.div inert={!oceanActive} style={{ opacity: waveDivider ? 1 : oceanOpacity, scale: oceanScale, borderRadius: oceanRadius }} className="absolute inset-0 overflow-hidden">
-        <OceanVideoSection embedded />
+         <OceanVideoSection embedded active={oceanActive} />
       </motion.div>}
       <motion.div inert={!reducedMotion && oceanActive} style={{ opacity: reducedMotion || waveDivider ? 1 : heroOpacity, y: reducedMotion || !waveDivider ? 0 : heroExitY }} className="relative isolate flex h-svh min-h-[740px] flex-col overflow-hidden bg-[#F7FBFD]">
       <AuroraBackground as="div" className="pointer-events-none absolute inset-0 -z-20 h-full w-full bg-white" showRadialGradient>

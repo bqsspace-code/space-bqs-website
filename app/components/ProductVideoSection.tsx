@@ -2,6 +2,8 @@
 
 import { useState, useRef, useEffect, useCallback } from "react";
 import WaveDivider from "./WaveDivider";
+import { BorderBeamPanel } from "@/components/ui/border-beam-panel";
+import ScrollReveal from "./ScrollReveal";
 import {
   Play,
   Pause,
@@ -575,8 +577,8 @@ export default function ProductVideoSection({
         </div>
 
         {/* ──────────── PROOF VALUE METRICS ──────────── */}
-        <div className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-          <div className="p-6 rounded-2xl bg-white border border-[#D3E9F3] shadow-sm hover:shadow-md transition-shadow">
+        <ScrollReveal stagger className="mt-12 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <BorderBeamPanel seed={1}>
             <div className="w-10 h-10 rounded-xl bg-[#EAF4F9] border border-[#D3E9F3] flex items-center justify-center text-[#032AAC] mb-4">
               <Sparkles className="w-5 h-5 text-[#19B5C9]" />
             </div>
@@ -589,9 +591,9 @@ export default function ProductVideoSection({
             <p className="mt-2 text-xs text-[#031038]/70 leading-relaxed font-sans">
               Deck sounding to ASTM Table 54B metric tonnage calculated in real time.
             </p>
-          </div>
+          </BorderBeamPanel>
 
-          <div className="p-6 rounded-2xl bg-white border border-[#D3E9F3] shadow-sm hover:shadow-md transition-shadow">
+          <BorderBeamPanel seed={2}>
             <div className="w-10 h-10 rounded-xl bg-[#EAF4F9] border border-[#D3E9F3] flex items-center justify-center text-[#032AAC] mb-4">
               <WifiOff className="w-5 h-5 text-[#19B5C9]" />
             </div>
@@ -604,9 +606,9 @@ export default function ProductVideoSection({
             <p className="mt-2 text-xs text-[#031038]/70 leading-relaxed font-sans">
               Native SQLite engine runs in deep cargo holds and at sea without internet.
             </p>
-          </div>
+          </BorderBeamPanel>
 
-          <div className="p-6 rounded-2xl bg-white border border-[#D3E9F3] shadow-sm hover:shadow-md transition-shadow">
+          <BorderBeamPanel seed={3}>
             <div className="w-10 h-10 rounded-xl bg-[#EAF4F9] border border-[#D3E9F3] flex items-center justify-center text-[#032AAC] mb-4">
               <Cpu className="w-5 h-5 text-[#19B5C9]" />
             </div>
@@ -619,9 +621,9 @@ export default function ProductVideoSection({
             <p className="mt-2 text-xs text-[#031038]/70 leading-relaxed font-sans">
               Exact Table 54B algorithms replace error-prone Excel approximations.
             </p>
-          </div>
+          </BorderBeamPanel>
 
-          <div className="p-6 rounded-2xl bg-white border border-[#D3E9F3] shadow-sm hover:shadow-md transition-shadow">
+          <BorderBeamPanel seed={4}>
             <div className="w-10 h-10 rounded-xl bg-[#EAF4F9] border border-[#D3E9F3] flex items-center justify-center text-[#032AAC] mb-4">
               <FileCheck2 className="w-5 h-5 text-[#19B5C9]" />
             </div>
@@ -634,8 +636,8 @@ export default function ProductVideoSection({
             <p className="mt-2 text-xs text-[#031038]/70 leading-relaxed font-sans">
               Cryptographically sealed certificate accepted by charterers and insurers.
             </p>
-          </div>
-        </div>
+          </BorderBeamPanel>
+        </ScrollReveal>
       </div>
     </section>
   );
