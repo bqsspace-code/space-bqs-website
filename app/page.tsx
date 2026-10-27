@@ -21,6 +21,7 @@ import {
 } from "./components/ui";
 import HeroLiquidSection from "./components/HeroLiquidSection";
 import ProductVideoSection from "./components/ProductVideoSection";
+import AmbientVideo from "./components/AmbientVideo";
 import WaveDivider from "./components/WaveDivider";
 import WeightText from "./components/WeightText";
 import {
@@ -32,7 +33,7 @@ import {
 } from "./components/HomeEnhancements";
 import DeckInteractiveShowcase from "./components/DeckInteractiveShowcase";
 import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
-
+import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
 
 
 
@@ -263,7 +264,7 @@ function ReportPreview() {
 export default function Home() {
   return (
     <div>
-      {/* ──────────── HERO SECTION WITH SCROLL-DRIVEN LIQUID WAVE TRANSITION ──────────── */}
+      {/* ──────────── HERO / FRAMED OCEAN REVEAL ──────────── */}
       <HeroLiquidSection />
 
       {/* ──────────── PRODUCT VIDEO SHOWCASE ──────────── */}
@@ -324,12 +325,26 @@ export default function Home() {
         align="center"
         className="bg-[#F7FBFD]"
       >
-        <div className="text-center max-w-2xl mx-auto">
-          <Eyebrow className="justify-center">How it works</Eyebrow>
-          <H2>Capture. Calculate. Prove.</H2>
-          <p className="mt-3 text-base text-[#031038]/65">
-            A clear path from the tank reading to the client's report.
-          </p>
+        <div className="grid items-center gap-10 text-left lg:grid-cols-[0.8fr_1.2fr] lg:gap-14">
+          <div>
+            <Eyebrow>How it works</Eyebrow>
+            <H2>Your whole workflow.<br />Within reach.</H2>
+            <p className="mt-5 max-w-md text-base leading-relaxed text-[#031038]/65">
+              Less time moving figures between screens. More time on the survey. Capture, calculate, and prepare the proof in one connected workflow.
+            </p>
+            <Link href="/mobile-app" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#032AAC] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">
+              Meet your on-deck companion <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+            </Link>
+          </div>
+          <figure className="relative isolate overflow-hidden rounded-3xl border border-[#D3E9F3] bg-[#D3E9F3] shadow-[0_24px_70px_-30px_rgba(3,42,172,0.3)]">
+            <div className="relative aspect-video">
+              <AmbientVideo src="/assets/videos/mobile-showcase-web.mp4" poster="/assets/videos/mobile-showcase-poster.webp" label="mobile app concept video" />
+            </div>
+            <figcaption className="flex flex-wrap items-center justify-between gap-2 border-t border-[#D3E9F3] bg-white px-5 py-4 text-xs text-[#031038]/65">
+              <span className="font-mono uppercase tracking-wider text-[#032AAC]">Space BQS / In motion</span>
+              <span>App concept film</span>
+            </figcaption>
+          </figure>
         </div>
 
         {/* Ordered 3-column list */}
@@ -436,8 +451,8 @@ export default function Home() {
       </section>
 
       {/* ──────────── SECTION 5 — ON DECK (INTERACTIVE BEVEL-STYLE SHOWCASE) ──────────── */}
-      <DeckInteractiveShowcase />
-
+      <DeckInteractiveShowcase />
+
       {/* ──────────── SECTION 6 — THE ARCHIVE / SURVEY WAREHOUSE ──────────── */}
       <SurveyWarehouseSection />
 
@@ -450,9 +465,9 @@ export default function Home() {
       />
 
       <section
-        className="relative py-20 lg:py-28"
+        className="relative isolate overflow-hidden py-20 lg:py-28"
         style={{
-          background: "linear-gradient(180deg, #032AAC 0%, #031038 100%)",
+          background: "radial-gradient(ellipse at 85% 20%, #164dd3 0%, transparent 55%), linear-gradient(165deg, #032AAC 0%, #061c68 58%, #031038 100%)",
         }}
       >
         {/* Subtle aqua glow & grid */}
@@ -487,9 +502,12 @@ export default function Home() {
                 </p>
               </div>
 
-              <AnswerBlock dark>
-                Fuel expands when warm. The same tonnes take more space at 40°C than at 15°C. The engine uses a volume correction factor from Table 54B to bring volume back to 15°C. For density 0.9500 at 40°C, the factor is 0.9677.
-              </AnswerBlock>
+              <LiquidGlassCard draggable={false} surface="soft" blurIntensity="xl" shadowIntensity="xs" glowIntensity="none" borderRadius="8px" className="p-6 sm:p-7">
+                <span className="mb-3 block font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white/80">In short</span>
+                <p className="text-sm leading-7 text-white">
+                  Fuel expands when warm. The same tonnes take more space at 40°C than at 15°C. The engine uses a volume correction factor from Table 54B to bring volume back to 15°C. For density 0.9500 at 40°C, the factor is 0.9677.
+                </p>
+              </LiquidGlassCard>
 
               <div>
                 <Link
@@ -501,10 +519,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right col: Worked check panel with left border */}
+            {/* Right col: matching softly frosted worked check */}
             <div className="lg:col-span-5">
-              <div className="rounded-3xl border-l-[3px] border-[#19B5C9] bg-white/[0.05] border-t border-r border-b border-white/10 p-7 sm:p-8 backdrop-blur-md space-y-6">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-[#19B5C9] font-bold block">
+              <LiquidGlassCard draggable={false} surface="soft" blurIntensity="xl" shadowIntensity="xs" glowIntensity="none" borderRadius="8px" className="p-7 sm:p-9">
+                <div className="space-y-7">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-white/80 font-bold block">
                   A worked check
                 </span>
 
@@ -525,22 +544,23 @@ export default function Home() {
                 </div>
 
                 {/* Bordered band with Volume correction factor and display 6xl tabular 0.9677 */}
-                <div className="rounded-2xl border border-white/15 bg-white/[0.04] p-5 text-center">
+                <div className="rounded-lg border border-white/25 bg-white/[0.05] p-6 text-center">
                   <span className="text-xs font-mono uppercase tracking-wider text-white/70 block mb-1">
                     Volume correction factor
                   </span>
-                  <span className="font-display text-5xl sm:text-6xl font-extrabold text-[#19B5C9] tracking-tight tabular-nums block">
+                  <span className="font-display text-5xl sm:text-6xl font-semibold text-white tracking-tight tabular-nums block">
                     0.9677
                   </span>
                 </div>
 
                 {/* Mono footnote */}
                 <div className="pt-2 text-center">
-                  <span className="text-[10px] font-mono text-white/40 tracking-wider">
+                  <span className="text-[10px] font-mono text-white/60 tracking-wider">
                     ASTM D1250-04 · Table 54B · v1.0.0
                   </span>
                 </div>
-              </div>
+                </div>
+              </LiquidGlassCard>
             </div>
           </div>
         </div>
@@ -582,7 +602,16 @@ export default function Home() {
       {/* ──────────── SECTION 8 — PRICING TEASER ──────────── */}
       <section className="pt-20 lg:pt-24 pb-0 bg-mist-100">
         <div className="mx-auto max-w-6xl px-6 pb-20">
-          <div className="flex flex-col md:flex-row md:items-center justify-between gap-8 rounded-3xl p-8 sm:p-10 bg-white/85 border border-[#D3E9F3] shadow-sm">
+          <div className="grid overflow-hidden rounded-3xl border border-[#D3E9F3] bg-white shadow-sm lg:grid-cols-2">
+            <div className="relative isolate min-h-[320px] overflow-hidden bg-[#031038] sm:min-h-[400px]">
+              <AmbientVideo src="/assets/videos/ocean-yacht-web.mp4" poster="/assets/videos/ocean-yacht-poster.webp" label="yacht at sea video" className="-z-20" />
+              <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#031038]/90 via-[#031038]/10 to-transparent" />
+              <div className="absolute inset-x-0 bottom-0 p-7 pb-20 sm:p-10 sm:pb-20">
+                <p className="mb-3 font-mono text-xs uppercase tracking-[0.2em] text-[#A5D3E8]">Ready for the next horizon</p>
+                <p className="max-w-sm font-display text-3xl font-bold leading-tight tracking-tight text-white sm:text-4xl">Keep your team<br />moving forward.</p>
+              </div>
+            </div>
+            <div className="flex flex-col justify-center p-8 sm:p-10 lg:p-12">
             <div className="space-y-2">
               <Eyebrow>Simple team licensing</Eyebrow>
               <H2>One team. One licence.</H2>
@@ -591,7 +620,7 @@ export default function Home() {
               </p>
             </div>
 
-            <div className="md:text-right shrink-0">
+            <div className="mt-8 border-t border-[#D3E9F3] pt-6">
               <p className="font-display text-2xl sm:text-3xl font-bold text-[#032AAC]">
                 Contact for quote
               </p>
@@ -601,6 +630,7 @@ export default function Home() {
               >
                 <span>See what's included →</span>
               </Link>
+            </div>
             </div>
           </div>
         </div>

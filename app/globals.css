@@ -1,6 +1,134 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
 @import "tailwindcss";
 
+.warehouse-showcase {
+  background: radial-gradient(ellipse at 80% 15%, rgba(174,206,255,.25), transparent 50%), radial-gradient(ellipse at 5% 75%, rgba(149,222,235,.2), transparent 45%), #eaf4f9;
+}
+.warehouse-record-header {
+  background: radial-gradient(ellipse at 90% 0%, rgba(57,173,228,.3), transparent 65%), linear-gradient(120deg, #032aac, #12398b 65%, #08265d);
+}
+
+.workflow-compare {
+  background: radial-gradient(ellipse at 0% 40%, #e2f1fc 0%, transparent 50%), linear-gradient(135deg, #f7fbfd, #edf4fc);
+}
+.workflow-proof {
+  background: radial-gradient(ellipse at 100% 0%, rgba(63,185,230,.35), transparent 65%), linear-gradient(145deg, #0738b9, #032aac 55%, #062066);
+}
+.workflow-proof-grid {
+  background-image: linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.08) 1px, transparent 1px);
+  background-size: 28px 28px;
+  mask-image: linear-gradient(to bottom, #000, transparent);
+}
+
+/* Light, frosted adaptation of Hirael's technical feature grid. */
+.team-glass-section {
+  background:
+    radial-gradient(ellipse at 12% 65%, rgba(140, 211, 239, 0.3), transparent 45%),
+    radial-gradient(ellipse at 88% 45%, rgba(184, 202, 255, 0.28), transparent 45%),
+    linear-gradient(135deg, #f5fbff, #eaf4f9 55%, #f4f8ff);
+}
+
+.team-glass-card {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0.22));
+  -webkit-backdrop-filter: blur(18px) saturate(125%);
+  backdrop-filter: blur(18px) saturate(125%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 8px 24px -20px rgba(3, 42, 172, 0.2);
+}
+
+.team-glass-spotlight {
+  background: radial-gradient(circle 220px at var(--mx, 50%) var(--my, 0%), rgba(90, 175, 235, 0.15), transparent 70%);
+}
+
+.gradient-interactive-card {
+  --panel-from: #8edcf0;
+  --panel-to: #a5b9fb;
+  transition: transform 450ms cubic-bezier(.22, 1, .36, 1), box-shadow 450ms ease;
+}
+.gradient-interactive-card:nth-child(even) {
+  --panel-from: #a7c4fa;
+  --panel-to: #91e2db;
+}
+.gradient-card-panel {
+  position: absolute;
+  top: 5%;
+  left: 25%;
+  width: 45%;
+  height: 90%;
+  border-radius: 8px;
+  background: linear-gradient(315deg, var(--panel-from), var(--panel-to));
+  transform: skewX(15deg);
+  opacity: 0;
+  transition: transform 500ms ease, left 500ms ease, width 500ms ease, opacity 400ms ease;
+}
+.gradient-card-halo {
+  filter: blur(24px);
+}
+.gradient-card-float {
+  position: absolute;
+  z-index: 1;
+  width: 56px;
+  height: 56px;
+  border: 1px solid rgba(255,255,255,.8);
+  border-radius: 8px;
+  background: rgba(255,255,255,.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 5px 15px rgba(3,42,172,.06);
+  opacity: 0;
+  transform: translateY(8px) scale(.7);
+  transition: opacity 350ms ease, transform 500ms ease;
+  animation: team-glass-float 3s ease-in-out infinite paused;
+}
+.gradient-card-float-top { top: -20px; left: 22px; }
+.gradient-card-float-bottom { bottom: -20px; right: 22px; animation-delay: -1.5s; }
+.gradient-interactive-card:focus-visible {
+  outline: 2px solid #032aac;
+  outline-offset: 6px;
+}
+.gradient-interactive-card:focus-visible,
+.gradient-interactive-card:focus-within {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 32px -20px rgba(3,42,172,.22);
+}
+.gradient-interactive-card:is(:focus-visible, :focus-within) .gradient-card-panel {
+  opacity: .22;
+  left: 12%;
+  width: 76%;
+  transform: skewX(0);
+}
+.gradient-interactive-card:is(:focus-visible, :focus-within) .gradient-card-float {
+  opacity: 1;
+  transform: translateY(0) scale(1);
+  animation-play-state: running;
+}
+@media (hover: hover) and (pointer: fine) {
+  .gradient-interactive-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 16px 32px -20px rgba(3,42,172,.22);
+  }
+  .gradient-interactive-card:hover .gradient-card-panel {
+    opacity: .22;
+    left: 12%;
+    width: 76%;
+    transform: skewX(0);
+  }
+  .gradient-interactive-card:hover .gradient-card-float {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    animation-play-state: running;
+  }
+}
+@keyframes team-glass-float {
+  0%, 100% { translate: 0 4px; }
+  50% { translate: -4px -4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .gradient-interactive-card,
+  .gradient-card-panel,
+  .gradient-card-float { transition: none; animation: none; }
+  .gradient-interactive-card:is(:hover, :focus-visible, :focus-within) { transform: none; }
+}
+
 @theme {
   /* ─── Harbour Light palette ─── */
   --color-foam-50: #F7FBFD;
