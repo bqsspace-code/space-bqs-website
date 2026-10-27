@@ -21,6 +21,7 @@ interface ProductVideoSectionProps {
   videoSrc?: string;
   posterSrc?: string;
   className?: string;
+  showWave?: boolean;
 }
 
 interface Chapter {
@@ -73,6 +74,7 @@ export default function ProductVideoSection({
   videoSrc,
   posterSrc,
   className = "",
+  showWave = true,
 }: ProductVideoSectionProps) {
   const [isPlaying, setIsPlaying] = useState(false);
   const [currentTime, setCurrentTime] = useState(0);
@@ -189,13 +191,13 @@ export default function ProductVideoSection({
       className={`relative pt-6 sm:pt-10 lg:pt-14 pb-16 sm:pb-20 lg:pb-28 bg-[#F7FBFD] overflow-hidden ${className}`}
     >
       {/* Top Marine Wave Transition from Hero Liquid Flood */}
-      <div className="absolute top-0 inset-x-0 w-full pointer-events-none z-10">
+      {showWave && <div className="absolute top-0 inset-x-0 w-full pointer-events-none z-10">
         <WaveDivider
           direction="up"
           height={55}
           colors={["#A5D3E8", "#1B4FD1", "#032AAC"]}
         />
-      </div>
+      </div>}
 
       {/* Background ambient lighting */}
       <div className="absolute top-1/4 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-gradient-to-b from-[#19B5C9]/10 via-[#1B4FD1]/5 to-transparent blur-3xl pointer-events-none rounded-full" />

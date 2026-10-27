@@ -31,6 +31,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/changelog",
     "/request-demo",
     "/resources",
+    "/videos",
     "/about",
     "/contact",
   ];
