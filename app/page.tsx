@@ -32,6 +32,7 @@ import {
 } from "./components/HomeEnhancements";
 import DeckInteractiveShowcase from "./components/DeckInteractiveShowcase";
 import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
+import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
 
 
 
@@ -449,9 +450,9 @@ export default function Home() {
       />
 
       <section
-        className="relative py-20 lg:py-28"
+        className="relative isolate overflow-hidden py-20 lg:py-28"
         style={{
-          background: "linear-gradient(180deg, #032AAC 0%, #031038 100%)",
+          background: "radial-gradient(ellipse at 85% 20%, #164dd3 0%, transparent 55%), linear-gradient(165deg, #032AAC 0%, #061c68 58%, #031038 100%)",
         }}
       >
         {/* Subtle aqua glow & grid */}
@@ -486,9 +487,12 @@ export default function Home() {
                 </p>
               </div>
 
-              <AnswerBlock dark>
-                Fuel expands when warm. The same tonnes take more space at 40°C than at 15°C. The engine uses a volume correction factor from Table 54B to bring volume back to 15°C. For density 0.9500 at 40°C, the factor is 0.9677.
-              </AnswerBlock>
+              <LiquidGlassCard draggable={false} surface="soft" blurIntensity="xl" shadowIntensity="xs" glowIntensity="none" borderRadius="8px" className="p-6 sm:p-7">
+                <span className="mb-3 block font-mono text-[10px] font-semibold uppercase tracking-[0.2em] text-white/80">In short</span>
+                <p className="text-sm leading-7 text-white">
+                  Fuel expands when warm. The same tonnes take more space at 40°C than at 15°C. The engine uses a volume correction factor from Table 54B to bring volume back to 15°C. For density 0.9500 at 40°C, the factor is 0.9677.
+                </p>
+              </LiquidGlassCard>
 
               <div>
                 <Link
@@ -500,10 +504,11 @@ export default function Home() {
               </div>
             </div>
 
-            {/* Right col: Worked check panel with left border */}
+            {/* Right col: matching softly frosted worked check */}
             <div className="lg:col-span-5">
-              <div className="rounded-3xl border-l-[3px] border-[#19B5C9] bg-white/[0.05] border-t border-r border-b border-white/10 p-7 sm:p-8 backdrop-blur-md space-y-6">
-                <span className="text-[10px] font-mono uppercase tracking-widest text-[#19B5C9] font-bold block">
+              <LiquidGlassCard draggable={false} surface="soft" blurIntensity="xl" shadowIntensity="xs" glowIntensity="none" borderRadius="8px" className="p-7 sm:p-9">
+                <div className="space-y-7">
+                <span className="text-[10px] font-mono uppercase tracking-widest text-white/80 font-bold block">
                   A worked check
                 </span>
 
@@ -524,22 +529,23 @@ export default function Home() {
                 </div>
 
                 {/* Bordered band with Volume correction factor and display 6xl tabular 0.9677 */}
-                <div className="rounded-2xl border border-white/15 bg-white/[0.04] p-5 text-center">
+                <div className="rounded-lg border border-white/25 bg-white/[0.05] p-6 text-center">
                   <span className="text-xs font-mono uppercase tracking-wider text-white/70 block mb-1">
                     Volume correction factor
                   </span>
-                  <span className="font-display text-5xl sm:text-6xl font-extrabold text-[#19B5C9] tracking-tight tabular-nums block">
+                  <span className="font-display text-5xl sm:text-6xl font-semibold text-white tracking-tight tabular-nums block">
                     0.9677
                   </span>
                 </div>
 
                 {/* Mono footnote */}
                 <div className="pt-2 text-center">
-                  <span className="text-[10px] font-mono text-white/40 tracking-wider">
+                  <span className="text-[10px] font-mono text-white/60 tracking-wider">
                     ASTM D1250-04 · Table 54B · v1.0.0
                   </span>
                 </div>
-              </div>
+                </div>
+              </LiquidGlassCard>
             </div>
           </div>
         </div>
