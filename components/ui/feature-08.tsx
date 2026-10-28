@@ -55,7 +55,7 @@ function FeatureCard({ className, children, ...props }: ComponentProps<"div">) {
   }
 
   return (
-    <GradientCardShowcase {...props} onPointerMove={handlePointerMove} data-slot="feature-card" className={cn("team-glass-card group relative flex h-full flex-col gap-6 px-6 pb-8 pt-8", className)}>
+    <GradientCardShowcase {...props} onPointerMove={handlePointerMove} data-slot="feature-card" className={cn("liquid-glass-ui team-glass-card group relative flex h-full flex-col gap-6 px-6 pb-8 pt-8", className)}>
       <div aria-hidden="true" className="team-glass-spotlight pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100 motion-reduce:transition-none" />
       <div aria-hidden="true" className="pointer-events-none absolute -inset-y-4 left-0 w-px bg-[#739fba]/25" />
       <div aria-hidden="true" className="pointer-events-none absolute -inset-y-4 right-0 w-px bg-[#739fba]/25" />
@@ -71,7 +71,7 @@ export default function Feature08() {
     <section id="section-personas" data-slot="feature" className="team-glass-section relative isolate overflow-hidden border-b border-[#D3E9F3]/60 px-6 py-20 lg:py-24">
       <div className="relative mx-auto max-w-6xl">
         <div className="mx-auto flex max-w-2xl flex-col items-center gap-4 text-center">
-          <Badge variant="outline" className="border-[#032AAC]/15 bg-white/40 px-4 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-[#032AAC] backdrop-blur-md">
+          <Badge variant="outline" className="liquid-glass-ui liquid-glass-ui--subtle border-[#032AAC]/15 px-4 py-1.5 font-mono text-[10px] font-semibold uppercase tracking-[0.14em] text-[#032AAC]">
             Built for the whole team
           </Badge>
           <h2 className="font-display text-3xl font-bold leading-tight tracking-tight text-[#032AAC] sm:text-4xl">

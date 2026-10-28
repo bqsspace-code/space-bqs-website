@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, useState, type ReactNode } from "react";
+import { useState, type CSSProperties, type ReactNode } from "react";
 import { motion, useReducedMotion } from "motion/react";
 import { cn } from "@/lib/utils";
 
@@ -22,13 +22,7 @@ export interface LiquidGlassCardProps {
   surface?: "frosted" | "soft";
 }
 
-const blurClasses = {
-  sm: "backdrop-blur-sm",
-  md: "backdrop-blur-md",
-  lg: "backdrop-blur-lg",
-  xl: "backdrop-blur-xl",
-};
-const strengths = { none: 0, xs: 1, sm: 2, md: 3, lg: 4, xl: 6 };
+const blurValues = { sm: "2px", md: "3px", lg: "4px", xl: "5px" };
 
 /** Layered glass with optional elastic drag and keyboard-accessible expansion. */
 export function LiquidGlassCard({
@@ -48,21 +42,25 @@ export function LiquidGlassCard({
 }: LiquidGlassCardProps) {
   const [isExpanded, setIsExpanded] = useState(false);
   const reduceMotion = useReducedMotion();
-  const filterId = `glass-${useId().replace(/:/g, "")}`;
-  const edge = strengths[shadowIntensity];
-  const glow = strengths[glowIntensity];
   const soft = surface === "soft";
+  const style = {
+    borderRadius,
+    width,
+    height,
+    "--liquid-glass-blur": blurValues[blurIntensity],
+    "--liquid-glass-shadow": glowIntensity === "none" ? "rgba(3,42,172,.08)" : "rgba(3,42,172,.2)",
+  } as CSSProperties;
 
   return (
     <motion.div
       className={cn(
-        "relative isolate border",
-        soft ? "border-white/30 bg-white/[0.06]" : "border-white/20 bg-white/[0.07]",
+        "liquid-glass-ui relative isolate border",
+        soft ? "liquid-glass-ui--subtle border-white/30" : "border-white/20",
         draggable && "cursor-grab active:cursor-grabbing",
         expandable && "cursor-pointer",
         className,
       )}
-      style={{ borderRadius, width, height }}
+      style={style}
       animate={expandable ? {
         width: isExpanded ? expandedWidth || "auto" : width || "auto",
         height: isExpanded ? expandedHeight || "auto" : height || "auto",
@@ -88,29 +86,6 @@ export function LiquidGlassCard({
         }
       } : undefined}
     >
-      <svg aria-hidden="true" className="pointer-events-none absolute h-0 w-0">
-        <defs>
-          <filter id={filterId} x="-10%" y="-10%" width="120%" height="120%">
-            <feTurbulence type="fractalNoise" baseFrequency="0.003 0.007" numOctaves="1" seed="7" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="12" xChannelSelector="R" yChannelSelector="G" />
-          </filter>
-        </defs>
-      </svg>
-      <div aria-hidden="true" className={cn("pointer-events-none absolute inset-0 -z-10", blurClasses[blurIntensity])} style={{ borderRadius }} />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{
-        borderRadius,
-        background: soft
-          ? "radial-gradient(ellipse at 100% 0%, rgba(25,181,201,.18), transparent 65%), linear-gradient(145deg, rgba(255,255,255,.16), rgba(255,255,255,.035))"
-          : "linear-gradient(135deg, rgba(255,255,255,.15), rgba(255,255,255,.015) 45%, rgba(125,211,252,.065))",
-        filter: reduceMotion || soft ? undefined : `url(#${filterId})`,
-        boxShadow: soft ? "0 16px 36px -16px rgba(0,12,50,.38)" : `0 24px 64px -24px rgba(0,8,40,.65), 0 0 ${12 + glow * 8}px rgba(125,211,252,${glow * 0.025})`,
-      }} />
-      <div aria-hidden="true" className="pointer-events-none absolute inset-0" style={{
-        borderRadius,
-        boxShadow: soft
-          ? "inset 0 1px 0 rgba(255,255,255,.42), inset 0 -1px 0 rgba(25,181,201,.16)"
-          : `inset 0 ${edge ? 1 : 0}px 0 rgba(255,255,255,${edge * 0.1}), inset 0 -1px 0 rgba(125,211,252,.1)`,
-      }} />
       <div className="relative z-10">{children}</div>
     </motion.div>
   );

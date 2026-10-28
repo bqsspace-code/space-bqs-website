@@ -1,21 +1,12 @@
-import { z } from "zod";
+import { quoteSchema } from "../../lib/quote-schema";
 import { NextResponse } from "next/server";
 import { writeFile, mkdir } from "node:fs/promises";
 import path from "node:path";
-
-const schema = z.object({
-  name: z.string().min(2),
-  email: z.string().email(),
-  company: z.string().min(2),
-  role: z.string().min(2),
-  teamSize: z.string().min(1),
-  volume: z.string().optional(),
-  message: z.string().max(2000).optional(),
-});
+import { randomUUID } from "node:crypto";
 
 export async function POST(req: Request) {
   const body = await req.json().catch(() => null);
-  const parsed = schema.safeParse(body);
+  const parsed = quoteSchema.safeParse(body);
   if (!parsed.success) {
     return NextResponse.json({ ok: false }, { status: 400 });
   }
@@ -23,10 +14,10 @@ export async function POST(req: Request) {
   try {
     const dir = path.join(process.cwd(), "quote-requests");
     await mkdir(dir, { recursive: true });
-    const file = path.join(dir, `${Date.now()}.json`);
+    const file = path.join(dir, `${Date.now()}-${randomUUID()}.json`);
     await writeFile(file, JSON.stringify({ ...parsed.data, at: new Date().toISOString() }, null, 2));
   } catch {
-    // still succeed — client already validated
+    return NextResponse.json({ ok: false }, { status: 500 });
   }
   return NextResponse.json({ ok: true });
 }

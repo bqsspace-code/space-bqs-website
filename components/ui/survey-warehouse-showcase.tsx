@@ -45,7 +45,7 @@ export default function SurveyWarehouseShowcase() {
 
         <div className="mb-6 grid grid-cols-2 gap-3 lg:grid-cols-4">
           {BENEFITS.map((item, index) => (
-            <button key={item.title} type="button" onClick={() => setView(index)} aria-pressed={view === index} aria-controls={`${id}-record`} className={cn("group relative overflow-hidden rounded-xl border p-4 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#032aac] sm:p-5", view === index ? "border-[#032aac]/25 bg-white/90 shadow-[0_8px_24px_-18px_rgba(3,42,172,.3)]" : "border-white/90 bg-white/35 hover:border-[#032aac]/15 hover:bg-white/65")}>
+            <button key={item.title} type="button" onClick={() => setView(index)} aria-pressed={view === index} aria-controls={`${id}-record`} className={cn("liquid-glass-ui group relative overflow-hidden rounded-xl border p-4 text-left transition-colors focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#032aac] sm:p-5", view === index ? "liquid-glass-ui--strong border-[#032aac]/25 shadow-[0_8px_24px_-18px_rgba(3,42,172,.3)]" : "liquid-glass-ui--subtle border-white/90 hover:border-[#032aac]/15")}>
               <div className="mb-4 flex items-center justify-between"><item.icon aria-hidden="true" strokeWidth={1.6} className={cn("size-5", view === index ? "text-[#032aac]" : "text-[#6a8197]")} /><span className="font-mono text-[9px] text-[#8092a5]">0{index + 1}</span></div>
               <h3 className="text-sm font-semibold text-[#031038]">{item.title}</h3><p className="mt-1.5 text-xs leading-5 text-[#60748a]">{item.subtitle}</p>
               {view === index && <motion.span layoutId={`${id}-active`} transition={{ duration: reduceMotion ? 0 : 0.25 }} aria-hidden="true" className="absolute inset-x-5 bottom-0 h-0.5 rounded-full bg-[#032aac]" />}
@@ -53,7 +53,7 @@ export default function SurveyWarehouseShowcase() {
           ))}
         </div>
 
-        <div data-glass-surface className="overflow-hidden rounded-2xl border border-[#c6ddea] bg-white/80 shadow-[0_32px_80px_-48px_rgba(3,42,172,.4)]">
+        <div data-glass-surface className="liquid-glass-ui liquid-glass-ui--strong overflow-hidden rounded-2xl border border-[#c6ddea] shadow-[0_32px_80px_-48px_rgba(3,42,172,.4)]">
           <div className="flex flex-wrap items-center justify-between gap-3 bg-[#071e52] px-5 py-4 sm:px-6">
             <div className="flex items-center gap-3"><span aria-hidden="true" className="flex size-7 items-center justify-center rounded-lg border border-white/20 bg-white/10"><Database className="size-3.5 text-cyan-100" /></span><span className="text-xs font-medium text-white">Survey Warehouse</span><span className="hidden text-white/25 sm:inline">/</span><span className="hidden text-[11px] text-white/55 sm:inline">Finalised records</span></div>
             <span className="rounded-full border border-white/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-wider text-blue-100/80">Interactive preview · sample data</span>

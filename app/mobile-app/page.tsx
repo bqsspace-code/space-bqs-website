@@ -14,7 +14,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="space-y-12 pb-16">
-      <div className="mx-auto max-w-6xl px-4 pt-8">
+      <div className="mx-auto max-w-6xl px-6 pt-32">
         <Breadcrumbs
           trail={[
             { href: "/", label: "Home" },
@@ -28,17 +28,17 @@ export default function Page() {
           <span className="text-xs text-slate-500 font-mono">Offline-First Engine</span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
-          Mobile app — your surveyors&apos; rugged deck tool
+          The world’s first mobile app for bunker quantity surveys.
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          No cellular signal deep in the cargo holds? No problem. Your teams scan, record in 3 steps, calculate offline, and sync when reconnecting.
+          Capture readings, calculate offline, and sync for office review when you reconnect. Built for quantity survey teams on deck and in engine rooms.
         </p>
       </div>
 
       <div className="mx-auto max-w-6xl px-4">
         <AnswerBlock>
           <p>
-            The Space BQS mobile application is designed specifically for wet, high-glare deck environments. Built with large touch targets and high-contrast numerical inputs, surveyors scan the vessel QR code to pull verified particulars, walk through a 3-step wizard (Ship → Fuel → Tanks), and execute ASTM Table 54B calculations locally on the device without an internet connection.
+            Choose or scan the vessel, enter fuel and tank details, and calculate locally. QR identifies the vessel and optional port; it does not populate tank measurements. A 72-hour offline lease supports field work before synchronising with the web platform.
           </p>
         </AnswerBlock>
       </div>
@@ -51,15 +51,16 @@ export default function Page() {
 
       {/* Product Roadmap Disclosure */}
       <section className="mx-auto max-w-6xl px-4">
-        <div className="rounded-2xl border border-amber-200 bg-amber-50/70 p-5 text-xs text-amber-900 flex items-start gap-3">
-          <AlertCircle className="h-5 w-5 text-amber-700 shrink-0 mt-0.5" />
+        <div className="rounded-2xl border border-[#d3e9f3] bg-[#edf5ff] p-5 text-xs text-[#52657c] flex items-start gap-3">
+          <ShieldCheck className="h-5 w-5 text-[#032aac] shrink-0 mt-0.5" />
           <div className="space-y-1">
-            <strong className="text-amber-950 font-semibold block text-sm">
-              Honest Product Roadmap Disclosure
+            <strong className="text-[#032aac] font-semibold block text-sm">
+              Capture on mobile. Review on the web.
             </strong>
             <p className="leading-relaxed">
-              Tank photos and Chief Engineer digital signatures are currently in active testing for v1.2 release. The production app deployed today captures verified numerical figures, water cuts, temperature probes, and generates immutable SHA-256 certificate hashes.
+              Surveyors submit the field record; an authorised supervisor or administrator completes it. The web platform manages review and finalisation. Tank photos and digital signatures remain roadmap items. Trim and list are recorded as context, not calculated as corrections.
             </p>
+            <Link href="/platform" className="inline-flex pt-2 font-semibold text-[#032aac]">Explore the office web app →</Link>
           </div>
         </div>
       </section>

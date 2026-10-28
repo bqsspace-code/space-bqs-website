@@ -6,7 +6,10 @@ import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
 import GlassInteractions from "./components/GlassInteractions";
 import "./liquid-glass.css";
+import "./cool-pearl.css";
 import { SITE_URL, SITE_NAME } from "./lib/site";
+import { LiquidGlassFilter } from "@/components/ui/liquid-glass-filter";
+import PageProgress from "./components/PageProgress";
 
 const inter = Inter({
   subsets: ["latin"],
@@ -66,6 +69,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en">
       <body className={`${inter.variable} ${bricolage.variable} ${jetbrainsMono.variable}`}>
+        <LiquidGlassFilter />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }}
@@ -75,6 +79,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Header />
           <main>{children}</main>
           <Footer />
+          <PageProgress />
         </SmoothScroll>
       </body>
     </html>

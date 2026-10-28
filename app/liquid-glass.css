@@ -22,7 +22,7 @@ body {
   background-repeat: no-repeat;
 }
 
-[data-glass-surface] {
+[data-glass-surface]:not(.liquid-glass-ui) {
   position: relative;
   background: var(--glass-surface);
   border: 1px solid var(--glass-edge);
@@ -42,7 +42,7 @@ body {
   transition-duration: 180ms;
 }
 
-[data-glass-surface][data-glass-depth]::after {
+[data-glass-surface][data-glass-depth]:not(.liquid-glass-ui)::after {
   content: "";
   position: absolute;
   z-index: 30;
@@ -55,10 +55,10 @@ body {
   transition: opacity 250ms ease;
 }
 
-[data-glass-surface][data-glass-active] {
+[data-glass-surface][data-glass-active]:not(.liquid-glass-ui) {
   box-shadow: inset 0 1px 0 white, inset 0 -1px 0 #b7d7e6, 0 28px 55px -26px rgb(19 68 111 / .32), 0 6px 16px -10px rgb(3 42 172 / .16);
 }
-[data-glass-surface][data-glass-active]::after { opacity: 1; }
+[data-glass-surface][data-glass-active]:not(.liquid-glass-ui)::after { opacity: 1; }
 [data-glass-depth]:focus-visible { outline: 2px solid #032aac; outline-offset: 5px; }
 
 /* Gentle internal parallax gives the phone a separate plane from its shell. */
@@ -68,7 +68,7 @@ body {
 }
 #section-workflows [data-glass-depth] { border-radius: 28px; }
 
-.team-glass-card[data-glass-surface] { border-radius: 22px; }
+.team-glass-card[data-glass-surface]:not(.liquid-glass-ui) { border-radius: 22px; }
 .team-glass-card .gradient-card-panel { border-radius: 50%; opacity: .1; filter: blur(28px); }
 .team-glass-card .gradient-card-float,
 .team-glass-card > svg,
@@ -81,13 +81,13 @@ body {
   border-radius: 20px;
 }
 
-.marine-nav-shell {
+.marine-nav-shell:not(.liquid-nav) {
   background: linear-gradient(120deg, #ffffffc9, #eaf6fbb0 60%, #dceff7b8);
   -webkit-backdrop-filter: blur(24px) saturate(155%);
   backdrop-filter: blur(24px) saturate(155%);
   box-shadow: var(--glass-shadow);
 }
-.marine-header[data-scrolled="true"] .marine-nav-shell {
+.marine-header[data-scrolled="true"] .marine-nav-shell:not(.liquid-nav) {
   background: linear-gradient(120deg, #ffffffe0, #eaf6fbce);
 }
 .marine-shiny--secondary { background: var(--glass-surface); backdrop-filter: blur(12px); border-color: #ffffffd9; }
@@ -124,12 +124,12 @@ body {
   #section-workflows [data-glass-depth] > div:last-child > div { translate: none; transform: none; }
 }
 @media (max-width: 639px) {
-  [data-glass-surface] { -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  [data-glass-surface]:not(.liquid-glass-ui) { -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
   .hero-glass-label { font-size: 9px; letter-spacing: .14em; padding-inline: 12px; }
   .glass-faq-item { padding-inline: 16px; }
 }
 @supports not (backdrop-filter: blur(1px)) {
-  [data-glass-surface] { background: #f0f7fc; }
+  [data-glass-surface]:not(.liquid-glass-ui) { background: #f0f7fc; }
 }
 @media (forced-colors: active) {
   [data-glass-surface] { background: Canvas; border: 1px solid CanvasText; box-shadow: none; }

@@ -232,7 +232,7 @@ export default function ProductVideoSection({
           className="relative mx-auto max-w-5xl rounded-2xl md:rounded-3xl border border-[#D3E9F3] bg-white shadow-[0_24px_70px_-15px_rgba(3,42,172,0.18)] overflow-hidden transition-all duration-300"
         >
           {/* Window / Browser Chrome Bar */}
-          <div className="flex items-center justify-between px-4 py-3 bg-[#EAF4F9]/80 border-b border-[#D3E9F3] backdrop-blur-sm select-none">
+          <div className="liquid-glass-ui flex items-center justify-between px-4 py-3 border-b border-[#D3E9F3] select-none">
             {/* Window control dots */}
             <div className="flex items-center gap-2">
               <span className="w-3 h-3 rounded-full bg-[#FF6A3D]/80" />
@@ -315,19 +315,19 @@ export default function ProductVideoSection({
                         Sounding Tape Recorded at Tank 1P
                       </h3>
                       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
+                        <div className="liquid-glass-ui liquid-glass-ui--dark p-3 rounded-xl border border-white/10">
                           <div className="text-[10px] font-mono text-white/50">Sounding</div>
                           <div className="text-xl font-bold font-mono text-[#19B5C9]">4.250 m</div>
                         </div>
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
+                        <div className="liquid-glass-ui liquid-glass-ui--dark p-3 rounded-xl border border-white/10">
                           <div className="text-[10px] font-mono text-white/50">Temperature</div>
                           <div className="text-xl font-bold font-mono text-white">38.5 °C</div>
                         </div>
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
+                        <div className="liquid-glass-ui liquid-glass-ui--dark p-3 rounded-xl border border-white/10">
                           <div className="text-[10px] font-mono text-white/50">Trim Correction</div>
                           <div className="text-xl font-bold font-mono text-white">+0.012 m</div>
                         </div>
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
+                        <div className="liquid-glass-ui liquid-glass-ui--dark p-3 rounded-xl border border-white/10">
                           <div className="text-[10px] font-mono text-white/50">Free Water</div>
                           <div className="text-xl font-bold font-mono text-[#A5D3E8]">0.000 m</div>
                         </div>
@@ -347,15 +347,15 @@ export default function ProductVideoSection({
                         Instant Temperature Volume Correction
                       </h3>
                       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
+                        <div className="liquid-glass-ui liquid-glass-ui--dark p-3 rounded-xl border border-white/10">
                           <div className="text-[10px] font-mono text-white/50">Density @ 15°C</div>
                           <div className="text-xl font-bold font-mono text-white">0.9500 kg/l</div>
                         </div>
-                        <div className="p-3 rounded-xl bg-white/5 border border-[#19B5C9]/40 bg-[#19B5C9]/10 backdrop-blur-md">
+                        <div className="liquid-glass-ui liquid-glass-ui--cyan p-3 rounded-xl border border-[#19B5C9]/40">
                           <div className="text-[10px] font-mono text-[#19B5C9]">Table 54B VCF</div>
                           <div className="text-xl font-bold font-mono text-[#19B5C9]">0.9842</div>
                         </div>
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
+                        <div className="liquid-glass-ui liquid-glass-ui--dark p-3 rounded-xl border border-white/10">
                           <div className="text-[10px] font-mono text-white/50">Metric Tonnes (Air)</div>
                           <div className="text-xl font-bold font-mono text-white">385.143 MT</div>
                         </div>
@@ -375,15 +375,15 @@ export default function ProductVideoSection({
                         Automatic Cross-Check Against BDN
                       </h3>
                       <div className="grid grid-cols-3 gap-3">
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
+                        <div className="liquid-glass-ui liquid-glass-ui--dark p-3 rounded-xl border border-white/10">
                           <div className="text-[10px] font-mono text-white/50">BDN Stated</div>
                           <div className="text-lg font-bold font-mono text-white">385.000 MT</div>
                         </div>
-                        <div className="p-3 rounded-xl bg-white/5 border border-white/10 backdrop-blur-md">
+                        <div className="liquid-glass-ui liquid-glass-ui--dark p-3 rounded-xl border border-white/10">
                           <div className="text-[10px] font-mono text-white/50">Surveyed MT</div>
                           <div className="text-lg font-bold font-mono text-[#19B5C9]">385.143 MT</div>
                         </div>
-                        <div className="p-3 rounded-xl bg-emerald-500/10 border border-emerald-500/30 backdrop-blur-md">
+                        <div className="liquid-glass-ui liquid-glass-ui--emerald p-3 rounded-xl border border-emerald-500/30">
                           <div className="text-[10px] font-mono text-emerald-400">Variance</div>
                           <div className="text-lg font-bold font-mono text-emerald-300">+0.037%</div>
                         </div>
@@ -403,7 +403,7 @@ export default function ProductVideoSection({
                       <h3 className="text-2xl sm:text-3xl font-display font-bold text-white mb-4">
                         Tamper-Evident SHA-256 PDF Generated
                       </h3>
-                      <div className="p-4 rounded-xl bg-white/5 border border-[#19B5C9]/30 backdrop-blur-md flex items-center justify-between">
+                      <div className="liquid-glass-ui liquid-glass-ui--cyan p-4 rounded-xl border border-[#19B5C9]/30 flex items-center justify-between">
                         <div className="flex items-center gap-3">
                           <ShieldCheck className="w-7 h-7 text-[#19B5C9]" />
                           <div>

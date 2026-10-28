@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import ProductVideoSection from "../components/ProductVideoSection";
+import AppDemoVideoSection from "../components/AppDemoVideoSection";
 
 export const metadata: Metadata = {
   title: "Videos — Explore Space BQS",
@@ -22,7 +22,7 @@ export default function VideosPage() {
           Explore the workflow. Get to know the tools behind every survey.
         </p>
       </header>
-      <ProductVideoSection showWave={false} />
+      <AppDemoVideoSection />
     </div>
   );
 }

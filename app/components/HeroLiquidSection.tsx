@@ -51,18 +51,19 @@ export default function HeroLiquidSection({ className = "", transitionMode = "wa
 
       <motion.div style={{ y: reducedMotion ? 0 : y }} className="mx-auto flex w-full max-w-[1000px] flex-1 flex-col justify-center px-5 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-36">
         <div className="flex flex-col items-center space-y-5 text-center sm:space-y-6">
-          <p className="hero-glass-label font-mono text-[11px] uppercase tracking-[0.22em] text-[#032AAC]/75 sm:text-xs">Precision on deck. Confidence ashore.</p>
+          <p className="hero-glass-label max-w-2xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.16em] text-[#032AAC]/85 sm:text-xs">The world’s first mobile app for bunker quantity surveys.</p>
           <WeightText
             tag="h1" mode="cursor-radius" restWeight={300} activeWeight={800} radius={160}
             activeColor="#032AAC" baseColor="#031038" accentColor="#19B5C9"
             className="mx-auto w-full max-w-4xl font-display text-[clamp(32px,4.5vw,68px)] leading-[1.1] tracking-[-0.03em]"
           >
-            Engineered for the deck.
+            Bunker Quantity Survey Software.
             <br className="hidden sm:inline" />
-            {" "}Calibrated for absolute proof.
+            {" "}Built for Deck and Office.
           </WeightText>
           <p className="max-w-2xl text-sm leading-relaxed text-[#031038]/70 sm:text-base lg:text-lg">
-            Space BQS turns raw deck soundings into ASTM-corrected, tamper-proof bunker certificates in seconds.
+            Capture readings and calculate offline on the mobile app. Review surveys,
+            manage records, and issue locked certificates through the web app.
           </p>
           <div className="pt-1"><CtaRow className="justify-center" /></div>
           <AppStoreBadges showSubtitle={false} />

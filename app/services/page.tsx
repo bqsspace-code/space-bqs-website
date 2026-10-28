@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Section, AnswerBlock, CtaRow, Faq, Breadcrumbs } from "../components/ui";
 import WaveDivider from "../components/WaveDivider";
+import { ServiceLinks } from "../components/MarketingPage";
 
 export const metadata: Metadata = {
   title: "Bunker Survey Workflows — Delivery, ROB, Debunkering",
   description:
-    "All Space BQS workflows in one place: bunker delivery, ROB on/off-hire, and debunkering. Quantity-only, temperature-corrected MT, locked certificates.",
+    "Bunker survey workflows plus data migration and public-cloud, private-cloud, and on-premises implementation services.",
 };
 
 export default function Page() {
@@ -22,7 +23,7 @@ export default function Page() {
         <div className="mx-auto max-w-[1200px] px-4">
           <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/services", label: "Services" }]} />
           <h1 className="font-display mt-4 text-3xl font-bold text-abyss-900 sm:text-4xl lg:text-5xl tracking-tight">
-            Workflows your teams run
+            Workflows and implementation services
           </h1>
           <p className="mt-4 max-w-2xl text-base leading-relaxed" style={{ color: "rgba(3,16,56,0.68)" }}>
             Three workflows in one system for survey firms. Quantity-only — no lab testing.
@@ -38,6 +39,8 @@ export default function Page() {
           </div>
         </div>
       </section>
+
+      <Section eyebrow="Implementation services" title="Move your data. Choose your environment." lede="Support for Space BQS and separately scoped Cargo WMS implementations."><ServiceLinks /></Section>
 
       {/* Comparison table */}
       <Section eyebrow="Compare" title="Which workflow does the job need?">

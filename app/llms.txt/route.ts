@@ -11,8 +11,11 @@ const TEXT = `# ${SITE_NAME} — llms.txt
 - Portal Roadmap: /portal-roadmap (Read-only client verification & tokenized report retrieval)
 - Method: /how-we-measure (measure, subtract water, VCF correct ASTM D1250 Table 54B, convert to MT, engine v1.0.0)
 - Product: /platform (register, dashboard, audit, PDF+Excel), /mobile-app (offline 72h, QR vessel, Ship-Fuel-Tanks)
+- Solutions: /solutions/space-bqs (bunker quantity surveys) and /solutions/cargo-wms (separate custom implementation offering; capabilities scoped per project)
+- Services: /services/data-migration (mapping, trial import, reconciliation), /services/deployment (public cloud, private cloud, on-premises; responsibilities agreed per project)
+- Public tools: /tools (supplied-VCF volume-to-mass worksheet, BDN discrepancy, ROB balance, unit conversions; browser arithmetic, not the production ASTM engine)
 - Sample: /sample-report (A4 PDF Certificate layout + 4-sheet analytical Excel workbook)
-- Pricing: team license by surveyors and volume, see /pricing and /pricing.md
+- Pricing: team license by surveyors and volume, see /pricing; WMS and implementation services quoted separately
 - Evaluate: /demo or /request-demo (firm, team size, volume) or ${CONTACT_EMAIL}
 - Site: ${SITE_URL}
 `;

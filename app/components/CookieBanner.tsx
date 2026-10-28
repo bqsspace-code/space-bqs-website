@@ -31,8 +31,7 @@ export default function CookieBanner() {
       role="dialog"
       aria-live="polite"
       aria-label="Cookie notice"
-      className="fixed inset-x-0 bottom-0 z-50 border-t border-[var(--line)] bg-[rgba(3,7,12,0.95)] p-4"
-      style={{ backdropFilter: "blur(20px)" }}
+      className="liquid-glass-ui liquid-glass-ui--dark fixed inset-x-0 bottom-0 z-50 border-t border-[var(--line)] p-4"
     >
       <div className="mx-auto flex max-w-6xl flex-wrap items-center gap-3">
         <p className="flex-1 text-sm text-[var(--text-mid)]">

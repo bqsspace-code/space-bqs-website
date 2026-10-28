@@ -104,7 +104,7 @@ export function AnswerBlock({
 }) {
   if (dark) {
     return (
-      <div className="rounded-2xl border-l-[3px] border-[#19B5C9] p-6 bg-white/[0.06] border-t border-r border-b border-white/10 backdrop-blur-sm">
+      <div className="liquid-glass-ui liquid-glass-ui--dark rounded-2xl border-l-[3px] border-[#19B5C9] p-6 border-t border-r border-b border-white/10">
         <p className="text-[11px] font-mono font-bold uppercase tracking-[0.15em] text-[#19B5C9] mb-2">
           In short
         </p>

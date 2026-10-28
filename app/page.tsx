@@ -20,6 +20,7 @@ import {
   Breadcrumbs,
 } from "./components/ui";
 import HeroLiquidSection from "./components/HeroLiquidSection";
+import AppDemoVideoSection from "./components/AppDemoVideoSection";
 import AmbientVideo from "./components/AmbientVideo";
 import WaveDivider from "./components/WaveDivider";
 import WeightText from "./components/WeightText";
@@ -34,6 +35,7 @@ import {
 import DeckInteractiveShowcase from "./components/DeckInteractiveShowcase";
 import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
 import { LiquidGlassCard } from "@/components/ui/liquid-weather-glass";
+import { MarketingCard } from "./components/MarketingPage";
 
 
 
@@ -218,7 +220,7 @@ function ReportPreview() {
       </div>
 
       {/* Certificate card in front */}
-      <div data-glass-surface className="rounded-3xl p-6 sm:p-7 bg-white/95 border border-[#D3E9F3] shadow-2xl relative -mt-14 sm:-mt-16 ml-4 sm:ml-8 backdrop-blur-md">
+      <div data-glass-surface className="liquid-glass-ui liquid-glass-ui--strong rounded-3xl p-6 sm:p-7 border border-[#D3E9F3] shadow-2xl relative -mt-14 sm:-mt-16 ml-4 sm:ml-8">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-[#D3E9F3]">
           <div className="flex items-center gap-2">
@@ -267,6 +269,8 @@ export default function Home() {
       {/* ──────────── HERO / FRAMED OCEAN REVEAL ──────────── */}
       <HeroLiquidSection />
 
+      {/* ──────────── PRODUCT VIDEO SHOWCASE ──────────── */}
+      <AppDemoVideoSection />
 
       {/* ──────────── SECTION 1 — TRUST STRIP ──────────── */}
       <section id="section-trust" className="py-8 bg-[#F7FBFD] border-b border-[#D3E9F3]/60">
@@ -331,7 +335,7 @@ export default function Home() {
               Less time moving figures between screens. More time on the survey. Capture, calculate, and prepare the proof in one connected workflow.
             </p>
             <Link href="/mobile-app" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#032AAC] hover:underline focus-visible:outline-2 focus-visible:outline-offset-4">
-              Meet your on-deck companion <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
+              Explore the mobile app <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
           <figure data-glass-depth data-glass-surface className="relative isolate overflow-hidden rounded-3xl border border-[#D3E9F3] bg-[#D3E9F3] shadow-[0_24px_70px_-30px_rgba(3,42,172,0.3)]">
@@ -354,7 +358,7 @@ export default function Home() {
               01
             </span>
             <h3 className="font-display text-xl font-bold text-[#031038] tracking-tight mb-2.5">
-              Capture
+              Capture on mobile
             </h3>
             <p className="text-sm leading-relaxed text-[#031038]/65 max-w-[310px]">
               Surveyors enter ullage or sounding, temperature, and free water per tank. Works offline on deck.
@@ -382,7 +386,7 @@ export default function Home() {
               03
             </span>
             <h3 className="font-display text-xl font-bold text-[#031038] tracking-tight mb-2.5">
-              Prove
+              Review on the web
             </h3>
             <p className="text-sm leading-relaxed text-[#031038]/65 max-w-[310px]">
               A supervisor finalises. The survey locks. Clients get a PDF and Excel they can check.
@@ -398,7 +402,7 @@ export default function Home() {
             {/* Left col */}
             <div className="lg:col-span-6 space-y-6">
               <div>
-                <Eyebrow>In the office</Eyebrow>
+                <Eyebrow>The web app / In the office</Eyebrow>
                 <H2>Once finalised, it stays put.</H2>
                 <p className="mt-4 text-base leading-relaxed text-[#031038]/65">
                   Supervisors review before a report is issued. A finalised survey is locked. It cannot be edited or deleted.
@@ -569,6 +573,14 @@ export default function Home() {
 
       {/* ──────────── SECTION 9 — WHO IT'S FOR ──────────── */}
       <WhoItsForSection />
+
+      <Section eyebrow="Solutions & implementation" title="A rollout that fits your operation." bg="mist">
+        <div className="grid gap-5 md:grid-cols-3">
+          <MarketingCard title="Move your existing data" href="/services/data-migration" linkLabel="Plan a migration">Map, trial-import, and reconcile existing records before the final move.</MarketingCard>
+          <MarketingCard title="Choose the environment" href="/services/deployment" linkLabel="Compare deployments">Public cloud, private cloud, or on-premises, scoped with your infrastructure team.</MarketingCard>
+          <MarketingCard title="Managing cargo instead?" href="/solutions/cargo-wms" linkLabel="Explore Cargo WMS">A separate custom implementation for manifests, locations, tariffs, and controlled cargo release.</MarketingCard>
+        </div>
+      </Section>
 
       {/* ──────────── SECTION 10 — EVIDENCE, DELIVERED ──────────── */}
       <section className="py-20 lg:py-24 bg-[#F7FBFD]">

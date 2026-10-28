@@ -115,7 +115,7 @@ export function BevelWorkflowCards() {
                 </div>
 
                 {/* Floating Pop-Out Widget (Like Bevel's "Daytime HR" card) */}
-                <div className="mx-3 mt-1.5 bg-white/95 backdrop-blur-sm p-3 rounded-2xl border border-slate-200/90 shadow-[0_10px_25px_-5px_rgba(3,16,56,0.14)] flex items-center justify-between">
+                <div className="liquid-glass-ui liquid-glass-ui--strong mx-3 mt-1.5 p-3 rounded-2xl border border-slate-200/90 shadow-[0_10px_25px_-5px_rgba(3,16,56,0.14)] flex items-center justify-between">
                   <div>
                     <div className="flex items-center gap-1.5 text-[9px] font-bold text-slate-500 uppercase tracking-wider">
                       <Fuel className="w-3 h-3 text-[#032AAC]" />
@@ -216,7 +216,7 @@ export function BevelWorkflowCards() {
                 </div>
 
                 {/* Floating Pop-Out Widget (Like Bevel's "8h 30m Sleep Needed" card) */}
-                <div className="mx-3 mt-2 bg-[#121829]/95 backdrop-blur-md p-3 rounded-2xl border border-white/20 shadow-[0_12px_28px_rgba(0,0,0,0.55)] flex items-center justify-between">
+                <div className="liquid-glass-ui liquid-glass-ui--dark mx-3 mt-2 p-3 rounded-2xl border border-white/20 shadow-[0_12px_28px_rgba(0,0,0,0.55)] flex items-center justify-between">
                   <div>
                     <span className="text-base font-display font-black text-white">646 MT</span>
                     <p className="text-[8px] font-mono text-white/60 mt-0.5">Total ROB Certified</p>

@@ -22,7 +22,7 @@ export function AuroraHeroSection() {
         className="relative z-10 flex flex-col items-center max-w-5xl mx-auto text-center"
       >
         {/* Eyebrow Badge with Lucide Icon */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 dark:bg-black/60 border border-slate-200/80 dark:border-white/10 shadow-sm backdrop-blur-md mb-6">
+        <div className="liquid-glass-ui liquid-glass-ui--strong inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-200/80 dark:border-white/10 shadow-sm mb-6">
           <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           <span className="text-xs font-semibold tracking-wide uppercase text-slate-800 dark:text-slate-200">
             Next-Gen Marine Bunker Surveying
@@ -54,7 +54,7 @@ export function AuroraHeroSection() {
           </Link>
           <Link
             href="/platform"
-            className="inline-flex items-center gap-2 bg-white/80 dark:bg-white/10 hover:bg-white dark:hover:bg-white/20 text-slate-900 dark:text-white border border-slate-200 dark:border-white/20 px-6 py-3 rounded-full text-sm font-semibold transition-all backdrop-blur-sm"
+            className="liquid-glass-ui inline-flex items-center gap-2 text-slate-900 dark:text-white border border-slate-200 dark:border-white/20 px-6 py-3 rounded-full text-sm font-semibold transition-all"
           >
             <ShieldCheck className="w-4 h-4 text-emerald-600 dark:text-emerald-400" />
             <span>Explore Platform</span>
@@ -62,7 +62,7 @@ export function AuroraHeroSection() {
         </div>
 
         {/* Vessel Asset Card with Unsplash Marine Image & Badge */}
-        <div className="mt-12 w-full max-w-3xl rounded-2xl overflow-hidden border border-slate-200/80 dark:border-white/10 shadow-2xl bg-white/50 dark:bg-zinc-900/50 backdrop-blur-md p-2">
+        <div className="liquid-glass-ui mt-12 w-full max-w-3xl rounded-2xl overflow-hidden border border-slate-200/80 dark:border-white/10 shadow-2xl p-2">
           <div className="relative aspect-[16/9] w-full rounded-xl overflow-hidden">
             <Image
               src="https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=1200&q=80"
@@ -74,7 +74,7 @@ export function AuroraHeroSection() {
             />
             <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent flex items-end p-6">
               <div className="flex items-center gap-3 text-white">
-                <div className="p-2 rounded-lg bg-blue-600/80 backdrop-blur-sm">
+                <div className="liquid-glass-ui liquid-glass-ui--dark p-2 rounded-lg">
                   <Ship className="w-5 h-5 text-white" />
                 </div>
                 <div className="text-left">

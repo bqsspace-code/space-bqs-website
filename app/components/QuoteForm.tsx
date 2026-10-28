@@ -1,32 +1,24 @@
 "use client";
 
 import { useState } from "react";
-import { z } from "zod";
-
-const schema = z.object({
-  name: z.string().min(2, "Your name required"),
-  email: z.string().email("Valid work email required"),
-  company: z.string().min(2, "Survey firm / company required"),
-  role: z.string().min(2, "Your role required"),
-  teamSize: z.string().min(1, "Team size required"),
-  volume: z.string().optional(),
-  message: z.string().max(2000).optional(),
-});
+import { quoteSchema } from "../lib/quote-schema";
 
 export default function QuoteForm({ compact = false }: { compact?: boolean }) {
-  const [status, setStatus] = useState<"idle" | "error" | "done">("idle");
+  const [status, setStatus] = useState<"idle" | "sending" | "error" | "done">("idle");
   const [message, setMessage] = useState("");
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    const fd = new FormData(e.currentTarget);
+    const form = e.currentTarget;
+    const fd = new FormData(form);
     const data = Object.fromEntries(fd.entries());
-    const parsed = schema.safeParse(data);
+    const parsed = quoteSchema.safeParse(data);
     if (!parsed.success) {
       setStatus("error");
       setMessage(parsed.error.issues[0]?.message ?? "Check the highlighted fields.");
       return;
     }
+    setStatus("sending");
     try {
       const res = await fetch("/api/quote", {
         method: "POST",
@@ -35,11 +27,11 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
       });
       if (!res.ok) throw new Error("submit failed");
       setStatus("done");
-      setMessage("Thanks — we received your request. We reply with a demo slot and pilot plan for your team.");
-      e.currentTarget.reset();
+      setMessage("Thanks — your request has been received. We’ll follow up about your selected solution and implementation needs.");
+      form.reset();
     } catch {
       setStatus("error");
-      setMessage("Could not send just now. Please email ops with your firm, team size and volume.");
+      setMessage("Could not send just now. Please try again or use the contact page.");
     }
   }
 
@@ -51,23 +43,23 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
     <form onSubmit={onSubmit} className={`grid gap-3 ${compact ? "" : "md:grid-cols-2"}`}>
       <input name="name" placeholder="Your name *" className="rounded-lg border p-3" required />
       <input name="email" type="email" placeholder="Work email *" className="rounded-lg border p-3" required />
-      <input name="company" placeholder="Survey firm / company *" className="rounded-lg border p-3" required />
-      <input name="role" placeholder="Your role (ops manager, lead surveyor…) *" className="rounded-lg border p-3" required />
-      <select name="teamSize" className="rounded-lg border p-3" defaultValue="">
-        <option value="" disabled>Surveyors on team *</option>
+      <input name="company" placeholder="Company / survey firm *" aria-label="Company or survey firm" className="rounded-lg border p-3" required />
+      <input name="role" placeholder="Your role *" aria-label="Your role" className="rounded-lg border p-3" required />
+      <label className="text-xs font-semibold text-slate-600">Solution<select name="solution" className="mt-2 w-full rounded-lg border bg-white p-3 text-sm font-normal" defaultValue="Space BQS"><option>Space BQS</option><option>Cargo WMS</option><option>Discuss both</option></select></label>
+      <label className="text-xs font-semibold text-slate-600">Deployment preference<select name="deployment" className="mt-2 w-full rounded-lg border bg-white p-3 text-sm font-normal" defaultValue="Discuss options"><option>Discuss options</option><option>Public cloud</option><option>Private cloud</option><option>On-premises</option></select></label>
+      <select name="teamSize" aria-label="Team size" required className="rounded-lg border bg-white p-3" defaultValue="">
+        <option value="" disabled>Team size *</option>
         <option>1–5</option><option>6–20</option><option>21–50</option><option>50+</option>
       </select>
-      <select name="volume" className="rounded-lg border p-3" defaultValue="">
-        <option value="">Surveys per month (if known)</option>
-        <option>1–10</option><option>11–50</option><option>51–200</option><option>200+</option>
-      </select>
-      <textarea name="message" placeholder="What should the demo cover? Ports you serve, grades, current tools" className="rounded-lg border p-3 md:col-span-2" rows={4} />
-      <div className="md:col-span-2">
+      <input name="volume" aria-label="Monthly survey or cargo volume" placeholder="Monthly surveys / cargo transactions (optional)" maxLength={100} className="rounded-lg border p-3" />
+      <textarea name="message" aria-label="Your requirements" placeholder="Tell us about your workflows, migration files, or infrastructure requirements." maxLength={2000} className={`rounded-lg border p-3 ${compact ? "" : "md:col-span-2"}`} rows={4} />
+      <div className={compact ? "" : "md:col-span-2"}>
         <button
           type="submit"
-          className="inline-flex items-center gap-2 px-7 py-3.5 rounded-full bg-[#032AAC] hover:bg-[#1B4FD1] text-white font-semibold text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer"
+          disabled={status === "sending"}
+          className="marine-shiny marine-shiny--primary inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white font-semibold text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-50"
         >
-          <span>Request a demo</span>
+          <span>{status === "sending" ? "Sending…" : "Request a demo / consultation"}</span>
           <svg
             width="13"
             height="13"
@@ -81,7 +73,8 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
             <path d="M3 11L11 3M11 3H5M11 3V9" />
           </svg>
         </button>
-        <p className="mt-2 text-xs text-slate-500">For survey firms evaluating software — not a per-job booking form.</p>
+        {status === "error" && <p role="alert" className="mt-3 text-sm text-red-700">{message}</p>}
+        <p className="mt-2 text-xs text-slate-500">Discuss software, migration, or deployment. For BQS, we provide software—not survey attendance.</p>
       </div>
     </form>
   );

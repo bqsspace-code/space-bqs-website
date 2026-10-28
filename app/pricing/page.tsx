@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import { Section, CtaRow, Breadcrumbs } from "../components/ui";
+import Link from "next/link";
 
 export const metadata: Metadata = {
   title: "Pricing — Team License for Survey Firms",
@@ -21,8 +22,11 @@ export default function Page() {
           <li>Vessels and monthly survey volume.</li>
           <li>Workflows needed: delivery, ROB, debunkering.</li>
           <li>Onboarding: master tank and VCF table setup, pilot support.</li>
+          <li>Migration: source formats, historical volume, data quality, and reconciliation effort.</li>
+          <li>Deployment: public cloud, private cloud, or on-premises infrastructure and support scope.</li>
         </ul>
       </Section>
+      <Section eyebrow="Implementation" title="Quote the complete rollout"><p className="max-w-3xl text-sm leading-8 text-slate-600">Migration, dedicated environments, integrations, training, and operational ownership are agreed for your implementation. Cargo WMS is a separate custom project, quoted after confirming its workflows, permissions, tariffs, and acceptance criteria.</p><div className="mt-5 flex flex-wrap gap-5 text-sm font-semibold text-[#032aac]"><Link href="/services/data-migration">Data migration →</Link><Link href="/services/deployment">Deployment options →</Link><Link href="/solutions/cargo-wms">Cargo WMS scope →</Link></div></Section>
       <Section eyebrow="Included" title="Every license includes">
         <ul className="list-disc space-y-2 pl-5 text-slate-700">
           <li>Web platform: register, dashboard, vessels, master data.</li>

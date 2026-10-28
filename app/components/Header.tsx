@@ -5,16 +5,24 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
 import { ShinyButton } from "@/components/ui/shiny-button";
+import { LiquidGlassNav } from "@/components/ui/liquid-glass-nav";
 import { useLenis } from "lenis/react";
+import { ChevronDown, ArrowRight } from "lucide-react";
 
 const NAV_LINKS = [
+  { href: "/solutions", label: "Solutions" },
   { href: "/services", label: "Services" },
   { href: "/features", label: "Features" },
   { href: "/platform", label: "Platform" },
-  { href: "/how-we-measure", label: "Method" },
-  { href: "/why-independent", label: "Why Independent" },
+  { href: "/tools", label: "Tools" },
   { href: "/pricing", label: "Pricing" },
   { href: "/resources", label: "Resources" },
+];
+
+const SOLUTION_LINKS = [
+  { href: "/solutions/space-bqs", label: "Space BQS", description: "Mobile on deck. Web in the office." },
+  { href: "/solutions/cargo-wms", label: "Cargo WMS", description: "A custom warehouse-management implementation." },
+  { href: "/solutions", label: "Compare solutions", description: "Choose the workflow for your operation." },
 ];
 
 export default function Header() {
@@ -24,19 +32,13 @@ export default function Header() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const progressLineRef = useRef<HTMLDivElement>(null);
+  const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const headerRef = useRef<HTMLElement>(null);
 
   const onScroll = useCallback(() => {
     const isScrolled = window.scrollY > 24;
     setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
 
-    if (progressLineRef.current) {
-      const docH = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docH > 0 ? Math.min(1, Math.max(0, window.scrollY / docH)) : 0;
-      progressLineRef.current.style.width = `${progress * 100}%`;
-      progressLineRef.current.style.background = progress > 0 ? "#19B5C9" : "transparent";
-      progressLineRef.current.style.opacity = isScrolled ? "0.6" : "0";
-    }
   }, []);
 
   useEffect(() => {
@@ -64,25 +66,38 @@ export default function Header() {
     return () => desktop.removeEventListener("change", closeOnDesktop);
   }, []);
 
-  useEffect(() => { setMobileMenuOpen(false); }, [pathname]);
+  useEffect(() => { setMobileMenuOpen(false); setSolutionsOpen(false); }, [pathname]);
+  useEffect(() => {
+    if (!solutionsOpen) return;
+    const closeOutside = (event: PointerEvent) => {
+      if (event.target instanceof Node && !headerRef.current?.contains(event.target)) setSolutionsOpen(false);
+    };
+    document.addEventListener("pointerdown", closeOutside);
+    return () => document.removeEventListener("pointerdown", closeOutside);
+  }, [solutionsOpen]);
   useEffect(() => {
     const close = (event: KeyboardEvent) => {
       if (event.key === "Escape" && mobileMenuOpen) {
         setMobileMenuOpen(false);
         document.getElementById("navigation-toggle")?.focus();
       }
+      if (event.key === "Escape" && solutionsOpen) {
+        setSolutionsOpen(false);
+        document.getElementById("solutions-toggle")?.focus();
+      }
     };
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
-  }, [mobileMenuOpen]);
+  }, [mobileMenuOpen, solutionsOpen]);
 
   return (
     <header
+      ref={headerRef}
       className="marine-header fixed top-0 left-0 right-0 z-50"
       data-scrolled={scrolled}
     >
-      <div className="marine-nav-shell mx-auto">
-      <div className="flex h-16 items-center justify-between gap-3 px-4 xl:px-5">
+      <LiquidGlassNav className="marine-nav-shell mx-auto">
+      <div className="marine-nav-content flex h-16 items-center justify-between gap-3 px-4 xl:px-5">
         {/* Wordmark + Logo */}
         <Link href="/" className="flex items-center gap-2.5 group">
           <svg
@@ -111,13 +126,18 @@ export default function Header() {
         {/* Desktop Nav */}
          <nav aria-label="Primary" className="hidden items-center gap-0.5 xl:flex" onMouseLeave={() => setHovered(null)}>
           {NAV_LINKS.map((l) => (
+            l.href === "/solutions" ? <button key={l.href} id="solutions-toggle" type="button" onClick={() => setSolutionsOpen((value) => !value)} aria-expanded={solutionsOpen} aria-controls="solutions-navigation" onMouseEnter={() => setHovered(l.href)} onFocus={() => setHovered(l.href)} onBlur={() => setHovered(null)} data-highlighted={hovered === l.href || solutionsOpen || (!hovered && pathname.startsWith("/solutions"))} className="marine-nav-link relative flex items-center gap-1 rounded-full px-3 py-2.5 text-[13px] font-medium">
+              {(hovered === l.href || solutionsOpen || (!hovered && pathname.startsWith("/solutions"))) && <motion.span aria-hidden="true" layoutId="marine-nav-highlight" className="marine-nav-highlight" transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 32 }} />}
+              <span className="relative z-10">Solutions</span><ChevronDown aria-hidden="true" className="relative z-10 size-3" />
+            </button> :
             <Link
               key={l.href}
               href={l.href}
               className="marine-nav-link relative rounded-full px-3 py-2.5 text-[13px] font-medium"
               aria-current={pathname === l.href || pathname.startsWith(`${l.href}/`) ? "page" : undefined}
-              onMouseEnter={() => setHovered(l.href)}
-              onFocus={() => setHovered(l.href)}
+              data-highlighted={hovered === l.href || (!hovered && (pathname === l.href || pathname.startsWith(`${l.href}/`)))}
+              onMouseEnter={() => { setHovered(l.href); setSolutionsOpen(false); }}
+              onFocus={() => { setHovered(l.href); setSolutionsOpen(false); }}
               onBlur={() => setHovered(null)}
             >
               {(hovered === l.href || (!hovered && (pathname === l.href || pathname.startsWith(`${l.href}/`)))) && (
@@ -131,17 +151,10 @@ export default function Header() {
 
         {/* Right CTA */}
         <div className="flex items-center gap-2">
-          <Link
-            href="/request-demo"
-            className="btn-ghost marine-demo-link text-[13px]"
-          >
-            Demo
-          </Link>
           <ShinyButton
             href="/request-demo"
             className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-[13px] font-semibold text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
             style={{
-              background: "linear-gradient(135deg, #032AAC 0%, #1B4FD1 100%)",
               boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 8px rgba(3,42,172,0.18)",
             }}
           >
@@ -186,17 +199,11 @@ export default function Header() {
         </div>
       </div>
 
-      {/* Scroll progress line */}
-      <div
-        ref={progressLineRef}
-        className="marine-scroll-progress h-[2px]"
-        style={{
-          width: "0%",
-          background: "transparent",
-          opacity: 0,
-        }}
-      />
-      </div>
+      </LiquidGlassNav>
+
+      {solutionsOpen && <nav id="solutions-navigation" aria-label="Solutions" className="pointer-events-auto absolute left-1/2 top-full mt-3 hidden w-[min(540px,calc(100vw-48px))] -translate-x-1/2 rounded-2xl border border-[#c8dfea] bg-[#f5faff]/95 p-3 shadow-xl backdrop-blur-xl xl:block">
+        {SOLUTION_LINKS.map((item) => <Link key={item.href} href={item.href} onClick={() => setSolutionsOpen(false)} className="group flex items-center justify-between gap-4 rounded-xl p-4 hover:bg-[#e4efff] focus-visible:outline-2 focus-visible:outline-[#032aac]"><span><span className="block text-sm font-semibold text-[#032aac]">{item.label}</span><span className="mt-1 block text-xs text-[#60748a]">{item.description}</span></span><ArrowRight aria-hidden="true" className="size-4 shrink-0 text-[#032aac]" /></Link>)}
+      </nav>}
 
       {/* Mobile menu — full-screen foam-white sheet */}
       {mobileMenuOpen && (
@@ -217,6 +224,7 @@ export default function Header() {
                 {l.label}
               </Link>
             ))}
+            <div className="my-3 border-y border-[#d3e9f3] py-3">{SOLUTION_LINKS.slice(0, 2).map((item) => <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className="block rounded-xl px-4 py-3 text-sm font-medium text-[#032aac]">{item.label}<span className="mt-1 block text-xs font-normal text-[#60748a]">{item.description}</span></Link>)}</div>
 
             <div className="mt-4 border-t pt-4" style={{ borderColor: "#D3E9F3" }}>
               <Link

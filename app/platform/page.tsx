@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="space-y-12 pb-16">
-      <div className="mx-auto max-w-6xl px-4 pt-8">
+      <div className="mx-auto max-w-6xl px-6 pt-32">
         <Breadcrumbs
           trail={[
             { href: "/", label: "Home" },
@@ -27,7 +27,7 @@ export default function Page() {
           <span className="text-xs text-slate-500 font-mono">Real-Time Fleet Oversight</span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
-          Platform — your firm&apos;s centralized command center
+          The web app — your office view of every survey.
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
           All your surveyors&apos; jobs, all vessels, one immutable register. No loose spreadsheets or disputed figures lost in email chains.
@@ -37,14 +37,14 @@ export default function Page() {
       <div className="mx-auto max-w-6xl px-4">
         <AnswerBlock>
           <p>
-            The Space BQS platform provides survey firm supervisors and operations admins with a live overview of every field inspection. Track jobs as they advance from Draft on deck to Calculated, Under Review, and Finalised. Manage vessel calibration booklets centrally, monitor fleet-wide VCF averages, and generate client-ready PDF and Excel packages with a single click.
+            Review field submissions, follow the web lifecycle from Draft to Calculated, Under Review, and Finalised, and retrieve PDF and Excel outputs. Manage vessel particulars and reference tables centrally. The mobile and web lifecycles are distinct, connected workflows.
           </p>
         </AnswerBlock>
       </div>
 
       {/* Interactive Platform Mockup */}
       <section className="mx-auto max-w-6xl px-4">
-        <OfficeDashboardMock />
+              <OfficeDashboardMock />
       </section>
 
       {/* Core Capabilities */}
@@ -76,7 +76,7 @@ export default function Page() {
             </div>
             <h3 className="font-display font-bold text-ocean-950 text-lg mt-4">Vessel Master Data</h3>
             <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Maintain verified vessel tank calibration tables, trim and heel correction curves, and Table 54B matrix versions centrally so surveyors always use verified data.
+              Maintain vessel particulars, tank calibration references, and Table 54B versions. Trim and list observations are context only; the engine does not calculate trim/list corrections.
             </p>
           </div>
         </div>

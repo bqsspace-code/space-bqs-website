@@ -1,17 +1,7 @@
 "use client";
 
-import React, { useState, useEffect, useRef, useCallback } from "react";
-import Link from "next/link";
-import {
-  QrCode,
-  WifiOff,
-  Lock,
-  ChevronRight,
-  Ship,
-  ArrowRight,
-  FileCheck2,
-  CheckCircle2,
-} from "lucide-react";
+import React, { useEffect, useRef, useCallback } from "react";
+import Image from "next/image";
 import { AppStoreBadges } from "./HomeEnhancements";
 import { useLenis } from "lenis/react";
 import WeightText from "./WeightText";
@@ -28,6 +18,10 @@ interface StageCardData {
   darkBg: string;
   lightBorder: string;
   darkBorder: string;
+  screenshot: string;
+  screenshotAlt: string;
+  calloutTitle: string;
+  calloutDetail: string;
 }
 
 const STAGES: StageCardData[] = [
@@ -36,8 +30,12 @@ const STAGES: StageCardData[] = [
     stepNumber: "01",
     eyebrow: "01 / VESSEL IDENTIFICATION",
     heading: "Scan and verify at the manifold.",
-    sentence: "Strapping tables, trim tables, and vessel capacity load into memory in under two seconds.",
-    tag: "Manifold QR Check",
+    sentence: "Choose the vessel or scan its QR code, then select Bunker Delivery, ROB, or Debunkering to start the survey.",
+    tag: "Vessel & Survey Context",
+    screenshot: "WhatsApp Image 2026-10-09 at 11.09.07 PM (6).jpeg",
+    screenshotAlt: "Space BQS new survey screen with vessel selection, Scan vessel QR, and survey type choices",
+    calloutTitle: "Start with the right vessel",
+    calloutDetail: "Vessel selection · QR · survey type",
     accentColor: "#19B5C9",
     lightBg: "linear-gradient(180deg, #F0F6FB 0%, #E3EEF8 100%)",
     darkBg: "linear-gradient(180deg, #0A1733 0%, #031024 100%)",
@@ -49,8 +47,12 @@ const STAGES: StageCardData[] = [
     stepNumber: "02",
     eyebrow: "02 / 100% OFFLINE CAPTURE",
     heading: "Capture on deck. Zero cellular signal.",
-    sentence: "Deep inside double hulls, sounding dips, water cuts, and temperatures autosave with a 72-hour cryptographic lease.",
-    tag: "Autonomous 72h Lease",
+    sentence: "Review net volume and the live survey total on the device. Save a draft and retain your calculation without a cellular connection.",
+    tag: "Offline Calculation Preview",
+    screenshot: "WhatsApp Image 2026-10-09 at 11.09.07 PM (7).jpeg",
+    screenshotAlt: "Space BQS offline calculation preview with net volume, live survey total, field remarks, and Save and Calculate",
+    calloutTitle: "Your working stays on deck",
+    calloutDetail: "Live preview · draft · saved result",
     accentColor: "#F59E0B",
     lightBg: "linear-gradient(180deg, #F4F1FA 0%, #E7E3F5 100%)",
     darkBg: "linear-gradient(180deg, #13122E 0%, #080A1F 100%)",
@@ -62,8 +64,12 @@ const STAGES: StageCardData[] = [
     stepNumber: "03",
     eyebrow: "03 / REAL-TIME ASTM MATRIX",
     heading: "ASTM Table 54B in real time.",
-    sentence: "Observed volume instantly converts to Gross Standard Volume and certified mass in air as you sound.",
-    tag: "ASTM D1250 Matrix",
+    sentence: "Open the calculation breakdown to review the survey mass and each tank’s contribution before submitting it for review.",
+    tag: "Tank-Level Breakdown",
+    screenshot: "WhatsApp Image 2026-10-09 at 11.09.07 PM (8).jpeg",
+    screenshotAlt: "Space BQS calculation breakdown showing custody transfer mass, tank-level calculations, and the Submit action",
+    calloutTitle: "Follow the tank-level result",
+    calloutDetail: "Calculation breakdown · review · submit",
     accentColor: "#4E8DEB",
     lightBg: "linear-gradient(180deg, #F0F9F6 0%, #DFEFE9 100%)",
     darkBg: "linear-gradient(180deg, #0A2224 0%, #031417 100%)",
@@ -73,10 +79,14 @@ const STAGES: StageCardData[] = [
   {
     id: "certify",
     stepNumber: "04",
-    eyebrow: "04 / IMMUTABLE FINALITY",
-    heading: "Dual-signed proof before leaving the gangway.",
-    sentence: "Chief Engineer and surveyor seal the audit dossier with SHA-256 finality before lines are cast off.",
-    tag: "SHA-256 Sealed",
+    eyebrow: "04 / COMPLETED SURVEY RECORDS",
+    heading: "The completed survey, ready to revisit.",
+    sentence: "Find completed surveys with net mass, correction factor, and observed volume together. Return to the report and soundings when you need to check the record.",
+    tag: "Reports & Soundings",
+    screenshot: "WhatsApp Image 2026-10-09 at 11.09.07 PM (2).jpeg",
+    screenshotAlt: "Space BQS recent completed surveys showing net mass, volume correction factor, and View Report and Soundings",
+    calloutTitle: "Return to the completed record",
+    calloutDetail: "Net mass · VCF · report & soundings",
     accentColor: "#10B981",
     lightBg: "linear-gradient(180deg, #FAF2F2 0%, #F5E3E3 100%)",
     darkBg: "linear-gradient(180deg, #22121B 0%, #11080D 100%)",
@@ -92,7 +102,6 @@ export default function DeckInteractiveShowcase() {
   const screenWrapperRef = useRef<HTMLDivElement>(null);
   const cardRefs = useRef<(HTMLDivElement | null)[]>([]);
   const screenRefs = useRef<(HTMLDivElement | null)[]>([]);
-  const innerRefs = useRef<(HTMLDivElement | null)[]>([]);
   const floatingCardRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   const lastY = useRef<number[]>([0, 640, 640, 640]);
@@ -110,13 +119,13 @@ export default function DeckInteractiveShowcase() {
       s = Math.min(0.82, Math.max(0.65, (vw - 40) / 350));
     } else {
       // Calculate responsive scale to ensure phone height comfortably fits inside card & viewport
-      s = Math.min(0.85, Math.max(0.66, (vh - 120) / 640));
+      s = Math.min(0.85, Math.max(0.66, (vh - 120) / 656));
     }
     scaleRef.current = s;
     stageRef.current.style.setProperty("--s", s.toFixed(4));
   }, []);
 
-  // Update boundary wipe, phone opacity, position limit & in-phone parallax
+  // Update boundary wipe and phone position without moving the captured app UI.
   const updateWipe = useCallback(() => {
     if (!screenWrapperRef.current || !phoneRef.current || !stageRef.current) return;
 
@@ -127,7 +136,7 @@ export default function DeckInteractiveShowcase() {
     if (stageRect.bottom < -100 || stageRect.top > vh + 100) return;
 
     const scale = scaleRef.current || 0.82;
-    const screenHeight = 640;
+    const screenHeight = screenWrapperRef.current.offsetHeight;
 
     // BATCH READ PHASE: Read all bounding rects in one pass to eliminate layout thrashing
     const screenRect = screenWrapperRef.current.getBoundingClientRect();
@@ -176,17 +185,6 @@ export default function DeckInteractiveShowcase() {
       }
     }
 
-    // Prepare parallaxes
-    const parallaxes: { index: number; d: string }[] = [];
-    for (let i = 0; i < STAGES.length; i++) {
-      const cardRect = cardRects[i];
-      if (!cardRect) continue;
-
-      const cardCenter = cardRect.top + cardRect.height * 0.5;
-      const d = Math.min(1, Math.max(-1, (cardCenter - vh * 0.5) / (vh * 0.7)));
-      parallaxes.push({ index: i, d: d.toFixed(3) });
-    }
-
     // Determine active card
     const phoneCenterY = screenRect.top + screenRect.height * 0.5;
     let currentActive = 0;
@@ -209,13 +207,6 @@ export default function DeckInteractiveShowcase() {
       const scrEl = screenRefs.current[w.index];
       if (scrEl) {
         scrEl.style.clipPath = `inset(${w.roundedY}px 0 0 0)`;
-      }
-    }
-
-    for (const p of parallaxes) {
-      const innerEl = innerRefs.current[p.index];
-      if (innerEl) {
-        innerEl.style.setProperty("--d", p.d);
       }
     }
 
@@ -271,8 +262,8 @@ export default function DeckInteractiveShowcase() {
             How the surveyor moves from deck to proof.
           </WeightText>
           <p className="mt-4 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed text-[#031038]/70">
-            Scroll through each stage to watch the Space BQS mobile engine calculate,
-            verify, and seal bunker quantities in real time.
+            Follow the survey workflow through real Space BQS app screens—from
+            vessel selection and offline calculations to completed records.
           </p>
         </div>
 
@@ -283,7 +274,7 @@ export default function DeckInteractiveShowcase() {
           <div
             ref={stageRef}
             aria-hidden="true"
-            className="stage sticky top-0 h-[100svh] -mb-[100svh] z-10 pointer-events-none"
+            className="stage hidden min-[861px]:block sticky top-0 h-[100svh] -mb-[100svh] z-10 pointer-events-none"
             style={{ "--s": "0.82" } as React.CSSProperties}
           >
             {/* Physical Phone Container — Positioned in the right column, vertically anchored */}
@@ -291,8 +282,8 @@ export default function DeckInteractiveShowcase() {
               ref={phoneRef}
               className="phone-container absolute right-[5%] lg:right-[8%] xl:right-[10%] select-none pointer-events-none"
               style={{
-                width: 310,
-                height: 640,
+                width: 304,
+                height: 656,
                 top: "50%",
                 transform: "translateY(-50%) scale(var(--s, 0.82))",
                 transformOrigin: "center right",
@@ -320,356 +311,40 @@ export default function DeckInteractiveShowcase() {
                   ref={screenWrapperRef}
                   className="scr absolute inset-[8px] rounded-[44px] overflow-hidden bg-black"
                 >
-                  {/* Dynamic Island (Fixed Over All Screens) */}
-                  <div className="absolute top-[11px] left-1/2 -translate-x-1/2 w-[86px] h-[24px] bg-black rounded-full z-40 flex items-center justify-between px-2.5 shadow-xs pointer-events-none">
-                    <div className="w-2.5 h-2.5 rounded-full bg-[#0a0d14] flex items-center justify-center">
-                      <div className="w-1.5 h-1.5 rounded-full bg-[#15233e]/80" />
-                    </div>
-                    <div className="w-2 h-2 rounded-full bg-[#0c1424] border border-[#1e293b]" />
-                  </div>
-
-                  {/* ────────────────── SCREEN 1: SCAN & VERIFY (LIGHT) ────────────────── */}
-                  <div
-                    ref={(el) => { screenRefs.current[0] = el; }}
-                    className="s s1 absolute inset-0 bg-white font-sans text-[#031038] will-change-transform"
-                  >
+                  {/* Real app captures; the existing scroll wipe switches the image. */}
+                  {STAGES.map((stage, index) => (
                     <div
-                      ref={(el) => { innerRefs.current[0] = el; }}
-                      className="inner h-full flex flex-col justify-between pt-10 pb-5 px-4"
+                      key={stage.id}
+                      ref={(el) => { screenRefs.current[index] = el; }}
+                      className="s absolute inset-0 bg-[#dcefff]"
+                      style={index > 0 ? { clipPath: "inset(100% 0 0 0)" } : undefined}
                     >
-                      {/* Status bar */}
-                      <div className="flex items-center justify-between text-[11px] font-mono font-bold text-slate-800 pb-2 border-b border-slate-100">
-                        <span>09:41</span>
-                        <span className="text-[9px] font-mono text-[#032AAC] bg-blue-50 px-2 py-0.5 rounded-full border border-blue-100">
-                          v1.2.0 Deck
-                        </span>
-                      </div>
-
-                      {/* Viewfinder Mock */}
-                      <div className="relative mt-2 rounded-2xl bg-[#031038] p-4 text-white aspect-[4/3] flex flex-col items-center justify-center overflow-hidden border border-slate-800">
-                        <div className="absolute top-2 left-2 w-3.5 h-3.5 border-t-2 border-l-2 border-[#19B5C9]" />
-                        <div className="absolute top-2 right-2 w-3.5 h-3.5 border-t-2 border-r-2 border-[#19B5C9]" />
-                        <div className="absolute bottom-2 left-2 w-3.5 h-3.5 border-b-2 border-l-2 border-[#19B5C9]" />
-                        <div className="absolute bottom-2 right-2 w-3.5 h-3.5 border-b-2 border-r-2 border-[#19B5C9]" />
-                        <div className="w-full h-0.5 bg-gradient-to-r from-transparent via-[#19B5C9] to-transparent animate-pulse absolute" />
-                        <QrCode className="w-14 h-14 text-white/90" strokeWidth={1.5} />
-                        <p className="mt-2 text-[9px] font-mono text-[#19B5C9] uppercase font-bold tracking-wider">
-                          Manifold QR Locked
-                        </p>
-                      </div>
-
-                      {/* Scanned Vessel Card */}
-                      <div className="mt-2 rounded-xl bg-[#F0F6FA] p-3 border border-[#D9E6F2] space-y-1">
-                        <div className="flex items-center justify-between">
-                          <span className="font-display font-bold text-xs text-[#031038]">
-                            M/V PACIFIC MARINER
-                          </span>
-                          <span className="text-[9px] font-mono text-[#032AAC] font-bold bg-white px-1.5 py-0.5 rounded border border-[#D3E9F3]">
-                            IMO 9412345
-                          </span>
-                        </div>
-                        <div className="flex justify-between text-[9px] font-mono pt-1 text-[#031038]/70">
-                          <span>Port: Singapore</span>
-                          <span className="text-emerald-700 font-bold">14 Tables Matched</span>
-                        </div>
-                      </div>
-
-                      {/* Bottom Action Button */}
-                      <div className="mt-auto w-full py-2.5 rounded-xl bg-[#032AAC] text-white text-xs font-semibold flex items-center justify-center gap-1.5 shadow-sm">
-                        <span>Begin Sounding Readings</span>
-                        <ChevronRight className="w-3.5 h-3.5" />
-                      </div>
+                      <Image
+                        src={`/assets/mobile_image/${encodeURIComponent(stage.screenshot)}`}
+                        alt={stage.screenshotAlt}
+                        width={576}
+                        height={1280}
+                        sizes="260px"
+                        className="h-full w-full object-contain"
+                      />
                     </div>
-                  </div>
+                  ))}
+                </div>
 
-                  {/* ────────────────── SCREEN 2: OFFLINE CAPTURE (DARK) ────────────────── */}
+                {/* Explanatory captions, not simulated app notifications. */}
+                {STAGES.map((stage, index) => (
                   <div
-                    ref={(el) => { screenRefs.current[1] = el; }}
-                    className="s s2 absolute inset-0 bg-[#0a0e1a] font-sans text-white will-change-transform"
-                    style={{ clipPath: "inset(100% 0 0 0)" }}
+                    key={stage.id}
+                    ref={(el) => { floatingCardRefs.current[index] = el; }}
+                    className={`floating-card ${index === 0 ? "on" : ""} absolute -left-28 lg:-left-36 top-[210px] z-30 max-w-[200px]`}
                   >
-                    <div
-                      ref={(el) => { innerRefs.current[1] = el; }}
-                      className="inner h-full flex flex-col justify-between pt-10 pb-5 px-4"
-                    >
-                      {/* Status bar */}
-                      <div className="flex items-center justify-between text-[11px] font-mono font-bold text-white/80 pb-2 border-b border-white/10">
-                        <span>09:41</span>
-                        <span className="inline-flex items-center gap-1 text-[9px] font-mono font-semibold px-2 py-0.5 rounded-full bg-amber-500/15 text-amber-300 border border-amber-500/30">
-                          <WifiOff className="w-2.5 h-2.5" />
-                          71h Offline Lease
-                        </span>
-                      </div>
-
-                      {/* Ullage Reading Dial */}
-                      <div className="mt-2 rounded-2xl bg-white/[0.04] border border-white/10 p-3 text-center">
-                        <span className="text-[9px] font-mono uppercase tracking-wider text-white/50">
-                          Tank 1P · Ullage Dip Reading
-                        </span>
-                        <div className="font-mono text-3xl font-black text-white tracking-tight mt-1 tabular-nums">
-                          4.250 <span className="text-sm font-normal text-white/50">m</span>
-                        </div>
-                        <div className="w-full bg-white/10 h-1.5 rounded-full overflow-hidden mt-2">
-                          <div className="bg-[#F59E0B] h-full w-[68%]" />
-                        </div>
-                      </div>
-
-                      {/* Sleep-stages style Stepped Depth Bars */}
-                      <div className="mt-2 space-y-1">
-                        <span className="text-[9px] font-mono text-white/50 block">Tank Trim Depth Profile</span>
-                        <div className="flex items-end gap-1.5 h-[50px] bg-white/[0.03] p-1.5 rounded-xl border border-white/10">
-                          <div className="w-[18%] h-[82%] bg-[#19B5C9] rounded-xs" />
-                          <div className="w-[14%] h-[42%] bg-[#3B82F6] rounded-xs" />
-                          <div className="w-[24%] h-[96%] bg-[#F59E0B] rounded-xs" />
-                          <div className="w-[18%] h-[62%] bg-[#60A5FA] rounded-xs" />
-                          <div className="w-[26%] h-[78%] bg-[#10B981] rounded-xs" />
-                        </div>
-                      </div>
-
-                      {/* Field inputs */}
-                      <div className="mt-1 space-y-1 text-[9px] font-mono">
-                        <div className="flex items-center justify-between p-1.5 rounded-lg bg-white/5 border border-white/10">
-                          <span className="text-white/60">Free Water Cut:</span>
-                          <span className="text-amber-400 font-bold">0.050 m (Deducted)</span>
-                        </div>
-                        <div className="flex items-center justify-between p-1.5 rounded-lg bg-white/5 border border-white/10">
-                          <span className="text-white/60">Observed Temp:</span>
-                          <span className="text-white font-bold">40.0 °C</span>
-                        </div>
-                      </div>
-
-                      {/* Tank switcher pills */}
-                      <div className="mt-auto pt-2 flex items-center justify-between gap-1 text-[9px] font-mono">
-                        <div className="flex-1 py-1 rounded bg-amber-500 text-[#031038] font-bold text-center">
-                          1P (4.25m)
-                        </div>
-                        <div className="flex-1 py-1 rounded bg-white/10 text-white/70 text-center">
-                          1S (4.38m)
-                        </div>
-                        <div className="flex-1 py-1 rounded bg-white/10 text-white/70 text-center">
-                          2C (5.12m)
-                        </div>
-                      </div>
+                    <div className="liquid-glass-ui liquid-glass-ui--strong rounded-2xl p-3.5 shadow-2xl border border-l-[3px] border-[#D3E9F3] text-[#031038]" style={{ borderLeftColor: stage.accentColor }}>
+                      <span className="mb-1.5 block font-mono text-[8px] uppercase tracking-wider text-[#031038]/60">Actual app screen · {stage.stepNumber}</span>
+                      <p className="text-xs font-bold leading-tight">{stage.calloutTitle}</p>
+                      <p className="mt-1.5 text-[9px] leading-relaxed text-[#031038]/70">{stage.calloutDetail}</p>
                     </div>
                   </div>
-
-                  {/* ────────────────── SCREEN 3: ASTM MATRIX (GRADIENT RING) ────────────────── */}
-                  <div
-                    ref={(el) => { screenRefs.current[2] = el; }}
-                    className="s s3 absolute inset-0 bg-[#06181E] font-sans text-white will-change-transform"
-                    style={{ clipPath: "inset(100% 0 0 0)" }}
-                  >
-                    <div
-                      ref={(el) => { innerRefs.current[2] = el; }}
-                      className="inner h-full flex flex-col justify-between pt-10 pb-5 px-4"
-                    >
-                      {/* Status bar */}
-                      <div className="flex items-center justify-between text-[11px] font-mono font-bold text-white/80 pb-2 border-b border-white/10">
-                        <span>09:41</span>
-                        <span className="text-[9px] font-mono font-bold text-[#19B5C9] bg-[#19B5C9]/10 px-2 py-0.5 rounded-full border border-[#19B5C9]/30">
-                          ASTM Table 54B
-                        </span>
-                      </div>
-
-                      {/* Gradient Ring View (Like Recovery Dial) */}
-                      <div className="mt-2 flex flex-col items-center justify-center p-2 rounded-2xl bg-white/[0.03] border border-white/10">
-                        <div className="relative w-22 h-22 flex items-center justify-center">
-                          <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
-                            <path
-                              className="text-white/10"
-                              strokeWidth="3.2"
-                              stroke="currentColor"
-                              fill="none"
-                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                            />
-                            <path
-                              className="text-[#19B5C9]"
-                              strokeDasharray="88, 100"
-                              strokeWidth="3.2"
-                              strokeLinecap="round"
-                              stroke="currentColor"
-                              fill="none"
-                              d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831"
-                            />
-                          </svg>
-                          <div className="absolute flex flex-col items-center text-center">
-                            <span className="text-sm font-display font-black text-white">0.9677</span>
-                            <span className="text-[7px] font-mono text-[#19B5C9] uppercase">VCF Coeff</span>
-                          </div>
-                        </div>
-                        <p className="mt-1 text-xs font-mono font-bold text-white">
-                          Net Mass: 225.567 MT
-                        </p>
-                      </div>
-
-                      {/* TOV / GSV Matrix Breakdown */}
-                      <div className="mt-2 space-y-1.5 text-[9px] font-mono bg-white/5 p-2 rounded-xl border border-white/10">
-                        <div className="flex justify-between text-white/60">
-                          <span>Total Observed Vol (TOV)</span>
-                          <span className="text-white font-bold">242.150 m³</span>
-                        </div>
-                        <div className="flex justify-between text-white/60">
-                          <span>Gross Standard Vol (GSV)</span>
-                          <span className="text-white font-bold">234.329 m³</span>
-                        </div>
-                        <div className="flex justify-between text-[#19B5C9] pt-1 border-t border-white/10 font-bold">
-                          <span>Weight Correction Factor</span>
-                          <span>0.99863</span>
-                        </div>
-                      </div>
-
-                      {/* Calculation Status */}
-                      <div className="mt-auto w-full py-2 rounded-xl bg-[#19B5C9] text-[#031038] text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm">
-                        <CheckCircle2 className="w-3.5 h-3.5" />
-                        <span>Ready for Dual Sign-off</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* ────────────────── SCREEN 4: CRYPTOGRAPHIC PROOF (CHAT/VERIFY) ────────────────── */}
-                  <div
-                    ref={(el) => { screenRefs.current[3] = el; }}
-                    className="s s4 absolute inset-0 bg-[#09111E] font-sans text-white will-change-transform"
-                    style={{ clipPath: "inset(100% 0 0 0)" }}
-                  >
-                    <div
-                      ref={(el) => { innerRefs.current[3] = el; }}
-                      className="inner h-full flex flex-col justify-between pt-10 pb-5 px-4"
-                    >
-                      {/* Status bar */}
-                      <div className="flex items-center justify-between text-[11px] font-mono font-bold text-white/80 pb-2 border-b border-white/10">
-                        <span>09:41</span>
-                        <span className="text-[9px] font-mono font-bold text-emerald-400 bg-emerald-500/15 px-2 py-0.5 rounded-full border border-emerald-500/30">
-                          Audit Sealed
-                        </span>
-                      </div>
-
-                      {/* Certified Total Box */}
-                      <div className="mt-2 rounded-2xl bg-white/[0.04] border border-white/10 p-3 text-center">
-                        <span className="text-[9px] font-mono uppercase tracking-wider text-emerald-400 font-bold">
-                          Certified Mass in Air
-                        </span>
-                        <div className="font-mono text-3xl font-black text-white tracking-tight mt-1 tabular-nums">
-                          457.819 <span className="text-sm font-normal text-white/50">MT</span>
-                        </div>
-                        <p className="text-[8px] font-mono text-white/60 mt-0.5">
-                          14 Tanks Reconciled · VLSFO 0.5%
-                        </p>
-                      </div>
-
-                      {/* Sign-off cards */}
-                      <div className="mt-2 space-y-1.5 text-[9px] font-mono">
-                        <div className="p-2 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                          <div>
-                            <span className="text-white/50 block text-[8px]">Chief Engineer</span>
-                            <span className="font-bold text-white">Capt. H. Lindqvist</span>
-                          </div>
-                          <span className="text-emerald-400 font-bold flex items-center gap-1">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Signed
-                          </span>
-                        </div>
-                        <div className="p-2 rounded-xl bg-white/5 border border-white/10 flex items-center justify-between">
-                          <div>
-                            <span className="text-white/50 block text-[8px]">BQS Surveyor</span>
-                            <span className="font-bold text-white">M. Tan (Lic #8812)</span>
-                          </div>
-                          <span className="text-emerald-400 font-bold flex items-center gap-1">
-                            <CheckCircle2 className="w-3 h-3 text-emerald-400" /> Signed
-                          </span>
-                        </div>
-                      </div>
-
-                      {/* SHA-256 Hash */}
-                      <div className="mt-1 p-2 rounded-lg bg-black text-[8px] font-mono flex items-center justify-between border border-white/10">
-                        <span className="text-emerald-400 font-bold">SHA-256</span>
-                        <span className="text-white/70 truncate ml-2">7f8b9a2c4e1d...b89e</span>
-                      </div>
-
-                      {/* Export Button */}
-                      <div className="mt-auto w-full py-2 rounded-xl bg-emerald-600 text-white text-xs font-bold flex items-center justify-center gap-1.5 shadow-sm">
-                        <FileCheck2 className="w-3.5 h-3.5" />
-                        <span>Export Certified Dossier</span>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                {/* ─── FLOATING POP-OUT WIDGETS (Positioned nicely to the left of the phone) ─── */}
-                {/* Floating Card 1: Vessel Matched */}
-                <div
-                  ref={(el) => { floatingCardRefs.current[0] = el; }}
-                  className="floating-card on absolute -left-28 lg:-left-36 top-[130px] z-30 max-w-[210px]"
-                >
-                  <div className="rounded-2xl p-3.5 shadow-2xl border border-l-[3px] border-l-[#19B5C9] bg-white/95 backdrop-blur-md border-[#D3E9F3] text-[#031038]">
-                    <div className="flex items-center gap-1.5 mb-1">
-                      <Ship className="w-3 h-3 text-[#19B5C9]" />
-                      <span className="font-mono text-[9px] uppercase font-bold text-[#19B5C9] tracking-wider">
-                        Vessel Matched
-                      </span>
-                    </div>
-                    <p className="text-xs font-bold leading-tight">M/V PACIFIC MARINER</p>
-                    <p className="text-[9px] mt-1 font-mono text-[#031038]/60">
-                      14 strapping tables loaded
-                    </p>
-                  </div>
-                </div>
-
-                {/* Floating Card 2: 72h Offline Storage */}
-                <div
-                  ref={(el) => { floatingCardRefs.current[1] = el; }}
-                  className="floating-card absolute -left-28 lg:-left-36 top-[210px] z-30 max-w-[220px]"
-                >
-                  <div className="rounded-2xl p-3.5 shadow-2xl border border-l-[3px] border-l-amber-500 bg-white/95 backdrop-blur-md border-[#D3E9F3] text-[#031038]">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-mono text-[9px] uppercase font-bold text-amber-500">
-                        Autonomous Lease
-                      </span>
-                      <span className="w-2 h-2 rounded-full bg-amber-400 animate-pulse" />
-                    </div>
-                    <p className="text-xs font-bold leading-tight">72h Offline Storage Active</p>
-                    <p className="text-[9px] mt-1 font-mono text-[#031038]/60">
-                      Autosaved 1s ago · Zero cell signal
-                    </p>
-                  </div>
-                </div>
-
-                {/* Floating Card 3: ASTM Table 54B */}
-                <div
-                  ref={(el) => { floatingCardRefs.current[2] = el; }}
-                  className="floating-card absolute -left-28 lg:-left-36 top-[290px] z-30 max-w-[210px]"
-                >
-                  <div className="rounded-2xl p-3.5 shadow-2xl border border-l-[3px] border-l-[#4E8DEB] bg-white/95 backdrop-blur-md border-[#D3E9F3] text-[#031038]">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-mono text-[9px] uppercase font-bold text-[#4E8DEB]">
-                        ASTM Table 54B
-                      </span>
-                      <span className="w-2 h-2 rounded-full bg-[#4E8DEB]" />
-                    </div>
-                    <p className="text-xs font-bold leading-tight">VCF: 0.9677 Applied</p>
-                    <p className="text-[9px] text-[#19B5C9] mt-1 font-mono font-bold">
-                      Net Mass: 225.567 MT
-                    </p>
-                  </div>
-                </div>
-
-                {/* Floating Card 4: Cryptographic Finality */}
-                <div
-                  ref={(el) => { floatingCardRefs.current[3] = el; }}
-                  className="floating-card absolute -left-28 lg:-left-36 top-[240px] z-30 max-w-[220px]"
-                >
-                  <div className="rounded-2xl p-3.5 shadow-2xl border border-l-[3px] border-l-emerald-500 bg-white/95 backdrop-blur-md border-[#D3E9F3] text-[#031038]">
-                    <div className="flex items-center justify-between mb-1">
-                      <span className="font-mono text-[9px] uppercase font-bold text-emerald-500">
-                        Cryptographic Lock
-                      </span>
-                      <Lock className="w-3 h-3 text-emerald-500" />
-                    </div>
-                    <p className="text-xs font-bold leading-tight">Certificate Sealed</p>
-                    <p className="text-[9px] mt-1 font-mono truncate text-emerald-700">
-                      #BQS-2026-0042 · SHA-256
-                    </p>
-                  </div>
-                </div>
+                ))}
               </div>
             </div>
           </div>
@@ -680,7 +355,7 @@ export default function DeckInteractiveShowcase() {
               <div
                 key={stage.id}
                 ref={(el) => { cardRefs.current[idx] = el; }}
-                className="relative rounded-[38px] p-8 sm:p-14 lg:p-16 h-[calc(100svh-32px)] min-h-[600px] flex flex-col justify-between overflow-hidden border border-t transition-all duration-500"
+                className="relative rounded-[38px] p-8 sm:p-14 lg:p-16 min-[861px]:h-[calc(100svh-32px)] min-h-[600px] flex flex-col justify-between gap-6 overflow-hidden border border-t transition-all duration-500"
                 style={{
                   background: stage.lightBg,
                   borderColor: stage.lightBorder,
@@ -721,9 +396,20 @@ export default function DeckInteractiveShowcase() {
                   </p>
                 </div>
 
+                <div className="mx-auto w-full max-w-[240px] overflow-hidden rounded-[26px] border-[6px] border-[#101319] bg-[#dcefff] shadow-xl min-[861px]:hidden">
+                  <Image
+                    src={`/assets/mobile_image/${encodeURIComponent(stage.screenshot)}`}
+                    alt={stage.screenshotAlt}
+                    width={576}
+                    height={1280}
+                    sizes="228px"
+                    className="h-auto w-full"
+                  />
+                </div>
+
                 {/* Card Bottom Indicator */}
                 <div className="flex items-center justify-between text-xs font-mono pt-4 border-t text-[#031038]/40 border-[#031038]/10">
-                  <span>Space BQS Marine Engine</span>
+                  <span>Actual Space BQS app screen</span>
                   <span className="font-semibold" style={{ color: stage.accentColor }}>
                     {stage.tag}
                   </span>
@@ -737,7 +423,7 @@ export default function DeckInteractiveShowcase() {
         {/* Deploy Badges Below Section */}
         <div className="mt-16 text-center">
           <p className="text-xs font-semibold mb-3 font-mono uppercase tracking-wider text-[#031038]/70">
-            Deployable on rugged field iOS & Android devices
+            Available for iOS & Android
           </p>
           <div className="inline-block p-4 rounded-2xl bg-white border border-[#D3E9F3] shadow-xs">
             <AppStoreBadges dark={false} />
@@ -752,11 +438,6 @@ export default function DeckInteractiveShowcase() {
         }
         .scr .s {
           will-change: clip-path;
-        }
-        .scr .inner {
-          will-change: transform;
-          transform: translateY(calc(var(--d, 0) * 36px));
-          transition: transform 0.08s linear;
         }
         .floating-card {
           opacity: 0;
@@ -783,10 +464,6 @@ export default function DeckInteractiveShowcase() {
           }
         }
         @media (prefers-reduced-motion: reduce) {
-          .scr .inner {
-            transform: none !important;
-            transition: none !important;
-          }
           .floating-card {
             transition: none !important;
           }

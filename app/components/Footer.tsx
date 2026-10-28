@@ -102,7 +102,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
         <div className="mx-auto max-w-[1200px] px-6 lg:px-8 pt-16 sm:pt-20 pb-16">
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-10 lg:gap-8">
             {/* Brand info (lg: col 5) */}
-            <div className="lg:col-span-5 space-y-4">
+            <div className="lg:col-span-4 space-y-4">
               <Link href="/" className="inline-flex items-center gap-2.5 text-white group">
                 {/* Marine Wave triple-curve icon */}
                 <svg
@@ -136,13 +136,15 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
             </div>
 
             {/* Links columns (lg: col 7 -> 3 subcolumns) */}
-            <div className="lg:col-span-7 grid grid-cols-2 sm:grid-cols-3 gap-8">
+            <div className="lg:col-span-8 grid grid-cols-2 lg:grid-cols-4 gap-8">
               {/* WORKFLOWS */}
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 mb-4 sm:mb-5">
-                  WORKFLOWS
+                  SOLUTIONS
                 </p>
                 <ul className="space-y-3 text-sm">
+                  <li><Link href="/solutions/space-bqs" className="text-slate-300 hover:text-white">Space BQS</Link></li>
+                  <li><Link href="/solutions/cargo-wms" className="text-slate-300 hover:text-white">Cargo WMS</Link></li>
                   <li>
                     <Link
                       href="/services/bunker-delivery-survey"
@@ -170,12 +172,17 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
                 </ul>
               </div>
 
+              <div><p className="mb-4 text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 sm:mb-5">SERVICES</p><ul className="space-y-3 text-sm"><li><Link href="/services/data-migration" className="text-slate-300 hover:text-white">Data migration</Link></li><li><Link href="/services/deployment" className="text-slate-300 hover:text-white">Deployment options</Link></li><li><Link href="/services" className="text-slate-300 hover:text-white">All services</Link></li></ul></div>
+
               {/* PRODUCT */}
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.18em] text-slate-400 mb-4 sm:mb-5">
                   PRODUCT
                 </p>
                 <ul className="space-y-3 text-sm">
+                  <li><Link href="/mobile-app" className="text-slate-300 hover:text-white">Mobile app</Link></li>
+                  <li><Link href="/platform" className="text-slate-300 hover:text-white">Web platform</Link></li>
+                  <li><Link href="/tools" className="text-slate-300 hover:text-white">Free survey tools</Link></li>
                   <li>
                     <Link
                       href="/demo"
@@ -217,6 +224,8 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
                   COMPANY
                 </p>
                 <ul className="space-y-3 text-sm">
+                  <li><Link href="/resources" className="text-slate-300 hover:text-white">Resources</Link></li>
+                  <li><Link href="/why-independent" className="text-slate-300 hover:text-white">Why independent</Link></li>
                   <li>
                     <Link
                       href="/about"

@@ -31,7 +31,7 @@ export default function Page() {
           How the engine calculates — in plain words
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          Four steps. Exact mathematical precision. Zero black-box estimates. Engine v{ENGINE_VERSION}.
+          Follow the inputs, correction factor, and mass conversion. Engine v{ENGINE_VERSION}.
         </p>
       </div>
 
@@ -52,10 +52,10 @@ export default function Page() {
       <section className="mx-auto max-w-6xl px-4">
         <div className="mb-4">
           <h2 className="font-display text-2xl font-bold text-ocean-950">
-            Live Engine Simulator
+            Check the volume-to-mass arithmetic
           </h2>
           <p className="text-xs text-slate-500">
-            Test custom densities and temperatures or verify the 457.819 MT benchmark.
+            Supply your approved VCF and reference density. This worksheet shows the arithmetic; it does not run the production Table 54B engine or calculate a factor from temperature.
           </p>
         </div>
         <LiveCalculator />
@@ -67,41 +67,41 @@ export default function Page() {
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <h3 className="font-display font-bold text-ocean-950 text-lg">Table 54B Matrix Boundaries</h3>
             <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Standard ASTM D1250-04 matrices are hardcoded and verified against international test vectors:
+              Read the correction factor alongside the inputs and table context used for the survey:
             </p>
             <ul className="mt-4 space-y-2 text-xs text-slate-700">
               <li className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-ocean-600"></span>
-                <span><strong>Fuel Oils:</strong> 0.9000 to 1.0000 kg/L density range across 0°C to 90°C.</span>
+                <span><strong>Inputs:</strong> reference density and observed temperature determine the factor.</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-ocean-600"></span>
-                <span><strong>Middle Distillates:</strong> 0.8200 to 0.9000 kg/L density range across 0°C to 60°C.</span>
+                <span><strong>Provenance:</strong> keep the engine and supporting table versions with the result.</span>
               </li>
               <li className="flex items-center gap-2">
                 <span className="h-1.5 w-1.5 rounded-full bg-ocean-600"></span>
-                <span><strong>Thermal Sensitivity:</strong> Computes <code>dVCF/dT</code> rate of change per tank.</span>
+                <span><strong>Review:</strong> inspect the factor and calculation breakdown before finalisation.</span>
               </li>
             </ul>
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
-            <h3 className="font-display font-bold text-ocean-950 text-lg">Defensive Safeguards & Anomaly Flags</h3>
+            <h3 className="font-display font-bold text-ocean-950 text-lg">Method boundaries</h3>
             <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Real ships encounter unusual conditions. The engine protects surveyors by flagging anomalies instead of failing silently:
+              Keep the calculation scope clear when reading the result:
             </p>
             <ul className="mt-4 space-y-2 text-xs text-slate-700">
               <li className="flex items-center gap-2">
                 <AlertOctagon className="h-4 w-4 text-amber-500 shrink-0" />
-                <span><strong>OutOfRangeError:</strong> Triggered if sounding exceeds tank calibration height.</span>
+                <span><strong>Trim and list:</strong> recorded as context; corrections are not computed by the engine.</span>
               </li>
               <li className="flex items-center gap-2">
                 <AlertOctagon className="h-4 w-4 text-amber-500 shrink-0" />
-                <span><strong>Water Cut &gt; 2.0%:</strong> Alert generated when free water exceeds standard settling.</span>
+                <span><strong>Quantity only:</strong> a quantity result does not establish fuel quality or lab compliance.</span>
               </li>
               <li className="flex items-center gap-2">
                 <ShieldCheck className="h-4 w-4 text-sea-600 shrink-0" />
-                <span><strong>Immutable Signatures:</strong> SHA-256 fingerprint seals all parameters upon finalization.</span>
+                <span><strong>Public tools:</strong> worksheets use explicitly supplied factors and do not issue certificates.</span>
               </li>
             </ul>
           </div>
