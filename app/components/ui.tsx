@@ -65,7 +65,7 @@ export function Section({
   return (
     <section
       id={id}
-      className={`py-20 lg:py-24 ${bg === "mist" ? "bg-mist-100" : ""} ${className}`}
+      className={`liquid-section py-20 lg:py-24 ${bg === "mist" ? "bg-mist-100" : ""} ${className}`}
     >
       <ScrollReveal className={`mx-auto max-w-6xl px-6 ${align === "center" ? "text-center" : ""}`}>
         {eyebrow && (
@@ -193,7 +193,7 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
       />
-      <div className="divide-y" style={{ borderColor: "#D3E9F3" }}>
+      <div className="glass-faq" style={{ borderColor: "#D3E9F3" }}>
         {items.map((item) => (
           <FaqItem key={item.q} q={item.q} a={item.a} />
         ))}
@@ -214,7 +214,7 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   }, [open]);
 
   return (
-    <div className="py-5">
+    <div data-glass-surface className="glass-faq-item py-5">
       <button
         onClick={() => setOpen(!open)}
         className="flex w-full items-center justify-between text-left group"

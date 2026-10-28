@@ -46,11 +46,12 @@ export default function HeroLiquidSection({ className = "", transitionMode = "wa
       <AuroraBackground as="div" className="pointer-events-none absolute inset-0 -z-20 h-full w-full bg-white" showRadialGradient>
         <div className="absolute inset-0 bg-grid-subtle opacity-25" />
       </AuroraBackground>
+      <div className="hero-glass-current" aria-hidden="true" />
       <div className="pointer-events-none absolute inset-x-0 bottom-0 -z-10 h-48 bg-gradient-to-t from-[#F7FBFD] to-transparent" />
 
       <motion.div style={{ y: reducedMotion ? 0 : y }} className="mx-auto flex w-full max-w-[1000px] flex-1 flex-col justify-center px-5 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-36">
         <div className="flex flex-col items-center space-y-5 text-center sm:space-y-6">
-          <p className="font-mono text-[11px] uppercase tracking-[0.22em] text-[#032AAC]/75 sm:text-xs">Precision on deck. Confidence ashore.</p>
+          <p className="hero-glass-label font-mono text-[11px] uppercase tracking-[0.22em] text-[#032AAC]/75 sm:text-xs">Precision on deck. Confidence ashore.</p>
           <WeightText
             tag="h1" mode="cursor-radius" restWeight={300} activeWeight={800} radius={160}
             activeColor="#032AAC" baseColor="#031038" accentColor="#19B5C9"

@@ -4,6 +4,8 @@ import "./globals.css";
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
+import GlassInteractions from "./components/GlassInteractions";
+import "./liquid-glass.css";
 import { SITE_URL, SITE_NAME } from "./lib/site";
 
 const inter = Inter({
@@ -69,6 +71,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{ __html: JSON.stringify(ORG_SCHEMA) }}
         />
         <SmoothScroll>
+          <GlassInteractions />
           <Header />
           <main>{children}</main>
           <Footer />

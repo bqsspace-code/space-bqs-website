@@ -98,7 +98,7 @@ export default function SurveyWorkflowComparison() {
         </div>
 
         <div className="grid gap-5 lg:grid-cols-[260px_minmax(0,1fr)]">
-          <nav aria-label="Explore workflow benefits" className="rounded-2xl border border-white/90 bg-white/45 p-3 shadow-[0_8px_32px_-24px_rgba(3,42,172,0.2)] backdrop-blur-xl lg:p-4">
+          <nav data-glass-surface aria-label="Explore workflow benefits" className="rounded-2xl border border-white/90 bg-white/45 p-3 shadow-[0_8px_32px_-24px_rgba(3,42,172,0.2)] backdrop-blur-xl lg:p-4">
             <p className="mb-3 hidden px-3 pt-1 font-mono text-[9px] uppercase tracking-[0.16em] text-[#63758a] lg:block">The survey, end to end</p>
             <div className="grid grid-cols-2 gap-1.5 lg:grid-cols-1">
               {STAGES.map((item, index) => (
@@ -113,7 +113,7 @@ export default function SurveyWorkflowComparison() {
             <div className="mt-5 hidden border-t border-[#d3e9f3] px-3 pt-5 text-[11px] leading-5 text-[#63758a] lg:block"><Link2 aria-hidden="true" className="mb-2 size-4 text-[#032aac]" />One connected record.<br />Six fewer handoff gaps to manage.</div>
           </nav>
 
-          <div id={`${id}-panel`} role="region" aria-label={`${stage.label} comparison`} className="min-w-0 overflow-hidden rounded-2xl border border-[#d3e9f3] bg-white/80 shadow-[0_24px_70px_-45px_rgba(3,42,172,0.25)]">
+          <div data-glass-surface id={`${id}-panel`} role="region" aria-label={`${stage.label} comparison`} className="min-w-0 overflow-hidden rounded-2xl border border-[#d3e9f3] bg-white/80 shadow-[0_24px_70px_-45px_rgba(3,42,172,0.25)]">
             <AnimatePresence mode="wait" initial={false}>
               <motion.div key={stage.short} initial={{ opacity: 0, y: reduceMotion ? 0 : 7 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0 }} transition={{ duration: reduceMotion ? 0 : 0.18 }}>
                 <div className="border-b border-[#e4edf4] px-6 pb-6 pt-7 sm:px-8">
@@ -133,7 +133,7 @@ export default function SurveyWorkflowComparison() {
                     <div aria-hidden="true" className="workflow-proof-grid pointer-events-none absolute inset-0 opacity-30" />
                     <div className="relative">
                       <div className="mb-5 flex items-center justify-between gap-2 text-white/80"><span className="flex items-center gap-2 font-mono text-[9px] font-semibold uppercase tracking-[0.12em]"><span className="size-1.5 rounded-full bg-cyan-200" />Space BQS</span><span className="text-[9px] text-white/60">Illustrative record</span></div>
-                      <div className="rounded-xl border border-white/25 bg-white/[0.09] p-5 shadow-[0_12px_40px_-20px_rgba(0,0,0,0.3)] backdrop-blur-md">
+                      <div data-glass-depth className="glass-dark-panel rounded-xl border border-white/25 bg-white/[0.09] p-5 shadow-[0_12px_40px_-20px_rgba(0,0,0,0.3)] backdrop-blur-md">
                         <div className="mb-5 flex items-start gap-3"><span className="flex size-9 shrink-0 items-center justify-center rounded-lg border border-white/20 bg-white/10"><ProofIcon aria-hidden="true" className="size-4 text-cyan-100" /></span><div><h4 className="text-sm font-semibold text-white">{stage.proofTitle}</h4><p className="mt-1 text-[10px] text-cyan-100/90">{stage.status}</p></div></div>
                         <div className="divide-y divide-white/10 border-y border-white/15">{stage.rows.map(([label, value]) => <div key={label} className="flex flex-wrap items-center justify-between gap-x-3 gap-y-1 py-3"><span className="text-[10px] text-blue-100/75">{label}</span><span className="font-mono text-[11px] font-medium text-white">{value}</span></div>)}</div>
                         <div className="mt-4 flex items-start gap-2 text-[11px] leading-5 text-cyan-100"><Check aria-hidden="true" className="mt-0.5 size-3.5 shrink-0" />{stage.artifact}</div>

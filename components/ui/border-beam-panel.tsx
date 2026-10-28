@@ -48,7 +48,7 @@ export function BorderBeamPanel({ children, className, seed = 1, ...props }: HTM
   }, [seed]);
 
   return (
-    <div {...props} ref={ref} className={cn("marine-beam-panel", className)}
+    <div {...props} ref={ref} data-glass-depth data-glass-surface className={cn("marine-beam-panel", className)}
       onPointerEnter={() => { engaged.current = true; }} onPointerLeave={() => { engaged.current = false; }}
       onFocus={() => { engaged.current = true; }} onBlur={() => { engaged.current = false; }}>
       <span aria-hidden="true" className="marine-beam-ring" />

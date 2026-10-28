@@ -25,9 +25,11 @@ export function BevelWorkflowCards() {
       {/* ─── CARD 1: BUNKER DELIVERY (Light Strain-style Theme) ─── */}
       <Link
         href="/services/bunker-delivery-survey"
+        data-glass-depth
+        data-glass-surface
         className="group relative rounded-[32px] sm:rounded-[36px] p-7 sm:p-8 flex flex-col justify-between overflow-hidden border border-[#D9E6F2] transition-all duration-500 hover:shadow-2xl hover:-translate-y-1.5"
         style={{
-          background: "linear-gradient(180deg, #F0F6FA 0%, #E3EDF6 100%)",
+          background: "var(--glass-surface)",
         }}
       >
         {/* Card Header Content */}
@@ -139,9 +141,11 @@ export function BevelWorkflowCards() {
       {/* ─── CARD 2: ROB & ON/OFF-HIRE (Dark Sleep-style Theme) ─── */}
       <Link
         href="/services/rob-survey"
+        data-glass-depth
+        data-glass-surface
         className="group relative rounded-[32px] sm:rounded-[36px] p-7 sm:p-8 flex flex-col justify-between overflow-hidden border border-[#D5DFEC] transition-all duration-500 hover:shadow-2xl hover:-translate-y-1.5"
         style={{
-          background: "linear-gradient(180deg, #F2F5F9 0%, #E6EBF2 100%)",
+          background: "var(--glass-surface)",
         }}
       >
         {/* Card Header Content */}
@@ -231,9 +235,11 @@ export function BevelWorkflowCards() {
       {/* ─── CARD 3: DEBUNKERING (Fresh Sky/Mint Recovery-style Theme) ─── */}
       <Link
         href="/services/debunkering-survey"
+        data-glass-depth
+        data-glass-surface
         className="group relative rounded-[32px] sm:rounded-[36px] p-7 sm:p-8 flex flex-col justify-between overflow-hidden border border-[#D2E7E2] transition-all duration-500 hover:shadow-2xl hover:-translate-y-1.5"
         style={{
-          background: "linear-gradient(180deg, #F0F8F6 0%, #E1EFEA 100%)",
+          background: "var(--glass-surface)",
         }}
       >
         {/* Card Header Content */}

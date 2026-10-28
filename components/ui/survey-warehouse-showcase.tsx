@@ -53,7 +53,7 @@ export default function SurveyWarehouseShowcase() {
           ))}
         </div>
 
-        <div className="overflow-hidden rounded-2xl border border-[#c6ddea] bg-white/80 shadow-[0_32px_80px_-48px_rgba(3,42,172,.4)]">
+        <div data-glass-surface className="overflow-hidden rounded-2xl border border-[#c6ddea] bg-white/80 shadow-[0_32px_80px_-48px_rgba(3,42,172,.4)]">
           <div className="flex flex-wrap items-center justify-between gap-3 bg-[#071e52] px-5 py-4 sm:px-6">
             <div className="flex items-center gap-3"><span aria-hidden="true" className="flex size-7 items-center justify-center rounded-lg border border-white/20 bg-white/10"><Database className="size-3.5 text-cyan-100" /></span><span className="text-xs font-medium text-white">Survey Warehouse</span><span className="hidden text-white/25 sm:inline">/</span><span className="hidden text-[11px] text-white/55 sm:inline">Finalised records</span></div>
             <span className="rounded-full border border-white/15 px-2.5 py-1 font-mono text-[9px] uppercase tracking-wider text-blue-100/80">Interactive preview · sample data</span>

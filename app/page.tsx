@@ -78,7 +78,7 @@ const FAQ_ITEMS = [
 /* ─── OfficePreview (Section 4 Mock Browser) ─── */
 function OfficePreview() {
   return (
-    <div className="rounded-3xl overflow-hidden border border-[#D3E9F3] bg-white shadow-xl">
+    <div data-glass-depth data-glass-surface className="rounded-3xl overflow-hidden border border-[#D3E9F3] bg-white shadow-xl">
       {/* Chrome bar */}
       <div className="bg-[#EAF4F9]/80 border-b border-[#D3E9F3] px-4 py-2.5 flex items-center justify-between">
         <div className="flex items-center gap-1.5">
@@ -191,7 +191,7 @@ function OfficePreview() {
 /* ─── ReportPreview (Section 7 Deliverables Mock) ─── */
 function ReportPreview() {
   return (
-    <div className="relative pt-6 pb-4 max-w-lg mx-auto">
+    <div data-glass-depth className="relative pt-6 pb-4 max-w-lg mx-auto">
       {/* Tilted Excel card behind (-5deg) */}
       <div className="rounded-3xl p-6 bg-[#EAF4F9] border border-[#D3E9F3] shadow-md transform -rotate-5 transition-transform hover:rotate-0 duration-300">
         <div className="flex items-center gap-2.5 text-[#032AAC]">
@@ -218,7 +218,7 @@ function ReportPreview() {
       </div>
 
       {/* Certificate card in front */}
-      <div className="rounded-3xl p-6 sm:p-7 bg-white/95 border border-[#D3E9F3] shadow-2xl relative -mt-14 sm:-mt-16 ml-4 sm:ml-8 backdrop-blur-md">
+      <div data-glass-surface className="rounded-3xl p-6 sm:p-7 bg-white/95 border border-[#D3E9F3] shadow-2xl relative -mt-14 sm:-mt-16 ml-4 sm:ml-8 backdrop-blur-md">
         {/* Header */}
         <div className="flex items-center justify-between pb-3 border-b border-[#D3E9F3]">
           <div className="flex items-center gap-2">
@@ -263,7 +263,7 @@ function ReportPreview() {
 
 export default function Home() {
   return (
-    <div>
+    <div className="liquid-home">
       {/* ──────────── HERO / FRAMED OCEAN REVEAL ──────────── */}
       <HeroLiquidSection />
 
@@ -334,7 +334,7 @@ export default function Home() {
               Meet your on-deck companion <ArrowUpRight className="h-4 w-4" aria-hidden="true" />
             </Link>
           </div>
-          <figure className="relative isolate overflow-hidden rounded-3xl border border-[#D3E9F3] bg-[#D3E9F3] shadow-[0_24px_70px_-30px_rgba(3,42,172,0.3)]">
+          <figure data-glass-depth data-glass-surface className="relative isolate overflow-hidden rounded-3xl border border-[#D3E9F3] bg-[#D3E9F3] shadow-[0_24px_70px_-30px_rgba(3,42,172,0.3)]">
             <div className="relative aspect-video">
               <AmbientVideo src="/assets/videos/mobile-showcase-web.mp4" poster="/assets/videos/mobile-showcase-poster.webp" label="mobile app concept video" />
             </div>
@@ -600,7 +600,7 @@ export default function Home() {
       {/* ──────────── SECTION 8 — PRICING TEASER ──────────── */}
       <section className="pt-20 lg:pt-24 pb-0 bg-mist-100">
         <div className="mx-auto max-w-6xl px-6 pb-20">
-          <div className="grid overflow-hidden rounded-3xl border border-[#D3E9F3] bg-white shadow-sm lg:grid-cols-2">
+          <div data-glass-surface className="grid overflow-hidden rounded-3xl border border-[#D3E9F3] bg-white shadow-sm lg:grid-cols-2">
             <div className="relative isolate min-h-[320px] overflow-hidden bg-[#031038] sm:min-h-[400px]">
               <AmbientVideo src="/assets/videos/ocean-yacht-web.mp4" poster="/assets/videos/ocean-yacht-poster.webp" label="yacht at sea video" className="-z-20" />
               <div className="absolute inset-0 -z-10 bg-gradient-to-t from-[#031038]/90 via-[#031038]/10 to-transparent" />
