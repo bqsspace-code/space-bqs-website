@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, useReducedMotion } from "framer-motion";
@@ -24,14 +24,18 @@ export default function Header() {
   const [hovered, setHovered] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
-  const [scrollProgress, setScrollProgress] = useState(0);
+  const progressLineRef = useRef<HTMLDivElement>(null);
 
   const onScroll = useCallback(() => {
-    setScrolled(window.scrollY > 24);
+    const isScrolled = window.scrollY > 24;
+    setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
 
-    const docH = document.documentElement.scrollHeight - window.innerHeight;
-    if (docH > 0) {
-      setScrollProgress(Math.min(1, window.scrollY / docH));
+    if (progressLineRef.current) {
+      const docH = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docH > 0 ? Math.min(1, Math.max(0, window.scrollY / docH)) : 0;
+      progressLineRef.current.style.width = `${progress * 100}%`;
+      progressLineRef.current.style.background = progress > 0 ? "#19B5C9" : "transparent";
+      progressLineRef.current.style.opacity = isScrolled ? "0.6" : "0";
     }
   }, []);
 
@@ -184,11 +188,12 @@ export default function Header() {
 
       {/* Scroll progress line */}
       <div
+        ref={progressLineRef}
         className="marine-scroll-progress h-[2px]"
         style={{
-          width: `${scrollProgress * 100}%`,
-          background: scrollProgress > 0 ? "#19B5C9" : "transparent",
-          opacity: scrolled ? 0.6 : 0,
+          width: "0%",
+          background: "transparent",
+          opacity: 0,
         }}
       />
       </div>

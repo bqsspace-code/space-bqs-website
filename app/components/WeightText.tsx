@@ -23,6 +23,21 @@ type TextSegment =
   | { type: "text"; text: string }
   | { type: "br"; className?: string };
 
+function isBrElement(el: unknown): boolean {
+  if (!el || typeof el !== "object") return false;
+  const anyEl = el as { type?: unknown };
+  const type = anyEl.type;
+  if (type === "br" || type === "BR") return true;
+  if (typeof type === "string" && (type.toLowerCase() === "br" || type.toLowerCase().endsWith(":br"))) return true;
+  if (typeof type === "function" && type.name && type.name.toLowerCase() === "br") return true;
+  if (typeof type === "object" && type !== null) {
+    const t = type as { name?: string; displayName?: string };
+    if (t.name && String(t.name).toLowerCase() === "br") return true;
+    if (t.displayName && String(t.displayName).toLowerCase() === "br") return true;
+  }
+  return false;
+}
+
 function parseSegments(node: React.ReactNode): TextSegment[] {
   const segments: TextSegment[] = [];
 
@@ -32,12 +47,12 @@ function parseSegments(node: React.ReactNode): TextSegment[] {
       segments.push({ type: "text", text: String(child) });
     } else if (Array.isArray(child)) {
       child.forEach(traverse);
-    } else if (typeof child === "object" && child !== null && "type" in child) {
-      const el = child as React.ReactElement<{ className?: string; children?: React.ReactNode }>;
-      if (el.type === "br") {
-        segments.push({ type: "br", className: el.props?.className });
-      } else if (el.props && "children" in el.props) {
-        traverse(el.props.children);
+    } else if (typeof child === "object" && child !== null) {
+      const anyChild = child as any;
+      if (isBrElement(anyChild)) {
+        segments.push({ type: "br", className: anyChild.props?.className });
+      } else if (anyChild.props && "children" in anyChild.props) {
+        traverse(anyChild.props.children);
       }
     }
   }
@@ -257,14 +272,16 @@ export default function WeightText({
   ]);
 
   // Hook directly into Lenis smooth-scroll loop with frame deduplication
-  useLenis(() => {
+  const onLenisScroll = useCallback(() => {
     if (reducedMotion || effectiveMode === "whole-text" || isUpdatingRef.current) return;
     isUpdatingRef.current = true;
     requestAnimationFrame(() => {
       updateWeights();
       isUpdatingRef.current = false;
     });
-  });
+  }, [reducedMotion, effectiveMode, updateWeights]);
+
+  useLenis(onLenisScroll, [onLenisScroll]);
 
   useEffect(() => {
     if (reducedMotion || effectiveMode === "whole-text") return;
@@ -356,6 +373,7 @@ export default function WeightText({
       style={style}
       ref={containerRef as React.RefObject<HTMLHeadingElement>}
       aria-label={plainText}
+      suppressHydrationWarning
     >
       <span aria-hidden="true" className="inline">
         {segments.map((seg, segIndex) => {

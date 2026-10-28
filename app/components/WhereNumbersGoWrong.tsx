@@ -11,8 +11,7 @@ export function WhereNumbersGoWrong() {
   const scene2Ref = useRef<HTMLDivElement>(null);
   const scene3Ref = useRef<HTMLDivElement>(null);
   const reducedMotionRef = useRef(false);
-
-  const [progress, setProgress] = useState(0);
+  const waterlineFillRef = useRef<HTMLDivElement>(null);
   const [activeNodes, setActiveNodes] = useState<boolean[]>([false, false, false]);
 
   const updateScroll = useCallback(() => {
@@ -21,11 +20,11 @@ export function WhereNumbersGoWrong() {
     const windowH = window.innerHeight;
     const totalH = rect.height;
 
-    if (totalH > 0) {
+    if (totalH > 0 && waterlineFillRef.current) {
       // Start filling when the story top reaches 60% of viewport
       const currentY = windowH * 0.6 - rect.top;
       const targetP = Math.max(0, Math.min(1, currentY / totalH));
-      setProgress(targetP);
+      waterlineFillRef.current.style.transform = `scaleY(${targetP})`;
     }
 
     // Check node activation: when scene center passes 62% of viewport height
@@ -45,17 +44,16 @@ export function WhereNumbersGoWrong() {
   }, []);
 
   // Hook directly into Lenis smooth-scroll loop for 60fps frame-synced updates
-  useLenis(() => {
-    if (reducedMotionRef.current) return;
-    updateScroll();
-  });
+  useLenis(updateScroll, [updateScroll]);
 
   useEffect(() => {
     // Check reduced motion
     const mediaQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
     if (mediaQuery.matches) {
       reducedMotionRef.current = true;
-      setProgress(1);
+      if (waterlineFillRef.current) {
+        waterlineFillRef.current.style.transform = "scaleY(1)";
+      }
       setActiveNodes([true, true, true]);
       return;
     }
@@ -119,10 +117,11 @@ export function WhereNumbersGoWrong() {
           >
             {/* Waterline Fill Indicator with smooth scale transition */}
             <div
+              ref={waterlineFillRef}
               className="w-full h-full rounded-full origin-top transition-transform duration-150 ease-out"
               style={{
                 background: "linear-gradient(to bottom, #19B5C9, #032AAC)",
-                transform: `scaleY(${progress})`,
+                transform: "scaleY(0)",
               }}
             />
           </div>

@@ -20,7 +20,6 @@ import {
   Breadcrumbs,
 } from "./components/ui";
 import HeroLiquidSection from "./components/HeroLiquidSection";
-import ProductVideoSection from "./components/ProductVideoSection";
 import AmbientVideo from "./components/AmbientVideo";
 import WaveDivider from "./components/WaveDivider";
 import WeightText from "./components/WeightText";
@@ -268,8 +267,6 @@ export default function Home() {
       {/* ──────────── HERO / FRAMED OCEAN REVEAL ──────────── */}
       <HeroLiquidSection />
 
-      {/* ──────────── PRODUCT VIDEO SHOWCASE ──────────── */}
-      <ProductVideoSection />
 
       {/* ──────────── SECTION 1 — TRUST STRIP ──────────── */}
       <section id="section-trust" className="py-8 bg-[#F7FBFD] border-b border-[#D3E9F3]/60">
