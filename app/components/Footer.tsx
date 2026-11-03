@@ -2,8 +2,8 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { ENGINE_VERSION } from "../lib/site";
 import WaveDivider from "./WaveDivider";
+import WaveTransition from "./WaveTransition";
 import FlowingCenterRipple from "./FlowingCenterRipple";
 
 export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
@@ -15,12 +15,12 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
     <footer className="relative text-white overflow-hidden bg-transparent">
       {/* ───────────────── 1. TOP WAVE DIVIDER ───────────────── */}
       <div className="relative w-full bg-transparent pointer-events-none select-none">
-        <WaveDivider
+        {pathname === "/" ? <WaveTransition variant="deep" to="#071E62" accent="#4e8deb" flip overlay={false} /> : <WaveDivider
           colors={["#A5D3E8", "#1B4FD1", "#071E62"]}
           alphas={[0.45, 0.22, 1.0]}
           depths={[0.35, 0.54, 0.74]}
           kinetic={true}
-        />
+        />}
       </div>
 
       {/* ───────────────── 2. PILOT CTA SECTION ───────────────── */}
@@ -30,7 +30,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
           className="relative -mt-px w-full pt-4 pb-20 sm:pb-24 lg:pb-28"
           style={{
             background:
-              "radial-gradient(ellipse 80% 65% at 50% 25%, #071E62 0%, #051A59 55%, #031038 100%)",
+              "linear-gradient(to bottom, #071E62, transparent 100px), radial-gradient(ellipse 80% 65% at 50% 25%, #071E62 0%, #051A59 55%, #031038 100%)",
           }}
         >
           {/* Dynamic Flowing Water Ripple and Pulsing Core */}
@@ -255,9 +255,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
               © {new Date().getFullYear()} Space BQS
             </div>
 
-            <div className="font-mono text-slate-400 text-xs text-center">
-              Engine v{ENGINE_VERSION} · ASTM D1250-04 Table 54B
-            </div>
+
 
             <div className="text-slate-400 text-right">
               Quantity. Confidence. Proof.

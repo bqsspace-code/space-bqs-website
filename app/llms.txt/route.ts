@@ -9,7 +9,7 @@ const TEXT = `# ${SITE_NAME} — llms.txt
 - Workflows: /services/bunker-delivery-survey, /services/rob-survey, /services/debunkering-survey
 - Lifecycle: /order-lifecycle (Draft -> In Progress -> Submitted -> Completed / Finalised)
 - Portal Roadmap: /portal-roadmap (Read-only client verification & tokenized report retrieval)
-- Method: /how-we-measure (measure, subtract water, VCF correct ASTM D1250 Table 54B, convert to MT, engine v1.0.0)
+- Method: /how-we-measure (measure, subtract water, VCF correct, convert to MT)
 - Product: /platform (register, dashboard, audit, PDF+Excel), /mobile-app (offline 72h, QR vessel, Ship-Fuel-Tanks)
 - Solutions: /solutions/space-bqs (bunker quantity surveys) and /solutions/cargo-wms (separate custom implementation offering; capabilities scoped per project)
 - Services: /services/data-migration (mapping, trial import, reconciliation), /services/deployment (public cloud, private cloud, on-premises; responsibilities agreed per project)

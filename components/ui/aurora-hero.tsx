@@ -79,7 +79,7 @@ export function AuroraHeroSection() {
                 </div>
                 <div className="text-left">
                   <p className="text-sm font-medium">Bunker Delivery & ROB Survey Engine</p>
-                  <p className="text-xs text-white/75">Vessel Tank Register & ASTM D1250 Table 54B Offline Sync</p>
+                  <p className="text-xs text-white/75">Vessel Tank Register & Offline Calculation Sync</p>
                 </div>
               </div>
             </div>

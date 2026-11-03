@@ -9,6 +9,14 @@ body {
   background: #f1f7fb;
 }
 
+.aurora-layers[data-paused="true"] > div {
+  animation-play-state: paused;
+  will-change: auto;
+}
+@media (prefers-reduced-motion: reduce) {
+  .aurora-layers > div { animation: none; will-change: auto; }
+}
+
 :where(.liquid-section, .liquid-home > section:not(:first-child):not([style])) {
   background-image: radial-gradient(ellipse at 90% 15%, rgb(168 209 244 / .19), transparent 52%), radial-gradient(ellipse at 5% 85%, rgb(143 220 226 / .13), transparent 45%);
 }
@@ -28,12 +36,12 @@ body {
   border: 1px solid var(--glass-edge);
   border-bottom-color: rgb(143 178 203 / .36);
   box-shadow: var(--glass-shadow);
-  -webkit-backdrop-filter: blur(18px) saturate(135%);
-  backdrop-filter: blur(18px) saturate(135%);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
 }
 
 [data-glass-depth] {
-  transform: perspective(1100px) rotateX(var(--glass-rx, 0deg)) rotateY(var(--glass-ry, 0deg)) translateY(0);
+  transform: none;
   transition: transform 400ms cubic-bezier(.2,.8,.2,1), box-shadow 400ms ease;
 }
 
@@ -124,7 +132,7 @@ body {
   #section-workflows [data-glass-depth] > div:last-child > div { translate: none; transform: none; }
 }
 @media (max-width: 639px) {
-  [data-glass-surface]:not(.liquid-glass-ui) { -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); }
+  [data-glass-surface]:not(.liquid-glass-ui) { -webkit-backdrop-filter: none; backdrop-filter: none; }
   .hero-glass-label { font-size: 9px; letter-spacing: .14em; padding-inline: 12px; }
   .glass-faq-item { padding-inline: 16px; }
 }

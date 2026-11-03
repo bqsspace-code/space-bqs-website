@@ -33,7 +33,7 @@ export default function SampleReportPage() {
           <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
             Official BQS Evidence Package
           </span>
-          <span className="text-xs text-slate-500 font-mono">Engine v1.0.0 Verified</span>
+          <span className="text-xs text-slate-500 font-mono">Verified Calculation</span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
           Sample Bunker Quantity Survey Report
@@ -101,7 +101,7 @@ export default function SampleReportPage() {
                     CERTIFICATE OF BUNKER QUANTITY
                   </h2>
                   <p className="text-xs text-slate-500 font-mono mt-0.5">
-                    Survey Reference: <strong>BQS-2026-0142</strong> · Issued Under Space BQS Engine v1.0.0
+                    Survey Reference: <strong>BQS-2026-0142</strong> · Issued Under Space BQS
                   </p>
                 </div>
                 <div className="text-right font-mono text-xs text-slate-600 sm:border-l sm:border-slate-200 sm:pl-6">
@@ -213,7 +213,7 @@ export default function SampleReportPage() {
               {/* Security Hash & Disclaimer Footer */}
               <div className="border-t border-slate-200 pt-4 flex flex-wrap justify-between items-center text-[10px] text-slate-400 font-mono">
                 <span>Cryptographic Digest: SHA256: 8f3d9a12c8b0e9c471b0457819</span>
-                <span>Space BQS Engine v1.0.0 · ASTM D1250-04</span>
+                <span>Space BQS Verified Certificate</span>
               </div>
             </div>
           </div>
@@ -264,7 +264,7 @@ export default function SampleReportPage() {
                       <tr><td className="bg-slate-50 px-3 py-2 font-semibold">VESSEL_IMO</td><td className="px-3 py-2">9412345</td></tr>
                       <tr><td className="bg-slate-50 px-3 py-2 font-semibold">DELIVERED_MT</td><td className="px-3 py-2 font-bold text-sea-700">457.819 MT</td></tr>
                       <tr><td className="bg-slate-50 px-3 py-2 font-semibold">WATER_DEDUCTED_M3</td><td className="px-3 py-2">0.120 m³</td></tr>
-                      <tr><td className="bg-slate-50 px-3 py-2 font-semibold">VCF_METHOD</td><td className="px-3 py-2">ASTM D1250-04 Table 54B</td></tr>
+                      <tr><td className="bg-slate-50 px-3 py-2 font-semibold">VCF_METHOD</td><td className="px-3 py-2">Table 54B (VCF)</td></tr>
                     </tbody>
                   </table>
                 </div>

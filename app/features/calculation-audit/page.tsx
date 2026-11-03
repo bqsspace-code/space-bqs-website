@@ -4,7 +4,7 @@ import { Section, AnswerBlock, CtaRow, Breadcrumbs } from "../../components/ui";
 export const metadata: Metadata = {
   title: "Calculation & Audit — From Reading to Tonnes With Proof",
   description:
-    "Space BQS engine v1.0.0: ullage to volume via strapping, minus water, VCF via ASTM Table 54B, to mass in MT. Per-line audit, no guessing.",
+    "Space BQS: ullage to volume via strapping, minus water, VCF correction, to mass in MT. Per-line audit, no guessing.",
 };
 
 export default function Page() {
@@ -13,7 +13,7 @@ export default function Page() {
       <div className="mx-auto max-w-6xl px-4 pt-8">
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/features", label: "Features" }, { href: "/features/calculation-audit", label: "Calculation & Audit" }]} />
         <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">Calculation &amp; audit</h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">Same engine on web and mobile. Engine v1.0.0. Every line shows its source.</p>
+        <p className="mt-3 max-w-3xl text-lg text-slate-600">Same engine on web and mobile. Every line shows its source.</p>
       </div>
       <Section eyebrow="Pipeline" title="Five steps, deterministic">
         <ul className="list-disc space-y-2 pl-5 text-slate-700">

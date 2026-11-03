@@ -107,7 +107,7 @@ export default function HeroCertificateMock() {
               457.819 MT
             </p>
             <p className="font-mono text-[10px]" style={{ color: "rgba(3,16,56,0.4)" }}>
-              VCF 0.9677 · Engine v1.0.0
+              VCF 0.9677 · Verified
             </p>
           </div>
         </div>
@@ -196,7 +196,7 @@ export default function HeroCertificateMock() {
               <path d="M7 1L2 4V7C2 10.31 4.14 13.39 7 14C9.86 13.39 12 10.31 12 7V4L7 1Z" stroke="#032AAC" strokeWidth="1.2" fill="rgba(3,42,172,0.06)" />
               <path d="M5 7L6.5 8.5L9 5.5" stroke="#032AAC" strokeWidth="1.2" fill="none" />
             </svg>
-            <span>Engine v1.0.0 · Table 54B</span>
+            <span>Verified Calculation</span>
           </div>
           <span className="font-mono text-[10px]" style={{ color: "rgba(3,16,56,0.3)" }}>
             Density 0.9500 at 40°C · VCF 0.9677

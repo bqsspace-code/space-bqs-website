@@ -3,7 +3,7 @@
 import React, { useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
 import { AppStoreBadges } from "./HomeEnhancements";
-import { useLenis } from "lenis/react";
+import { useViewportScroll } from "./useViewportScroll";
 import WeightText from "./WeightText";
 
 interface StageCardData {
@@ -127,6 +127,7 @@ export default function DeckInteractiveShowcase() {
 
   // Update boundary wipe and phone position without moving the captured app UI.
   const updateWipe = useCallback(() => {
+    if (window.innerWidth < 861) return;
     if (!screenWrapperRef.current || !phoneRef.current || !stageRef.current) return;
 
     const vh = window.innerHeight;
@@ -198,7 +199,7 @@ export default function DeckInteractiveShowcase() {
 
     // BATCH WRITE PHASE: Apply all style mutations together with zero forced reflows
     if (hasPhoneCalc) {
-      phoneRef.current.style.top = `${phoneTopInsideStage}px`;
+      phoneRef.current.style.transform = `translateY(${phoneTopInsideStage - 328}px) scale(var(--s, 0.82))`;
       phoneRef.current.style.opacity = phoneOpacity.toFixed(3);
       phoneRef.current.style.visibility = phoneOpacity > 0.01 ? "visible" : "hidden";
     }
@@ -223,21 +224,16 @@ export default function DeckInteractiveShowcase() {
     }
   }, []);
 
-  // Sync directly with Lenis smooth scroll loop
-  useLenis(() => {
-    updateWipe();
-  });
+  useViewportScroll(containerRef, updateWipe);
 
   // Native scroll & resize fallback listeners
   useEffect(() => {
     measure();
     window.addEventListener("resize", measure, { passive: true });
-    window.addEventListener("scroll", updateWipe, { passive: true });
     updateWipe();
 
     return () => {
       window.removeEventListener("resize", measure);
-      window.removeEventListener("scroll", updateWipe);
     };
   }, [measure, updateWipe]);
 
@@ -284,8 +280,8 @@ export default function DeckInteractiveShowcase() {
               style={{
                 width: 304,
                 height: 656,
-                top: "50%",
-                transform: "translateY(-50%) scale(var(--s, 0.82))",
+                top: 0,
+                transform: "translateY(0) scale(var(--s, 0.82))",
                 transformOrigin: "center right",
                 opacity: 0,
                 transition: "opacity 0.2s ease-out",

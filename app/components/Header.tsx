@@ -34,10 +34,14 @@ export default function Header() {
   const [scrolled, setScrolled] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const headerRef = useRef<HTMLElement>(null);
+  const scrolledRef = useRef(false);
 
   const onScroll = useCallback(() => {
     const isScrolled = window.scrollY > 24;
-    setScrolled((prev) => (prev !== isScrolled ? isScrolled : prev));
+    if (scrolledRef.current !== isScrolled) {
+      scrolledRef.current = isScrolled;
+      setScrolled(isScrolled);
+    }
 
   }, []);
 
@@ -243,11 +247,7 @@ export default function Header() {
               </Link>
             </div>
 
-            <div className="mt-auto pt-8 flex items-center gap-2 text-xs" style={{ color: "rgba(3,16,56,0.44)" }}>
-              <span>Engine v1.0.0</span>
-              <span>·</span>
-              <span>ASTM D1250-04 Table 54B</span>
-            </div>
+
           </nav>
         </div>
       )}

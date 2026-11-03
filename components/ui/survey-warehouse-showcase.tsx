@@ -8,6 +8,7 @@ import {
   FileSpreadsheet, FolderOpen, Layers, LockKeyhole, Search, Ship, X,
 } from "lucide-react";
 import { cn } from "@/lib/utils";
+import WeightText from "@/app/components/WeightText";
 
 const BENEFITS = [
   { icon: Search, title: "Find the survey", subtitle: "Search, not folder-hunt.", detail: "Use survey identifiers to get back to the whole record. Try “Singapore”, “ROB”, or “0002” in this sample archive." },
@@ -38,7 +39,7 @@ export default function SurveyWarehouseShowcase() {
         <div className="mb-10 flex flex-col justify-between gap-6 lg:flex-row lg:items-end">
           <div>
             <p className="mb-4 flex items-center gap-2 font-mono text-[10px] font-semibold uppercase tracking-[0.18em] text-[#032aac]"><Archive aria-hidden="true" className="size-3.5" />The Survey Warehouse</p>
-            <h2 id={`${id}-heading`} className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-[#031038] sm:text-4xl lg:text-5xl">The job is finished.<br /><span className="text-[#032aac]">The proof stays together.</span></h2>
+            <WeightText id={`${id}-heading`} tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-[#031038] sm:text-4xl lg:text-5xl">The job is finished.<br />The proof stays together.</WeightText>
           </div>
           <p className="max-w-sm text-sm leading-7 text-[#52657c]">When a client asks months later, open the record. Find the readings, table versions, review history, and issued files together.</p>
         </div>

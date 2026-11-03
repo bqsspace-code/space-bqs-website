@@ -373,7 +373,7 @@ export default function LiquidTankStage() {
             Water out. Temperature corrected.
           </h2>
           <p className="text-body leading-relaxed">
-            Net volume is observed volume minus free water. The correction factor comes from ASTM D1250-04 Table 54B. Corrected volume times density gives mass in metric tons.
+            Net volume is observed volume minus free water. The correction factor comes from standard volume correction tables. Corrected volume times density gives mass in metric tons.
           </p>
           <div className="flex flex-wrap gap-2 justify-end">
             {["Table 54B", "4-decimal VCF", "In air or in vacuum"].map((chip) => (

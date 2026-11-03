@@ -1,9 +1,8 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
-import { useLenis } from "lenis/react";
+import { useViewportScroll } from "./useViewportScroll";
 import WeightText from "./WeightText";
-import WaveDivider from "./WaveDivider";
 
 export function WhereNumbersGoWrong() {
   const storyRef = useRef<HTMLDivElement>(null);
@@ -20,31 +19,22 @@ export function WhereNumbersGoWrong() {
     const windowH = window.innerHeight;
     const totalH = rect.height;
 
-    if (totalH > 0 && waterlineFillRef.current) {
-      // Start filling when the story top reaches 60% of viewport
-      const currentY = windowH * 0.6 - rect.top;
-      const targetP = Math.max(0, Math.min(1, currentY / totalH));
-      waterlineFillRef.current.style.transform = `scaleY(${targetP})`;
-    }
-
-    // Check node activation: when scene center passes 62% of viewport height
+    // Finish layout reads before writing the waterline transform.
     const sceneEls = [scene1Ref.current, scene2Ref.current, scene3Ref.current];
-    sceneEls.forEach((el, idx) => {
-      if (!el) return;
+    const reached = sceneEls.map((el) => {
+      if (!el) return false;
       const sRect = el.getBoundingClientRect();
       const sCenter = sRect.top + sRect.height * 0.5;
-      const reached = sCenter <= windowH * 0.62;
-      setActiveNodes((prev) => {
-        if (prev[idx] === reached) return prev;
-        const next = [...prev];
-        next[idx] = reached;
-        return next;
-      });
+      return sCenter <= windowH * 0.62;
     });
+    if (totalH > 0 && waterlineFillRef.current) {
+      const targetP = Math.max(0, Math.min(1, (windowH * 0.6 - rect.top) / totalH));
+      waterlineFillRef.current.style.transform = `scaleY(${targetP})`;
+    }
+    setActiveNodes((prev) => prev.every((value, index) => value === reached[index]) ? prev : reached);
   }, []);
 
-  // Hook directly into Lenis smooth-scroll loop for 60fps frame-synced updates
-  useLenis(updateScroll, [updateScroll]);
+  useViewportScroll(storyRef, updateScroll);
 
   useEffect(() => {
     // Check reduced motion
@@ -58,14 +48,7 @@ export function WhereNumbersGoWrong() {
       return;
     }
 
-    window.addEventListener("scroll", updateScroll, { passive: true });
-    window.addEventListener("resize", updateScroll, { passive: true });
     updateScroll();
-
-    return () => {
-      window.removeEventListener("scroll", updateScroll);
-      window.removeEventListener("resize", updateScroll);
-    };
   }, [updateScroll]);
 
   return (
@@ -75,16 +58,6 @@ export function WhereNumbersGoWrong() {
       style={{ background: "#F7FBFD" }}
       aria-labelledby="friction-heading"
     >
-      {/* ─── Top Liquid Wave Divider ─── */}
-      <div className="w-full relative z-10 -mb-1 pointer-events-none" aria-hidden="true">
-        <WaveDivider
-          direction="down"
-          layers={2}
-          colors={["#EAF4F9", "#D3E9F3"]}
-          height={65}
-          kinetic={true}
-        />
-      </div>
 
       <div className="max-w-[1200px] mx-auto px-6 sm:px-8 pt-[clamp(56px,8vw,120px)] pb-[clamp(56px,8vw,120px)]">
         {/* ─── Section Header with Scroll-Reveal Weight & Color Animation ─── */}
@@ -158,9 +131,9 @@ export function WhereNumbersGoWrong() {
                 </span>
               </div>
 
-              <h3 className="font-display text-[clamp(32px,4vw,52px)] leading-[1.04] tracking-[-0.03em] font-bold text-[#031038] mt-3">
+              <WeightText tag="h3" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-[clamp(32px,4vw,52px)] leading-[1.04] tracking-[-0.03em] font-bold text-[#031038] mt-3">
                 Paper that gets retyped
-              </h3>
+              </WeightText>
 
               <p className="font-sans text-[18px] sm:text-[19px] leading-[1.6] text-[#031038]/85 font-normal mt-4 max-w-[44ch]">
                 Numbers written on deck are typed again at a desk, and every copy
@@ -238,9 +211,9 @@ export function WhereNumbersGoWrong() {
                 </span>
               </div>
 
-              <h3 className="font-display text-[clamp(32px,4vw,52px)] leading-[1.04] tracking-[-0.03em] font-bold text-[#031038] mt-3">
+              <WeightText tag="h3" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-[clamp(32px,4vw,52px)] leading-[1.04] tracking-[-0.03em] font-bold text-[#031038] mt-3">
                 Formulas that quietly break
-              </h3>
+              </WeightText>
 
               <p className="font-sans text-[18px] sm:text-[19px] leading-[1.6] text-[#031038]/85 font-normal mt-4 max-w-[44ch]">
                 A spreadsheet copied between jobs carries its mistakes with it.
@@ -327,9 +300,9 @@ export function WhereNumbersGoWrong() {
                 </span>
               </div>
 
-              <h3 className="font-display text-[clamp(32px,4vw,52px)] leading-[1.04] tracking-[-0.03em] font-bold text-[#031038] mt-3">
+              <WeightText tag="h3" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-[clamp(32px,4vw,52px)] leading-[1.04] tracking-[-0.03em] font-bold text-[#031038] mt-3">
                 Files nobody can find
-              </h3>
+              </WeightText>
 
               <p className="font-sans text-[18px] sm:text-[19px] leading-[1.6] text-[#031038]/85 font-normal mt-4 max-w-[44ch]">
                 When a claim arrives months later, the proof is somewhere in an
@@ -382,16 +355,6 @@ export function WhereNumbersGoWrong() {
         </div>
       </div>
 
-      {/* ─── Bottom Liquid Wave Divider ─── */}
-      <div className="w-full relative z-10 -mt-1 pointer-events-none" aria-hidden="true">
-        <WaveDivider
-          direction="up"
-          layers={2}
-          colors={["#D3E9F3", "#EAF4F9"]}
-          height={65}
-          kinetic={true}
-        />
-      </div>
     </section>
   );
 }

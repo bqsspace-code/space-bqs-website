@@ -6,6 +6,7 @@ interface AuroraBackgroundProps extends React.HTMLProps<HTMLDivElement> {
   children: ReactNode;
   showRadialGradient?: boolean;
   as?: "main" | "div" | "section";
+  paused?: boolean;
 }
 
 export const AuroraBackground = ({
@@ -13,6 +14,7 @@ export const AuroraBackground = ({
   children,
   showRadialGradient = true,
   as: Component = "div",
+  paused = false,
   ...props
 }: AuroraBackgroundProps) => {
   return (
@@ -23,9 +25,10 @@ export const AuroraBackground = ({
       )}
       {...props}
     >
-      {/* ─── Ultra-Lightweight 120 FPS White Aurora Engine (Zero Blur Filter Overhead) ─── */}
+      {/* Transform-only aurora; pause its large layers when the hero is offscreen. */}
       <div
-        className="absolute inset-0 overflow-hidden pointer-events-none select-none"
+        className="aurora-layers absolute inset-0 overflow-hidden pointer-events-none select-none"
+        data-paused={paused}
         style={{
           contain: "strict",
           isolation: "isolate",

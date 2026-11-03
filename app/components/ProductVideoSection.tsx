@@ -341,7 +341,7 @@ export default function ProductVideoSection({
                   {activeChapter === 1 && (
                     <div className="animate-in fade-in duration-500 max-w-xl mx-auto">
                       <div className="text-xs font-mono text-[#19B5C9] uppercase tracking-wider mb-1">
-                        Phase 02 / 04 · ASTM D1250-04 Table 54B
+                        Phase 02 / 04 · Volume Correction Factor
                       </div>
                       <h3 className="text-2xl sm:text-3xl font-display font-bold text-white mb-4">
                         Instant Temperature Volume Correction
@@ -616,7 +616,7 @@ export default function ProductVideoSection({
               Zero Rounding Drift
             </div>
             <div className="text-xs font-mono text-[#032AAC] uppercase tracking-wider mt-0.5">
-              ASTM D1250-04 Certified
+              Certified Volume Calculation
             </div>
             <p className="mt-2 text-xs text-[#031038]/70 leading-relaxed font-sans">
               Exact Table 54B algorithms replace error-prone Excel approximations.

@@ -22,7 +22,7 @@ interface WaveDividerProps {
  * - Ambient sine undulation with dual harmonic cross-swell (time * 0.00035)
  * - Scroll-reactive swelling: tracks scroll velocity and scales wave amplitude
  * - Pointer-reactive Gaussian pull toward cursor position
- * - Capped devicePixelRatio at 2, IntersectionObserver pause off-screen, prefers-reduced-motion support
+ * - Capped devicePixelRatio at 1.5 and 30fps drawing, pauses off-screen/in hidden tabs
  */
 export default function WaveDivider({
   className = "",
@@ -38,6 +38,7 @@ export default function WaveDivider({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const animRef = useRef<number>(0);
   const isVisibleRef = useRef<boolean>(false);
+  const lastDrawRef = useRef(0);
 
   // Motion physics refs
   const scrollVelRef = useRef<number>(0);
@@ -55,13 +56,13 @@ export default function WaveDivider({
     return () => mq.removeEventListener("change", handler);
   }, []);
 
-  // Responsive canvas resize with DPR capping at 2
+  // Responsive canvas resize with DPR capping at 1.5
   const resize = useCallback(() => {
     const canvas = canvasRef.current;
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const w = container.clientWidth;
     const h = container.clientHeight;
 
@@ -85,7 +86,7 @@ export default function WaveDivider({
     const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const dpr = Math.min(window.devicePixelRatio || 1, 1.5);
     const w = canvas.width / dpr;
     const h = canvas.height / dpr;
 
@@ -132,7 +133,7 @@ export default function WaveDivider({
       ctx.moveTo(0, h); // Start at bottom-left corner
 
       // Calculate wave across the full width
-      const step = 3;
+      const step = 6;
       for (let x = 0; x <= w + step; x += step) {
         const clampedX = Math.min(x, w);
 
@@ -167,9 +168,13 @@ export default function WaveDivider({
 
   // Animation frame handler
   const animate = useCallback((timestamp: number) => {
-    if (!isVisibleRef.current) return;
+    if (!isVisibleRef.current || document.hidden) return;
     try {
-      draw(timestamp);
+      // Slow decorative waves do not need a full canvas repaint at display refresh rate.
+      if (timestamp - lastDrawRef.current >= 1000 / 30) {
+        draw(timestamp);
+        lastDrawRef.current = timestamp;
+      }
     } catch {
       // guard against exceptions
     }
@@ -186,11 +191,13 @@ export default function WaveDivider({
       const currentY = window.scrollY;
       const delta = Math.abs(currentY - lastScrollYRef.current);
       lastScrollYRef.current = currentY;
+      if (!isVisibleRef.current) return;
       // velocity = velocity * 0.9 + delta * 0.1
       scrollVelRef.current = scrollVelRef.current * 0.9 + delta * 0.1;
     };
 
     const onPointerMove = (e: PointerEvent) => {
+      if (!isVisibleRef.current || e.pointerType === "touch") return;
       const container = containerRef.current;
       if (!container) return;
       const rect = container.getBoundingClientRect();
@@ -242,6 +249,15 @@ export default function WaveDivider({
     );
 
     observer.observe(container);
+    const onVisibilityChange = () => {
+      cancelAnimationFrame(animRef.current);
+      if (!document.hidden && isVisibleRef.current && !reducedMotion) {
+        animRef.current = requestAnimationFrame(animate);
+      }
+    };
+    const redraw = () => draw(performance.now());
+    document.addEventListener("visibilitychange", onVisibilityChange);
+    window.addEventListener("resize", redraw);
 
     // Initial trigger or static frame
     if (reducedMotion) {
@@ -253,6 +269,8 @@ export default function WaveDivider({
 
     return () => {
       observer.disconnect();
+      document.removeEventListener("visibilitychange", onVisibilityChange);
+      window.removeEventListener("resize", redraw);
       cancelAnimationFrame(animRef.current);
     };
   }, [animate, draw, reducedMotion]);

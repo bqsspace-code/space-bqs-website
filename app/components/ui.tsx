@@ -33,11 +33,12 @@ export function H2({
   className?: string;
 }) {
   return (
-    <h2
+    <WeightText
+      tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700}
       className={`font-display text-2xl font-bold text-[#031038] sm:text-3xl lg:text-4xl tracking-tight leading-tight ${className}`}
     >
       {children}
-    </h2>
+    </WeightText>
   );
 }
 
@@ -74,9 +75,9 @@ export function Section({
           </p>
         )}
         {title && (
-          <h2 className="font-display text-2xl font-bold text-abyss-900 sm:text-3xl lg:text-4xl tracking-tight leading-tight">
+          <H2>
             {title}
-          </h2>
+          </H2>
         )}
         {lede && (
           <p

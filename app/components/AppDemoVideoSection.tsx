@@ -6,7 +6,7 @@ export default function AppDemoVideoSection() {
   return (
     <section
       id="app-demo"
-      className="py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[#f7fbfd] via-[#eaf4f9] to-[#e2edff] relative overflow-hidden"
+      className="scroll-mt-28 py-16 sm:py-20 lg:py-24 bg-gradient-to-br from-[#f7fbfd] via-[#eaf4f9] to-[#e2edff] relative overflow-hidden"
     >
       {/* subtle grid overlay */}
       <div className="absolute inset-0 bg-grid-subtle opacity-20 pointer-events-none" />

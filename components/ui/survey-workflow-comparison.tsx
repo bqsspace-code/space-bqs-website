@@ -10,7 +10,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
-const STAGES = [
+export const STAGES = [
   {
     label: "Capture on deck", short: "Capture", icon: ScanLine,
     subtitle: "Enter it once", headline: "Keep the first reading. Skip the retyping.",
@@ -27,7 +27,7 @@ const STAGES = [
     manual: "Copied formulas and cell links need checking every time a workbook changes. A final number alone does not explain how it was reached.",
     approach: "Run the versioned ASTM D1250 Table 54B engine. Keep the density, temperature, correction factor, and calculated mass visible.",
     benefit: "Supervisors can follow the calculation before they approve the result.",
-    proofTitle: "A worked engine check", proofIcon: Calculator, status: "Engine v1.0.0",
+    proofTitle: "A worked engine check", proofIcon: Calculator, status: "Verified Check",
     rows: [["Density @ 15°C", "0.9500"], ["Observed temperature", "40°C"], ["Volume correction factor", "0.9677"]],
     artifact: "Worked result · 457.819 MT",
   },
@@ -38,7 +38,7 @@ const STAGES = [
     approach: "Keep the versioned strapping and Table 54B grids with the survey record, alongside its inputs and calculation context.",
     benefit: "A later review has the supporting tables, rather than a search for an old workbook.",
     proofTitle: "Context stays attached", proofIcon: Layers, status: "Versioned tables",
-    rows: [["Vessel strapping", "Linked to survey"], ["Correction method", "ASTM Table 54B"], ["Engine version", "v1.0.0"]],
+    rows: [["Vessel strapping", "Linked to survey"], ["Correction method", "ASTM Table 54B"], ["Calculation check", "Verified"]],
     artifact: "Inputs + tables + result, together.",
   },
   {
@@ -152,10 +152,6 @@ export default function SurveyWorkflowComparison() {
           <div className="flex items-center gap-3"><span className="mr-1 font-mono text-[10px] tabular-nums text-[#63758a]">{String(active + 1).padStart(2, "0")} / 06</span><button type="button" disabled={active === 0} onClick={() => setActive((value) => value - 1)} aria-label="Previous workflow benefit" className="flex size-9 items-center justify-center rounded-full border border-[#cbdfea] bg-white/70 text-[#032aac] transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-30"><ArrowLeft aria-hidden="true" className="size-4" /></button><button type="button" disabled={active === STAGES.length - 1} onClick={() => setActive((value) => value + 1)} aria-label="Next workflow benefit" className="flex size-9 items-center justify-center rounded-full border border-[#cbdfea] bg-white/70 text-[#032aac] transition-colors hover:bg-white disabled:cursor-not-allowed disabled:opacity-30"><ArrowRight aria-hidden="true" className="size-4" /></button></div>
         </div>
 
-        <details className="mt-8 border-t border-[#d3e9f3] pt-5">
-          <summary className="cursor-pointer text-xs font-medium text-[#536a82]">View all six differences at a glance</summary>
-          <dl className="mt-5 grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{STAGES.map((item) => <div key={item.short} className="liquid-glass-ui rounded-xl border border-[#d3e9f3] p-5"><dt className="mb-2 text-sm font-semibold text-[#032aac]">{item.label}</dt><dd className="text-xs leading-6 text-[#52657c]">{item.benefit}</dd></div>)}</dl>
-        </details>
       </div>
     </section>
   );

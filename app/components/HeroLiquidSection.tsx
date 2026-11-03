@@ -1,7 +1,7 @@
 "use client";
 
-import { useRef, useState } from "react";
-import { motion, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import { motion, useInView, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { AuroraBackground } from "@/components/ui/aurora-background";
 import WeightText from "./WeightText";
@@ -10,13 +10,18 @@ import { AppStoreBadges } from "./HomeEnhancements";
 import OceanVideoSection from "./OceanVideoSection";
 
 // Rollback: pass transitionMode="fade" to restore the previous crossfade.
-export default function HeroLiquidSection({ className = "", transitionMode = "wave" }: {
+export default function HeroLiquidSection({ className = "", transitionMode = "wave", compact = false }: {
   className?: string;
   transitionMode?: "wave" | "fade";
+  compact?: boolean;
 }) {
   const waveDivider = transitionMode === "wave";
   const containerRef = useRef<HTMLElement>(null);
-  const reducedMotion = useReducedMotion();
+  const motionPreference = useReducedMotion();
+  // Match server markup on hydration before switching to the static layout.
+  const [reducedMotion, setReducedMotion] = useState(false);
+  useEffect(() => setReducedMotion(!!motionPreference), [motionPreference]);
+  const visible = useInView(containerRef);
   const [oceanActive, setOceanActive] = useState(false);
   const { scrollYProgress } = useScroll({
     target: containerRef,
@@ -37,13 +42,13 @@ export default function HeroLiquidSection({ className = "", transitionMode = "wa
   useMotionValueEvent(scrollYProgress, "change", (progress) => setOceanActive(progress > (waveDivider ? 0.51 : 0.6)));
 
   return (
-    <section ref={containerRef} className={`relative bg-[#073D50] ${className}`} style={{ height: reducedMotion ? "auto" : "calc(max(100svh, 740px) + 90svh)" }}>
+    <section ref={containerRef} className={`relative bg-[#073D50] ${className}`} style={{ height: reducedMotion ? "auto" : `calc(max(100svh, 740px) + ${compact ? 55 : 90}svh)` }}>
       <div className={reducedMotion ? "relative" : "sticky top-0 h-svh min-h-[740px] overflow-hidden"}>
        {!reducedMotion && <motion.div inert={!oceanActive} style={{ opacity: waveDivider ? 1 : oceanOpacity, scale: oceanScale, borderRadius: oceanRadius }} className="absolute inset-0 overflow-hidden">
          <OceanVideoSection embedded active={oceanActive} />
       </motion.div>}
       <motion.div inert={!reducedMotion && oceanActive} style={{ opacity: reducedMotion || waveDivider ? 1 : heroOpacity, y: reducedMotion || !waveDivider ? 0 : heroExitY }} className="relative isolate flex h-svh min-h-[740px] flex-col overflow-hidden bg-[#F7FBFD]">
-      <AuroraBackground as="div" className="pointer-events-none absolute inset-0 -z-20 h-full w-full bg-white" showRadialGradient>
+      <AuroraBackground as="div" paused={!visible || oceanActive || !!reducedMotion} className="pointer-events-none absolute inset-0 -z-20 h-full w-full bg-white" showRadialGradient>
         <div className="absolute inset-0 bg-grid-subtle opacity-25" />
       </AuroraBackground>
       <div className="hero-glass-current" aria-hidden="true" />
@@ -67,6 +72,7 @@ export default function HeroLiquidSection({ className = "", transitionMode = "wa
           </p>
           <div className="pt-1"><CtaRow className="justify-center" /></div>
           <AppStoreBadges showSubtitle={false} />
+          {compact && <p className="max-w-xl font-mono text-[9px] uppercase leading-6 tracking-[.08em] text-[#52657c] sm:text-[10px]">Offline capture · Locked PDF + Excel</p>}
         </div>
       </motion.div>
 
@@ -96,8 +102,8 @@ export default function HeroLiquidSection({ className = "", transitionMode = "wa
             return (
             <motion.path key={index}
               d={first}
-              animate={reducedMotion ? undefined : { d: [first, second, first] }}
-              transition={{ duration: 7 + index, repeat: Infinity, ease: "easeInOut" }}
+              animate={reducedMotion || !visible || oceanActive ? { d: first } : { d: [first, second, first] }}
+              transition={{ duration: visible && !oceanActive && !reducedMotion ? 7 + index : 0, repeat: visible && !oceanActive && !reducedMotion ? Infinity : 0, ease: "easeInOut" }}
               style={{ y: layer.offset, fill: layer.fill, opacity: layer.opacity }}
               stroke="rgba(211,233,243,0.45)" strokeWidth={1.2}
             />

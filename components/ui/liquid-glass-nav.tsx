@@ -1,6 +1,6 @@
 "use client";
 
-import { useId, type CSSProperties, type PointerEvent, type ReactNode } from "react";
+import { type CSSProperties, type PointerEvent, type ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 type GlassStyle = CSSProperties & {
@@ -16,8 +16,6 @@ export function LiquidGlassNav({
   children: ReactNode;
   className?: string;
 }) {
-  const filterId = `nav-glass-${useId().replace(/:/g, "")}`;
-
   function followLight(event: PointerEvent<HTMLDivElement>) {
     if (event.pointerType === "touch") return;
     const rect = event.currentTarget.getBoundingClientRect();
@@ -41,24 +39,9 @@ export function LiquidGlassNav({
       onPointerEnter={followLight}
       onPointerMove={followLight}
     >
-      <svg aria-hidden="true" focusable="false" className="liquid-nav-filter">
-        <defs>
-          <filter id={filterId} x="-8%" y="-30%" width="116%" height="160%" colorInterpolationFilters="sRGB">
-            <feTurbulence type="fractalNoise" baseFrequency="0.008 0.04" numOctaves="1" seed="8" result="noise" />
-            <feDisplacementMap in="SourceGraphic" in2="noise" scale="9" xChannelSelector="R" yChannelSelector="G" result="bent" />
-            <feMorphology in="SourceAlpha" operator="erode" radius="8" result="inner" />
-            <feComposite in="SourceAlpha" in2="inner" operator="out" result="edge" />
-            <feComposite in="bent" in2="edge" operator="in" result="bentEdge" />
-            <feComposite in="SourceGraphic" in2="inner" operator="in" result="clearCenter" />
-            <feMerge><feMergeNode in="clearCenter" /><feMergeNode in="bentEdge" /></feMerge>
-          </filter>
-        </defs>
-      </svg>
-
       <span
         aria-hidden="true"
         className="liquid-nav-surface"
-        style={{ backdropFilter: `url(#${filterId}) blur(2.5px) saturate(1.12)` }}
       />
       <span aria-hidden="true" className="liquid-nav-tint" />
       <span aria-hidden="true" className="liquid-nav-shoulder" />

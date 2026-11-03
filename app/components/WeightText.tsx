@@ -1,11 +1,11 @@
 "use client";
 
 import { useRef, useEffect, useState, useCallback, Fragment } from "react";
-import { useLenis } from "lenis/react";
 
 type WeightMode = "cursor-radius" | "scroll-reveal" | "scroll-scrub" | "whole-text";
 
 interface WeightTextProps {
+  id?: string;
   children: React.ReactNode;
   tag?: "h1" | "h2" | "h3" | "p" | "span";
   mode?: WeightMode;
@@ -75,6 +75,7 @@ function parseSegments(node: React.ReactNode): TextSegment[] {
  * natural text wrapping without clipping off-screen.
  */
 export default function WeightText({
+  id,
   children,
   tag = "h2",
   mode = "scroll-reveal",
@@ -117,7 +118,7 @@ export default function WeightText({
   const letterCentersRef = useRef<{ x: number; y: number }[]>([]);
   const spansRef = useRef<HTMLSpanElement[]>([]);
   const lastProgressRef = useRef<number>(-1);
-  const isUpdatingRef = useRef<boolean>(false);
+  const lastPaintRef = useRef<string[]>([]);
 
   const measureLetterCenters = useCallback(() => {
     const container = containerRef.current;
@@ -139,6 +140,12 @@ export default function WeightText({
     setIsTouch("ontouchstart" in window);
     const mql = window.matchMedia("(prefers-reduced-motion: reduce)");
     setReducedMotion(mql.matches);
+    const syncPreference = () => setReducedMotion(mql.matches);
+    mql.addEventListener("change", syncPreference);
+    spansRef.current = [];
+    letterCentersRef.current = [];
+    lastProgressRef.current = -1;
+    lastPaintRef.current = [];
     setLetterWeights(new Array(totalLetters).fill(restWeight));
 
     // Cache spans on mount
@@ -148,11 +155,11 @@ export default function WeightText({
           containerRef.current.querySelectorAll<HTMLSpanElement>("[data-letter]")
         );
       }
-      measureLetterCenters();
+      if (mode === "cursor-radius" && !reducedMotion && !window.matchMedia("(pointer: coarse)").matches) measureLetterCenters();
     }, 50);
 
-    return () => clearTimeout(timer);
-  }, [totalLetters, restWeight, measureLetterCenters]);
+    return () => { clearTimeout(timer); mql.removeEventListener("change", syncPreference); };
+  }, [totalLetters, restWeight, measureLetterCenters, mode, reducedMotion]);
 
   // Determine effective mode (touch fallback)
   const effectiveMode: WeightMode =
@@ -205,19 +212,11 @@ export default function WeightText({
       const containerRect = container.getBoundingClientRect();
       const viewportH = window.innerHeight;
 
-      // Off-screen early exit: skip 100% of calculation if already past or not yet visible
-      if (containerRect.top > viewportH + 60) {
-        if (lastProgressRef.current === 0) return;
-        lastProgressRef.current = 0;
-      } else if (containerRect.bottom < -60) {
-        if (lastProgressRef.current === 1) return;
-        lastProgressRef.current = 1;
-      }
-
       // Smooth trigger window: begins as top reaches 90% of screen height, completes by 35%
       const startY = viewportH * 0.90;
       const endY = viewportH * 0.35;
-      const progress = Math.max(0, Math.min(1, (startY - containerRect.top) / (startY - endY)));
+      const progress = Math.round(Math.max(0, Math.min(1, (startY - containerRect.top) / (startY - endY))) * 100) / 100;
+      if (lastProgressRef.current === progress) return;
       lastProgressRef.current = progress;
 
       for (let i = 0; i < spans.length; i++) {
@@ -225,13 +224,15 @@ export default function WeightText({
         const letterRatio = i / (spans.length - 1 || 1);
         const letterStart = letterRatio * 0.45;
         const letterP = Math.max(0, Math.min(1, (progress - letterStart) / 0.55));
-        const w = Math.round(restWeight + (activeWeight - restWeight) * letterP);
+        const w = Math.round((restWeight + (activeWeight - restWeight) * letterP) / 5) * 5;
 
         const isLast = i === spans.length - 1 && /[.!?]/.test(span.textContent || "");
-        const col = isLast
-          ? (letterP > 0.15 ? accentColor : baseColor)
-          : (letterP > 0.15 ? activeColor : baseColor);
-
+        const targetColor = isLast ? accentColor : activeColor;
+        const col = letterP === 0 ? baseColor : letterP === 1 ? targetColor
+          : `color-mix(in srgb, ${baseColor}, ${targetColor} ${Math.round(letterP * 100)}%)`;
+        const signature = `${w}|${col}`;
+        if (lastPaintRef.current[i] === signature) continue;
+        lastPaintRef.current[i] = signature;
         span.style.fontVariationSettings = `"wght" ${w}`;
         span.style.fontWeight = String(w);
         span.style.color = col;
@@ -271,72 +272,69 @@ export default function WeightText({
     measureLetterCenters,
   ]);
 
-  // Hook directly into Lenis smooth-scroll loop with frame deduplication
-  const onLenisScroll = useCallback(() => {
-    if (reducedMotion || effectiveMode === "whole-text" || isUpdatingRef.current) return;
-    isUpdatingRef.current = true;
-    requestAnimationFrame(() => {
-      updateWeights();
-      isUpdatingRef.current = false;
-    });
-  }, [reducedMotion, effectiveMode, updateWeights]);
-
-  useLenis(onLenisScroll, [onLenisScroll]);
-
   useEffect(() => {
     if (reducedMotion || effectiveMode === "whole-text") return;
-
-    let isDirty = true;
-
-    const onMouseMove = (e: MouseEvent) => {
-      mousePosRef.current = { x: e.clientX, y: e.clientY };
-      isDirty = true;
-    };
-
-    const onMouseLeave = () => {
-      mousePosRef.current = null;
-      isDirty = true;
-    };
-
-    const onScrollOrResize = () => {
-      if (effectiveMode === "cursor-radius") {
-        measureLetterCenters();
-      }
-      isDirty = true;
-    };
-
-    const onFrame = () => {
-      if (isDirty) {
+    const container = containerRef.current;
+    if (!container) return;
+    let visible = false;
+    let needsMeasure = true;
+    lastProgressRef.current = -1;
+    lastPaintRef.current = [];
+    const schedule = () => {
+      if (!visible || document.hidden || animRef.current) return;
+      animRef.current = requestAnimationFrame(() => {
+        animRef.current = 0;
+        if (needsMeasure && effectiveMode === "cursor-radius") {
+          measureLetterCenters();
+          needsMeasure = false;
+        }
         updateWeights();
-        isDirty = false;
-      }
-      if (effectiveMode === "cursor-radius") {
-        animRef.current = requestAnimationFrame(onFrame);
-      }
+      });
     };
-
-    window.addEventListener("scroll", onScrollOrResize, { passive: true });
-    window.addEventListener("resize", onScrollOrResize, { passive: true });
-
+    // Subscribe only while visible; one heading measurement per scheduled frame.
+    const observer = new IntersectionObserver(([entry]) => {
+      visible = entry.isIntersecting;
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      if (visible) {
+        window.addEventListener("scroll", onScroll, { passive: true });
+        window.addEventListener("resize", onScroll);
+        if (effectiveMode !== "cursor-radius") schedule();
+      } else {
+        cancelAnimationFrame(animRef.current);
+        animRef.current = 0;
+      }
+    }, { rootMargin: "60px" });
+    observer.observe(container);
+    const onPointer = (event: PointerEvent) => {
+      if (event.pointerType === "touch") return;
+      mousePosRef.current = { x: event.clientX, y: event.clientY };
+      schedule();
+    };
+    const resetPointer = () => {
+      if (!mousePosRef.current) return;
+      mousePosRef.current = null;
+      schedule();
+    };
+    const onScroll = () => {
+      needsMeasure = true;
+      if (effectiveMode === "scroll-scrub" || effectiveMode === "scroll-reveal") schedule();
+      else resetPointer();
+    };
     if (effectiveMode === "cursor-radius") {
-      window.addEventListener("mousemove", onMouseMove, { passive: true });
-      window.addEventListener("mouseleave", onMouseLeave, { passive: true });
-      animRef.current = requestAnimationFrame(onFrame);
-    } else {
-      // Run once on mount for scroll modes
-      updateWeights();
+      container.addEventListener("pointermove", onPointer, { passive: true });
+      container.addEventListener("pointerleave", resetPointer);
     }
-
     return () => {
       cancelAnimationFrame(animRef.current);
-      window.removeEventListener("scroll", onScrollOrResize);
-      window.removeEventListener("resize", onScrollOrResize);
-      if (effectiveMode === "cursor-radius") {
-        window.removeEventListener("mousemove", onMouseMove);
-        window.removeEventListener("mouseleave", onMouseLeave);
-      }
+      animRef.current = 0;
+      observer.disconnect();
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+      container.removeEventListener("pointermove", onPointer);
+      container.removeEventListener("pointerleave", resetPointer);
     };
-  }, [effectiveMode, updateWeights, reducedMotion, measureLetterCenters]);
+  }, [effectiveMode, updateWeights, reducedMotion, measureLetterCenters, activeWeight, activeColor]);
 
   const Tag = tag;
 
@@ -344,6 +342,7 @@ export default function WeightText({
   if (effectiveMode === "whole-text") {
     return (
       <Tag
+        id={id}
         className={`weight-text-whole ${className}`}
         style={{
           fontVariationSettings: `"wght" ${restWeight}`,
@@ -359,7 +358,7 @@ export default function WeightText({
   // Static for reduced motion
   if (reducedMotion) {
     return (
-      <Tag className={className} style={{ fontWeight: activeWeight, ...style }}>
+      <Tag id={id} className={className} style={{ fontWeight: activeWeight, ...style }}>
         {children}
       </Tag>
     );
@@ -369,6 +368,7 @@ export default function WeightText({
 
   return (
     <Tag
+      id={id}
       className={className}
       style={style}
       ref={containerRef as React.RefObject<HTMLHeadingElement>}
@@ -446,7 +446,6 @@ export default function WeightText({
                                 display: "inline-block",
                                 justifySelf: "center",
                                 alignSelf: "baseline",
-                                willChange: "font-variation-settings, font-weight, color",
                               }}
                             >
                               {letter}

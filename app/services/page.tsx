@@ -32,7 +32,7 @@ export default function Page() {
           <div className="mt-8">
             <AnswerBlock>
               <p>
-                Each workflow uses the same ASTM D1250-04 Table 54B engine and produces the same locked, immutable certificate.
+                Each workflow uses the same calculation engine and produces the same locked, immutable certificate.
                 The only difference is what your surveyor measures: fuel in (delivery), fuel already on board (ROB), or fuel removed (debunkering).
               </p>
             </AnswerBlock>

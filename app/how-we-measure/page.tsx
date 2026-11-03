@@ -1,6 +1,5 @@
 import type { Metadata } from "next";
 import { Section, AnswerBlock, CtaRow, Breadcrumbs } from "../components/ui";
-import { ENGINE_VERSION } from "../lib/site";
 import EnginePipelineGraphic from "../components/EnginePipelineGraphic";
 import LiveCalculator from "../components/LiveCalculator";
 import { ShieldCheck, Ruler, Droplets, Thermometer, Scale, AlertOctagon } from "lucide-react";
@@ -8,7 +7,7 @@ import { ShieldCheck, Ruler, Droplets, Thermometer, Scale, AlertOctagon } from "
 export const metadata: Metadata = {
   title: "How the Engine Calculates — From Tank Reading to Tonnes",
   description:
-    "Plain-English methodology for survey teams: tank reading, minus water, temperature correction with ASTM D1250 Table 54B, to mass in MT. Engine v1.0.0, no guessing.",
+    "Plain-English methodology for survey teams: tank reading, minus water, temperature volume correction, to mass in MT. No guessing.",
 };
 
 export default function Page() {
@@ -23,15 +22,14 @@ export default function Page() {
         />
         <div className="mt-4 flex items-center gap-2">
           <span className="rounded-full bg-sea-100 px-3 py-1 text-xs font-semibold text-sea-800">
-            Engine v{ENGINE_VERSION} Implementation Spec
+            Calculation Methodology
           </span>
-          <span className="text-xs text-slate-500 font-mono">ASTM D1250-04 Standard</span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
           How the engine calculates — in plain words
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          Follow the inputs, correction factor, and mass conversion. Engine v{ENGINE_VERSION}.
+          Follow the inputs, correction factor, and mass conversion.
         </p>
       </div>
 

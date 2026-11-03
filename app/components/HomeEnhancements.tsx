@@ -1,7 +1,7 @@
 "use client";
 
-import Feature08 from "@/components/ui/feature-08";
-import SurveyWorkflowComparison from "@/components/ui/survey-workflow-comparison";
+import TeamSplitCards from "@/components/ui/team-split-cards";
+import WorkflowScrollSections from "@/components/ui/workflow-scroll-sections";
 import SurveyWarehouseShowcase from "@/components/ui/survey-warehouse-showcase";
 
 /* ─── Official Store Badges ─── */
@@ -96,10 +96,10 @@ export function SurveyWarehouseSection() {
 
 /* ─── Section: Spreadsheets vs Space BQS ─── */
 export function SpreadsheetCompareSection() {
-  return <SurveyWorkflowComparison />;
+  return <WorkflowScrollSections />;
 }
 
 /* ─── Section: Who It's For ─── */
 export function WhoItsForSection() {
-  return <Feature08 />;
+  return <TeamSplitCards />;
 }
