@@ -8,7 +8,7 @@ import { ArrowLeft, ArrowRight, ArrowUpRight, Check, FileSpreadsheet } from "luc
 import { useViewportScroll } from "@/app/components/useViewportScroll";
 import WeightText from "@/app/components/WeightText";
 import { STAGES } from "./survey-workflow-comparison";
-import capture from "@/public/assets/web_image/marine-surveyor-deck-sounding.jpg";
+import capture from "@/public/assets/web_image/marine-surveyor-qr-deck-capture.jpg";
 import calculate from "@/public/assets/web_image/csm_Bunkering_STW150_UTS150_9880832433.jpg";
 import tables from "@/public/assets/web_image/vessel-tank-strapping-context.jpg";
 import certify from "@/public/assets/web_image/marine-surveyor-officer-verification.jpg";
@@ -17,7 +17,7 @@ import audit from "@/public/assets/web_image/ship-to-ship-bunkering-custody-tran
 
 
 const VISUALS = [
-  { image: capture, alt: "Marine surveyor measuring tank levels with a sounding tape on deck", caption: "At the tank hatch", position: "50% 40%", href: "/mobile-app", link: "Explore mobile capture", wipe: "inset(0 100% 0 0)" },
+  { image: capture, alt: "Marine surveyor scanning vessel QR code and capturing tank soundings on deck", caption: "At the tank hatch", position: "50% 40%", href: "/mobile-app", link: "Explore mobile capture", wipe: "inset(0 100% 0 0)" },
   { image: calculate, alt: "Operator working with the valves and hoses on a bunker vessel", caption: "From measurement to quantity", position: "65% 40%", href: "/how-we-measure", link: "Follow the calculation", wipe: "inset(100% 0 0 0)" },
   { image: tables, alt: "Oil tanker deck layout detailing cargo tank grid, strapping sections, and piping manifolds", caption: "Vessel and tank context", position: "50% 50%", href: "/features/vessels-master-data", link: "Explore vessel master data", wipe: "inset(0 0 0 100%)" },
   { image: certify, alt: "Marine surveyor and ship's officer verifying bunker calculation certificates on deck", caption: "Checked before issue", position: "50% 40%", href: "/sample-report", link: "See a sample report", wipe: "inset(0 0 100% 0)" },
