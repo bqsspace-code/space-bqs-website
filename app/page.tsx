@@ -4,7 +4,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Section, Eyebrow, H2, Faq } from "./components/ui";
 import HeroLiquidSection from "./components/HeroLiquidSection";
 import HomeProblemSummary from "./components/HomeProblemSummary";
-import HomeWorkflowJourney from "./components/HomeWorkflowJourney";
+import DeckInteractiveShowcase from "./components/DeckInteractiveShowcase";
 import WaveTransition from "./components/WaveTransition";
 import { SurveyWarehouseSection, SpreadsheetCompareSection, WhoItsForSection } from "./components/HomeEnhancements";
 import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
@@ -71,8 +71,8 @@ export default function Home() {
       </section>
       <WaveTransition variant="crest" flip />
 
-      {/* 4. One connected story replaces deck, office, calculation, and deliverables tours. */}
-      <HomeWorkflowJourney />
+      {/* 4. One connected story: interactive on-deck phone showcase with scroll wipe effects. */}
+      <DeckInteractiveShowcase />
       <WaveTransition variant="sweep" to="var(--pearl-mist, #e4eff9)" flip />
 
       {/* 5. Let visitors explore the retained evidence rather than repeat its description. */}
