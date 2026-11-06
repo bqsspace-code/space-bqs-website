@@ -1,7 +1,7 @@
 export const metadata = { title: "Cookies — Space BQS" };
 export default function Page() {
   return (
-    <div className="mx-auto max-w-3xl px-4 py-10">
+    <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-28 sm:pt-32 pb-16">
       <h1 className="text-3xl font-bold text-[var(--text-hi)]">Cookies</h1>
       <div className="mt-4 space-y-3 text-[var(--text-mid)]">
         <p>Essential: remembering your cookie choice and keeping forms working. No account, no tracking requirement.</p>

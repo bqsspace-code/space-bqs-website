@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div>
-      <div className="mx-auto max-w-6xl px-4 pt-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/why-independent", label: "Why Independent" }]} />
         <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">Why your clients need your independent number</h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">The BDN is the supplier&apos;s receipt. Your certificate is the check your clients forward.</p>

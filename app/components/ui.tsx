@@ -33,12 +33,11 @@ export function H2({
   className?: string;
 }) {
   return (
-    <WeightText
-      tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700}
+    <h2
       className={`font-display text-2xl font-bold text-[#031038] sm:text-3xl lg:text-4xl tracking-tight leading-tight ${className}`}
     >
       {children}
-    </WeightText>
+    </h2>
   );
 }
 

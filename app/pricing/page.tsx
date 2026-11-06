@@ -11,7 +11,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div>
-      <div className="mx-auto max-w-6xl px-4 pt-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/pricing", label: "Pricing" }]} />
         <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">Pricing — licensed per team</h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">No per-job prices on the site. Software is licensed by team size and volume.</p>

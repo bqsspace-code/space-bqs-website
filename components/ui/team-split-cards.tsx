@@ -29,7 +29,7 @@ export default function TeamSplitCards() {
   const [showAll, setShowAll] = useState(false);
 
   useEffect(() => {
-    const preference = matchMedia("(min-width: 1024px) and (min-height: 740px) and (prefers-reduced-motion: no-preference)");
+    const preference = matchMedia("(min-width: 1024px) and (min-height: 600px) and (prefers-reduced-motion: no-preference)");
     const sync = () => setEnhanced(preference.matches);
     sync();
     preference.addEventListener("change", sync);

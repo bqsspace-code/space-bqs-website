@@ -47,6 +47,8 @@ export default function HomeWorkflowJourney() {
           stage.dataset.motion = "ready";
           return () => { delete stage.dataset.motion; };
         }, stage);
+        (window as any).ScrollTrigger = ScrollTrigger;
+        ScrollTrigger.refresh();
         observer.disconnect();
       }).catch(() => {
         // The baseline stays fully readable if an optional animation chunk cannot load.
@@ -93,21 +95,21 @@ export default function HomeWorkflowJourney() {
               <div className="journey-card-top"><Smartphone aria-hidden="true" /><span>01 / On deck</span><WifiOff aria-hidden="true" /></div>
               <h3>Capture once.</h3>
               <p>Enter ullage or sounding, temperature, and free water at the tank. Keep working offline.</p>
-              <div className="journey-reading"><span>Tank 1P / sounding</span><strong>4.250 <small>m</small></strong><span className="journey-reading-note">Illustrative field reading</span></div>
+              <div className="journey-outcome"><span>The handoff</span><strong>No retyping ashore.</strong><p>The office starts with the readings you captured on deck.</p></div>
               <Link href="/mobile-app">See the on-deck workflow<ArrowUpRight aria-hidden="true" /></Link>
             </article>
             <article className="journey-card">
               <div className="journey-card-top"><Calculator aria-hidden="true" /><span>02 / One engine</span></div>
               <h3>Calculate with context.</h3>
               <p>Apply strapping tables, water deductions, and temperature correction. Keep the factors visible.</p>
-              <div className="journey-reading"><span>Worked check / Table 54B</span><strong>0.9677 <small>VCF</small></strong><span className="journey-reading-note">Density 0.9500 at 40°C → volume at 15°C</span></div>
+              <div className="journey-outcome"><span>The working</span><strong>A result you can trace.</strong><p>Follow the inputs, correction factors, and tank-level totals.</p></div>
               <Link href="/how-we-measure">Follow the calculation<ArrowUpRight aria-hidden="true" /></Link>
             </article>
             <article className="journey-card journey-card--proof">
               <div className="journey-card-top"><FileCheck2 aria-hidden="true" /><span>03 / In the office</span></div>
               <h3>Review. Lock. Deliver.</h3>
               <p>A supervisor finalises the survey on the web. The client gets a locked PDF and a four-sheet Excel workbook.</p>
-              <div className="journey-reading"><span>Illustrative certificate</span><strong>457.819 <small>MT</small></strong><span className="journey-reading-note">Readings, factors, and totals together</span><span className="journey-stamp"><LockKeyhole aria-hidden="true" />Locked</span></div>
+              <div className="journey-outcome"><span>The deliverable</span><strong>Client-ready proof.</strong><p>The reviewed result and its supporting working, ready to share.</p><span className="journey-stamp"><LockKeyhole aria-hidden="true" />Locked</span></div>
               <Link href="/sample-report">Explore the sample report<ArrowUpRight aria-hidden="true" /></Link>
             </article>
           </div>

@@ -78,7 +78,7 @@ export default function RolloutShowcase() {
   useViewportScroll(ref, update);
 
   useEffect(() => {
-    const desktop = matchMedia("(min-width: 1024px) and (min-height: 760px)");
+    const desktop = matchMedia("(min-width: 1024px) and (min-height: 600px)");
     const preference = matchMedia("(prefers-reduced-motion: reduce)");
     const sync = () => { setEnhanced(desktop.matches && !preference.matches); setReduced(preference.matches); };
     sync();

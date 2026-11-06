@@ -4,7 +4,7 @@ export const metadata = { title: "Page not found — Space BQS" };
 
 export default function NotFound() {
   return (
-    <div className="mx-auto max-w-2xl px-4 py-24 text-center">
+    <div className="mx-auto max-w-2xl px-4 sm:px-6 pt-32 sm:pt-40 pb-24 text-center">
       <p className="eyebrow">404</p>
       <h1 className="grad-text mt-3 text-4xl font-bold">That sounding missed the tank.</h1>
       <p className="mt-4 text-[var(--text-mid)]">

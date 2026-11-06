@@ -3,11 +3,18 @@
 import { useState, useEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { motion, useReducedMotion } from "framer-motion";
+import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ShinyButton } from "@/components/ui/shiny-button";
 import { LiquidGlassNav } from "@/components/ui/liquid-glass-nav";
 import { useLenis } from "lenis/react";
-import { ChevronDown, ArrowRight } from "lucide-react";
+import { ChevronDown, ArrowRight, PhoneCall } from "lucide-react";
+import { FlagUSA, CountryFlag } from "./flags/CountryFlags";
+import ContactDropdownCard from "./ContactDropdownCard";
+import {
+  OFFICE_LOCATIONS,
+  MAIN_OFFICE_DISPLAY,
+  MAIN_OFFICE_TEL,
+} from "../lib/contact-data";
 
 const NAV_LINKS = [
   { href: "/solutions", label: "Solutions" },
@@ -17,6 +24,7 @@ const NAV_LINKS = [
   { href: "/tools", label: "Tools" },
   { href: "/pricing", label: "Pricing" },
   { href: "/resources", label: "Resources" },
+  { href: "/contact", label: "Contact" },
 ];
 
 const SOLUTION_LINKS = [
@@ -33,7 +41,10 @@ export default function Header() {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
+  const [caretOffset, setCaretOffset] = useState<number>(56);
   const headerRef = useRef<HTMLElement>(null);
+  const contactTriggerRef = useRef<HTMLButtonElement>(null);
   const scrolledRef = useRef(false);
 
   const onScroll = useCallback(() => {
@@ -42,7 +53,6 @@ export default function Header() {
       scrolledRef.current = isScrolled;
       setScrolled(isScrolled);
     }
-
   }, []);
 
   useEffect(() => {
@@ -70,15 +80,26 @@ export default function Header() {
     return () => desktop.removeEventListener("change", closeOnDesktop);
   }, []);
 
-  useEffect(() => { setMobileMenuOpen(false); setSolutionsOpen(false); }, [pathname]);
   useEffect(() => {
-    if (!solutionsOpen) return;
+    setMobileMenuOpen(false);
+    setSolutionsOpen(false);
+    setContactOpen(false);
+  }, [pathname]);
+
+  // Close open dropdowns on pointer click outside header
+  useEffect(() => {
+    if (!solutionsOpen && !contactOpen) return;
     const closeOutside = (event: PointerEvent) => {
-      if (event.target instanceof Node && !headerRef.current?.contains(event.target)) setSolutionsOpen(false);
+      if (event.target instanceof Node && !headerRef.current?.contains(event.target)) {
+        setSolutionsOpen(false);
+        setContactOpen(false);
+      }
     };
     document.addEventListener("pointerdown", closeOutside);
     return () => document.removeEventListener("pointerdown", closeOutside);
-  }, [solutionsOpen]);
+  }, [solutionsOpen, contactOpen]);
+
+  // Handle Escape key
   useEffect(() => {
     const close = (event: KeyboardEvent) => {
       if (event.key === "Escape" && mobileMenuOpen) {
@@ -89,10 +110,37 @@ export default function Header() {
         setSolutionsOpen(false);
         document.getElementById("solutions-toggle")?.focus();
       }
+      if (event.key === "Escape" && contactOpen) {
+        setContactOpen(false);
+        contactTriggerRef.current?.focus();
+      }
     };
     window.addEventListener("keydown", close);
     return () => window.removeEventListener("keydown", close);
-  }, [mobileMenuOpen, solutionsOpen]);
+  }, [mobileMenuOpen, solutionsOpen, contactOpen]);
+
+  // Dynamically position the top pointer caret right under the trigger button
+  useEffect(() => {
+    if (!contactOpen || !contactTriggerRef.current) return;
+    const updateCaret = () => {
+      const triggerRect = contactTriggerRef.current?.getBoundingClientRect();
+      const popoverEl = document.getElementById("contact-nav-popover");
+      if (triggerRect && popoverEl) {
+        const popoverRect = popoverEl.getBoundingClientRect();
+        const triggerCenter = triggerRect.left + triggerRect.width / 2;
+        const offset = Math.round(popoverRect.right - triggerCenter);
+        if (offset > 18 && offset < popoverRect.width - 18) {
+          setCaretOffset(offset);
+        }
+      }
+    };
+    const frame = requestAnimationFrame(updateCaret);
+    window.addEventListener("resize", updateCaret);
+    return () => {
+      cancelAnimationFrame(frame);
+      window.removeEventListener("resize", updateCaret);
+    };
+  }, [contactOpen]);
 
   return (
     <header
@@ -100,116 +148,231 @@ export default function Header() {
       className="marine-header fixed top-0 left-0 right-0 z-50"
       data-scrolled={scrolled}
     >
-      <LiquidGlassNav className="marine-nav-shell mx-auto">
-      <div className="marine-nav-content flex h-16 items-center justify-between gap-3 px-4 xl:px-5">
-        {/* Wordmark + Logo */}
-        <Link href="/" className="flex items-center gap-2.5 group">
-          <svg
-            width="22"
-            height="18"
-            viewBox="0 0 24 20"
-            fill="none"
-            stroke="#032AAC"
-            strokeWidth="2.2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="group-hover:stroke-[#1B4FD1] transition-colors"
-          >
-            <path d="M3 5c3-2.5 6-2.5 9 0s6 2.5 9 0" />
-            <path d="M3 10c3-2.5 6-2.5 9 0s6 2.5 9 0" />
-            <path d="M3 15c3-2.5 6-2.5 9 0s6 2.5 9 0" />
-          </svg>
-          <span
-            className="font-display text-lg font-bold tracking-tight"
-            style={{ color: "#031038" }}
-          >
-            Space BQS
-          </span>
-        </Link>
+      <div className="relative mx-auto max-w-[1320px] pointer-events-none">
+        <div className="pointer-events-auto">
+          <LiquidGlassNav className="marine-nav-shell">
+            <div className="marine-nav-content flex h-16 items-center justify-between gap-2.5 px-3.5 sm:px-4 xl:px-5">
+              {/* Wordmark + Logo */}
+              <Link href="/" className="flex items-center gap-2.5 group shrink-0">
+                <svg
+                  width="22"
+                  height="18"
+                  viewBox="0 0 24 20"
+                  fill="none"
+                  stroke="#032AAC"
+                  strokeWidth="2.2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="group-hover:stroke-[#1B4FD1] transition-colors"
+                >
+                  <path d="M3 5c3-2.5 6-2.5 9 0s6 2.5 9 0" />
+                  <path d="M3 10c3-2.5 6-2.5 9 0s6 2.5 9 0" />
+                  <path d="M3 15c3-2.5 6-2.5 9 0s6 2.5 9 0" />
+                </svg>
+                <span
+                  className="font-display text-lg font-bold tracking-tight"
+                  style={{ color: "#031038" }}
+                >
+                  Space BQS
+                </span>
+              </Link>
 
-        {/* Desktop Nav */}
-         <nav aria-label="Primary" className="hidden items-center gap-0.5 xl:flex" onMouseLeave={() => setHovered(null)}>
-          {NAV_LINKS.map((l) => (
-            l.href === "/solutions" ? <button key={l.href} id="solutions-toggle" type="button" onClick={() => setSolutionsOpen((value) => !value)} aria-expanded={solutionsOpen} aria-controls="solutions-navigation" onMouseEnter={() => setHovered(l.href)} onFocus={() => setHovered(l.href)} onBlur={() => setHovered(null)} data-highlighted={hovered === l.href || solutionsOpen || (!hovered && pathname.startsWith("/solutions"))} className="marine-nav-link relative flex items-center gap-1 rounded-full px-3 py-2.5 text-[13px] font-medium">
-              {(hovered === l.href || solutionsOpen || (!hovered && pathname.startsWith("/solutions"))) && <motion.span aria-hidden="true" layoutId="marine-nav-highlight" className="marine-nav-highlight" transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 32 }} />}
-              <span className="relative z-10">Solutions</span><ChevronDown aria-hidden="true" className="relative z-10 size-3" />
-            </button> :
-            <Link
-              key={l.href}
-              href={l.href}
-              className="marine-nav-link relative rounded-full px-3 py-2.5 text-[13px] font-medium"
-              aria-current={pathname === l.href || pathname.startsWith(`${l.href}/`) ? "page" : undefined}
-              data-highlighted={hovered === l.href || (!hovered && (pathname === l.href || pathname.startsWith(`${l.href}/`)))}
-              onMouseEnter={() => { setHovered(l.href); setSolutionsOpen(false); }}
-              onFocus={() => { setHovered(l.href); setSolutionsOpen(false); }}
-              onBlur={() => setHovered(null)}
-            >
-              {(hovered === l.href || (!hovered && (pathname === l.href || pathname.startsWith(`${l.href}/`)))) && (
-                <motion.span aria-hidden="true" layoutId="marine-nav-highlight" className="marine-nav-highlight"
-                  transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 32 }} />
-              )}
-              <span className="relative z-10">{l.label}</span>
-            </Link>
-          ))}
-        </nav>
+              {/* Desktop Nav */}
+              <nav
+                aria-label="Primary"
+                className="hidden items-center gap-0.5 xl:flex"
+                onMouseLeave={() => setHovered(null)}
+              >
+                {NAV_LINKS.map((l) => (
+                  l.href === "/solutions" ? (
+                    <button
+                      key={l.href}
+                      id="solutions-toggle"
+                      type="button"
+                      onClick={() => {
+                        setSolutionsOpen((value) => !value);
+                        setContactOpen(false);
+                      }}
+                      aria-expanded={solutionsOpen}
+                      aria-controls="solutions-navigation"
+                      onMouseEnter={() => setHovered(l.href)}
+                      onFocus={() => setHovered(l.href)}
+                      onBlur={() => setHovered(null)}
+                      data-highlighted={hovered === l.href || solutionsOpen || (!hovered && pathname.startsWith("/solutions"))}
+                      className="marine-nav-link relative flex items-center gap-1 rounded-full px-3 py-2.5 text-[13px] font-medium"
+                    >
+                      {(hovered === l.href || solutionsOpen || (!hovered && pathname.startsWith("/solutions"))) && (
+                        <motion.span
+                          aria-hidden="true"
+                          layoutId="marine-nav-highlight"
+                          className="marine-nav-highlight"
+                          transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 32 }}
+                        />
+                      )}
+                      <span className="relative z-10">Solutions</span>
+                      <ChevronDown aria-hidden="true" className="relative z-10 size-3" />
+                    </button>
+                  ) : (
+                    <Link
+                      key={l.href}
+                      href={l.href}
+                      className="marine-nav-link relative rounded-full px-3 py-2.5 text-[13px] font-medium"
+                      aria-current={pathname === l.href || pathname.startsWith(`${l.href}/`) ? "page" : undefined}
+                      data-highlighted={hovered === l.href || (!hovered && (pathname === l.href || pathname.startsWith(`${l.href}/`)))}
+                      onMouseEnter={() => { setHovered(l.href); setSolutionsOpen(false); }}
+                      onFocus={() => { setHovered(l.href); setSolutionsOpen(false); }}
+                      onBlur={() => setHovered(null)}
+                    >
+                      {(hovered === l.href || (!hovered && (pathname === l.href || pathname.startsWith(`${l.href}/`)))) && (
+                        <motion.span
+                          aria-hidden="true"
+                          layoutId="marine-nav-highlight"
+                          className="marine-nav-highlight"
+                          transition={reducedMotion ? { duration: 0 } : { type: "spring", stiffness: 380, damping: 32 }}
+                        />
+                      )}
+                      <span className="relative z-10">{l.label}</span>
+                    </Link>
+                  )
+                ))}
+              </nav>
 
-        {/* Right CTA */}
-        <div className="flex items-center gap-2">
-          <ShinyButton
-            href="/request-demo"
-            className="inline-flex items-center gap-2 rounded-full px-5 py-2 text-[13px] font-semibold text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
-            style={{
-              boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 8px rgba(3,42,172,0.18)",
-            }}
-          >
-            <span>Request a demo</span>
-            <svg
-              width="12"
-              height="12"
-              viewBox="0 0 14 14"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M3 11L11 3M11 3H5M11 3V9" />
-            </svg>
-          </ShinyButton>
+              {/* Right CTA Group */}
+              <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
+                {/* Request a Demo Button */}
+                <ShinyButton
+                  href="/request-demo"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full px-3.5 sm:px-4 xl:px-5 py-2 text-xs sm:text-[13px] font-semibold text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                  style={{
+                    boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 8px rgba(3,42,172,0.18)",
+                  }}
+                >
+                  <span>Request a demo</span>
+                  <svg
+                    width="12"
+                    height="12"
+                    viewBox="0 0 14 14"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  >
+                    <path d="M3 11L11 3M11 3H5M11 3V9" />
+                  </svg>
+                </ShinyButton>
 
-          {/* Mobile toggle */}
-          <button
-            id="navigation-toggle"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-xl transition-colors xl:hidden"
-            style={{ color: "#031038" }}
-            aria-label="Toggle navigation"
-            aria-expanded={mobileMenuOpen}
-            aria-controls="mobile-navigation"
-          >
-            {mobileMenuOpen ? (
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <line x1="4" y1="4" x2="16" y2="16" />
-                <line x1="16" y1="4" x2="4" y2="16" />
-              </svg>
-            ) : (
-              <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
-                <line x1="3" y1="6" x2="17" y2="6" />
-                <line x1="3" y1="10" x2="17" y2="10" />
-                <line x1="3" y1="14" x2="17" y2="14" />
-              </svg>
-            )}
-          </button>
+                {/* Contact Details Trigger Pill (Space BQS Marine Light Glass Theme) */}
+                <button
+                  ref={contactTriggerRef}
+                  id="contact-nav-toggle"
+                  type="button"
+                  onClick={() => {
+                    setContactOpen((prev) => !prev);
+                    setSolutionsOpen(false);
+                  }}
+                  aria-expanded={contactOpen}
+                  aria-haspopup="dialog"
+                  aria-controls="contact-nav-popover"
+                  aria-label="Direct contact numbers & global offices"
+                  className={`group relative flex h-9 items-center gap-1.5 sm:gap-2 rounded-full border px-2.5 sm:px-3.5 py-1 text-[12.5px] font-medium transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#032aac] ${
+                    contactOpen
+                      ? "border-[#032aac] bg-white text-[#032aac] shadow-[inset_0_1px_0_#fff,0_0_0_2px_rgba(3,42,172,0.15),0_4px_12px_rgba(3,42,172,0.12)]"
+                      : "border-[#b9d3e8] bg-white/80 text-[#031038] hover:border-[#032aac]/50 hover:bg-white shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_2px_6px_rgba(3,42,172,0.06)] backdrop-blur-md"
+                  }`}
+                >
+                  {/* USA Flag */}
+                  <span className="flex h-3.5 w-5 shrink-0 items-center justify-center overflow-hidden rounded-[3px] border border-[#c8dfea] shadow-2xs">
+                    <FlagUSA className="h-full w-full object-cover" />
+                  </span>
+
+                  {/* Text */}
+                  <span className="hidden sm:inline font-bold text-[#032aac] text-xs">USA</span>
+                  <span className="hidden lg:inline font-semibold text-[#031038] tracking-tight text-xs">
+                    {MAIN_OFFICE_DISPLAY}
+                  </span>
+                  <span className="inline lg:hidden text-xs font-semibold text-[#031038] tracking-tight">
+                    +1 646...
+                  </span>
+
+                  {/* Chevron */}
+                  <ChevronDown
+                    aria-hidden="true"
+                    className={`size-3 text-[#60748a] transition-transform duration-200 group-hover:text-[#032aac] ${
+                      contactOpen ? "rotate-180 text-[#032aac]" : ""
+                    }`}
+                  />
+                </button>
+
+                {/* Mobile Hamburger Toggle */}
+                <button
+                  id="navigation-toggle"
+                  onClick={() => {
+                    setMobileMenuOpen(!mobileMenuOpen);
+                    setContactOpen(false);
+                  }}
+                  className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl transition-colors xl:hidden"
+                  style={{ color: "#031038" }}
+                  aria-label="Toggle navigation"
+                  aria-expanded={mobileMenuOpen}
+                  aria-controls="mobile-navigation"
+                >
+                  {mobileMenuOpen ? (
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <line x1="4" y1="4" x2="16" y2="16" />
+                      <line x1="16" y1="4" x2="4" y2="16" />
+                    </svg>
+                  ) : (
+                    <svg width="20" height="20" viewBox="0 0 20 20" fill="none" stroke="currentColor" strokeWidth="1.5">
+                      <line x1="3" y1="6" x2="17" y2="6" />
+                      <line x1="3" y1="10" x2="17" y2="10" />
+                      <line x1="3" y1="14" x2="17" y2="14" />
+                    </svg>
+                  )}
+                </button>
+              </div>
+            </div>
+          </LiquidGlassNav>
         </div>
+
+        {/* Contact Details Dropdown Popover */}
+        <AnimatePresence>
+          {contactOpen && (
+            <div className="pointer-events-auto absolute right-2 sm:right-4 top-[calc(100%+10px)] z-50">
+              <ContactDropdownCard
+                onClose={() => setContactOpen(false)}
+                caretOffsetPx={caretOffset}
+              />
+            </div>
+          )}
+        </AnimatePresence>
+
+        {/* Solutions Dropdown Menu */}
+        {solutionsOpen && (
+          <nav
+            id="solutions-navigation"
+            aria-label="Solutions"
+            className="pointer-events-auto absolute left-1/2 top-[calc(100%+10px)] hidden w-[min(540px,calc(100vw-48px))] -translate-x-1/2 rounded-2xl border border-[#c8dfea] bg-[#f5faff]/95 p-3 shadow-xl backdrop-blur-xl xl:block z-50"
+          >
+            {SOLUTION_LINKS.map((item) => (
+              <Link
+                key={item.href}
+                href={item.href}
+                onClick={() => setSolutionsOpen(false)}
+                className="group flex items-center justify-between gap-4 rounded-xl p-4 hover:bg-[#e4efff] focus-visible:outline-2 focus-visible:outline-[#032aac]"
+              >
+                <span>
+                  <span className="block text-sm font-semibold text-[#032aac]">{item.label}</span>
+                  <span className="mt-1 block text-xs text-[#60748a]">{item.description}</span>
+                </span>
+                <ArrowRight aria-hidden="true" className="size-4 shrink-0 text-[#032aac]" />
+              </Link>
+            ))}
+          </nav>
+        )}
       </div>
 
-      </LiquidGlassNav>
-
-      {solutionsOpen && <nav id="solutions-navigation" aria-label="Solutions" className="pointer-events-auto absolute left-1/2 top-full mt-3 hidden w-[min(540px,calc(100vw-48px))] -translate-x-1/2 rounded-2xl border border-[#c8dfea] bg-[#f5faff]/95 p-3 shadow-xl backdrop-blur-xl xl:block">
-        {SOLUTION_LINKS.map((item) => <Link key={item.href} href={item.href} onClick={() => setSolutionsOpen(false)} className="group flex items-center justify-between gap-4 rounded-xl p-4 hover:bg-[#e4efff] focus-visible:outline-2 focus-visible:outline-[#032aac]"><span><span className="block text-sm font-semibold text-[#032aac]">{item.label}</span><span className="mt-1 block text-xs text-[#60748a]">{item.description}</span></span><ArrowRight aria-hidden="true" className="size-4 shrink-0 text-[#032aac]" /></Link>)}
-      </nav>}
-
-      {/* Mobile menu — full-screen foam-white sheet */}
+      {/* Mobile Menu Drawer */}
       {mobileMenuOpen && (
         <div
           id="mobile-navigation"
@@ -222,13 +385,68 @@ export default function Header() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center rounded-2xl px-4 py-3.5 text-base font-medium transition-colors"
+                className="flex items-center rounded-2xl px-4 py-3 text-base font-medium transition-colors"
                 style={{ color: "#031038", minHeight: "44px" }}
               >
                 {l.label}
               </Link>
             ))}
-            <div className="my-3 border-y border-[#d3e9f3] py-3">{SOLUTION_LINKS.slice(0, 2).map((item) => <Link key={item.href} href={item.href} onClick={() => setMobileMenuOpen(false)} className="block rounded-xl px-4 py-3 text-sm font-medium text-[#032aac]">{item.label}<span className="mt-1 block text-xs font-normal text-[#60748a]">{item.description}</span></Link>)}</div>
+            <div className="my-3 border-y border-[#d3e9f3] py-3">
+              {SOLUTION_LINKS.slice(0, 2).map((item) => (
+                <Link
+                  key={item.href}
+                  href={item.href}
+                  onClick={() => setMobileMenuOpen(false)}
+                  className="block rounded-xl px-4 py-3 text-sm font-medium text-[#032aac]"
+                >
+                  {item.label}
+                  <span className="mt-1 block text-xs font-normal text-[#60748a]">{item.description}</span>
+                </Link>
+              ))}
+            </div>
+
+            {/* Global Offices Direct Call Section for Mobile */}
+            <div className="my-2 rounded-2xl border border-[#d3e9f3] bg-[#f0f7fb] p-4">
+              <div className="mb-3 flex items-center justify-between">
+                <span className="text-xs font-bold uppercase tracking-wider text-[#032aac]">
+                  Global Offices & Direct Contact
+                </span>
+                <span className="text-[11px] font-medium text-[#60748a]">Tap to call</span>
+              </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                {OFFICE_LOCATIONS.map((loc) => (
+                  <a
+                    key={loc.id}
+                    href={loc.phone ? `tel:${loc.phone}` : "/contact"}
+                    onClick={() => setMobileMenuOpen(false)}
+                    className="flex items-center justify-between rounded-xl bg-white p-2.5 shadow-2xs transition-colors active:bg-[#e2effa]"
+                  >
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex h-5 w-7 shrink-0 items-center justify-center overflow-hidden rounded-[3px] border border-slate-200">
+                        <CountryFlag code={loc.flagCode} className="h-full w-full object-cover" />
+                      </span>
+                      <div>
+                        <div className="text-xs font-semibold text-[#031038]">
+                          {loc.displayNumber || loc.country}
+                        </div>
+                        {loc.displayNumber && (
+                          <div className="text-[11px] text-[#60748a]">{loc.country}</div>
+                        )}
+                      </div>
+                    </div>
+                    <PhoneCall className="size-3.5 text-[#032aac]" />
+                  </a>
+                ))}
+              </div>
+              <a
+                href={`tel:${MAIN_OFFICE_TEL}`}
+                onClick={() => setMobileMenuOpen(false)}
+                className="mt-3 flex items-center justify-center gap-2 rounded-xl bg-[#032aac] py-2.5 text-xs font-semibold text-white transition-opacity active:opacity-90"
+              >
+                <span>Call main office ({MAIN_OFFICE_DISPLAY})</span>
+                <PhoneCall className="size-3.5" />
+              </a>
+            </div>
 
             <div className="mt-4 border-t pt-4" style={{ borderColor: "#D3E9F3" }}>
               <Link
@@ -246,8 +464,6 @@ export default function Header() {
                 See sample report
               </Link>
             </div>
-
-
           </nav>
         </div>
       )}

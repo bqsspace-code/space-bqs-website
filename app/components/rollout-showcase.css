@@ -29,7 +29,7 @@
 .rollout-record-panel { position: absolute; top: 29%; right: 6%; width: 49%; padding: 20px 18px 10px; background: #f9fcff; border: 1px solid white; border-radius: 14px; transform: rotate(4deg); box-shadow: 0 22px 35px -20px #16437266; }
 .rollout-art-arrow { position: absolute; top: 53%; left: 43%; display: flex; align-items: center; justify-content: center; width: 36px; height: 36px; border: 1px solid #d3e3ef; border-radius: 50%; background: #032aac; color: white; }
 .rollout-migration-art .rollout-visual-note { color: #385e7e; }
-@media (min-width: 1024px) and (min-height: 760px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 1024px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
   .rollout-showcase[data-enhanced="true"] { height: calc(100svh + 600px); padding-top: 32px; padding-bottom: 96px; }
   [data-enhanced="true"] .rollout-showcase-pin { position: sticky; top: 96px; min-height: calc(100svh - 144px); display: flex; flex-direction: column; justify-content: center; }
   [data-enhanced="true"] .rollout-showcase-viewport { overflow: hidden; overflow: clip; scroll-snap-type: none; }

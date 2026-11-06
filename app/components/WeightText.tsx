@@ -25,7 +25,8 @@ type TextSegment =
 
 function isBrElement(el: unknown): boolean {
   if (!el || typeof el !== "object") return false;
-  const anyEl = el as { type?: unknown };
+  const anyEl = el as any;
+
   const type = anyEl.type;
   if (type === "br" || type === "BR") return true;
   if (typeof type === "string" && (type.toLowerCase() === "br" || type.toLowerCase().endsWith(":br"))) return true;
@@ -34,6 +35,10 @@ function isBrElement(el: unknown): boolean {
     const t = type as { name?: string; displayName?: string };
     if (t.name && String(t.name).toLowerCase() === "br") return true;
     if (t.displayName && String(t.displayName).toLowerCase() === "br") return true;
+  }
+
+  if (anyEl.props && !("children" in anyEl.props) && (anyEl.$$typeof != null || anyEl._store != null)) {
+    return true;
   }
   return false;
 }

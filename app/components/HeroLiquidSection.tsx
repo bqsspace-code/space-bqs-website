@@ -42,12 +42,12 @@ export default function HeroLiquidSection({ className = "", transitionMode = "wa
   useMotionValueEvent(scrollYProgress, "change", (progress) => setOceanActive(progress > (waveDivider ? 0.51 : 0.6)));
 
   return (
-    <section ref={containerRef} className={`relative bg-[#073D50] ${className}`} style={{ height: reducedMotion ? "auto" : `calc(max(100svh, 740px) + ${compact ? 55 : 90}svh)` }}>
-      <div className={reducedMotion ? "relative" : "sticky top-0 h-svh min-h-[740px] overflow-hidden"}>
+    <section ref={containerRef} className={`relative bg-[#073D50] ${className}`} style={{ height: reducedMotion ? "auto" : `calc(max(100svh, 600px) + ${compact ? 55 : 90}svh)` }}>
+      <div className={reducedMotion ? "relative" : "sticky top-0 h-svh min-h-[600px] overflow-hidden"}>
        {!reducedMotion && <motion.div inert={!oceanActive} style={{ opacity: waveDivider ? 1 : oceanOpacity, scale: oceanScale, borderRadius: oceanRadius }} className="absolute inset-0 overflow-hidden">
          <OceanVideoSection embedded active={oceanActive} />
       </motion.div>}
-      <motion.div inert={!reducedMotion && oceanActive} style={{ opacity: reducedMotion || waveDivider ? 1 : heroOpacity, y: reducedMotion || !waveDivider ? 0 : heroExitY }} className="relative isolate flex h-svh min-h-[740px] flex-col overflow-hidden bg-[#F7FBFD]">
+      <motion.div inert={!reducedMotion && oceanActive} style={{ opacity: reducedMotion || waveDivider ? 1 : heroOpacity, y: reducedMotion || !waveDivider ? 0 : heroExitY }} className="relative isolate flex h-svh min-h-[600px] flex-col overflow-hidden bg-[#F7FBFD]">
       <AuroraBackground as="div" paused={!visible || oceanActive || !!reducedMotion} className="pointer-events-none absolute inset-0 -z-20 h-full w-full bg-white" showRadialGradient>
         <div className="absolute inset-0 bg-grid-subtle opacity-25" />
       </AuroraBackground>

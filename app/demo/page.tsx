@@ -13,7 +13,7 @@ export default function Page() {
   return (
     <div className="space-y-8 pb-16">
       {/* Page Header */}
-      <div className="mx-auto max-w-6xl px-4 pt-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/demo", label: "Demo" }]} />
         <div className="mt-4 flex items-center gap-2">
           <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">

@@ -1,0 +1,268 @@
+.flight-preview-layout { padding-top: 112px; background: #eef5fb; }
+.flight-preview-switcher { position: sticky; top: 88px; z-index: 40; display: flex; align-items: center; justify-content: space-between; gap: 20px; max-width: 1280px; min-height: 60px; margin: 0 auto; padding: 10px 20px; border: 1px solid #fff; border-radius: 16px; background: #f7fbfd; box-shadow: 0 8px 28px -22px #03103866; }
+.flight-preview-index { color: #032aac; font-family: var(--font-mono), monospace; font-size: 10px; font-weight: 600; letter-spacing: .1em; }
+.flight-preview-index > span { display: block; margin-top: 4px; color: #63778c; font-family: var(--font-sans), sans-serif; font-size: 10px; font-weight: 400; letter-spacing: 0; }
+.flight-preview-options { display: flex; gap: 8px; }
+.flight-preview-options a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; padding: 8px 12px; border-radius: 10px; font-size: 11px; color: #52657c; }
+.flight-preview-options a > span { font-family: var(--font-mono), monospace; font-size: 10px; opacity: .7; }
+.flight-preview-options a[aria-current] { background: #032aac; color: white; }
+.flight-preview-options a:hover:not([aria-current]) { background: #e3eff8; }
+.flight-preview-layout :is(a,button):focus-visible { outline: 2px solid #19b5c9; outline-offset: 4px; }
+.flight-preview-heading { max-width: 1152px; margin: 0 auto; padding: 64px 24px 48px; }
+.flight-preview-kicker { display: flex; align-items: center; gap: 8px; margin-bottom: 18px; color: #032aac; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .12em; text-transform: uppercase; }
+.flight-preview-heading h1 { max-width: 900px; color: #031038; font-family: var(--font-display), sans-serif; font-size: clamp(36px, 4.5vw, 62px); font-weight: 650; line-height: 1.08; letter-spacing: -.04em; }
+.flight-preview-heading > p:last-of-type { max-width: 700px; margin-top: 22px; color: #52657c; font-size: 15px; line-height: 1.85; }
+.flight-preview-header-links { display: flex; flex-wrap: wrap; gap: 24px; margin-top: 24px; }
+.flight-preview-header-links a { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; color: #032aac; font-size: 13px; font-weight: 600; }
+.flight-preview-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 22px; max-width: 1200px; margin: 0 auto; padding: 0 24px 48px; }
+.flight-preview-card { overflow: hidden; border: 1px solid white; border-radius: 22px; background: #ffffff8c; }
+.flight-preview-thumbnail { position: relative; aspect-ratio: 16 / 10; overflow: hidden; background: #12324c; }
+.flight-preview-thumbnail > span { position: absolute; top: 16px; left: 16px; padding: 6px 9px; border: 1px solid #ffffff50; border-radius: 6px; background: #031038b3; color: white; font-family: var(--font-mono), monospace; font-size: 9px; letter-spacing: .1em; }
+.flight-preview-card-copy { padding: 24px; }
+.flight-preview-card-copy h2 { display: flex; justify-content: space-between; align-items: center; gap: 12px; color: #031038; font-family: var(--font-display), sans-serif; font-size: 23px; font-weight: 650; }
+.flight-preview-card-copy p { margin-top: 12px; color: #52657c; font-size: 13px; line-height: 1.8; }
+.flight-preview-card-copy > span { display: block; margin-top: 20px; color: #032aac; font-size: 11px; line-height: 1.7; }
+.flight-preview-guide { max-width: 1152px; margin: 0 auto; padding: 0 24px 64px; }
+.flight-preview-guide h2 { margin-bottom: 12px; font-family: var(--font-display), sans-serif; font-size: 24px; font-weight: 600; color: #031038; }
+.flight-preview-guide p { max-width: 820px; margin-top: 10px; font-size: 14px; line-height: 1.8; color: #52657c; }
+
+.container-flight { --flight-top: var(--flight-top-override, 168px); --flight-height: min(720px, calc(100svh - var(--flight-top) - 20px)); --flight-accent: #a2e8f2; position: relative; max-width: 1280px; margin: 0 auto; scroll-margin-top: var(--flight-top); }
+.container-flight[data-mode="scroll"] { height: calc(var(--flight-height) + var(--flight-distance)); }
+.container-flight-frame { position: relative; isolation: isolate; display: grid; grid-template-rows: auto 1fr auto; min-height: 560px; overflow: hidden; border-radius: 26px; background: #0c2638; color: white; border: 1px solid rgba(255, 255, 255, 0.12); box-shadow: 0 24px 60px -20px rgba(3, 16, 56, 0.35); }
+.container-flight[data-mode="scroll"] .container-flight-frame { position: sticky; top: var(--flight-top); height: var(--flight-height); min-height: 0; }
+.flight-background { position: absolute; z-index: -1; inset: 0; pointer-events: none; }
+.flight-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.flight-shade { position: absolute; inset: 0; background: linear-gradient(90deg, #03101bd9, #03101b50 65%, #03101b20), linear-gradient(0deg, #03101beb, transparent 44%); }
+.flight-topline { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 24px 32px 0; font-family: var(--font-mono), monospace; font-size: 10px; letter-spacing: .15em; color: #ffffffb3; }
+.flight-content { display: flex; align-items: center; padding: 32px; min-width: 0; }
+.flight-copy { max-width: 580px; animation: flight-copy-in 420ms cubic-bezier(.16,1,.3,1) both; }
+.flight-eyebrow { margin-bottom: 14px; color: var(--flight-accent); font-family: var(--font-mono), monospace; font-size: 10px; line-height: 1.5; letter-spacing: .15em; text-transform: uppercase; }
+.flight-copy h2 { max-width: 650px; margin: 0; color: white; font-family: var(--font-display), sans-serif; font-size: clamp(36px, 4.5vw, 62px); font-weight: 600; line-height: 1.03; letter-spacing: -.045em; }
+.flight-description > p { max-width: 480px; margin-top: 20px; color: #ffffffd9; font-size: 14px; line-height: 1.8; }
+.flight-description ul { display: flex; flex-wrap: wrap; gap: 8px 20px; margin-top: 16px; }
+.flight-description li { display: flex; align-items: center; gap: 7px; color: #e4f3fa; font-size: 11px; line-height: 1.7; }
+.flight-description li svg { color: var(--flight-accent); }
+.flight-action { display: inline-flex; align-items: center; gap: 12px; min-height: 44px; margin-top: 22px; padding: 10px 16px; border: 1px solid #ffffff55; border-radius: 999px; background: #f7fbfd; color: #031038; font-size: 12px; font-weight: 650; }
+.flight-action:hover { background: #d9edf4; }
+.flight-controls { position: relative; padding: 0 32px 22px; }
+.flight-control-meta { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 4px 14px; margin-bottom: 10px; color: #ffffffb3; font-size: 9px; line-height: 1.7; }
+.flight-control-meta button { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; cursor: pointer; }
+.flight-chapters { display: grid; grid-template-columns: repeat(4,minmax(0,1fr)); gap: 12px; }
+.flight-chapters button { display: flex; align-items: center; gap: 9px; min-height: 48px; padding: 8px 10px; border-top: 1px solid #ffffff40; color: #ffffffa6; font-size: 11px; text-align: left; cursor: pointer; }
+.flight-chapters button > span { font-family: var(--font-mono), monospace; font-size: 9px; opacity: .7; }
+.flight-chapters button[aria-pressed="true"] { border-color: var(--flight-accent); color: white; background: #ffffff0d; }
+.flight-progress { height: 2px; margin-top: 8px; overflow: hidden; background: #ffffff1a; }
+.flight-progress span { display: block; height: 100%; background: var(--flight-accent); transform: scaleX(0); transform-origin: left; transition-property: none; }
+.flight-loading { position: absolute; bottom: 6px; right: 32px; color: #ffffffb3; font-size: 9px; }
+
+/* A: compact glass-panel chapter cards in a homepage section. */
+.container-flight--home .flight-copy { max-width: 450px; padding: 26px; border: 1px solid #ffffffcc; border-radius: 20px; background: #f4fafff0; box-shadow: 0 14px 40px -25px #0008; }
+.container-flight--home .flight-content { align-items: flex-end; padding-block: 24px; }
+.container-flight--home .flight-copy h2 { color: #031038; font-size: clamp(28px, 3vw, 38px); }
+.container-flight--home .flight-eyebrow { color: #032aac; }
+.container-flight--home .flight-description > p { margin-top: 14px; color: #52657c; font-size: 13px; }
+.container-flight--home .flight-description li { color: #385a72; }
+.container-flight--home .flight-description li svg { color: #087f8e; }
+.container-flight--home .flight-action { background: #032aac; color: white; border-color: transparent; margin-top: 18px; }
+
+/* B: Cargo WMS journey — spacious, left-aligned storytelling */
+.container-flight--cargo-wms { --flight-accent: #f3d6a1; }
+.container-flight--cargo-wms .flight-copy {
+  display: block;
+  max-width: 600px;
+}
+.container-flight--cargo-wms .flight-eyebrow {
+  margin-bottom: 14px;
+  color: var(--flight-accent);
+  font-family: var(--font-mono), monospace;
+  font-size: 10px;
+  line-height: 1.5;
+  letter-spacing: .15em;
+  text-transform: uppercase;
+}
+.container-flight--cargo-wms .flight-copy h2 {
+  max-width: 620px;
+  margin: 0;
+  color: white;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(38px, 4.6vw, 64px);
+  font-weight: 600;
+  line-height: 1.05;
+  letter-spacing: -.04em;
+}
+.container-flight--cargo-wms .flight-description > p {
+  max-width: 500px;
+  margin-top: 18px;
+  color: #ffffffd9;
+  font-size: 14px;
+  line-height: 1.8;
+}
+.container-flight--cargo-wms .flight-description ul {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 18px;
+}
+.container-flight--cargo-wms .flight-description li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  color: #e4f3fa;
+  font-size: 12px;
+  line-height: 1.6;
+}
+.container-flight--cargo-wms .flight-description li svg {
+  color: var(--flight-accent);
+}
+.container-flight--cargo-wms .flight-action {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 44px;
+  margin-top: 24px;
+  padding: 10px 18px;
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  border-radius: 999px;
+  background: #f7fbfd;
+  color: #031038;
+  font-size: 12px;
+  font-weight: 650;
+  transition: all 0.2s ease;
+}
+.container-flight--cargo-wms .flight-action:hover {
+  background: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Align Cargo WMS text and controls with the 1152px content column, so text never touches the edge when video expands */
+.container-flight--cargo-wms :is(.flight-content, .flight-topline, .flight-controls) {
+  padding-inline: calc(36px + var(--expand-progress, 0) * (max(36px, calc((100% - 1152px) / 2)) - 36px));
+}
+
+/* C: Solutions overview (editorial 2-column layout with frosted glass card) */
+.container-flight--solutions { --flight-accent: #bae6f2; }
+.container-flight--solutions .flight-copy {
+  display: grid;
+  grid-template-columns: 1.2fr .8fr;
+  align-items: center;
+  gap: 0 48px;
+  max-width: none;
+  width: 100%;
+}
+.container-flight--solutions .flight-eyebrow {
+  grid-column: 1 / -1;
+}
+.container-flight--solutions .flight-copy h2 {
+  font-size: clamp(42px, 5.2vw, 74px);
+  line-height: 1.04;
+}
+.container-flight--solutions .flight-description {
+  padding: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 18px;
+  background: rgba(3, 26, 44, 0.78);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  box-shadow: 0 16px 40px -15px rgba(0, 0, 0, 0.5);
+}
+.container-flight--solutions .flight-description > p {
+  margin-top: 0;
+}
+.container-flight--solutions .flight-description ul {
+  flex-direction: column;
+}
+
+/* Scroll-to-expand: Video frame expands from inset rounded card to full bleed, while text stays aligned with the grid */
+.container-flight--expand {
+  --expand-inset-width: min(1152px, calc(100% - 32px));
+  --expand-radius: 26px;
+  --expand-scale: 0.96;
+  width: 100%;
+  max-width: none;
+  margin: 0 auto;
+}
+
+.container-flight--expand .container-flight-frame {
+  width: calc(var(--expand-inset-width) + var(--expand-progress, 0) * (100% - var(--expand-inset-width)));
+  border-radius: calc((1 - var(--expand-progress, 0)) * var(--expand-radius));
+  transform: scale(calc(var(--expand-scale) + var(--expand-progress, 0) * (1 - var(--expand-scale))));
+  transform-origin: center top;
+  margin: 0 auto;
+  box-shadow: 0 24px 60px -20px rgba(3, 16, 56, calc(0.35 * (1 - var(--expand-progress, 0))));
+  transition: box-shadow 0.25s ease;
+}
+
+.container-flight--expand[data-expanded="true"] .container-flight-frame {
+  width: 100%;
+  border-radius: 0;
+  transform: none;
+  box-shadow: none;
+}
+
+.flight-preview-context { max-width: 1152px; margin: 0 auto; padding: 24px 24px 72px; }
+.flight-preview-note { margin-bottom: 48px; max-width: 900px; color: #60748a; font-size: 11px; line-height: 1.8; }
+.flight-preview-followup { display: flex; justify-content: space-between; align-items: center; gap: 28px; }
+.flight-preview-followup h2, .flight-context-title { margin-bottom: 18px; color: #031038; font-family: var(--font-display), sans-serif; font-size: 30px; font-weight: 650; letter-spacing: -.03em; }
+.flight-preview-followup p:last-child { max-width: 600px; color: #52657c; font-size: 14px; line-height: 1.8; }
+.flight-back-to-comparison { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: 40px; color: #032aac; font-size: 13px; font-weight: 600; }
+@keyframes flight-copy-in { from { opacity: .3; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+@media (max-width: 1023px) {
+  .flight-preview-layout { padding-top: 100px; }
+  .flight-preview-switcher { margin-inline: 12px; }
+  .flight-preview-options a { padding-inline: 8px; font-size: 10px; }
+  .flight-preview-options a svg { display: none; }
+  .flight-preview-grid { grid-template-columns: 1fr; max-width: 700px; }
+  .flight-preview-thumbnail { aspect-ratio: 16 / 7; }
+  .container-flight { margin-inline: 16px; }
+  .container-flight--cargo-wms { margin-inline: 0; }
+  .container-flight-frame { min-height: 600px; }
+  .container-flight--solutions .flight-copy { gap: 0 24px; }
+}
+@media (max-width: 639px) {
+  .flight-preview-switcher { top: 82px; flex-direction: column; align-items: stretch; gap: 6px; padding: 8px; }
+  .flight-preview-index { display: none; }
+  .flight-preview-options { gap: 3px; }
+  .flight-preview-options a { flex: 1; justify-content: center; text-align: center; gap: 4px; padding: 5px; min-height: 44px; font-size: 9px; }
+  .flight-preview-heading { padding-block: 40px 32px; }
+  .flight-preview-heading h1 { font-size: 36px; }
+  .flight-preview-header-links { gap: 16px; }
+  .flight-topline { padding: 22px 22px 0; font-size: 8px; }
+  .flight-content, .container-flight--cargo-wms .flight-content { padding: 40px 22px 24px; }
+  .flight-controls, .container-flight--cargo-wms .flight-controls { padding: 0 22px 22px; }
+  .container-flight--cargo-wms .flight-topline { padding-inline: 22px; }
+  .container-flight--home .flight-copy { padding: 20px; }
+  .flight-copy h2, .container-flight--cargo-wms .flight-copy h2 { font-size: 39px; }
+  .container-flight--home .flight-copy h2 { font-size: 30px; }
+  .flight-description > p { font-size: 13px; }
+  .flight-description ul { flex-direction: column; }
+  .flight-chapters { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 4px 10px; }
+  .flight-control-meta { font-size: 8px; }
+  .container-flight--solutions .flight-copy { display: block; }
+  .container-flight--solutions .flight-copy h2 { font-size: 44px; }
+  .container-flight--solutions .flight-description { margin-top: 24px; padding: 18px; }
+  .flight-preview-followup { flex-direction: column; align-items: flex-start; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .flight-copy { animation: none; }
+  .flight-video { display: none; }
+}
+
+/* Fit the complete pinned player beneath both navigation bars on laptop windows. */
+@media (min-width: 900px) and (min-height: 640px) and (max-height: 800px) {
+  .container-flight[data-mode="scroll"] .flight-topline { padding-top: 12px; font-size: 9px; }
+  .container-flight[data-mode="scroll"] .flight-content { padding-block: 12px; }
+  .container-flight[data-mode="scroll"] .flight-eyebrow { margin-bottom: 8px; font-size: 9px; }
+  .container-flight[data-mode="scroll"] .flight-copy h2 { font-size: 38px; }
+  .container-flight[data-mode="scroll"] .flight-description > p { margin-top: 12px; font-size: 12px; line-height: 1.55; }
+  .container-flight[data-mode="scroll"] .flight-description ul { margin-top: 10px; gap: 5px 16px; }
+  .container-flight[data-mode="scroll"] .flight-description li { font-size: 10px; }
+  .container-flight[data-mode="scroll"] .flight-action { margin-top: 12px; }
+  .container-flight[data-mode="scroll"] .flight-controls { padding-bottom: 12px; }
+  .container-flight[data-mode="scroll"] .flight-control-meta { margin-bottom: 2px; }
+  .container-flight[data-mode="scroll"] .flight-chapters button { min-height: 44px; }
+  .container-flight--home[data-mode="scroll"] .flight-copy { padding: 18px; }
+  .container-flight--home[data-mode="scroll"] .flight-copy h2 { font-size: 27px; }
+  .container-flight--solutions[data-mode="scroll"] .flight-copy h2 { font-size: 44px; }
+  .container-flight--solutions[data-mode="scroll"] .flight-description { padding: 18px; }
+  .container-flight--solutions[data-mode="scroll"] .flight-description > p { margin-top: 0; }
+}

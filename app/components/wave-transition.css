@@ -1,3 +1,10 @@
+:root {
+  --pearl-page: #f0f6fc;
+  --pearl-card: #f8fbff;
+  --pearl-mist: #e4eff9;
+  --pearl-line: #cddfef;
+}
+
 .wave-transition {
   position: relative;
   z-index: 2;

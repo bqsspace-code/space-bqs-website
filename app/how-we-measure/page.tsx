@@ -13,7 +13,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="space-y-12 pb-16">
-      <div className="mx-auto max-w-6xl px-4 pt-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs
           trail={[
             { href: "/", label: "Home" },

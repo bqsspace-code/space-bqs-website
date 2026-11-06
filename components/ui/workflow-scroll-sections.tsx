@@ -27,6 +27,15 @@ const VISUALS = [
 
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
+const COMPARISON_TAKEAWAYS = [
+  ["Enter the same reading twice.", "Capture once. Share the record."],
+  ["Check copied formulas again.", "Trace the calculation."],
+  ["Hunt for the right table.", "Keep the context attached."],
+  ["Send separate attachments.", "Issue proof with its working."],
+  ["Search folders and inboxes.", "Find the whole survey."],
+  ["Guess which file is final.", "Follow a clear review trail."],
+] as const;
+
 function WorkflowSlide({ index, direction, reduced, id }: { index: number; direction: number; reduced: boolean; id: string }) {
   const present = useIsPresent();
   const stage = STAGES[index];
@@ -61,13 +70,17 @@ function WorkflowSlide({ index, direction, reduced, id }: { index: number; direc
       <div id={present ? `${id}-panel` : undefined} role="tabpanel" aria-labelledby={`${id}-tab-${index}`} tabIndex={present ? 0 : -1} className="workflow-tour-copy">
         <p className="font-mono text-[10px] font-semibold uppercase tracking-[.14em] text-[#032aac]">0{index + 1} / {stage.subtitle}</p>
         <h3 aria-label={stage.headline} className="workflow-tour-headline font-display">{stage.headline}</h3>
-        <div className="workflow-tour-before">
-          <p className="mb-2 flex items-center gap-2 text-[11px] font-semibold text-[#62758a]"><FileSpreadsheet aria-hidden="true" className="h-3.5 w-3.5" />With separate spreadsheets</p>
-          <p>{stage.manual}</p>
-        </div>
-        <div className="workflow-tour-after">
-          <p className="mb-2 flex items-center gap-2 text-[11px] font-semibold text-[#032aac]"><Check aria-hidden="true" className="h-3.5 w-3.5" />With Space BQS</p>
-          <p>{stage.approach}</p>
+        <div className="workflow-tour-comparison">
+          <div className="workflow-tour-before">
+            <p className="workflow-compare-label"><FileSpreadsheet aria-hidden="true" />Separate spreadsheets<span>Before</span></p>
+            <h4>{COMPARISON_TAKEAWAYS[index][0]}</h4>
+            <p>{stage.manual}</p>
+          </div>
+          <div className="workflow-tour-after">
+            <p className="workflow-compare-label"><Check aria-hidden="true" />Space BQS<span>After</span></p>
+            <h4>{COMPARISON_TAKEAWAYS[index][1]}</h4>
+            <p>{stage.approach}</p>
+          </div>
         </div>
         <p className="workflow-tour-benefit">{stage.benefit}</p>
         <Link href={visual.href} className="workflow-tour-link">{visual.link}<ArrowUpRight aria-hidden="true" className="h-4 w-4" /></Link>
@@ -88,7 +101,7 @@ export default function WorkflowScrollSections() {
   const [reduced, setReduced] = useState(false);
 
   useEffect(() => {
-    const desktop = matchMedia("(min-width: 1024px) and (min-height: 860px)");
+    const desktop = matchMedia("(min-width: 1024px) and (min-height: 600px)");
     const preference = matchMedia("(prefers-reduced-motion: reduce)");
     const sync = () => {
       setReduced(preference.matches);

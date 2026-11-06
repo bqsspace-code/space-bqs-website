@@ -10,7 +10,7 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div>
-      <div className="mx-auto max-w-6xl px-4 pt-8">
+      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/who-its-for", label: "Who It's For" }]} />
         <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">Who it&apos;s for — survey firms and their teams</h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">Space BQS is bought by survey firms. Used by surveyors and supervisors. Trusted by their clients.</p>

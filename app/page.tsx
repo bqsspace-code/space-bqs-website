@@ -56,7 +56,7 @@ export default function Home() {
 
       {/* 2. One concise explanation of the problem. */}
       <HomeProblemSummary />
-      <WaveTransition variant="sweep" to="var(--pearl-mist)" />
+      <WaveTransition variant="sweep" to="var(--pearl-mist, #e4eff9)" />
 
       {/* 3. The three survey types; mobile users can swipe between the cards. */}
       <section id="section-workflows" className="bg-mist-100 px-6 pt-16 lg:pt-20">
@@ -73,7 +73,7 @@ export default function Home() {
 
       {/* 4. One connected story replaces deck, office, calculation, and deliverables tours. */}
       <HomeWorkflowJourney />
-      <WaveTransition variant="sweep" to="var(--pearl-mist)" flip />
+      <WaveTransition variant="sweep" to="var(--pearl-mist, #e4eff9)" flip />
 
       {/* 5. Let visitors explore the retained evidence rather than repeat its description. */}
       <SurveyWarehouseSection />
@@ -81,11 +81,11 @@ export default function Home() {
 
       {/* 6. A compact comparison for visitors who need more detail. */}
       <SpreadsheetCompareSection />
-      <WaveTransition variant="ripple" to="var(--pearl-mist)" />
+      <WaveTransition variant="ripple" to="var(--pearl-mist, #e4eff9)" />
 
       {/* 7. The four people connected by the same record. */}
       <WhoItsForSection />
-      <WaveTransition variant="crest" to="var(--pearl-mist)" flip />
+      <WaveTransition variant="crest" to="var(--pearl-mist, #e4eff9)" flip />
 
       {/* 8. Implementation and licensing now share a single decision point. */}
       <RolloutShowcase />

@@ -36,7 +36,7 @@
 .team-split-link:focus-visible { outline: 2px solid #032aac; outline-offset: 5px; border-radius: 4px; }
 .team-split-instruction { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin: 18px 36px 0; font-family: var(--font-mono), monospace; font-size: 10px; color: #526f89; }
 
-@media (min-width: 1024px) and (min-height: 740px) and (prefers-reduced-motion: no-preference) {
+@media (min-width: 1024px) and (min-height: 600px) and (prefers-reduced-motion: no-preference) {
   .team-split-section[data-enhanced="true"] { height: calc(100svh + 360px); padding-top: 40px; padding-bottom: 96px; }
   .team-split-section[data-enhanced="true"] .team-split-sticky { position: sticky; top: 96px; }
   [data-enhanced="true"] .team-split-static-image { display: none; }

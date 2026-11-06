@@ -15,7 +15,7 @@ export default function Page() {
     <div>
       {/* Hero */}
       <section
-        className="pt-24 pb-16"
+        className="pt-28 sm:pt-32 pb-16"
         style={{
           background: "radial-gradient(ellipse 80% 60% at 50% 20%, #FFFFFF 0%, #EAF4F9 50%, #D3E9F3 100%)",
         }}

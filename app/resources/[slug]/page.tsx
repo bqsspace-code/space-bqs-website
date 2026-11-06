@@ -37,7 +37,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   return (
     <div>
-      <div className="mx-auto max-w-3xl px-4 pt-8">
+      <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs
           trail={[
             { href: "/", label: "Home" },
