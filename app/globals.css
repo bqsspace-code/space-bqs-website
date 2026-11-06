@@ -6,7 +6,7 @@
 @import "./components/rollout-showcase.css";
 @import "./components/home-workflow-journey.css";
 @import "./components/wave-transition.css";
-@import "./previews/container-journey/container-flight.css";
+@import "../components/ui/cargo-wms-flight.css";
 
 .warehouse-showcase {
   background: radial-gradient(ellipse at 80% 15%, rgba(174, 206, 255, .25), transparent 50%), radial-gradient(ellipse at 5% 75%, rgba(149, 222, 235, .2), transparent 45%), #eaf4f9;

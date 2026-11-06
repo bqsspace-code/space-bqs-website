@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import CargoWmsJourney from "@/components/ui/cargo-wms-journey";
-import ContainerFlight from "@/app/previews/container-journey/ContainerFlight";
+import CargoWmsFlight from "@/components/ui/cargo-wms-flight";
 import { MarketingHeader, MarketingCard, ServiceLinks } from "../../components/MarketingPage";
 import { Section } from "../../components/ui";
 
@@ -33,8 +33,7 @@ export default function Page() {
             Explore the proposed container workflow from arrival to controlled release. Scroll to expand into the full cinematic journey with magnetic chapter alignment.
           </p>
         </div>
-        <ContainerFlight
-          variant="cargo-wms"
+        <CargoWmsFlight
           topOffset={96}
           enableSnap={true}
           expandOnScroll={true}

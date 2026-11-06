@@ -1,29 +1,32 @@
 "use client";
 
 import { useCallback, useEffect, useRef, useState, type RefObject } from "react";
-import { FLIGHT_TOP, FRAME_TIMES } from "./variants";
+
+export const FRAME_TIMES = [0.7, 3.5, 6.6, 9.4];
+export const FRAME_POSTERS = FRAME_TIMES.map(
+  (_, index) => `/assets/videos/container-flight-0${index + 1}.webp`
+);
 
 const FPS = 60;
 const FRAME = 1 / FPS;
-// Short rests keep chapters legible without squeezing the camera travel into a burst.
 const CHAPTER_HOLD = 0.12;
 const EXPAND_PORTION = 0.12;
 
-export interface ContainerFlightOptions {
+export interface CargoWmsFlightOptions {
   topOffset?: number;
   snap?: boolean;
   expandOnScroll?: boolean;
 }
 
-export function useContainerFlight(
+export function useCargoWmsFlight(
   root: RefObject<HTMLElement | null>,
   scrollMode: boolean,
   distance: number,
-  options?: ContainerFlightOptions
+  options?: CargoWmsFlightOptions
 ) {
-  const flightTop = options?.topOffset ?? FLIGHT_TOP;
+  const flightTop = options?.topOffset ?? 96;
   const enableSnap = options?.snap ?? true;
-  const expandOnScroll = options?.expandOnScroll ?? false;
+  const expandOnScroll = options?.expandOnScroll ?? true;
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
@@ -117,7 +120,7 @@ export function useContainerFlight(
         progressRef.current.style.transform = `scaleX(${renderedProgress})`;
       }
 
-      // Independent frames make forward and reverse seeks cheap. Never interrupt an in-flight seek.
+      // Independent frames make forward and reverse seeks cheap
       let waitingForFrame = false;
       if (!failed && video.readyState >= 2 && Number.isFinite(video.duration)) {
         const time = Math.min(Math.round(targetTime * FPS) / FPS, video.duration - FRAME);
@@ -203,7 +206,7 @@ export function useContainerFlight(
 
         const context = gsap.context(() => {
           const trigger = ScrollTrigger.create({
-            id: section.id ? `${section.id}-flight` : "container-flight-preview",
+            id: section.id ? `${section.id}-flight` : "cargo-wms-flight",
             trigger: section,
             start: `top ${flightTop}px`,
             end: () => `+=${distance}`,
@@ -284,3 +287,4 @@ export function useContainerFlight(
 
   return { videoRef, progressRef, active, status, choose };
 }
+

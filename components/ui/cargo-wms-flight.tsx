@@ -4,47 +4,99 @@ import { useEffect, useId, useRef, useState, type CSSProperties, type KeyboardEv
 import Image from "next/image";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, Check, RotateCcw, SlidersHorizontal } from "lucide-react";
-import { FLIGHT_TOP, FLIGHT_VARIANTS, FRAME_POSTERS, type FlightVariant } from "./variants";
-import { useContainerFlight } from "./useContainerFlight";
+import {
+  FRAME_POSTERS,
+  useCargoWmsFlight,
+  type CargoWmsFlightOptions,
+} from "./use-cargo-wms-flight";
 
-export interface ContainerFlightProps {
-  variant: FlightVariant;
-  topOffset?: number;
+export interface CargoWmsChapter {
+  label: string;
+  eyebrow: string;
+  title: string;
+  description: string;
+  points: string[];
+  href: string;
+  action: string;
+}
+
+export const CARGO_WMS_CHAPTERS: CargoWmsChapter[] = [
+  {
+    label: "Arrival",
+    eyebrow: "01 / Plan + receive",
+    title: "Know what’s coming.",
+    description:
+      "Register the manifest before arrival. Receive against the expected cargo, record exceptions, and organise destuffing.",
+    points: ["Expected versus arrived cargo", "Receipt and destuffing records"],
+    href: "/request-demo",
+    action: "Discuss your inbound workflow",
+  },
+  {
+    label: "Control",
+    eyebrow: "02 / Locate + calculate",
+    title: "Keep the operation in view.",
+    description:
+      "Connect cargo locations and movement history with the tariff version, period, and inputs behind each charge.",
+    points: ["Locations and movement history", "Traceable charges and tariff rules"],
+    href: "/request-demo",
+    action: "Scope your operational controls",
+  },
+  {
+    label: "Release",
+    eyebrow: "03 / Approve + hand over",
+    title: "Release with confidence.",
+    description:
+      "Make payment, document, and approval requirements clear before handover. Close the movement with the right records.",
+    points: ["Agreed release approval gates", "Handover documents and reports"],
+    href: "/request-demo",
+    action: "Plan your release workflow",
+  },
+  {
+    label: "Your workflow",
+    eyebrow: "04 / Custom implementation",
+    title: "Your operation. Connected.",
+    description:
+      "Turn the journey into an agreed scope: modules, permissions, reports, integrations, and acceptance criteria.",
+    points: ["Discovery and workflow mapping", "Test, train, launch, and hand over"],
+    href: "/request-demo",
+    action: "Discuss your WMS requirements",
+  },
+];
+
+export interface CargoWmsFlightProps extends CargoWmsFlightOptions {
   enableSnap?: boolean;
-  expandOnScroll?: boolean;
   distance?: number;
   id?: string;
   className?: string;
 }
 
-export default function ContainerFlight({
-  variant,
-  topOffset = FLIGHT_TOP,
-  enableSnap = true,
-  expandOnScroll = false,
-  distance: distanceProp,
+export default function CargoWmsFlight({
+  topOffset = 96,
+  snap,
+  enableSnap: enableSnapProp,
+  expandOnScroll = true,
+  distance = 1500,
   id: idProp,
   className: classNameProp = "",
-}: ContainerFlightProps) {
+}: CargoWmsFlightProps) {
+  const enableSnap = enableSnapProp ?? snap ?? true;
   const ref = useRef<HTMLElement>(null);
   const buttons = useRef<(HTMLButtonElement | null)[]>([]);
   const generatedId = useId();
   const id = idProp ?? generatedId;
-  const config = FLIGHT_VARIANTS[variant];
-  const distance = distanceProp ?? config.distance;
   const [eligible, setEligible] = useState(false);
   const [fallbackHint, setFallbackHint] = useState("Choose a chapter to explore");
   const [manual, setManual] = useState(false);
   const scrollMode = eligible && !manual;
 
-  const { videoRef, progressRef, active, status, choose } = useContainerFlight(
+  const { videoRef, progressRef, active, status, choose } = useCargoWmsFlight(
     ref,
     scrollMode,
     distance,
     { topOffset, snap: enableSnap, expandOnScroll }
   );
 
-  const chapter = config.chapters[active];
+  const chapter = CARGO_WMS_CHAPTERS[active];
 
   useEffect(() => {
     const desktop = matchMedia("(min-width: 900px)");
@@ -80,6 +132,17 @@ export default function ContainerFlight({
     });
   };
 
+  const restart = () => {
+    if (scrollMode && ref.current) {
+      window.scrollTo({
+        top: ref.current.getBoundingClientRect().top + scrollY - topOffset + 1,
+        behavior: "smooth",
+      });
+    } else {
+      choose(0);
+    }
+  };
+
   const keys = (event: KeyboardEvent<HTMLElement>) => {
     const focused = buttons.current.indexOf(document.activeElement as HTMLButtonElement);
     const current = focused >= 0 ? focused : active;
@@ -99,31 +162,22 @@ export default function ContainerFlight({
     buttons.current[next]?.focus({ preventScroll: true });
   };
 
-  const restart = () => {
-    if (scrollMode && ref.current) {
-      window.scrollTo({
-        top: ref.current.getBoundingClientRect().top + scrollY - topOffset + 1,
-        behavior: "smooth",
-      });
-    } else {
-      choose(0);
-    }
-  };
-
   const dynamicStyles: CSSProperties = {
     "--flight-distance": `${distance}px`,
-    ...(topOffset !== FLIGHT_TOP ? { "--flight-top-override": `${topOffset}px` } : {}),
+    "--flight-top-override": `${topOffset}px`,
   } as CSSProperties;
 
   return (
     <section
       ref={ref}
       id={idProp ?? "film-journey"}
-      className={`container-flight container-flight--${variant} ${expandOnScroll ? "container-flight--expand" : ""} ${classNameProp}`.trim()}
+      className={`container-flight container-flight--cargo-wms ${
+        expandOnScroll ? "container-flight--expand" : ""
+      } ${classNameProp}`.trim()}
       data-mode={scrollMode ? "scroll" : "chapters"}
       data-chapter={active}
       style={dynamicStyles}
-      aria-label={`${config.name} cinematic preview`}
+      aria-label="Cargo WMS operational journey"
     >
       <div className="container-flight-frame">
         <div className="flight-background" aria-hidden="true">
@@ -146,12 +200,8 @@ export default function ContainerFlight({
           <div className="flight-shade" />
         </div>
         <div className="flight-topline">
-          <span>
-            SPACE / {variant === "home" ? "IMPLEMENTATION" : variant === "cargo-wms" ? "CARGO WMS" : "SOLUTIONS"}
-          </span>
-          <span>
-            0{active + 1} / 04
-          </span>
+          <span>SPACE / CARGO WMS</span>
+          <span>0{active + 1} / 04</span>
         </div>
         <div className="flight-content">
           <div key={active} className="flight-copy" id={`${id}-chapter`}>
@@ -204,7 +254,7 @@ export default function ContainerFlight({
             </div>
           </div>
           <nav className="flight-chapters" aria-label="Journey chapters" onKeyDown={keys}>
-            {config.chapters.map((item, index) => (
+            {CARGO_WMS_CHAPTERS.map((item, index) => (
               <button
                 ref={(el) => {
                   buttons.current[index] = el;
