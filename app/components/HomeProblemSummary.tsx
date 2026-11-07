@@ -3,9 +3,9 @@ import Link from "next/link";
 import WeightText from "./WeightText";
 
 const PROBLEMS = [
-  { icon: FilePenLine, label: "On deck", title: "Paper that gets retyped", description: "Every copy from notebook to spreadsheet is another chance for a slip.", resolution: "Capture once, at the tank." },
-  { icon: Calculator, label: "At the desk", title: "Formulas that quietly break", description: "Copied workbooks carry old formulas and hidden mistakes into the next job.", resolution: "One versioned calculation engine." },
-  { icon: FolderSearch, label: "Months later", title: "Files nobody can find", description: "A disputed number should lead to its evidence, not a search through inboxes.", resolution: "One locked record to return to." },
+  { icon: FilePenLine, label: "On Deck", title: "Paper That Gets Retyped", description: "Every copy from notebook to spreadsheet is another chance for a slip.", resolution: "Capture once, at the tank." },
+  { icon: Calculator, label: "At The Desk", title: "Formulas That Quietly Break", description: "Copied workbooks carry old formulas and hidden mistakes into the next job.", resolution: "One versioned calculation engine." },
+  { icon: FolderSearch, label: "Months Later", title: "Files Nobody Can Find", description: "A disputed number should lead to its evidence, not a search through inboxes.", resolution: "One locked record to return to." },
 ];
 
 export default function HomeProblemSummary() {
@@ -13,7 +13,7 @@ export default function HomeProblemSummary() {
     <section id="friction" className="home-problem-summary bg-[#F7FBFD] px-6 py-16 lg:py-20" aria-labelledby="friction-heading">
       <div className="mx-auto max-w-6xl">
         <div className="mb-8 flex flex-col justify-between gap-5 lg:flex-row lg:items-end">
-          <WeightText id="friction-heading" tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="max-w-xl font-display text-3xl leading-tight tracking-tight sm:text-4xl">Where survey numbers go wrong</WeightText>
+          <WeightText id="friction-heading" tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="max-w-xl font-display text-3xl leading-tight tracking-tight sm:text-4xl">Where Survey Numbers Go Wrong</WeightText>
           <p className="max-w-sm text-sm leading-6 text-[#52657c]">The mistakes rarely happen at the tank. They happen between the reading and the record.</p>
         </div>
         <div className="grid gap-4 md:grid-cols-3">

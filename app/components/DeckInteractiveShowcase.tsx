@@ -29,12 +29,12 @@ const STAGES: StageCardData[] = [
     id: "scan",
     stepNumber: "01",
     eyebrow: "01 / VESSEL IDENTIFICATION",
-    heading: "Scan and verify at the manifold.",
+    heading: "Scan And Verify At The Manifold.",
     sentence: "Choose the vessel or scan its QR code, then select Bunker Delivery, ROB, or Debunkering to start the survey.",
     tag: "Vessel & Survey Context",
     screenshot: "WhatsApp Image 2026-10-09 at 11.09.07 PM (6).jpeg",
     screenshotAlt: "Space BQS new survey screen with vessel selection, Scan vessel QR, and survey type choices",
-    calloutTitle: "Start with the right vessel",
+    calloutTitle: "Start With The Right Vessel",
     calloutDetail: "Vessel selection · QR · survey type",
     accentColor: "#19B5C9",
     lightBg: "linear-gradient(180deg, #F0F6FB 0%, #E3EEF8 100%)",
@@ -46,12 +46,12 @@ const STAGES: StageCardData[] = [
     id: "capture",
     stepNumber: "02",
     eyebrow: "02 / 100% OFFLINE CAPTURE",
-    heading: "Capture on deck. Zero cellular signal.",
+    heading: "Capture On Deck. Zero Cellular Signal.",
     sentence: "Review net volume and the live survey total on the device. Save a draft and retain your calculation without a cellular connection.",
     tag: "Offline Calculation Preview",
     screenshot: "WhatsApp Image 2026-10-09 at 11.09.07 PM (7).jpeg",
     screenshotAlt: "Space BQS offline calculation preview with net volume, live survey total, field remarks, and Save and Calculate",
-    calloutTitle: "Your working stays on deck",
+    calloutTitle: "Your Working Stays On Deck",
     calloutDetail: "Live preview · draft · saved result",
     accentColor: "#F59E0B",
     lightBg: "linear-gradient(180deg, #F4F1FA 0%, #E7E3F5 100%)",
@@ -63,12 +63,12 @@ const STAGES: StageCardData[] = [
     id: "calculate",
     stepNumber: "03",
     eyebrow: "03 / REAL-TIME ASTM MATRIX",
-    heading: "ASTM Table 54B in real time.",
+    heading: "ASTM Table 54B In Real Time.",
     sentence: "Open the calculation breakdown to review the survey mass and each tank’s contribution before submitting it for review.",
     tag: "Tank-Level Breakdown",
     screenshot: "WhatsApp Image 2026-10-09 at 11.09.07 PM (8).jpeg",
     screenshotAlt: "Space BQS calculation breakdown showing custody transfer mass, tank-level calculations, and the Submit action",
-    calloutTitle: "Follow the tank-level result",
+    calloutTitle: "Follow The Tank-Level Result",
     calloutDetail: "Calculation breakdown · review · submit",
     accentColor: "#4E8DEB",
     lightBg: "linear-gradient(180deg, #F0F9F6 0%, #DFEFE9 100%)",
@@ -80,12 +80,12 @@ const STAGES: StageCardData[] = [
     id: "certify",
     stepNumber: "04",
     eyebrow: "04 / COMPLETED SURVEY RECORDS",
-    heading: "The completed survey, ready to revisit.",
+    heading: "The Completed Survey, Ready To Revisit.",
     sentence: "Find completed surveys with net mass, correction factor, and observed volume together. Return to the report and soundings when you need to check the record.",
     tag: "Reports & Soundings",
     screenshot: "WhatsApp Image 2026-10-09 at 11.09.07 PM (2).jpeg",
     screenshotAlt: "Space BQS recent completed surveys showing net mass, volume correction factor, and View Report and Soundings",
-    calloutTitle: "Return to the completed record",
+    calloutTitle: "Return To The Completed Record",
     calloutDetail: "Net mass · VCF · report & soundings",
     accentColor: "#10B981",
     lightBg: "linear-gradient(180deg, #FAF2F2 0%, #F5E3E3 100%)",
@@ -255,7 +255,7 @@ export default function DeckInteractiveShowcase() {
             accentColor="#19B5C9"
             className="font-display text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight leading-[1.08] max-w-4xl mx-auto"
           >
-            How the surveyor moves from deck to proof.
+            How The Surveyor Moves From Deck To Proof.
           </WeightText>
           <p className="mt-4 text-base sm:text-lg max-w-2xl mx-auto leading-relaxed text-[#031038]/70">
             Follow the survey workflow through real Space BQS app screens—from

@@ -36,7 +36,7 @@ export function BevelWorkflowCards() {
         <div className="relative z-20 space-y-2.5">
           <div className="flex items-center justify-between">
             <h3 className="font-display text-2xl sm:text-[28px] font-bold text-[#031038] tracking-tight group-hover:text-[#032AAC] transition-colors">
-              Bunker delivery
+              Bunker Delivery
             </h3>
             <div className="w-8 h-8 rounded-full bg-white/90 border border-slate-200/80 shadow-xs flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:bg-white shrink-0">
               <ArrowUpRight className="w-4 h-4 text-[#031038] transition-transform duration-300 group-hover:rotate-45" />
@@ -152,7 +152,7 @@ export function BevelWorkflowCards() {
         <div className="relative z-20 space-y-2.5">
           <div className="flex items-center justify-between">
             <h3 className="font-display text-2xl sm:text-[28px] font-bold text-[#031038] tracking-tight group-hover:text-[#032AAC] transition-colors">
-              ROB &amp; on/off-hire
+              ROB &amp; On/Off-Hire
             </h3>
             <div className="w-8 h-8 rounded-full bg-white/80 border border-slate-200/80 shadow-xs flex items-center justify-center transition-transform duration-300 group-hover:scale-110 group-hover:bg-white shrink-0">
               <ArrowUpRight className="w-4 h-4 text-[#031038] transition-transform duration-300 group-hover:rotate-45" />

@@ -10,6 +10,7 @@ import { SurveyWarehouseSection, SpreadsheetCompareSection, WhoItsForSection } f
 import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
 import RolloutShowcase from "./components/RolloutShowcase";
 import AppPreviewCard from "./components/AppPreviewCard";
+import WeightText from "./components/WeightText";
 
 export const metadata: Metadata = {
   title: "BQS Software for Marine Surveyors — Capture, Calculate, Certify",
@@ -60,14 +61,19 @@ export default function Home() {
       <WaveTransition variant="sweep" to="var(--pearl-mist, #e4eff9)" />
 
       {/* 3. The three survey types; mobile users can swipe between the cards. */}
-      <section id="section-workflows" className="bg-mist-100 px-6 pt-16 lg:pt-20">
+      <section id="section-workflows" className="bg-mist-100 px-6 pt-16 pb-16 lg:pt-20 lg:pb-24">
         <div className="mx-auto max-w-6xl">
           <div className="flex flex-col justify-between gap-5 border-b border-[#D3E9F3]/70 pb-8 md:flex-row md:items-end">
-            <div><Eyebrow>Three workflows. One engine.</Eyebrow><H2>Every quantity job.<br />The same confidence.</H2></div>
+            <div><Eyebrow>Three Workflows. One Engine.</Eyebrow><H2>Every Quantity Job.<br />The Same Confidence.</H2></div>
             <p className="max-w-[290px] text-sm leading-6 text-[#52657c]">Delivery, fuel remaining on board, or removal. Keep the reading and the proof together.</p>
           </div>
           <p className="mt-5 font-mono text-[10px] uppercase tracking-wider text-[#637c94] md:hidden">Swipe to explore the three workflows →</p>
           <div className="home-service-cards mt-5 md:mt-8"><BevelWorkflowCards /></div>
+
+          {/* Real app in action — on-deck execution card */}
+          <div className="mt-12 lg:mt-16">
+            <AppPreviewCard asSection={false} badge="See It In Action" />
+          </div>
         </div>
       </section>
       <WaveTransition variant="crest" flip />
@@ -86,12 +92,9 @@ export default function Home() {
 
       {/* 7. The four people connected by the same record. */}
       <WhoItsForSection />
+      <WaveTransition variant="crest" to="var(--pearl-mist, #e4eff9)" flip />
 
-      {/* 8. App in action — video preview card with gradient before the rollout section. */}
-      <AppPreviewCard />
-      <WaveTransition variant="sweep" to="var(--pearl-mist, #e4eff9)" />
-
-      {/* 9. Implementation and licensing now share a single decision point. */}
+      {/* 8. Implementation and licensing now share a single decision point. */}
       <RolloutShowcase />
       <WaveTransition variant="sweep" />
 
@@ -99,8 +102,19 @@ export default function Home() {
       <Section id="section-faq" className="bg-[#F7FBFD]">
         <div className="grid gap-10 lg:grid-cols-12 lg:gap-16">
           <div className="lg:col-span-5">
-            <Eyebrow>A little more clarity</Eyebrow>
-            <H2>Common<br />questions.</H2>
+            <Eyebrow>A Little More Clarity</Eyebrow>
+            <WeightText
+              id="faq-heading"
+              tag="h2"
+              mode="scroll-reveal"
+              restWeight={400}
+              activeWeight={700}
+              activeColor="#032AAC"
+              accentColor="#19B5C9"
+              className="max-w-[240px] font-display text-2xl font-bold leading-tight tracking-tight text-[#031038] sm:text-3xl lg:text-4xl"
+            >
+              Common Questions.
+            </WeightText>
             <p className="mt-3 text-base leading-relaxed text-[#52657c]">The details that matter to your firm.</p>
             <Link href="/pricing" className="mt-5 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#032aac] hover:underline">Team licensing &amp; pricing<ArrowUpRight className="h-4 w-4" aria-hidden="true" /></Link>
           </div>

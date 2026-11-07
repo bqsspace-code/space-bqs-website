@@ -72,7 +72,7 @@ export function WhereNumbersGoWrong() {
             accentColor="#19B5C9"
             className="font-display text-[clamp(40px,6.4vw,92px)] leading-[0.98] tracking-[-0.035em] font-extrabold inline-block"
           >
-            Where survey numbers go wrong
+            Where Survey Numbers Go Wrong
           </WeightText>
 
           <p className="mt-6 font-sans text-[clamp(18px,2vw,19px)] leading-[1.6] text-[#031038]/70 max-w-[44ch] mx-0 min-[861px]:mx-auto font-normal">
@@ -132,7 +132,7 @@ export function WhereNumbersGoWrong() {
               </div>
 
               <WeightText tag="h3" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-[clamp(32px,4vw,52px)] leading-[1.04] tracking-[-0.03em] font-bold text-[#031038] mt-3">
-                Paper that gets retyped
+                Paper That Gets Retyped
               </WeightText>
 
               <p className="font-sans text-[18px] sm:text-[19px] leading-[1.6] text-[#031038]/85 font-normal mt-4 max-w-[44ch]">
@@ -212,7 +212,7 @@ export function WhereNumbersGoWrong() {
               </div>
 
               <WeightText tag="h3" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-[clamp(32px,4vw,52px)] leading-[1.04] tracking-[-0.03em] font-bold text-[#031038] mt-3">
-                Formulas that quietly break
+                Formulas That Quietly Break
               </WeightText>
 
               <p className="font-sans text-[18px] sm:text-[19px] leading-[1.6] text-[#031038]/85 font-normal mt-4 max-w-[44ch]">
@@ -301,7 +301,7 @@ export function WhereNumbersGoWrong() {
               </div>
 
               <WeightText tag="h3" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-[clamp(32px,4vw,52px)] leading-[1.04] tracking-[-0.03em] font-bold text-[#031038] mt-3">
-                Files nobody can find
+                Files Nobody Can Find
               </WeightText>
 
               <p className="font-sans text-[18px] sm:text-[19px] leading-[1.6] text-[#031038]/85 font-normal mt-4 max-w-[44ch]">

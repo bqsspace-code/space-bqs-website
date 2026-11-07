@@ -10,10 +10,10 @@ import teamImage from "@/public/assets/web_image/shutterstock_2507213927-scaled.
 
 
 const ROLES = [
-  { icon: Smartphone, title: "Surveyors on Deck", action: "Scan, measure, submit", tag: "Field tool", description: "Capture tank readings and calculate offline, even in engine rooms. Submit once—without retyping ashore.", href: "/mobile-app", link: "Explore the mobile app" },
-  { icon: ShieldCheck, title: "Supervisors in Office", action: "Review, complete, lock", tag: "Quantity review", description: "Check tank-level results and temperature corrections. Review, finalise, and lock the certificate before issue.", href: "/features/calculation-audit", link: "See the review workflow" },
-  { icon: ChartNoAxesCombined, title: "Firm Owners & Ops", action: "Oversee fleet, volume & audit", tag: "Business oversight", description: "Track tonnage and team activity across your fleet. Keep every survey ready for audits and client questions.", href: "/features/survey-register-dashboard", link: "Explore the dashboard" },
-  { icon: FileCheck2, title: "Clients & Principals", action: "Clear, defensible certificates", tag: "Client handover", description: "Receive a locked PDF and a four-sheet Excel workbook. Follow every reading, factor, and total—no login needed.", href: "/sample-report", link: "See a sample report" },
+  { icon: Smartphone, title: "Surveyors on Deck", action: "Scan, Measure, Submit", tag: "Field tool", description: "Capture tank readings and calculate offline, even in engine rooms. Submit once—without retyping ashore.", href: "/mobile-app", link: "Explore the mobile app" },
+  { icon: ShieldCheck, title: "Supervisors in Office", action: "Review, Complete, Lock", tag: "Quantity review", description: "Check tank-level results and temperature corrections. Review, finalise, and lock the certificate before issue.", href: "/features/calculation-audit", link: "See the review workflow" },
+  { icon: ChartNoAxesCombined, title: "Firm Owners & Ops", action: "Oversee Fleet, Volume & Audit", tag: "Business oversight", description: "Track tonnage and team activity across your fleet. Keep every survey ready for audits and client questions.", href: "/features/survey-register-dashboard", link: "Explore the dashboard" },
+  { icon: FileCheck2, title: "Clients & Principals", action: "Clear, Defensible Certificates", tag: "Client handover", description: "Receive a locked PDF and a four-sheet Excel workbook. Follow every reading, factor, and total—no login needed.", href: "/sample-report", link: "See a sample report" },
 ] as const;
 
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
@@ -71,8 +71,8 @@ export default function TeamSplitCards() {
     <section ref={ref} id="section-personas" aria-labelledby="team-split-heading" className="team-glass-section team-split-section" data-enhanced={enhanced}>
       <div className="team-split-sticky">
         <header className="team-split-heading">
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-[#032aac]">Built for the whole team</p>
-          <WeightText id="team-split-heading" tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-3xl font-bold leading-tight tracking-tight text-[#031038] sm:text-4xl">One platform for everyone<br className="hidden sm:block" /> who relies on the number.</WeightText>
+          <p className="font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-[#032aac]">Built For The Whole Team</p>
+          <WeightText id="team-split-heading" tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-3xl font-bold leading-tight tracking-tight text-[#031038] sm:text-4xl">One Platform For Everyone<br className="hidden sm:block" /> Who Relies On The Number.</WeightText>
           <p className="text-sm leading-relaxed text-[#52657c]">From the first reading on deck to the final proof in your client’s hands.</p>
         </header>
 

@@ -11,9 +11,9 @@ import cargoImage from "@/public/assets/web_image/cargo-terminal-showcase.webp";
 
 
 const OFFERINGS = [
-  { title: "Move your existing data.", tag: "Data migration", description: "Map, trial-import, and reconcile your records before the final move. A clear path from old files to a shared system.", href: "/services/data-migration", link: "Plan a migration", icon: Database },
-  { title: "Choose your environment.", tag: "Deployment", description: "Public cloud, private cloud, or on-premises. Scope the rollout with your infrastructure team and your operational needs.", href: "/services/deployment", link: "Compare deployments", icon: Server },
-  { title: "Managing cargo instead?", tag: "Cargo WMS", description: "A separate custom implementation for manifests, locations, tariffs, and controlled cargo release.", href: "/solutions/cargo-wms", link: "Explore Cargo WMS", icon: Ship },
+  { title: "Move Your Existing Data.", tag: "Data migration", description: "Map, trial-import, and reconcile your records before the final move. A clear path from old files to a shared system.", href: "/services/data-migration", link: "Plan a migration", icon: Database },
+  { title: "Choose Your Environment.", tag: "Deployment", description: "Public cloud, private cloud, or on-premises. Scope the rollout with your infrastructure team and your operational needs.", href: "/services/deployment", link: "Compare deployments", icon: Server },
+  { title: "Managing Cargo Instead?", tag: "Cargo WMS", description: "A separate custom implementation for manifests, locations, tariffs, and controlled cargo release.", href: "/solutions/cargo-wms", link: "Explore Cargo WMS", icon: Ship },
 ] as const;
 
 function MigrationVisual() {
@@ -125,7 +125,7 @@ export default function RolloutShowcase() {
           <div ref={trackRef} className="rollout-showcase-track">
             <header ref={el => { panels.current[0] = el; }} className="rollout-showcase-intro" onFocusCapture={() => { if (enhanced) navigate(0); }}>
               <p className="mb-4 font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-[#032aac]">Solutions &amp; implementation</p>
-              <WeightText id="rollout-showcase-heading" tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-4xl font-bold leading-[1.08] tracking-tight text-[#031038] sm:text-5xl">A rollout that fits your operation.</WeightText>
+              <WeightText id="rollout-showcase-heading" tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-4xl font-bold leading-[1.08] tracking-tight text-[#031038] sm:text-5xl">A Rollout That Fits Your Operation.</WeightText>
               <p className="mt-5 max-w-xs text-sm leading-7 text-[#52657c]">Bring your records, your infrastructure, and your next operational challenge. Build the right starting point.</p>
               <Link href="/request-demo" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#032aac]">Let’s scope your rollout<ArrowUpRight className="h-4 w-4" aria-hidden="true" /></Link>
               <p className="mt-8 inline-flex items-center gap-2 font-mono text-[10px] text-[#637c94]"><MoveHorizontal className="h-4 w-4" aria-hidden="true" />{enhanced ? "Scroll to explore" : "Swipe or choose an offering"}</p>

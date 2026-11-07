@@ -37,9 +37,6 @@ function isBrElement(el: unknown): boolean {
     if (t.displayName && String(t.displayName).toLowerCase() === "br") return true;
   }
 
-  if (anyEl.props && !("children" in anyEl.props) && (anyEl.$$typeof != null || anyEl._store != null)) {
-    return true;
-  }
   return false;
 }
 

@@ -155,7 +155,7 @@ export default function WorkflowScrollSections() {
         <header className="workflow-tour-header">
           <div>
             <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-[#032aac]">Why survey firms switch</p>
-            <WeightText id={`${id}-heading`} tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-[#031038] sm:text-4xl">From the first reading<br />to the final record.</WeightText>
+            <WeightText id={`${id}-heading`} tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-[#031038] sm:text-4xl">From The First Reading<br />To The Final Record.</WeightText>
           </div>
           <p className="max-w-sm text-sm leading-6 text-[#52657c]">Spreadsheets hold numbers. Space BQS connects the readings, calculations, review, and proof.</p>
         </header>
