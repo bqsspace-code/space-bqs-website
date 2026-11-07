@@ -9,6 +9,7 @@ import WaveTransition from "./components/WaveTransition";
 import { SurveyWarehouseSection, SpreadsheetCompareSection, WhoItsForSection } from "./components/HomeEnhancements";
 import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
 import RolloutShowcase from "./components/RolloutShowcase";
+import AppPreviewCard from "./components/AppPreviewCard";
 
 export const metadata: Metadata = {
   title: "BQS Software for Marine Surveyors — Capture, Calculate, Certify",
@@ -85,9 +86,12 @@ export default function Home() {
 
       {/* 7. The four people connected by the same record. */}
       <WhoItsForSection />
-      <WaveTransition variant="crest" to="var(--pearl-mist, #e4eff9)" flip />
 
-      {/* 8. Implementation and licensing now share a single decision point. */}
+      {/* 8. App in action — video preview card with gradient before the rollout section. */}
+      <AppPreviewCard />
+      <WaveTransition variant="sweep" to="var(--pearl-mist, #e4eff9)" />
+
+      {/* 9. Implementation and licensing now share a single decision point. */}
       <RolloutShowcase />
       <WaveTransition variant="sweep" />
 
