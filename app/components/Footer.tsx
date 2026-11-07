@@ -254,8 +254,13 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
             <div>
               © {new Date().getFullYear()} Space BQS
             </div>
-
-
+            <a href="https://aibizmod.com" target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2.5 rounded-full border border-blue-200/15 bg-gradient-to-r from-blue-400/10 to-cyan-300/5 px-4 py-2 shadow-[inset_0_1px_0_rgba(255,255,255,0.04)] transition-colors hover:border-cyan-200/40 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-cyan-200">
+              <svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" className="shrink-0 text-cyan-200">
+                <path d="M8 1.5 9.7 6.3 14.5 8 9.7 9.7 8 14.5 6.3 9.7 1.5 8 6.3 6.3 8 1.5Z" fill="currentColor" />
+              </svg>
+              <span className="text-[10px] font-medium uppercase tracking-[0.14em] text-slate-400">Powered by</span>
+              <span className="bg-gradient-to-r from-white to-cyan-200 bg-clip-text text-sm font-semibold tracking-tight text-transparent">aibizmod</span>
+            </a>
 
             <div className="text-slate-400 text-right">
               Quantity. Confidence. Proof.
