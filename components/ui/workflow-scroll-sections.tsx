@@ -17,23 +17,23 @@ import audit from "@/public/assets/web_image/ship-to-ship-bunkering-custody-tran
 
 
 const VISUALS = [
-  { image: capture, alt: "Marine surveyor scanning vessel QR code and capturing tank soundings on deck", caption: "At the tank hatch", position: "50% 40%", href: "/mobile-app", link: "Explore mobile capture", wipe: "inset(0 100% 0 0)" },
-  { image: calculate, alt: "Operator working with the valves and hoses on a bunker vessel", caption: "From measurement to quantity", position: "65% 40%", href: "/how-we-measure", link: "Follow the calculation", wipe: "inset(100% 0 0 0)" },
-  { image: tables, alt: "Oil tanker deck layout detailing cargo tank grid, strapping sections, and piping manifolds", caption: "Vessel and tank context", position: "50% 50%", href: "/features/vessels-master-data", link: "Explore vessel master data", wipe: "inset(0 0 0 100%)" },
-  { image: certify, alt: "Marine surveyor and ship's officer verifying bunker calculation certificates on deck", caption: "Checked before issue", position: "50% 40%", href: "/sample-report", link: "See a sample report", wipe: "inset(0 0 100% 0)" },
-  { image: archive, alt: "Maritime operations center coordinating vessel surveys, port logistics, and warehouse records", caption: "Survey Warehouse records", position: "50% 50%", href: "/features/survey-register-dashboard", link: "Explore the Survey Warehouse", wipe: "inset(0 100% 0 0)" },
-  { image: audit, alt: "Ship-to-ship bunker fuel custody transfer between bunker barge and container vessel", caption: "Every handoff, connected", position: "50% 50%", href: "/order-lifecycle", link: "Follow the review trail", wipe: "inset(100% 0 0 0)" },
+  { image: capture, alt: "Marine surveyor scanning vessel QR code and capturing tank soundings on deck", caption: "At The Tank Hatch", position: "58% 45%", href: "/mobile-app", link: "Explore mobile capture", wipe: "inset(0 100% 0 0)" },
+  { image: calculate, alt: "Operator working with the valves and hoses on a bunker vessel", caption: "Measurement To Quantity", position: "72% 45%", href: "/how-we-measure", link: "Follow the calculation", wipe: "inset(100% 0 0 0)" },
+  { image: tables, alt: "Oil tanker deck layout detailing cargo tank grid, strapping sections, and piping manifolds", caption: "Vessel & Tank Context", position: "48% 45%", href: "/features/vessels-master-data", link: "Explore vessel master data", wipe: "inset(0 0 0 100%)" },
+  { image: certify, alt: "Marine surveyor and ship's officer verifying bunker calculation certificates on deck", caption: "Checked Before Issue", position: "50% 45%", href: "/sample-report", link: "See a sample report", wipe: "inset(0 0 100% 0)" },
+  { image: archive, alt: "Maritime operations center coordinating vessel surveys, port logistics, and warehouse records", caption: "Survey Warehouse Records", position: "55% 48%", href: "/features/survey-register-dashboard", link: "Explore the Survey Warehouse", wipe: "inset(0 100% 0 0)" },
+  { image: audit, alt: "Ship-to-ship bunker fuel custody transfer between bunker barge and container vessel", caption: "Every Handoff Connected", position: "52% 50%", href: "/order-lifecycle", link: "Follow the review trail", wipe: "inset(100% 0 0 0)" },
 ] as const;
 
 const clamp = (value: number) => Math.max(0, Math.min(1, value));
 
 const COMPARISON_TAKEAWAYS = [
-  ["Enter the same reading twice.", "Capture once. Share the record."],
-  ["Check copied formulas again.", "Trace the calculation."],
-  ["Hunt for the right table.", "Keep the context attached."],
-  ["Send separate attachments.", "Issue proof with its working."],
-  ["Search folders and inboxes.", "Find the whole survey."],
-  ["Guess which file is final.", "Follow a clear review trail."],
+  ["Retype Readings Twice.", "Capture Once. Share The Record."],
+  ["Recheck Copied Formulas.", "Trace Every Calculation."],
+  ["Hunt For The Right Table.", "Keep Vessel Context Attached."],
+  ["Send Separate Attachments.", "Issue Locked Proof & Math."],
+  ["Search Folders And Inboxes.", "Open The Whole Survey."],
+  ["Guess Which File Is Final.", "Follow A Verified Audit Trail."],
 ] as const;
 
 function WorkflowSlide({ index, direction, reduced, id }: { index: number; direction: number; reduced: boolean; id: string }) {
@@ -59,12 +59,24 @@ function WorkflowSlide({ index, direction, reduced, id }: { index: number; direc
         <div className="workflow-tour-image">
           <Image src={visual.image} alt={visual.alt} fill sizes="(min-width: 1024px) 45vw, 100vw" className="object-cover" style={{ objectPosition: visual.position }} />
           <div className="workflow-tour-shade" />
+          <figcaption className="workflow-tour-media-caption">{visual.caption}</figcaption>
         </div>
-        <figcaption className="workflow-tour-media-caption">{visual.caption}</figcaption>
         <div className="workflow-tour-proof">
-          <div className="mb-3 flex items-center gap-2 text-xs font-semibold text-white"><ProofIcon aria-hidden="true" className="h-4 w-4 text-cyan-200" />{stage.proofTitle}<span className="ml-auto text-[9px] font-normal text-blue-100/70">Illustrative record</span></div>
-          <dl>{stage.rows.map(([label, value]) => <div key={label} className="flex flex-wrap justify-between gap-x-3 gap-y-1 border-t border-white/10 py-2 text-[10px]"><dt className="text-blue-100/75">{label}</dt><dd className="font-mono font-medium text-white">{value}</dd></div>)}</dl>
-          <p className="mt-2 text-[10px] leading-5 text-cyan-100">{stage.artifact}</p>
+          <div className="flex items-center justify-between gap-2 text-xs font-semibold text-white">
+            <span className="flex items-center gap-2">
+              <ProofIcon aria-hidden="true" className="h-4 w-4 text-cyan-200" />
+              {stage.proofTitle}
+            </span>
+            <span className="font-mono text-[10px] font-normal text-cyan-200">{stage.artifact}</span>
+          </div>
+          <div className="mt-2.5 flex flex-wrap gap-1.5">
+            {stage.rows.map(([label, value]) => (
+              <span key={label} className="inline-flex items-center gap-1.5 rounded-md border border-white/15 bg-white/10 px-2.5 py-1 text-[10px] text-blue-100">
+                <span className="text-blue-200/75">{label}:</span>
+                <span className="font-mono font-semibold text-white">{value}</span>
+              </span>
+            ))}
+          </div>
         </div>
       </figure>
       <div id={present ? `${id}-panel` : undefined} role="tabpanel" aria-labelledby={`${id}-tab-${index}`} tabIndex={present ? 0 : -1} className="workflow-tour-copy">
@@ -82,7 +94,6 @@ function WorkflowSlide({ index, direction, reduced, id }: { index: number; direc
             <p>{stage.approach}</p>
           </div>
         </div>
-        <p className="workflow-tour-benefit">{stage.benefit}</p>
         <Link href={visual.href} className="workflow-tour-link">{visual.link}<ArrowUpRight aria-hidden="true" className="h-4 w-4" /></Link>
       </div>
     </motion.div>
@@ -154,10 +165,10 @@ export default function WorkflowScrollSections() {
       <div className="workflow-tour-pin">
         <header className="workflow-tour-header">
           <div>
-            <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-[#032aac]">Why survey firms switch</p>
+            <p className="mb-3 font-mono text-[10px] font-semibold uppercase tracking-[.18em] text-[#032aac]">Why Survey Firms Switch</p>
             <WeightText id={`${id}-heading`} tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-3xl font-bold leading-[1.12] tracking-tight text-[#031038] sm:text-4xl">From The First Reading<br />To The Final Record.</WeightText>
           </div>
-          <p className="max-w-sm text-sm leading-6 text-[#52657c]">Spreadsheets hold numbers. Space BQS connects the readings, calculations, review, and proof.</p>
+          <p className="max-w-sm text-sm leading-6 text-[#52657c]">Spreadsheets hold numbers. Space BQS connects readings, calculations, and proof.</p>
         </header>
 
         <div className="workflow-tour-layout">

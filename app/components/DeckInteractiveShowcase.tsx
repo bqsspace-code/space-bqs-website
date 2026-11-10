@@ -2,9 +2,14 @@
 
 import React, { useEffect, useRef, useCallback } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { ArrowUpRight, Monitor, Smartphone, Tablet } from "lucide-react";
 import { AppStoreBadges } from "./HomeEnhancements";
 import { useViewportScroll } from "./useViewportScroll";
 import WeightText from "./WeightText";
+import phoneIllustration from "@/public/assets/web_image/device-phone-illustration.jpg";
+import tabletIllustration from "@/public/assets/web_image/device-tablet-illustration.jpg";
+import desktopIllustration from "@/public/assets/web_image/device-desktop-illustration.jpg";
 
 interface StageCardData {
   id: string;
@@ -94,6 +99,52 @@ const STAGES: StageCardData[] = [
     darkBorder: "rgba(16, 185, 129, 0.35)",
   },
 ];
+
+const DEVICE_CARDS = [
+  {
+    id: "phone" as const,
+    category: "Smartphones",
+    title: "iPhone & Android.",
+    description: "Pocket QR identification and offline tank capture anywhere on deck.",
+    href: "/mobile-app",
+    linkLabel: "Explore the mobile app for iPhone and Android",
+    icon: Smartphone,
+    tags: ["iOS App Store", "Google Play"],
+    image: phoneIllustration,
+    alt: "3D editorial illustration of Space BQS smartphone app with QR scan and tank telemetry",
+    darkBackdrop: false,
+    wide: false,
+  },
+  {
+    id: "tablet" as const,
+    category: "Tablets & Rugged Gear",
+    title: "iPad & Field Tablets.",
+    description: "Wide calibration grids built for rugged tablets and gloved deck entry.",
+    href: "/mobile-app",
+    linkLabel: "Explore the mobile app for iPad and rugged tablets",
+    icon: Tablet,
+    tags: ["iPadOS", "Android Tablet", "72h Offline"],
+    image: tabletIllustration,
+    alt: "3D editorial illustration of Space BQS rugged field tablet with tank gauge interface",
+    darkBackdrop: true,
+    wide: false,
+  },
+  {
+    id: "desktop" as const,
+    category: "Desktop & Web Portal",
+    title: "Mac, Windows & Every Browser.",
+    description:
+      "Review deck submissions, verify fleet-wide Table 54B calculations, and lock tamper-evident A4 PDF certificates and 4-sheet Excel workbooks.",
+    href: "/platform",
+    linkLabel: "Explore the office web portal for Mac and Windows",
+    icon: Monitor,
+    tags: ["macOS", "Windows", "Chrome · Safari · Edge"],
+    image: desktopIllustration,
+    alt: "3D editorial illustration of Space BQS desktop and laptop web portal dashboards",
+    darkBackdrop: false,
+    wide: true,
+  },
+] as const;
 
 export default function DeckInteractiveShowcase() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -416,13 +467,171 @@ export default function DeckInteractiveShowcase() {
 
         </div>
 
-        {/* Deploy Badges Below Section */}
-        <div className="mt-16 text-center">
-          <p className="text-xs font-semibold mb-3 font-mono uppercase tracking-wider text-[#031038]/70">
-            Available for iOS & Android
-          </p>
-          <div className="inline-block p-4 rounded-2xl bg-white border border-[#D3E9F3] shadow-xs">
-            <AppStoreBadges dark={false} />
+        {/* Apple-Style 2+1 Bento Compatibility Cards */}
+        <div className="mt-24">
+          <div className="text-center max-w-2xl mx-auto mb-12">
+            <p className="text-[10px] font-mono font-semibold uppercase tracking-[0.2em] text-[#032AAC] mb-2">
+              Every Device. One Record.
+            </p>
+            <h3 className="font-display text-3xl sm:text-4xl font-bold tracking-tight text-[#031038]">
+              Built For Phones, Tablets &amp; Desktops.
+            </h3>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-6xl mx-auto">
+            {DEVICE_CARDS.map((card) => {
+              const Icon = card.icon;
+              return (
+                <article
+                  key={card.id}
+                  data-glass-depth
+                  data-glass-surface
+                  className={`device-card group relative overflow-hidden rounded-[28px] border transition-all duration-500 ${
+                    card.wide
+                      ? "md:col-span-2 min-h-[420px] lg:min-h-[450px] flex flex-col md:flex-row justify-between"
+                      : "min-h-[490px] sm:min-h-[540px] flex flex-col"
+                  } ${
+                    card.darkBackdrop
+                      ? "border-white/15 bg-gradient-to-b from-[#04143b] via-[#041b54] to-[#03247a] text-white shadow-[0_24px_56px_-26px_rgba(3,16,56,0.6)] hover:shadow-[0_32px_68px_-24px_rgba(3,42,172,0.55)]"
+                      : "border-white/90 bg-[#EAF3FC] text-[#031038] shadow-[0_20px_48px_-28px_rgba(3,42,172,0.22)] hover:border-[#19B5C9]/60 hover:shadow-[0_30px_64px_-24px_rgba(3,42,172,0.28)]"
+                  }`}
+                >
+                  {/* Apple Typography Block */}
+                  <div
+                    className={`relative z-20 flex flex-col justify-between p-7 sm:p-9 lg:p-10 ${
+                      card.wide ? "md:w-[42%] md:pr-4" : ""
+                    }`}
+                  >
+                    <div>
+                      <div className="flex items-start justify-between gap-4">
+                        <div className="flex items-center gap-2">
+                          <Icon
+                            className={`h-4 w-4 ${
+                              card.darkBackdrop ? "text-[#7dd3e8]" : "text-[#032AAC]"
+                            }`}
+                            aria-hidden="true"
+                          />
+                          <span
+                            className={`font-mono text-[10px] font-semibold uppercase tracking-[0.16em] ${
+                              card.darkBackdrop ? "text-[#7dd3e8]" : "text-[#032AAC]"
+                            }`}
+                          >
+                            {card.category}
+                          </span>
+                        </div>
+
+                        {/* Apple-style stretched card link button */}
+                        <Link
+                          href={card.href}
+                          aria-label={card.linkLabel}
+                          className={`after:absolute after:inset-0 after:z-10 relative z-20 flex h-9 w-9 shrink-0 items-center justify-center rounded-full border transition-all duration-300 group-hover:scale-105 ${
+                            card.darkBackdrop
+                              ? "border-white/25 bg-white/10 text-white group-hover:bg-[#19B5C9] group-hover:border-[#19B5C9] group-hover:text-[#031038]"
+                              : "border-[#032AAC]/15 bg-white/80 text-[#031038] shadow-xs group-hover:bg-[#032AAC] group-hover:border-[#032AAC] group-hover:text-white"
+                          }`}
+                        >
+                          <ArrowUpRight className="h-4 w-4 transition-transform duration-300 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" aria-hidden="true" />
+                        </Link>
+                      </div>
+
+                      <h4
+                        className={`mt-3 font-display font-bold tracking-tight leading-[1.08] ${
+                          card.wide
+                            ? "text-3xl sm:text-4xl"
+                            : "text-2xl sm:text-3xl"
+                        }`}
+                      >
+                        {card.title}
+                      </h4>
+                      <p
+                        className={`mt-2.5 text-sm leading-relaxed ${
+                          card.wide ? "max-w-sm" : "max-w-md"
+                        } ${card.darkBackdrop ? "text-blue-100/80" : "text-[#52657c]"}`}
+                      >
+                        {card.description}
+                      </p>
+                    </div>
+
+                    {card.wide && (
+                      <div className="mt-6 flex flex-wrap gap-2">
+                        {card.tags.map((tag) => (
+                          <span
+                            key={tag}
+                            className="rounded-full border border-white/90 bg-white/75 px-3 py-1 font-mono text-[10px] font-semibold text-[#032AAC] shadow-xs backdrop-blur-sm"
+                          >
+                            {tag}
+                          </span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
+
+                  {/* Large Seamless Feathered Illustration Canvas */}
+                  <div
+                    className={`relative overflow-hidden ${
+                      card.wide
+                        ? "h-[280px] sm:h-[320px] md:absolute md:inset-y-0 md:right-0 md:h-full md:w-[68%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_20%)] md:[mask-image:linear-gradient(to_right,transparent_0%,black_22%)]"
+                        : "mt-auto h-[330px] sm:h-[370px] w-full md:absolute md:inset-x-0 md:bottom-0 md:h-[75%] [mask-image:linear-gradient(to_bottom,transparent_0%,black_22%)]"
+                    }`}
+                  >
+                    {/* Multi-plane parallax artwork */}
+                    <div className="device-card-art relative h-full w-full will-change-transform">
+                      <Image
+                        src={card.image}
+                        alt={card.alt}
+                        fill
+                        sizes={
+                          card.wide
+                            ? "(min-width: 768px) 780px, 100vw"
+                            : "(min-width: 768px) 580px, 100vw"
+                        }
+                        className={`object-cover ${
+                          card.wide
+                            ? "object-center"
+                            : "object-[center_55%]"
+                        }`}
+                      />
+                    </div>
+
+                    {/* Cursor-following cyan specular lens */}
+                    <div
+                      aria-hidden="true"
+                      className="device-card-spotlight pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100"
+                    />
+
+                    {/* Diagonal display gloss reflection sweep on hover */}
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-y-0 -left-1/2 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/30 to-transparent opacity-0 transition-all duration-1000 ease-out group-hover:left-[130%] group-hover:opacity-100"
+                    />
+
+                    {/* Device-specific interactive hover feedback directly over the illustration */}
+                    {card.id === "phone" && (
+                      <div
+                        aria-hidden="true"
+                        className="device-qr-beam pointer-events-none absolute inset-x-[28%] top-[48%] h-0.5 rounded-full bg-gradient-to-r from-transparent via-[#19B5C9] to-transparent opacity-0 shadow-[0_0_16px_3px_rgba(25,181,201,0.85)] transition-opacity duration-300 group-hover:opacity-100"
+                      />
+                    )}
+                    {card.id === "tablet" && (
+                      <div
+                        aria-hidden="true"
+                        className="pointer-events-none absolute right-[23%] top-[44%] h-20 w-20 -translate-y-1/2 rounded-full border border-[#19B5C9]/55 opacity-0 shadow-[0_0_28px_rgba(25,181,201,0.45)] transition-all duration-500 group-hover:scale-125 group-hover:opacity-100"
+                      />
+                    )}
+                  </div>
+                </article>
+              );
+            })}
+          </div>
+
+          {/* Deploy Badges */}
+          <div className="mt-12 text-center">
+            <div className="inline-block p-4 rounded-2xl bg-white border border-[#D3E9F3] shadow-xs">
+              <AppStoreBadges dark={false} showSubtitle={false} />
+            </div>
+            <p className="mt-3 text-xs font-medium text-[#031038]/70">
+              Install free on iOS, Android &amp; iPad — or sign in via any desktop web browser
+            </p>
           </div>
         </div>
       </div>
@@ -446,6 +655,31 @@ export default function DeckInteractiveShowcase() {
           opacity: 1;
           transform: translateY(0);
         }
+        .device-card-art {
+          transition: transform 520ms cubic-bezier(0.22, 1, 0.36, 1),
+                      translate 220ms ease-out;
+        }
+        .device-card:hover .device-card-art,
+        .device-card[data-glass-active] .device-card-art {
+          transform: scale(1.065);
+          translate: calc((50% - var(--glass-x, 50%)) * 0.08)
+                     calc((50% - var(--glass-y, 50%)) * 0.06);
+        }
+        .device-card-spotlight {
+          background: radial-gradient(
+            260px circle at var(--glass-x, 50%) var(--glass-y, 50%),
+            rgba(25, 181, 201, 0.24),
+            rgba(255, 255, 255, 0.16) 40%,
+            transparent 74%
+          );
+        }
+        @keyframes qrBeamScan {
+          0%, 100% { transform: translateY(-22px); }
+          50% { transform: translateY(22px); }
+        }
+        .device-card:hover .device-qr-beam {
+          animation: qrBeamScan 1.8s ease-in-out infinite;
+        }
         @media (max-width: 860px) {
           .phone-container {
             right: auto !important;
@@ -459,9 +693,18 @@ export default function DeckInteractiveShowcase() {
             display: none !important;
           }
         }
-        @media (prefers-reduced-motion: reduce) {
-          .floating-card {
+        @media (prefers-reduced-motion: reduce), (hover: none), (pointer: coarse) {
+          .floating-card,
+          .device-card-art {
             transition: none !important;
+          }
+          .device-card:hover .device-card-art,
+          .device-card[data-glass-active] .device-card-art {
+            transform: none !important;
+            translate: none !important;
+          }
+          .device-card:hover .device-qr-beam {
+            animation: none !important;
           }
         }
       `}</style>
