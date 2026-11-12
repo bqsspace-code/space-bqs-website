@@ -85,7 +85,7 @@ export default function SocialMediaPlatformsClient() {
           <div className="mt-6 max-w-3xl space-y-3">
             <div className="inline-flex items-center gap-2 rounded-full bg-[#032AAC]/10 border border-[#032AAC]/20 px-3.5 py-1 text-xs font-semibold text-[#032AAC] shadow-sm">
               <ShieldCheck className="w-4 h-4 text-[#032AAC]" />
-              <span>OFFICIAL VERIFIED REGISTRY · 35 PLATFORMS</span>
+              <span>OFFICIAL VERIFIED REGISTRY · {categoryCounts.all} PLATFORMS</span>
             </div>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#031038] leading-[1.1]">
               Find Space BQS <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#032AAC] via-[#1B4FD1] to-[#19B5C9]">Everywhere</span>

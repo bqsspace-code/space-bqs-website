@@ -4,7 +4,7 @@ import SocialMediaPlatformsClient from "./SocialMediaPlatformsClient";
 export const metadata: Metadata = {
   title: "Official Social Media Platforms & Verified Channels — Space BQS",
   description:
-    "Official directory of all 35 verified Space BQS channels across the web: developer repositories, engineering publications, video walkthroughs, and community hubs.",
+    "Official directory of verified Space BQS channels across the web: developer repositories, engineering publications, video walkthroughs, and community hubs.",
   keywords: [
     "Space BQS social media",
     "Space BQS official channels",
@@ -25,7 +25,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Official Social Media Platforms — Space BQS",
     description:
-      "Find and follow Space BQS across all 35 verified social platforms, developer hubs, and publications.",
+      "Find and follow Space BQS across all verified social platforms, developer hubs, and publications.",
   },
 };
 

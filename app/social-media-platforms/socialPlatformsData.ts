@@ -14,6 +14,18 @@ export interface SocialPlatform {
 export const SOCIAL_PLATFORMS: SocialPlatform[] = [
   // ── CORE CHANNELS ──
   {
+    id: "linkedin",
+    name: "LinkedIn",
+    handle: "Space BQS",
+    url: "https://www.linkedin.com/company/space-bqs/posts/?viewAsMember=true",
+    category: "core",
+    badge: "Official Channel",
+    description: "Official LinkedIn company page. Corporate announcements, bunker surveying technology milestones, and industry news.",
+    blobGradient: "from-blue-600 via-sky-600 to-indigo-800",
+    iconGradient: "from-blue-600 to-blue-700",
+    accentColor: "#0A66C2",
+  },
+  {
     id: "x",
     name: "X (Twitter)",
     handle: "@spacebqs",
