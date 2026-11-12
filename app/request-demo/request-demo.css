@@ -1,0 +1,76 @@
+.demo-page {
+  background: radial-gradient(ellipse at 80% 15%, rgba(154, 216, 245, .55), transparent 38%),
+    radial-gradient(ellipse at 8% 55%, rgba(192, 224, 249, .6), transparent 42%),
+    linear-gradient(160deg, #f7fbff 0%, #eaf5fc 55%, #f8fcff 100%);
+}
+
+.demo-page::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: url('/assets/glass-current.svg') center 30% / 1400px auto no-repeat;
+  opacity: .35;
+}
+
+.demo-eyebrow {
+  color: #176a8e;
+  font-size: .7rem;
+  font-weight: 700;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+}
+
+.demo-detail {
+  border: 1px solid rgba(255, 255, 255, .85);
+  background: linear-gradient(135deg, rgba(255, 255, 255, .7), rgba(225, 242, 252, .45));
+  box-shadow: 0 20px 55px -30px rgba(3, 42, 120, .35), inset 0 1px 1px rgba(255, 255, 255, .95);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.demo-page .demo-form-card {
+  border-radius: 28px;
+  background: rgba(218, 230, 240, .3);
+  box-shadow: 0 1px 2px #03103828, 0 12px 24px -12px #03103838, 0 32px 60px -26px #03103842;
+}
+
+.quote-field {
+  display: block;
+  color: #405a75;
+  font-size: .75rem;
+  font-weight: 600;
+  line-height: 1.4;
+}
+
+.quote-field .quote-optional { color: #71869b; font-weight: 400; }
+.quote-field :is(input, select, textarea) { display: block; width: 100%; margin-top: .5rem; font-size: .875rem; font-weight: 400; }
+
+main .demo-page .quote-field :is(input, select, textarea) {
+  min-height: 52px;
+  border: 1px solid rgba(178, 199, 215, .55);
+  border-radius: 14px;
+  background: #edf5fa;
+  color: #102a4d;
+  padding: 1rem;
+  box-shadow: inset 3px 3px 7px rgba(128, 157, 180, .2),
+    inset -3px -3px 7px rgba(255, 255, 255, .85),
+    0 1px 2px rgba(255, 255, 255, .6);
+  transition: background-color .2s, border-color .2s, box-shadow .2s;
+}
+
+.demo-page .quote-field :is(input, textarea)::placeholder { color: #71869b; opacity: 1; }
+main .demo-page .quote-field :is(input, select, textarea):hover {
+  border-color: #a8c6d9;
+}
+.demo-page .quote-field :is(input, select, textarea):focus-visible {
+  outline: 2px solid #1769ba;
+  outline-offset: 2px;
+  border-color: #77b6d7;
+}
+.demo-page .quote-field textarea { resize: vertical; }
+
+@media (forced-colors: active) {
+  .demo-detail, .demo-form-card { background: Canvas; border: 1px solid CanvasText; }
+  main .demo-page .quote-field :is(input, select, textarea) { background: Field; color: FieldText; border: 1px solid FieldText; }
+}

@@ -40,19 +40,19 @@ export default function QuoteForm({ compact = false }: { compact?: boolean }) {
   }
 
   return (
-    <form onSubmit={onSubmit} className={`grid gap-3 ${compact ? "" : "md:grid-cols-2"}`}>
-      <input name="name" placeholder="Your name *" className="rounded-lg border p-3" required />
-      <input name="email" type="email" placeholder="Work email *" className="rounded-lg border p-3" required />
-      <input name="company" placeholder="Company / survey firm *" aria-label="Company or survey firm" className="rounded-lg border p-3" required />
-      <input name="role" placeholder="Your role *" aria-label="Your role" className="rounded-lg border p-3" required />
-      <label className="text-xs font-semibold text-slate-600">Solution<select name="solution" className="mt-2 w-full rounded-lg border bg-white p-3 text-sm font-normal" defaultValue="Space BQS"><option>Space BQS</option><option>Cargo WMS</option><option>Discuss both</option></select></label>
-      <label className="text-xs font-semibold text-slate-600">Deployment preference<select name="deployment" className="mt-2 w-full rounded-lg border bg-white p-3 text-sm font-normal" defaultValue="Discuss options"><option>Discuss options</option><option>Public cloud</option><option>Private cloud</option><option>On-premises</option></select></label>
-      <select name="teamSize" aria-label="Team size" required className="rounded-lg border bg-white p-3" defaultValue="">
+    <form onSubmit={onSubmit} className={`quote-form grid gap-5 ${compact ? "" : "md:grid-cols-2"}`}>
+      <label className="quote-field">Your name <span aria-hidden="true">*</span><input name="name" autoComplete="name" placeholder="Your full name" className="rounded-lg border p-3" required /></label>
+      <label className="quote-field">Work email <span aria-hidden="true">*</span><input name="email" type="email" autoComplete="email" placeholder="you@company.com" className="rounded-lg border p-3" required /></label>
+      <label className="quote-field">Company / survey firm <span aria-hidden="true">*</span><input name="company" autoComplete="organization" placeholder="Company name" className="rounded-lg border p-3" required /></label>
+      <label className="quote-field">Your role <span aria-hidden="true">*</span><input name="role" autoComplete="organization-title" placeholder="Your role" className="rounded-lg border p-3" required /></label>
+      <label className="quote-field">Solution<select name="solution" className="rounded-lg border bg-white p-3" defaultValue="Space BQS"><option>Space BQS</option><option>Cargo WMS</option><option>Discuss both</option></select></label>
+      <label className="quote-field">Deployment preference<select name="deployment" className="rounded-lg border bg-white p-3" defaultValue="Discuss options"><option>Discuss options</option><option>Public cloud</option><option>Private cloud</option><option>On-premises</option></select></label>
+      <label className="quote-field">Team size <span aria-hidden="true">*</span><select name="teamSize" required className="rounded-lg border bg-white p-3" defaultValue="">
         <option value="" disabled>Team size *</option>
         <option>1–5</option><option>6–20</option><option>21–50</option><option>50+</option>
-      </select>
-      <input name="volume" aria-label="Monthly survey or cargo volume" placeholder="Monthly surveys / cargo transactions (optional)" maxLength={100} className="rounded-lg border p-3" />
-      <textarea name="message" aria-label="Your requirements" placeholder="Tell us about your workflows, migration files, or infrastructure requirements." maxLength={2000} className={`rounded-lg border p-3 ${compact ? "" : "md:col-span-2"}`} rows={4} />
+      </select></label>
+      <label className="quote-field">Monthly volume <span className="quote-optional">Optional</span><input name="volume" placeholder="Surveys / cargo transactions" maxLength={100} className="rounded-lg border p-3" /></label>
+      <label className={`quote-field ${compact ? "" : "md:col-span-2"}`}>Tell us about your operation <span className="quote-optional">Optional</span><textarea name="message" placeholder="Tell us about your workflows, migration files, or infrastructure requirements." maxLength={2000} className="rounded-lg border p-3" rows={4} /></label>
       <div className={compact ? "" : "md:col-span-2"}>
         <button
           type="submit"
