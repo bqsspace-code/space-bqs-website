@@ -16,6 +16,15 @@ export interface CargoWmsFlightOptions {
   topOffset?: number;
   snap?: boolean;
   expandOnScroll?: boolean;
+  media?: ScrollJourneyMedia;
+}
+
+export interface ScrollJourneyMedia {
+  src: string;
+  frameTimes: readonly number[];
+  posters: readonly string[];
+  /** Real edit boundaries keep chapter copy aligned with a multi-scene film. */
+  sceneStarts?: readonly number[];
 }
 
 export function useCargoWmsFlight(
@@ -27,6 +36,9 @@ export function useCargoWmsFlight(
   const flightTop = options?.topOffset ?? 96;
   const enableSnap = options?.snap ?? true;
   const expandOnScroll = options?.expandOnScroll ?? true;
+  const frameTimes = options?.media?.frameTimes ?? FRAME_TIMES;
+  const source = options?.media?.src ?? "/assets/videos/container-flight-smooth.mp4";
+  const sceneStarts = options?.media?.sceneStarts;
 
   const videoRef = useRef<HTMLVideoElement>(null);
   const progressRef = useRef<HTMLSpanElement>(null);
@@ -109,13 +121,16 @@ export function useCargoWmsFlight(
         ? Math.max(0, (renderedProgress - EXPAND_PORTION) / (1 - EXPAND_PORTION))
         : renderedProgress;
 
-      const phase = activeNorm * FRAME_TIMES.length;
-      const index = Math.min(FRAME_TIMES.length - 1, Math.floor(phase));
+      const phase = activeNorm * frameTimes.length;
+      const index = Math.min(frameTimes.length - 1, Math.floor(phase));
       const travel = Math.max(0, Math.min(1, (phase - index - CHAPTER_HOLD) / (1 - CHAPTER_HOLD)));
       const eased = travel * travel * (3 - 2 * travel);
-      const targetTime = FRAME_TIMES[index] + (FRAME_TIMES[Math.min(index + 1, 3)] - FRAME_TIMES[index]) * eased;
+      const targetTime = frameTimes[index] + (frameTimes[Math.min(index + 1, frameTimes.length - 1)] - frameTimes[index]) * eased;
 
-      activate(index);
+      const contentIndex = sceneStarts
+        ? sceneStarts.reduce((current, start, scene) => targetTime >= start ? scene : current, 0)
+        : index;
+      activate(contentIndex);
       if (progressRef.current) {
         progressRef.current.style.transform = `scaleX(${renderedProgress})`;
       }
@@ -183,7 +198,7 @@ export function useCargoWmsFlight(
       started = true;
       setStatus("loading");
       video.preload = "auto";
-      video.src = "/assets/videos/container-flight-smooth.mp4";
+      video.src = source;
       video.load();
 
       void Promise.all([import("gsap"), import("gsap/ScrollTrigger")]).then(([{ gsap }, { ScrollTrigger }]) => {
@@ -194,7 +209,12 @@ export function useCargoWmsFlight(
         // Snap points align with resting frames:
         // When expandOnScroll is active:
         // 0 (resting inset card) -> EXPAND_PORTION (expanded Chapter 0) -> Chapters 1, 2, 3 -> Exit
-        const snapPoints = expandOnScroll
+        const snapPoints = sceneStarts
+          ? [0, ...frameTimes.map((_, index) => {
+              const point = index === 0 ? 0 : (index + CHAPTER_HOLD / 2) / frameTimes.length;
+              return expandOnScroll ? EXPAND_PORTION + (1 - EXPAND_PORTION) * point : point;
+            }), 1]
+          : expandOnScroll
           ? [
               0,
               EXPAND_PORTION,
@@ -261,16 +281,19 @@ export function useCargoWmsFlight(
         frameEl.style.removeProperty("--expand-progress");
       }
     };
-  }, [root, scrollMode, distance, flightTop, enableSnap, expandOnScroll, activate]);
+  }, [root, scrollMode, distance, flightTop, enableSnap, expandOnScroll, activate, source, frameTimes, sceneStarts]);
 
   const choose = (index: number) => {
     activate(index);
     if (scrollMode && root.current) {
-      const snapProgress = expandOnScroll
+      const chapterPoint = sceneStarts && index > 0 ? (index + CHAPTER_HOLD / 2) / frameTimes.length : index / frameTimes.length;
+      const snapProgress = sceneStarts
+        ? expandOnScroll ? EXPAND_PORTION + (1 - EXPAND_PORTION) * chapterPoint : chapterPoint
+        : expandOnScroll
         ? index === 0
           ? EXPAND_PORTION
-          : EXPAND_PORTION + (1 - EXPAND_PORTION) * (index / (FRAME_TIMES.length - 1))
-        : index / FRAME_TIMES.length;
+           : EXPAND_PORTION + (1 - EXPAND_PORTION) * (index / (frameTimes.length - 1))
+        : index / frameTimes.length;
       jumpRef.current?.(snapProgress + 1 / distance);
       const targetScroll =
         root.current.getBoundingClientRect().top +
@@ -280,11 +303,11 @@ export function useCargoWmsFlight(
         1;
       window.scrollTo({
         top: targetScroll,
-        behavior: "smooth",
+        // A cut-based film should jump to its selected scene without replaying intervening chapters.
+        behavior: sceneStarts ? "instant" : "smooth",
       });
     }
   };
 
   return { videoRef, progressRef, active, status, choose };
 }
-

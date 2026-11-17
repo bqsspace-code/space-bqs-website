@@ -2,6 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { volumeToMass, compareDelivery, robBalance, convertUnit } from "../lib/survey-calculations.ts";
 import { quoteSchema } from "../app/lib/quote-schema.ts";
+import { buildCreateDemoRequestInput, submitCreateDemoRequest } from "../app/lib/demo-request.ts";
 
 test("supplied-factor worked check returns 457.819 MT without intermediate rounding", () => {
   const result = volumeToMass(498.12, 0.12, 0.9677, 0.95);
@@ -49,4 +50,127 @@ test("inquiries preserve solution and deployment choices with backward-compatibl
   }
   assert.equal(quoteSchema.parse(base).solution, "Space BQS");
   assert.equal(quoteSchema.safeParse({ ...base, deployment: "Unexpected" }).success, false);
+});
+
+test("demo request schema validates split names, optional fields, and email format", () => {
+  const parsed = quoteSchema.parse({
+    firstName: "Jane",
+    lastName: "Doe",
+    email: "jane@example.com",
+    company: "Example Ltd",
+    phoneNumber: "",
+    companySize: "",
+    solution: "Space BQS",
+    deployment: "Public cloud",
+    message: "Evaluating deck survey sync.",
+  });
+
+  assert.equal(parsed.firstName, "Jane");
+  assert.equal(parsed.lastName, "Doe");
+  assert.equal(parsed.phoneNumber, undefined);
+  assert.equal(parsed.companySize, undefined);
+  assert.equal(parsed.formType, "space-bqs");
+  assert.equal(quoteSchema.safeParse({ firstName: "Jane", lastName: "Doe", email: "not-an-email", company: "Co" }).success, false);
+});
+
+test("buildCreateDemoRequestInput maps Space BQS fields into CreateDemoRequestInput", () => {
+  const parsed = quoteSchema.parse({
+    firstName: "Jane",
+    lastName: "Doe",
+    email: "jane@example.com",
+    company: "Example Ltd",
+    phoneNumber: "+15551234567",
+    companySize: "11-50",
+    role: "Fleet Superintendent",
+    solution: "Cargo WMS",
+    deployment: "Private cloud",
+    volume: "400 TEU/month",
+    message: "Need bonded cargo workflow.",
+    formType: "space-bqs",
+  });
+
+  const input = buildCreateDemoRequestInput(parsed);
+  assert.equal(input.firstName, "Jane");
+  assert.equal(input.lastName, "Doe");
+  assert.equal(input.email, "jane@example.com");
+  assert.equal(input.company, "Example Ltd");
+  assert.equal(input.phoneNumber, "+15551234567");
+  assert.equal(input.companySize, "11-50");
+  assert.equal(input.formType, "space-bqs");
+  assert.match(input.projectDetails ?? "", /Solution: Cargo WMS/);
+  assert.match(input.projectDetails ?? "", /Deployment: Private cloud/);
+  assert.match(input.projectDetails ?? "", /Role: Fleet Superintendent/);
+  assert.match(input.projectDetails ?? "", /Monthly volume: 400 TEU\/month/);
+  assert.match(input.projectDetails ?? "", /Notes: Need bonded cargo workflow\./);
+
+  const legacy = quoteSchema.parse({
+    name: "Captain Alex",
+    email: "alex@example.com",
+    company: "Harbor Marine",
+    role: "Lead Surveyor",
+    teamSize: "6–20",
+  });
+  const legacyInput = buildCreateDemoRequestInput(legacy);
+  assert.equal(legacyInput.firstName, "Captain");
+  assert.equal(legacyInput.lastName, "Alex");
+  assert.equal(legacyInput.companySize, "11-50");
+});
+
+test("submitCreateDemoRequest posts GraphQL mutation and handles GraphQL errors", async () => {
+  let capturedUrl = "";
+  let capturedBody = "";
+
+  const created = await submitCreateDemoRequest(
+    {
+      firstName: "Jane",
+      lastName: "Doe",
+      email: "jane@example.com",
+      company: "Example Ltd",
+      formType: "space-bqs",
+    },
+    {
+      endpoint: "https://example.invalid/graphql",
+      fetchImpl: async (url, init) => {
+        capturedUrl = String(url);
+        capturedBody = String(init?.body ?? "");
+        return new Response(
+          JSON.stringify({
+            data: {
+              createDemoRequest: {
+                _id: "673000000000000000000001",
+                firstName: "Jane",
+                email: "jane@example.com",
+                formType: "space-bqs",
+                trackingStatus: "new",
+                createdAt: "2026-11-12T10:00:00.000Z",
+              },
+            },
+          }),
+          { status: 200, headers: { "Content-Type": "application/json" } },
+        );
+      },
+    },
+  );
+
+  assert.equal(capturedUrl, "https://example.invalid/graphql");
+  const parsedBody = JSON.parse(capturedBody);
+  assert.match(parsedBody.query, /mutation CreateDemoRequest/);
+  assert.equal(parsedBody.variables.input.formType, "space-bqs");
+  assert.equal(created._id, "673000000000000000000001");
+
+  await assert.rejects(
+    () =>
+      submitCreateDemoRequest(
+        { firstName: "Jane", lastName: "Doe", email: "jane@example.com", company: "Example Ltd" },
+        {
+          endpoint: "https://example.invalid/graphql",
+          fetchImpl: async () =>
+            new Response(JSON.stringify({ errors: [{ message: "Validation failed" }] }), {
+              status: 200,
+              headers: { "Content-Type": "application/json" },
+            }),
+        },
+      ),
+    /Validation failed/,
+  );
 });

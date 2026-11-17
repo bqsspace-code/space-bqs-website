@@ -68,6 +68,9 @@ export interface CargoWmsFlightProps extends CargoWmsFlightOptions {
   distance?: number;
   id?: string;
   className?: string;
+  chapters?: readonly CargoWmsChapter[];
+  brandLabel?: string;
+  journeyLabel?: string;
 }
 
 export default function CargoWmsFlight({
@@ -78,6 +81,10 @@ export default function CargoWmsFlight({
   distance = 1500,
   id: idProp,
   className: classNameProp = "",
+  chapters = CARGO_WMS_CHAPTERS,
+  brandLabel = "SPACE / CARGO WMS",
+  journeyLabel = "Cargo WMS operational journey",
+  media,
 }: CargoWmsFlightProps) {
   const enableSnap = enableSnapProp ?? snap ?? true;
   const ref = useRef<HTMLElement>(null);
@@ -93,10 +100,11 @@ export default function CargoWmsFlight({
     ref,
     scrollMode,
     distance,
-    { topOffset, snap: enableSnap, expandOnScroll }
+    { topOffset, snap: enableSnap, expandOnScroll, media }
   );
 
-  const chapter = CARGO_WMS_CHAPTERS[active];
+  const chapter = chapters[active];
+  const posters = media?.posters ?? FRAME_POSTERS;
 
   useEffect(() => {
     const desktop = matchMedia("(min-width: 900px)");
@@ -148,13 +156,13 @@ export default function CargoWmsFlight({
     const current = focused >= 0 ? focused : active;
     const next =
       event.key === "ArrowRight"
-        ? Math.min(current + 1, 3)
+          ? Math.min(current + 1, chapters.length - 1)
         : event.key === "ArrowLeft"
         ? Math.max(current - 1, 0)
         : event.key === "Home"
         ? 0
         : event.key === "End"
-        ? 3
+          ? chapters.length - 1
         : null;
     if (next === null) return;
     event.preventDefault();
@@ -177,12 +185,12 @@ export default function CargoWmsFlight({
       data-mode={scrollMode ? "scroll" : "chapters"}
       data-chapter={active}
       style={dynamicStyles}
-      aria-label="Cargo WMS operational journey"
+      aria-label={journeyLabel}
     >
       <div className="container-flight-frame">
         <div className="flight-background" aria-hidden="true">
           <Image
-            src={FRAME_POSTERS[scrollMode && status === "ready" ? 0 : active]}
+            src={posters[scrollMode && status === "ready" ? 0 : active]}
             alt=""
             fill
             sizes="100vw"
@@ -193,15 +201,15 @@ export default function CargoWmsFlight({
             muted
             playsInline
             preload="none"
-            poster={FRAME_POSTERS[0]}
+            poster={posters[0]}
             className="flight-video"
             style={{ opacity: scrollMode && status === "ready" ? 1 : 0 }}
           />
           <div className="flight-shade" />
         </div>
         <div className="flight-topline">
-          <span>SPACE / CARGO WMS</span>
-          <span>0{active + 1} / 04</span>
+          <span>{brandLabel}</span>
+          <span>0{active + 1} / {String(chapters.length).padStart(2, "0")}</span>
         </div>
         <div className="flight-content">
           <div key={active} className="flight-copy" id={`${id}-chapter`}>
@@ -254,7 +262,7 @@ export default function CargoWmsFlight({
             </div>
           </div>
           <nav className="flight-chapters" aria-label="Journey chapters" onKeyDown={keys}>
-            {CARGO_WMS_CHAPTERS.map((item, index) => (
+            {chapters.map((item, index) => (
               <button
                 ref={(el) => {
                   buttons.current[index] = el;
@@ -273,7 +281,7 @@ export default function CargoWmsFlight({
           <div className="flight-progress" aria-hidden="true">
             <span
               ref={progressRef}
-              style={scrollMode ? undefined : { transform: `scaleX(${(active + 1) / 4})` }}
+              style={scrollMode ? undefined : { transform: `scaleX(${(active + 1) / chapters.length})` }}
             />
           </div>
           {status === "loading" && scrollMode && (

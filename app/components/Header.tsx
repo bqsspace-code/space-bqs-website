@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback, useRef } from "react";
+import { useState, useEffect, useLayoutEffect, useCallback, useRef } from "react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
@@ -33,19 +33,58 @@ const SOLUTION_LINKS = [
   { href: "/solutions", label: "Compare solutions", description: "Choose the workflow for your operation." },
 ];
 
+const SOLUTIONS_EASE_OUT = [0.23, 1, 0.32, 1] as const;
+const BUBBLE_SETTLE_EASE = [0.22, 1, 0.36, 1] as const;
+
 export default function Header() {
   const pathname = usePathname();
   const lenis = useLenis();
   const reducedMotion = useReducedMotion();
   const [hovered, setHovered] = useState<string | null>(null);
+  const [hoveredSolution, setHoveredSolution] = useState<string | null>(null);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [solutionsOpen, setSolutionsOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
   const [caretOffset, setCaretOffset] = useState<number>(56);
+  const [solutionsPos, setSolutionsPos] = useState<{ left: number; originX: number }>({
+    left: 168,
+    originX: 52,
+  });
   const headerRef = useRef<HTMLElement>(null);
+  const navContainerRef = useRef<HTMLDivElement>(null);
+  const solutionsTriggerRef = useRef<HTMLButtonElement>(null);
   const contactTriggerRef = useRef<HTMLButtonElement>(null);
   const scrolledRef = useRef(false);
+
+  const updateSolutionsPosition = useCallback(() => {
+    const container = navContainerRef.current;
+    const trigger = solutionsTriggerRef.current;
+    if (!container || !trigger) return;
+
+    const containerRect = container.getBoundingClientRect();
+    const triggerRect = trigger.getBoundingClientRect();
+    const popoverWidth = Math.min(430, window.innerWidth - 48);
+    const desiredLeft = triggerRect.left - containerRect.left - 8;
+    const maxLeft = Math.max(0, containerRect.width - popoverWidth);
+    const left = Math.max(0, Math.min(desiredLeft, maxLeft));
+    const triggerCenter = triggerRect.left - containerRect.left + triggerRect.width / 2;
+    const originX = Math.max(24, Math.min(popoverWidth - 24, triggerCenter - left));
+
+    setSolutionsPos({
+      left: Math.round(left),
+      originX: Math.round(originX),
+    });
+  }, []);
+
+  const followBubbleLight = useCallback((event: React.PointerEvent<HTMLElement>) => {
+    if (event.pointerType === "touch") return;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = Math.max(0, Math.min(100, ((event.clientX - rect.left) / rect.width) * 100));
+    const y = Math.max(0, Math.min(100, ((event.clientY - rect.top) / rect.height) * 100));
+    event.currentTarget.style.setProperty("--bubble-x", `${x.toFixed(1)}%`);
+    event.currentTarget.style.setProperty("--bubble-y", `${y.toFixed(1)}%`);
+  }, []);
 
   const onScroll = useCallback(() => {
     const isScrolled = window.scrollY > 24;
@@ -119,6 +158,14 @@ export default function Header() {
     return () => window.removeEventListener("keydown", close);
   }, [mobileMenuOpen, solutionsOpen, contactOpen]);
 
+  // Anchor Solutions dropdown directly below its trigger button
+  useLayoutEffect(() => {
+    if (!solutionsOpen) return;
+    updateSolutionsPosition();
+    window.addEventListener("resize", updateSolutionsPosition);
+    return () => window.removeEventListener("resize", updateSolutionsPosition);
+  }, [solutionsOpen, updateSolutionsPosition]);
+
   // Dynamically position the top pointer caret right under the trigger button
   useEffect(() => {
     if (!contactOpen || !contactTriggerRef.current) return;
@@ -148,7 +195,7 @@ export default function Header() {
       className="marine-header fixed top-0 left-0 right-0 z-50"
       data-scrolled={scrolled}
     >
-      <div className="relative mx-auto max-w-[1320px] pointer-events-none">
+      <div ref={navContainerRef} className="relative mx-auto max-w-[1320px] pointer-events-none">
         <div className="pointer-events-auto">
           <LiquidGlassNav className="marine-nav-shell">
             <div className="marine-nav-content flex h-16 items-center justify-between gap-2.5 px-3.5 sm:px-4 xl:px-5">
@@ -186,10 +233,12 @@ export default function Header() {
                 {NAV_LINKS.map((l) => (
                   l.href === "/solutions" ? (
                     <button
+                      ref={solutionsTriggerRef}
                       key={l.href}
                       id="solutions-toggle"
                       type="button"
                       onClick={() => {
+                        if (!solutionsOpen) updateSolutionsPosition();
                         setSolutionsOpen((value) => !value);
                         setContactOpen(false);
                       }}
@@ -199,7 +248,7 @@ export default function Header() {
                       onFocus={() => setHovered(l.href)}
                       onBlur={() => setHovered(null)}
                       data-highlighted={hovered === l.href || solutionsOpen || (!hovered && pathname.startsWith("/solutions"))}
-                      className="marine-nav-link relative flex items-center gap-1 rounded-full px-3 py-2.5 text-[13px] font-medium"
+                      className="marine-nav-link relative flex items-center gap-1 rounded-full px-3 py-2.5 text-[13px] font-medium transition-transform duration-150 active:scale-[0.97] motion-reduce:transition-none motion-reduce:active:scale-100"
                     >
                       {(hovered === l.href || solutionsOpen || (!hovered && pathname.startsWith("/solutions"))) && (
                         <motion.span
@@ -210,7 +259,12 @@ export default function Header() {
                         />
                       )}
                       <span className="relative z-10">Solutions</span>
-                      <ChevronDown aria-hidden="true" className="relative z-10 size-3" />
+                      <ChevronDown
+                        aria-hidden="true"
+                        className={`relative z-10 size-3 transition-transform duration-200 ease-[cubic-bezier(0.23,1,0.32,1)] motion-reduce:transition-none ${
+                          solutionsOpen ? "rotate-180" : ""
+                        }`}
+                      />
                     </button>
                   ) : (
                     <Link
@@ -348,28 +402,120 @@ export default function Header() {
         </AnimatePresence>
 
         {/* Solutions Dropdown Menu */}
-        {solutionsOpen && (
-          <nav
-            id="solutions-navigation"
-            aria-label="Solutions"
-            className="pointer-events-auto absolute left-1/2 top-[calc(100%+10px)] hidden w-[min(540px,calc(100vw-48px))] -translate-x-1/2 rounded-2xl border border-[#c8dfea] bg-[#f5faff]/95 p-3 shadow-xl backdrop-blur-xl xl:block z-50"
-          >
-            {SOLUTION_LINKS.map((item) => (
-              <Link
-                key={item.href}
-                href={item.href}
-                onClick={() => setSolutionsOpen(false)}
-                className="group flex items-center justify-between gap-4 rounded-xl p-4 hover:bg-[#e4efff] focus-visible:outline-2 focus-visible:outline-[#032aac]"
-              >
-                <span>
-                  <span className="block text-sm font-semibold text-[#032aac]">{item.label}</span>
-                  <span className="mt-1 block text-xs text-[#60748a]">{item.description}</span>
-                </span>
-                <ArrowRight aria-hidden="true" className="size-4 shrink-0 text-[#032aac]" />
-              </Link>
-            ))}
-          </nav>
-        )}
+        <AnimatePresence onExitComplete={() => setHoveredSolution(null)}>
+          {solutionsOpen && (
+            <motion.nav
+              key="solutions-navigation"
+              id="solutions-navigation"
+              aria-label="Solutions"
+              onPointerEnter={followBubbleLight}
+              onPointerMove={followBubbleLight}
+              onMouseLeave={() => setHoveredSolution(null)}
+              style={{
+                left: `${solutionsPos.left}px`,
+                transformOrigin: `${solutionsPos.originX}px -10px`,
+              }}
+              initial={
+                reducedMotion
+                  ? { opacity: 0 }
+                  : { opacity: 0, y: -12, scaleX: 0.88, scaleY: 0.82 }
+              }
+              animate={
+                reducedMotion
+                  ? { opacity: 1, transition: { duration: 0.12 } }
+                  : {
+                      opacity: 1,
+                      y: [-12, 2, 0],
+                      scaleX: [0.88, 1.012, 1],
+                      scaleY: [0.82, 1.022, 1],
+                      transition: {
+                        opacity: { duration: 0.22, ease: SOLUTIONS_EASE_OUT },
+                        y: { duration: 0.44, times: [0, 0.62, 1], ease: BUBBLE_SETTLE_EASE },
+                        scaleX: { duration: 0.44, times: [0, 0.62, 1], ease: BUBBLE_SETTLE_EASE },
+                        scaleY: { duration: 0.46, times: [0, 0.58, 1], ease: BUBBLE_SETTLE_EASE },
+                      },
+                    }
+              }
+              exit={
+                reducedMotion
+                  ? { opacity: 0, transition: { duration: 0.1 } }
+                  : {
+                      opacity: 0,
+                      y: -8,
+                      scaleX: 0.93,
+                      scaleY: 0.89,
+                      transition: { duration: 0.17, ease: SOLUTIONS_EASE_OUT },
+                    }
+              }
+              className="solutions-bubble pointer-events-auto absolute top-[calc(100%+10px)] hidden w-[min(430px,calc(100vw-48px))] p-2 xl:block z-50"
+            >
+              {/* Water-glass optical light & meniscus layers */}
+              <span aria-hidden="true" className="solutions-bubble-pointer" />
+              <span aria-hidden="true" className="solutions-bubble-rim" />
+              <span aria-hidden="true" className="solutions-bubble-caustic" />
+              {!reducedMotion && (
+                <motion.span
+                  aria-hidden="true"
+                  initial={{ x: "-110%", opacity: 0.55 }}
+                  animate={{ x: "240%", opacity: 0 }}
+                  transition={{ duration: 0.55, ease: BUBBLE_SETTLE_EASE }}
+                  className="pointer-events-none absolute inset-y-0 left-0 w-1/2 -skew-x-12 bg-gradient-to-r from-transparent via-white/70 to-transparent"
+                />
+              )}
+
+              <div className="relative z-10 flex flex-col">
+                {SOLUTION_LINKS.map((item, idx) => {
+                  const isActiveRow = hoveredSolution === item.href;
+                  return (
+                    <div
+                      key={item.href}
+                      className={
+                        idx === SOLUTION_LINKS.length - 1
+                          ? "mt-1 border-t border-[#cbe0ee]/75 pt-1"
+                          : undefined
+                      }
+                    >
+                      <Link
+                        href={item.href}
+                        onClick={() => {
+                          setHoveredSolution(null);
+                          setSolutionsOpen(false);
+                        }}
+                        onMouseEnter={() => setHoveredSolution(item.href)}
+                        onFocus={() => setHoveredSolution(item.href)}
+                        onBlur={() => setHoveredSolution(null)}
+                        className="group relative flex items-center justify-between gap-4 rounded-[18px] px-3.5 py-3 transition-transform duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] active:scale-[0.985] motion-reduce:transition-none motion-reduce:active:scale-100 focus-visible:outline-2 focus-visible:outline-[#032aac]"
+                      >
+                        {isActiveRow && (
+                          <motion.span
+                            aria-hidden="true"
+                            layoutId="solutions-bubble-pill"
+                            transition={
+                              reducedMotion
+                                ? { duration: 0 }
+                                : { type: "spring", stiffness: 420, damping: 32 }
+                            }
+                            className="pointer-events-none absolute inset-0 rounded-[18px] border border-white/90 bg-gradient-to-br from-white/95 via-[#eaf4ff]/90 to-[#ddf0fc]/85 shadow-[0_4px_14px_-4px_rgba(3,42,172,0.14),inset_0_1px_0_#ffffff]"
+                          />
+                        )}
+                        <span className="relative z-10">
+                          <span className="block text-sm font-semibold tracking-tight text-[#032aac]">
+                            {item.label}
+                          </span>
+                          <span className="mt-0.5 block text-xs text-[#60748a]">{item.description}</span>
+                        </span>
+                        <ArrowRight
+                          aria-hidden="true"
+                          className="relative z-10 size-4 shrink-0 text-[#032aac]/65 transition-[transform,color] duration-150 ease-[cubic-bezier(0.23,1,0.32,1)] group-hover:translate-x-0.5 group-hover:text-[#032aac] motion-reduce:transition-none motion-reduce:group-hover:translate-x-0"
+                        />
+                      </Link>
+                    </div>
+                  );
+                })}
+              </div>
+            </motion.nav>
+          )}
+        </AnimatePresence>
       </div>
 
       {/* Mobile Menu Drawer */}

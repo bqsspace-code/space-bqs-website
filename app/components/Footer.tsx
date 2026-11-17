@@ -9,13 +9,15 @@ import FlowingCenterRipple from "./FlowingCenterRipple";
 export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
   const pathname = usePathname();
   const isDemoPage = pathname === "/demo" || pathname === "/request-demo";
+  const isCargoWmsPage = pathname === "/solutions/cargo-wms";
+  const isBqsSolutionPage = pathname === "/solutions/space-bqs";
   const shouldShowCta = !hideCta && !isDemoPage;
 
   return (
     <footer className="relative text-white overflow-hidden bg-transparent">
       {/* ───────────────── 1. TOP WAVE DIVIDER ───────────────── */}
-      <div className="relative w-full bg-transparent pointer-events-none select-none">
-        {pathname === "/" ? (
+      <div className="relative w-full bg-transparent pointer-events-none select-none" style={isCargoWmsPage || isBqsSolutionPage ? { background: "#e4eff9" } : undefined}>
+        {pathname === "/" || isCargoWmsPage || isBqsSolutionPage ? (
           <WaveTransition variant="deep" to="#071E62" accent="#4e8deb" flip overlay={false} />
         ) : (
           <WaveDivider
@@ -30,7 +32,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
       {/* ───────────────── 2. PILOT CTA SECTION ───────────────── */}
       {shouldShowCta && (
         <section
-          aria-label="Pilot CTA"
+          aria-label={isCargoWmsPage ? "Cargo WMS consultation" : "Pilot CTA"}
           className="relative -mt-px w-full pt-4 pb-20 sm:pb-24 lg:pb-28"
           style={{
             background:
@@ -44,17 +46,17 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
           <div className="relative z-10 pointer-events-auto mx-auto max-w-[1200px] px-6 text-center pt-8 sm:pt-12">
             {/* Eyebrow */}
             <p className="text-[11px] sm:text-xs font-semibold uppercase tracking-[0.24em] text-blue-200/80 mb-4 sm:mb-5">
-              YOUR NEXT QUANTITY JOB
+              {isCargoWmsPage ? "YOUR NEXT OPERATIONAL STEP" : "YOUR NEXT QUANTITY JOB"}
             </p>
 
             {/* Main Headline */}
             <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold font-display text-white tracking-tight leading-[1.12] mb-4 sm:mb-5 max-w-3xl mx-auto">
-              Run a pilot with your team.
+              {isCargoWmsPage ? "Build Around Your Warehouse." : "Run a pilot with your team."}
             </h2>
 
             {/* Subtext */}
             <p className="text-sm sm:text-base lg:text-lg text-slate-300 max-w-xl mx-auto leading-relaxed mb-8 sm:mb-10 font-normal">
-              Bring one real job. We will walk it through capture, calculation, and certificate.
+              {isCargoWmsPage ? "Bring your manifests, tariffs, and release rules. We’ll scope a connected workflow with your team." : "Bring one real job. We will walk it through capture, calculation, and certificate."}
             </p>
 
             {/* Buttons */}
@@ -63,7 +65,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
                 href="/request-demo"
                 className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-white text-[#031038] font-semibold text-sm shadow-md hover:bg-slate-100 transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span>Request a demo</span>
+                <span>{isCargoWmsPage ? "Discuss your WMS requirements" : "Request a demo"}</span>
                 <svg
                   width="13"
                   height="13"
@@ -79,10 +81,10 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
               </Link>
 
               <Link
-                href="/sample-report"
+                href={isCargoWmsPage ? "/services/deployment" : "/sample-report"}
                 className="inline-flex items-center gap-2 px-6 sm:px-7 py-3 rounded-full bg-[#081a4b]/80 border border-white/20 text-white font-medium text-sm hover:bg-[#0c2466] hover:border-white/40 transition-all hover:scale-[1.02] active:scale-[0.98]"
               >
-                <span>See sample report</span>
+                <span>{isCargoWmsPage ? "Compare deployments" : "See sample report"}</span>
                 <svg
                   width="13"
                   height="13"

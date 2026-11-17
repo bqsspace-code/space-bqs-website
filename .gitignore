@@ -2,6 +2,8 @@ node_modules/
 .next/
 out/
 quote-requests/
+.env
+.env*.local
 *.log
 *.tsbuildinfo
 .DS_Store

@@ -71,7 +71,7 @@ export default function SocialMediaPlatformsClient() {
       `}</style>
 
       {/* Hero Header Section */}
-      <section className="relative pt-12 pb-12 sm:pt-16 sm:pb-16 border-b border-[#D3E9F3]/70">
+      <section className="relative pt-28 pb-12 sm:pt-36 sm:pb-16 lg:pt-40 border-b border-[#D3E9F3]/70">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           {/* Breadcrumb & Badges */}
           <div className="flex flex-wrap items-center gap-2.5 text-xs">
@@ -98,7 +98,7 @@ export default function SocialMediaPlatformsClient() {
       </section>
 
       {/* Filter and Search Bar Section */}
-      <section className="sticky top-14 z-30 bg-[#F7FBFD]/90 backdrop-blur-md border-b border-[#D3E9F3]/80 py-4 shadow-sm">
+      <section className="sticky top-20 sm:top-24 z-30 bg-[#F7FBFD]/90 backdrop-blur-md border-b border-[#D3E9F3]/80 py-4 shadow-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
           <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
             {/* Category Filter Pills */}

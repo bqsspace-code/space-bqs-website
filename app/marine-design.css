@@ -160,6 +160,130 @@
   mask: linear-gradient(#fff 0 0) content-box,linear-gradient(#fff 0 0); mask-composite: exclude;
 }
 .marine-beam-panel > div:first-of-type { box-shadow: inset 0 1px 0 #fff, 0 4px 12px #19b5c910; }
+.solutions-bubble {
+  isolation: isolate;
+  overflow: hidden;
+  border-radius: 26px;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.90), rgba(242, 249, 255, 0.85) 52%, rgba(224, 241, 252, 0.88));
+  -webkit-backdrop-filter: blur(22px) saturate(165%);
+  backdrop-filter: blur(22px) saturate(165%);
+  box-shadow:
+    0 1px 1px rgba(3, 16, 56, 0.08),
+    0 12px 26px -8px rgba(3, 42, 172, 0.16),
+    0 30px 60px -14px rgba(3, 16, 56, 0.18),
+    inset 0 12px 18px -14px rgba(255, 255, 255, 0.98),
+    inset 0 -10px 16px -12px rgba(25, 181, 201, 0.22);
+}
+.solutions-bubble-pointer,
+.solutions-bubble-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.solutions-bubble-pointer {
+  z-index: 0;
+  opacity: 0.72;
+  background: radial-gradient(220px 135px at var(--bubble-x, 24%) var(--bubble-y, 0%), rgba(255, 255, 255, 0.85), rgba(25, 181, 201, 0.08) 48%, transparent 76%);
+  transition: opacity 0.25s ease;
+}
+.solutions-bubble-rim {
+  z-index: 5;
+  padding: 1.25px;
+  background: conic-gradient(from 205deg at 50% 50%, rgba(255, 255, 255, 0.98), rgba(185, 218, 238, 0.55) 20%, rgba(3, 42, 172, 0.16) 36%, rgba(255, 255, 255, 0.75) 54%, rgba(25, 181, 201, 0.35) 72%, rgba(255, 255, 255, 0.95));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.solutions-bubble-caustic {
+  position: absolute;
+  z-index: 5;
+  left: 16%;
+  bottom: 1px;
+  width: 44%;
+  height: 2px;
+  border-radius: 100%;
+  pointer-events: none;
+  background: linear-gradient(90deg, transparent, rgba(25, 181, 201, 0.42) 45%, rgba(255, 255, 255, 0.95) 68%, transparent);
+  filter: blur(0.45px);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .solutions-bubble { background: rgba(244, 250, 255, 0.97); }
+  .control-bubble-card { background: rgba(247, 251, 254, 0.96); }
+}
+.controls-bubble-section {
+  background-image:
+    radial-gradient(ellipse 55% 60% at 18% 35%, rgba(25, 181, 201, 0.10), transparent 68%),
+    radial-gradient(ellipse 50% 60% at 82% 70%, rgba(3, 42, 172, 0.08), transparent 65%);
+}
+.control-bubble-card {
+  isolation: isolate;
+  border-radius: 22px;
+  background: linear-gradient(155deg, rgba(255, 255, 255, 0.90), rgba(242, 249, 255, 0.80) 54%, rgba(224, 242, 253, 0.86));
+  -webkit-backdrop-filter: blur(18px) saturate(155%);
+  backdrop-filter: blur(18px) saturate(155%);
+  box-shadow:
+    0 1px 1px rgba(3, 16, 56, 0.05),
+    0 10px 26px -12px rgba(3, 42, 172, 0.11),
+    0 24px 48px -22px rgba(19, 68, 111, 0.14),
+    inset 0 10px 16px -14px rgba(255, 255, 255, 0.96),
+    inset 0 -8px 14px -12px rgba(25, 181, 201, 0.16);
+  transition: box-shadow 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.control-bubble-card:hover,
+.control-bubble-card[data-hovered="true"] {
+  box-shadow:
+    0 2px 4px rgba(3, 16, 56, 0.05),
+    0 20px 42px -12px rgba(3, 42, 172, 0.22),
+    0 38px 72px -18px rgba(25, 181, 201, 0.28),
+    inset 0 14px 20px -14px rgba(255, 255, 255, 1),
+    inset 0 -12px 20px -12px rgba(25, 181, 201, 0.28);
+}
+.control-bubble-pointer,
+.control-bubble-rim {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.control-bubble-pointer {
+  z-index: 0;
+  opacity: 0.32;
+  background: radial-gradient(240px 160px at var(--bubble-x, 50%) var(--bubble-y, 20%), rgba(255, 255, 255, 0.92), rgba(25, 181, 201, 0.11) 48%, transparent 76%);
+  transition: opacity 0.28s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.control-bubble-card[data-hovered="true"] .control-bubble-pointer,
+.control-bubble-card:hover .control-bubble-pointer {
+  opacity: 0.95;
+}
+.control-bubble-rim {
+  z-index: 5;
+  padding: 1.25px;
+  background: conic-gradient(from 205deg at 50% 50%, rgba(255, 255, 255, 0.98), rgba(185, 218, 238, 0.52) 20%, rgba(3, 42, 172, 0.14) 36%, rgba(255, 255, 255, 0.78) 54%, rgba(25, 181, 201, 0.34) 72%, rgba(255, 255, 255, 0.96));
+  -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+}
+.control-bubble-caustic {
+  position: absolute;
+  z-index: 5;
+  left: 18%;
+  bottom: 1px;
+  width: 46%;
+  height: 2px;
+  border-radius: 100%;
+  pointer-events: none;
+  opacity: 0.45;
+  background: linear-gradient(90deg, transparent, rgba(25, 181, 201, 0.48) 45%, rgba(255, 255, 255, 0.98) 68%, transparent);
+  filter: blur(0.45px);
+  transition: opacity 0.28s cubic-bezier(0.23, 1, 0.32, 1);
+}
+.control-bubble-card[data-hovered="true"] .control-bubble-caustic,
+.control-bubble-card:hover .control-bubble-caustic {
+  opacity: 0.95;
+}
 @media (max-width: 639px) {
   .marine-header { padding: 8px 8px 0; }
   .liquid-nav { border-radius: 22px; }
@@ -168,7 +292,7 @@
 }
 @media (prefers-reduced-motion: reduce) {
   .marine-shiny::before { animation: none; display: none; }
-  .marine-shiny, .marine-shiny.marine-shiny--primary, .marine-shiny svg, .marine-beam-panel, .liquid-nav, .liquid-nav-reflection { transition: none; }
+  .marine-shiny, .marine-shiny.marine-shiny--primary, .marine-shiny svg, .marine-beam-panel, .liquid-nav, .liquid-nav-reflection, .solutions-bubble-pointer, .control-bubble-card, .control-bubble-pointer, .control-bubble-caustic { transition: none; }
   .marine-shiny:hover, .marine-shiny:active, .marine-shiny:hover svg, .marine-beam-panel:hover { transform: none; }
 }
 @media (max-width: 380px) {
@@ -179,6 +303,6 @@
   .marine-nav-shell .marine-shiny { padding-inline: 8px; font-size: 10px; gap: 5px; }
 }
 @media (forced-colors: active) {
-  .marine-beam-ring, .marine-shiny::before { display: none; }
-  .marine-nav-shell, .marine-beam-panel, .marine-shiny { border: 1px solid CanvasText; }
+  .marine-beam-ring, .marine-shiny::before, .solutions-bubble-rim, .solutions-bubble-caustic, .control-bubble-rim, .control-bubble-caustic { display: none; }
+  .marine-nav-shell, .marine-beam-panel, .marine-shiny, .solutions-bubble, .control-bubble-card { border: 1px solid CanvasText; }
 }

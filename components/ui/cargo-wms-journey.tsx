@@ -1,8 +1,7 @@
 "use client";
 
-import { useId, useState } from "react";
-import { ArrowRight, Check, Package, Ship, Warehouse, Receipt, ShieldCheck, Truck } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { useId, useRef, useState, type KeyboardEvent } from "react";
+import { ArrowLeft, ArrowRight, Check, Package, Ship, Warehouse, Receipt, ShieldCheck, Truck } from "lucide-react";
 
 const STEPS = [
   { title: "Plan arrivals", icon: Ship, description: "Register manifests before arrival and give operations and sales the same expected-cargo view.", items: ["Excel or manual manifests, up to three months ahead", "Expected versus arrived cargo", "Manifest lines linked to receipt"] },
@@ -16,9 +15,36 @@ const STEPS = [
 export default function CargoWmsJourney() {
   const [active, setActive] = useState(0);
   const id = useId();
+  const buttons = useRef<(HTMLButtonElement | null)[]>([]);
   const step = STEPS[active];
-  return <div className="grid gap-6 lg:grid-cols-[1fr_1.3fr]">
-    <div className="grid grid-cols-2 gap-3">{STEPS.map((item, index) => <button key={item.title} type="button" aria-pressed={active === index} aria-controls={id} onClick={() => setActive(index)} className={cn("rounded-xl border p-4 text-left transition-colors", active === index ? "border-[#032aac]/30 bg-[#e5efff]" : "border-[#d3e9f3] bg-white/70 hover:bg-white")}><item.icon aria-hidden="true" className="mb-3 size-5 text-[#032aac]" /><span className="block font-mono text-[9px] text-[#60748a]">0{index + 1}</span><span className="mt-1 block text-sm font-semibold text-[#031038]">{item.title}</span></button>)}</div>
-    <div id={id} role="region" aria-label={step.title} className="liquid-glass-ui rounded-2xl border border-[#c7dfee] p-6 sm:p-8"><p className="font-mono text-[10px] uppercase tracking-wider text-[#032aac]">Proposed workflow · 0{active + 1} / 06</p><h3 className="mt-5 font-display text-3xl font-bold text-[#031038]">{step.title}</h3><p className="mt-4 text-sm leading-7 text-[#52657c]">{step.description}</p><ul className="mt-6 space-y-4">{step.items.map((item) => <li key={item} className="flex items-start gap-2 text-sm leading-6 text-[#334e69]"><Check aria-hidden="true" className="mt-1 size-4 shrink-0 text-[#032aac]" />{item}</li>)}</ul><button type="button" onClick={() => setActive((value) => (value + 1) % STEPS.length)} className="mt-8 inline-flex items-center gap-2 text-sm font-semibold text-[#032aac]">{active === 5 ? "Back to arrivals" : "Next operational step"}<ArrowRight aria-hidden="true" className="size-4" /></button></div>
+  const Icon = step.icon;
+  const onKeys = (event: KeyboardEvent<HTMLElement>) => {
+    const next = event.key === "ArrowRight" || event.key === "ArrowDown" ? (active + 1) % STEPS.length
+      : event.key === "ArrowLeft" || event.key === "ArrowUp" ? (active + STEPS.length - 1) % STEPS.length
+      : event.key === "Home" ? 0 : event.key === "End" ? STEPS.length - 1 : null;
+    if (next === null) return;
+    event.preventDefault(); setActive(next); buttons.current[next]?.focus();
+  };
+  return <div className="cargo-stage-explorer">
+    <div className="cargo-stage-navigation">
+      <nav role="tablist" aria-label="Warehouse lifecycle stages" className="cargo-stage-tabs" onKeyDown={onKeys}>
+        {STEPS.map((item, index) => <button key={item.title} ref={el => { buttons.current[index] = el; }} id={`${id}-tab-${index}`} type="button" role="tab" aria-selected={active === index} aria-controls={`${id}-panel`} tabIndex={active === index ? 0 : -1} onClick={() => setActive(index)}>
+          <div className="cargo-stage-tab-top"><item.icon aria-hidden="true" /><span>0{index + 1}</span></div><span className="cargo-stage-tab-title">{item.title}</span>
+        </button>)}
+      </nav>
+      <p className="cargo-stage-nav-note">Six handoffs. One operational record.</p>
+    </div>
+    <div id={`${id}-panel`} role="tabpanel" aria-labelledby={`${id}-tab-${active}`} tabIndex={0} className="cargo-stage-panel">
+      <div className="cargo-stage-panel-meta"><span><Icon aria-hidden="true" />Proposed Workflow</span><span>0{active + 1} / 06</span></div>
+      <div key={active} className="cargo-stage-content">
+        <h3>{step.title}</h3><p>{step.description}</p>
+        <ul>{step.items.map(item => <li key={item}><span><Check aria-hidden="true" /></span>{item}</li>)}</ul>
+      </div>
+      <div className="cargo-stage-footer">
+        <button type="button" disabled={active === 0} onClick={() => setActive(value => value - 1)} aria-label="Previous warehouse stage" className="cargo-stage-previous"><ArrowLeft aria-hidden="true" /></button>
+        <button type="button" onClick={() => setActive(value => (value + 1) % STEPS.length)} className="cargo-stage-next">{active === 5 ? "Back to arrivals" : "Next operational step"}<ArrowRight aria-hidden="true" /></button>
+      </div>
+      <div className="cargo-stage-progress" aria-hidden="true"><span style={{ transform: `scaleX(${(active + 1) / STEPS.length})` }} /></div>
+    </div>
   </div>;
 }
