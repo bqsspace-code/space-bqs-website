@@ -41,6 +41,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/videos",
     "/about",
     "/contact",
+    "/social-media-platforms",
   ];
   return [
     ...statics.map((p) => ({ url: `${SITE_URL}${p || "/"}`, lastModified: new Date() })),

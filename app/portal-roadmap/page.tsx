@@ -4,7 +4,7 @@ import { Breadcrumbs, Section, AnswerBlock, CtaRow } from "../components/ui";
 import { Shield, Clock, CheckCircle2, ArrowRight, FileCheck, Users, Lock } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Client Portal Roadmap — Self-Service Bunker Proof",
+  title: "Client Portal Roadmap & Bunker Proof",
   description:
     "Space BQS client portal roadmap: read-only access for vessel owners and charterers to verify locked certificates, download Excel breakdowns, and audit figures. Quantity-only.",
 };

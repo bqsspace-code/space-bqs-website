@@ -4,7 +4,7 @@ import DeploymentOptions from "@/components/ui/deployment-options";
 import { MarketingHeader } from "../../components/MarketingPage";
 import { Section } from "../../components/ui";
 
-export const metadata: Metadata = { title: "Deployment Services — Public Cloud, Private Cloud & On-Premises", description: "Compare Space BQS implementation options and scope hosting, infrastructure, mobile connectivity, recovery, and operational ownership." };
+export const metadata: Metadata = { title: "On-Premises & Cloud Deployment", description: "Compare Space BQS implementation options and scope hosting, infrastructure, mobile connectivity, recovery, and operational ownership." };
 
 export default function Page() {
   return <div className="bg-[#f7fbfd]"><MarketingHeader parent="/services" parentLabel="Services" eyebrow="Deployment services" title="Your operation. The right environment." description="Explore public-cloud, private-cloud, and on-premises implementation options. Match deployment to your access, integration, and infrastructure requirements." />

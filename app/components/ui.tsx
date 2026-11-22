@@ -6,6 +6,7 @@ import { useState, useRef, useEffect } from "react";
 import WeightText from "./WeightText";
 import { ShinyButton } from "@/components/ui/shiny-button";
 import ScrollReveal from "./ScrollReveal";
+import { SITE_URL } from "../lib/site";
 
 /* ─── Eyebrow ─── */
 export function Eyebrow({
@@ -262,7 +263,7 @@ export function Breadcrumbs({ trail }: { trail: { href: string; label: string }[
       "@type": "ListItem",
       position: i + 1,
       name: t.label,
-      item: t.href,
+      item: t.href.startsWith("http") ? t.href : `${SITE_URL}${t.href.startsWith("/") ? "" : "/"}${t.href}`,
     })),
   };
 

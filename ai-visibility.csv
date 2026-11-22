@@ -1,0 +1,2145 @@
+"run_id","observation_id","prompt","engine","status","collected_at","brand_mentions","citation_urls","answer"
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","76b84ff5-a80d-4706-9dc4-ebe948a58a24","How can marine surveyors calculate delivered fuel accurately from vessel tank readings?","chatgpt","completed","2026-11-17T06:09:18.000Z","","https://maritimesafetyinnovationlab.org/wp-content/uploads/2022/03/BIMCO-IBIA-Bunkering-Guide-Jun2018.pdf; https://www.amspecgroup.com/wp-content/uploads/2014/12/amspectechtalkbunker-surveydec2014.pdf; https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A13739%3Aed-2%3Av1%3Aen; https://gso-sims-preview-doc-aws.s3-eu-west-1.amazonaws.com/iso-13739-2020-en.html; https://store.astm.org/d1250-08.html; https://climate.ec.europa.eu/document/download/b79b3f1d-efd3-41b4-9628-f6e949f0a4af_en?filename=20170517_guidance_fuel_oil_en.pdf; https://d3cpegos94401u.cloudfront.net/nepia-imports/draught-surveys-a-guide-to-good-practice-second-edition-guide-1753277533.pdf","Marine surveyors calculate the quantity of fuel delivered to a vessel by comparing the vessel's fuel tank contents before and after bunkering, correcting the tank measurements for temperature, density, trim, list, and tank calibration.
+
+The objective is to determine the actual quantity of fuel received, rather than simply relying on the supplier's delivery figure.
+
+This process is commonly called Bunker Quantity Survey (BQS) or Bunker Fuel Quantity Measurement\.
+
+1\. The basic calculation
+
+The fundamental formula is\:
+
+\[
+\text{Fuel Delivered}=\text{Final ROB}-\text{Initial ROB}
+\]
+
+Where\:
+
+Final ROB\: Fuel remaining on board after delivery.
+Initial ROB\: Fuel remaining on board before delivery.
+ROB\: Remaining on Board.
+
+For accurate results, the calculation must include all relevant tanks and account for fuel consumed, transferred, or otherwise removed during bunkering.
+
+For example\:
+
+| Description | Quantity |
+|--------|--------|
+| Initial ROB | 120.00 MT |
+| Final ROB | 185.00 MT |
+| Fuel consumed during bunkering | 1.00 MT |
+| Fuel delivered | 66.00 MT |
+
+
+\[
+185-120+1=66\ MT
+\]
+
+The vessel received 66 metric tonnes of fuel.
+
+2\. Take accurate tank readings before and after delivery
+
+The surveyor should measure every relevant fuel tank, not just the nominated receiving tanks.
+
+
+
+Record the following for each tank\:
+
+| Measurement | Purpose |
+|--------|--------|
+| Sounding | Depth of fuel from the tank bottom |
+| Ullage | Empty space between fuel surface and tank reference point |
+| Temperature | Corrects fuel volume for thermal expansion |
+| Density | Converts corrected volume into mass |
+| Free water | Identifies water contamination or accumulation |
+| Vessel trim | Corrects tank readings for fore-and-aft inclination |
+| Vessel list | Corrects readings for port or starboard inclination |
+
+
+Important\: Take initial readings before pumping starts and final readings after pumping has stopped and the fuel has settled sufficiently for reliable measurement.
+
+Use calibrated sounding equipment and the vessel's approved tank calibration tables.
+
+The BIMCO/IBIA Bunkering Guide emphasizes measuring tank levels and temperatures, using appropriate calibration tables, and ensuring measurements are taken at the correct stages of delivery. 
+
+3\. Convert sounding or ullage into tank volume
+
+This is one of the most important stages.
+
+A sounding or ullage reading is not itself a fuel quantity. It must be converted into volume using the vessel's tank calibration tables.
+
+For example\:
+
+Illustrative tank measurement
+
+| Parameter | Reading |
+|--------|--------|
+| Tank reference height | 10.00 m |
+| Measured ullage | 2.00 m |
+| Calculated sounding | 8.00 m |
+| Tank-table volume at 8.00 m | 100.00 m³ |
+
+
+Illustrative figures only. Actual tank tables depend on tank geometry and calibration.
+
+The surveyor must then apply\:
+
+Trim correction.
+List correction.
+Free-water deduction.
+Any applicable tank calibration corrections.
+
+This produces the net observed fuel volume.
+
+Do not assume that a sounding of 8 metres always represents the same volume in different tanks. Every tank has its own calibration characteristics.
+
+ISO 13739:2020 specifically addresses trim and list corrections for vessel bunker measurements. 
+
+4\. Correct the fuel volume for temperature
+
+Fuel expands when heated and contracts when cooled.
+
+Therefore, two identical sounding readings can represent different quantities of fuel at different temperatures.
+
+The surveyor should\:
+
+1. Measure the fuel temperature using a suitable calibrated thermometer or temperature probe.
+2. Obtain the fuel density at its reference temperature, normally 15°C for the applicable metric calculation.
+3. Determine the Volume Correction Factor (VCF) using the appropriate petroleum measurement tables.
+4. Convert the observed volume into standard volume at 15°C.
+
+The formula is\:
+
+\[
+V_{15}=V_{\text{observed}}\times VCF
+\]
+
+Where\:
+
+\(V_{15}\) \= Standard volume at 15°C.
+\(V_{\text{observed}}\) \= Net observed volume.
+VCF = Volume Correction Factor.
+
+ASTM D1250/API MPMS Chapter 11.1 provides recognized petroleum volume and density correction procedures. 
+
+5\. Convert corrected volume into metric tonnes
+
+Once the standard volume has been established, calculate the mass of fuel.
+
+The formula is\:
+
+\[
+\boxed{MT=\frac{V_{15}\times \rho_{15}}{1000}}
+\]
+
+Where\:
+
+MT = Fuel mass in metric tonnes.
+\(V_{15}\) \= Standard volume in cubic metres.
+\(\rho_{15}\) \= Density at 15°C in kg/m³.
+
+Worked example
+
+Assume the surveyor obtains\:
+
+| Parameter | Value |
+|--------|--------|
+| Net observed volume | 100.00 m³ |
+| VCF | 0.9900 |
+| Density at 15°C | 960 kg/m³ |
+
+
+Step 1: Calculate standard volume
+
+\[
+100\times0.9900=99.00\ m^3
+\]
+
+Step 2: Calculate fuel mass
+
+\[
+MT=\frac{99\times960}{1000}
+\]
+
+Calculated fuel quantity
+
+95.04 MT
+
+At the specified standard temperature and density basis.
+
+Repeat this calculation for every fuel tank, separately for each fuel grade.
+
+6\. Calculate total fuel onboard
+
+After calculating the individual tank quantities, prepare a tank-by-tank summary.
+
+Example\:
+
+| Tank | Initial ROB | Final ROB |
+|--------|--------|--------|
+| No. 1 Port | 25 MT | 45 MT |
+| No. 1 Starboard | 30 MT | 50 MT |
+| No. 2 Port | 35 MT | 50 MT |
+| No. 2 Starboard | 30 MT | 40 MT |
+| Total | 120 MT | 185 MT |
+
+
+The difference is\:
+
+\[
+185-120=65\ MT
+\]
+
+If the vessel consumed 1 MT during bunkering\:
+
+\[
+\text{Actual delivery}=65+1
+\]
+
+(Actual delivery: 66 MT)
+
+This assumes there were no other fuel transfers, discharges or additions outside the tanks being measured.
+
+7\. Account for fuel consumption and internal transfers
+
+A common source of errors is failing to account for fuel movements during bunkering.
+
+For accurate reconciliation, use\:
+
+\[
+\begin{aligned}
+\text{Delivered}={}&\text{Closing ROB}\\
+&-\text{Opening ROB}\\
+&+\text{Fuel consumed}\\
+&+\text{Fuel discharged}\\
+&-\text{Other fuel received}
+\end{aligned}
+\]
+
+Internal transfers between tanks cancel out when all affected tanks are measured and included.
+
+The surveyor should establish whether\:
+
+The main engine was running during bunkering.
+Auxiliary engines consumed fuel.
+Fuel was transferred between storage, settling and service tanks.
+Any fuel was discharged or returned to another vessel.
+Other fuel deliveries occurred during the survey period.
+
+8\. Compare the calculated quantity with the supplier's delivery figures
+
+The final stage is to compare the vessel's calculated receipt against the bunker delivery note (BDN).
+
+For example\:
+
+| Description | Quantity |
+|--------|--------|
+| Supplier's declared quantity | 70.00 MT |
+| Vessel's calculated receipt | 66.00 MT |
+| Difference | 4.00 MT |
+
+
+Percentage shortage\:
+
+\[
+\frac{70-66}{70}\times100
+=5.71\%
+\]
+
+(Difference: 5.71%)
+
+The surveyor should investigate the discrepancy, verify measurements and corrections, and document the findings.
+
+The difference alone does not establish that fuel has been lost or that the supplier has short-delivered. Measurement uncertainty, tank conditions and delivery arrangements must also be considered.
+
+9\. Common mistakes marine surveyors should avoid
+
+| Mistake | Possible consequence |
+|--------|--------|
+| Using incorrect tank calibration tables | Incorrect volume |
+| Ignoring vessel trim | Incorrect sounding conversion |
+| Ignoring vessel list | Incorrect tank quantity |
+| Using incorrect fuel density | Incorrect mass |
+| Not correcting for temperature | Overstatement or understatement |
+| Failing to deduct free water | Overstatement of fuel |
+| Measuring before fuel settles | Unreliable readings |
+| Measuring only nominated tanks | Missing fuel movements |
+| Ignoring consumption during bunkering | Incorrect delivered quantity |
+| Using supplier figures without independent verification | Unreliable survey result |
+
+
+10\. Recommended bunker survey calculation worksheet
+
+A professional surveyor should maintain a separate calculation sheet for each tank.
+
+The following is a simplified example of the information to record\:
+
+| Particulars | Initial | Final |
+|--------|--------|--------|
+| Sounding/ullage | Record | Record |
+| Fuel temperature °C | Record | Record |
+| Trim correction | Record | Record |
+| List correction | Record | Record |
+| Gross observed volume | Record | Record |
+| Free water | Record | Record |
+| Net observed volume | Record | Record |
+| VCF | Record | Record |
+| Standard volume | Record | Record |
+| Density at 15°C | Record | Record |
+| Fuel quantity (MT) | Record | Record |
+
+
+For professional reference, the following documents are particularly useful\:
+
+1. ISO 13739:2020 – Procedures for the transfer of bunkers to vessels\.
+2. BIMCO/IBIA Bunkering Guide – practical bunkering and quantity measurement guidance.
+3. ASTM D1250/API MPMS Chapter 11.1 – petroleum volume and density correction procedures.
+4. North P&I – Draught Surveys: A Guide to Good Practice – tank measurements, trim corrections and density calculations.
+
+---
+
+My recommendation: Use a tank-by-tank calculation rather than a simple ROB difference
+
+The most reliable approach is to calculate the mass of fuel in every relevant tank independently, before and after bunkering, and then reconcile the difference with documented fuel consumption and other movements.
+
+I can also help you build a professional Marine Bunker Survey Excel calculator that automatically calculates\:
+
+Initial and final soundings/ullages.
+Tank volumes using calibration tables.
+Trim and list corrections.
+Temperature and density corrections.
+VCF and standard volume.
+Initial and final ROB in metric tonnes.
+Actual delivered quantity.
+Shortage or excess against the BDN.
+Percentage discrepancy.
+
+This would be useful as a practical working tool for onboard bunker quantity surveys."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","519d9b87-7151-48d5-8202-0f0e28988117","How do bunker calculation systems prevent spreadsheet formula errors?","chatgpt","completed","2026-11-17T06:09:15.000Z","","","Bunker calculation systems (used in shipping, fuel management, and marine operations to calculate bunker quantities, fuel consumption, and costs) prevent spreadsheet formula errors through a combination of automation, validation rules, standardized calculation logic, and audit controls\.
+
+The main objective is to reduce manual spreadsheet manipulation and ensure that calculations are accurate, consistent, and traceable.
+
+1\. Automated calculation engines
+
+Instead of relying on manually entered Excel formulas, dedicated bunker systems use centralized calculation engines.
+
+For example, they automate\:
+
+Fuel quantity calculations.
+Volume-to-mass conversions.
+Temperature and density corrections.
+ROB (Remaining on Board) calculations.
+Bunker consumption and reconciliation.
+Fuel cost and invoice calculations.
+
+This eliminates many risks associated with copying, dragging, or modifying spreadsheet formulas.
+
+2\. Built-in validation checks
+
+Bunker systems apply validation rules to detect incorrect or unreasonable inputs.
+
+Examples\:
+
+| Validation check | Error it helps prevent |
+|--------|--------|
+| Density range validation | Incorrect density entry |
+| Temperature validation | Unrealistic temperature values |
+| Quantity validation | Negative or excessive quantities |
+| Unit validation | MT vs. m³ conversion errors |
+| Date/time validation | Incorrect reporting periods |
+| ROB reconciliation | Incorrect opening or closing balances |
+
+
+For example, if the calculated closing ROB does not match the expected fuel balance, the system can flag the discrepancy.
+
+3\. Standardized formulas
+
+A centralized system ensures that everyone uses the same approved calculation formulas.
+
+For example\:
+
+\[
+\text{Closing ROB} =
+\text{Opening ROB}+\text{Bunkered Fuel}-\text{Consumption}
+\]
+
+Rather than allowing individual users to create their own formulas, the system applies a controlled calculation methodology.
+
+This prevents\:
+
+Incorrect cell references.
+Missing formulas.
+Incorrect formula ranges.
+Accidental overwriting of formulas.
+Different calculation methods between departments.
+
+4\. Automatic reconciliation
+
+Bunker systems compare related values to identify inconsistencies.
+
+For example\:
+
+Example: Fuel balance reconciliation
+
+Opening ROB 500 MT
+
+Bunkered quantity 200 MT
+
+Fuel consumption 150 MT
+
+---
+
+Expected closing ROB
+
+550 MT
+
+(Reconciliation passed)
+
+If the reported closing ROB is 540 MT, the system flags a 10 MT discrepancy for investigation.
+
+5\. Formula protection and access controls
+
+Professional bunker systems restrict who can modify calculation logic.
+
+Typical controls include\:
+
+Locking approved formulas.
+Separating input fields from calculated fields.
+Role-based user permissions.
+Approval workflows for manual adjustments.
+Version control for calculation methods.
+
+This prevents unauthorized changes from affecting critical calculations.
+
+6\. Audit trails and historical records
+
+A good system records\:
+
+Who entered the data.
+Who modified the figures.
+When changes were made.
+Previous and revised values.
+Which calculation methodology was applied.
+
+This makes it easier to identify the source of an error and demonstrate calculation integrity during audits.
+
+7\. Automated testing and exception alerts
+
+More advanced systems use automated testing to verify calculation accuracy.
+
+For example\:
+
+Testing calculations against known reference values.
+Checking that formulas produce consistent results.
+Detecting unexpected changes after software updates.
+Flagging unusual consumption or quantity differences.
+Preventing reports from being finalized when critical validations fail.
+
+---
+
+Spreadsheet vs. dedicated bunker calculation system
+
+| Control | Traditional Excel | Dedicated bunker system |
+|--------|--------|--------|
+| Formula protection | Manual | Built-in |
+| Input validation | Limited/manual | Automated |
+| Formula consistency | Depends on user | Centralized |
+| Error detection | Often manual | Automated checks |
+| Audit trail | Limited | Detailed |
+| User permissions | Basic | Role-based |
+| Reconciliation | Manual formulas | Automated |
+
+
+The most important principle
+
+A bunker calculation system should not simply replace Excel formulas with software formulas.
+
+It should implement multiple layers of error prevention and detection\:
+
+1. Prevent incorrect data entry.
+2. Protect calculation formulas.
+3. Apply standardized calculation rules.
+4. Independently verify calculation results.
+5. Flag abnormal values and discrepancies.
+6. Maintain a complete audit trail.
+
+Even automated systems can contain software logic errors, so independent verification and periodic testing remain essential.
+
+If you're evaluating a bunker calculation system for shipping operations, I can also explain how to design its calculation validation controls to prevent errors in bunker quantity, density, VCF, ROB, and consumption calculations."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","212b356e-d443-4f5f-a50a-aa4900858b2b","What is the easiest way to calculate ROB fuel during an on-hire or off-hire survey?","chatgpt","completed","2026-11-17T06:09:13.000Z","","","The easiest way to calculate ROB (Remaining On Board) fuel during an on-hire or off-hire bunker survey is to use the tank sounding/ullage, tank calibration tables, and a fuel correction calculation\.
+
+The key is to calculate the quantity in each tank separately and then add them together.
+
+1\. Basic ROB calculation
+
+For each fuel tank\:
+
+\[
+ROB = Observed\ Volume \times VCF
+\]
+
+Where\:
+
+Observed Volume (OV)\: Volume obtained from the tank calibration table using the sounding or ullage.
+VCF\: Volume Correction Factor to correct the observed volume to the standard reference temperature (usually 15°C).
+
+If using mass\:
+
+\[
+Weight = Standard\ Volume \times Density_{15}
+\]
+
+The final answer is normally expressed in metric tonnes (MT).
+
+2\. Step-by-step survey procedure
+
+Step 1 – Take tank soundings/ullages
+
+Record the sounding or ullage of each tank\:
+
+HFO tanks
+VLSFO tanks
+MGO/MDO tanks
+Settling tanks
+Service tanks
+Other relevant fuel tanks
+
+Step 2 – Calculate observed volume
+
+Use the vessel's tank calibration tables to convert each sounding/ullage into volume in m³.
+
+Step 3 – Record fuel temperature
+
+Measure the actual temperature of the fuel in each tank.
+
+Step 4 – Obtain fuel density
+
+Use the bunker delivery note (BDN), laboratory analysis, or other agreed density information.
+
+Step 5 – Apply temperature correction
+
+Correct the observed volume to 15°C using the appropriate ASTM/API volume correction factor (VCF).
+
+Step 6 – Calculate metric tonnes
+
+\[
+MT = Volume_{15°C} \times Density_{15°C}
+\]
+
+Step 7 – Add all tank quantities
+
+\[
+Total\ ROB = \sum MT_{\text{individual tanks}}
+\]
+
+3\. Practical calculation example
+
+Suppose you have the following survey readings\:
+
+| Particulars | HFO Tank | MGO Tank |
+|--------|--------|--------|
+| Observed volume | 100 m³ | 30 m³ |
+| Temperature | 45°C | 25°C |
+| Density at 15°C | 0.950 | 0.850 |
+| Example VCF | 0.9730 | 0.9910 |
+
+
+Calculation\:
+
+HFO\:
+
+\[
+100 \times 0.9730 \times 0.950
+=92.435\ MT
+\]
+
+MGO\:
+
+\[
+30 \times 0.9910 \times 0.850
+=25.2705\ MT
+\]
+
+Total ROB
+
+117.706 MT
+
+Illustrative calculation using assumed VCF values.
+
+4\. On-hire vs. off-hire calculation
+
+The same calculation method applies to both surveys.
+
+| Survey | Purpose |
+|--------|--------|
+| On-hire | Establish fuel quantity when the vessel is delivered to the charterer. |
+| Off-hire | Establish fuel quantity when the vessel is redelivered to the owner. |
+
+
+The difference is\:
+
+\[
+Fuel\ Difference = Offhire\ ROB - Onhire\ ROB
+\]
+
+For example\:
+
+On-hire ROB = 500 MT
+Off-hire ROB = 350 MT
+Fuel consumed = 150 MT
+
+5\. My recommendation: Use an Excel ROB calculator
+
+For bunker surveys, an Excel spreadsheet is probably the easiest and fastest method. You enter\:
+
+1. Tank name
+2. Sounding/ullage
+3. Observed volume
+4. Fuel temperature
+5. Density at 15°C
+6. VCF
+
+Excel automatically calculates\:
+
+Corrected volume at 15°C
+Fuel quantity in MT
+Total HFO ROB
+Total MGO ROB
+Total vessel ROB
+
+One important survey point\: Always account for trim, list, tank calibration corrections, water bottoms (if applicable), and the correct density/temperature correction method. Do not use the illustrative VCF values above as actual survey factors.
+
+I can also prepare a ready-to-use Excel ROB calculator for on-hire and off-hire bunker surveys, with automatic calculations for HFO, VLSFO, MGO and diesel tanks."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","a0d1e7e8-7e60-4d42-beda-ea158249edbd","What software automates bunker quantity calculations from tank soundings?","chatgpt","completed","2026-11-17T06:09:47.000Z","Space BQS","https://www.smmnet.com/bunkersurvey.html; https://apps.apple.com/sg/app/space-bqs/id6812992991; https://marinesurvey.online/bunker-survey-software; https://apps.apple.com/us/app/tanker-the-sounding-app/id1442173028; https://intellect.ng/solutions-systems/anko-per-vessel-type/lpg-ships/; https://www.emissionsauthority.nl/binaries/dutch-emissions-authority/documenten/publications/2024/09/16/guidance-document/policy_transport_shipping_gd1_maritime_en.pdf; https://climate.ec.europa.eu/document/download/b79b3f1d-efd3-41b4-9628-f6e949f0a4af_en","Several marine software solutions can automate bunker quantity calculations directly from tank soundings or ullage readings. They reduce manual calculations by applying vessel-specific tank calibration tables, trim/list corrections, temperature corrections and density conversion to metric tonnes (MT).
+
+Here are some options worth looking at.
+
+Recommended bunker calculation software
+
+
+
+1\. SMM Bunkers Survey Software
+
+(Good for shipboard operations)
+
+Automatic sounding/ullage calculations.
+Trim and heel corrections.
+Density and temperature corrections.
+Before-and-after bunkering calculations.
+ROB monitoring and Excel reports.
+
+Website: SMM Bunkers Survey
+
+---
+
+
+
+2\. Space BQS
+
+Records tank soundings and ullages.
+Automatic tank calibration table calculations.
+ASTM D1250 / API MPMS Table 54B corrections.
+Calculates volume at 15°C and mass in MT.
+Offline operation.
+PDF and Excel survey reports.
+
+Website: Space BQS – App Store\.
+
+---
+
+
+
+3\. Marine Survey .Online
+
+Tank sounding and ullage calculations.
+Trim and list corrections.
+Density and temperature corrections.
+ROB calculations and fuel reconciliation.
+Survey reports.
+Browser-based and offline-first operation.
+
+Website: Marine Survey .Online\.
+
+---
+
+
+
+4\. Tanker – The Sounding App
+
+Enter sounding for each tank.
+Automatically retrieves tank volume.
+Trim correction.
+Calculates total tank quantities.
+Bunkering mode and transfer monitoring.
+Works offline.
+
+Website: Tanker – App Store\.
+
+---
+
+
+
+5\. ANKO by Intellect Automation
+
+Automatic bunker calculations.
+Initial and final sounding comparisons.
+Trim, heel and temperature corrections.
+Mixed fuel density calculations.
+Bunkering reports in Excel.
+
+Website: Intellect Automation – ANKO\.
+
+What should the software calculate automatically?
+
+A good bunker calculation system should follow this workflow\:
+
+1\. Enter tank soundings
+
+Tank number, sounding, temperature and fuel grade
+
+2\. Apply tank calibration tables
+
+Automatic interpolation and trim/list correction
+
+3\. Apply temperature and density corrections
+
+Volume correction factor (VCF), corrected volume and mass
+
+4\. Calculate final bunker quantities
+
+MT
+
+Quantity per tank and total vessel ROB
+
+5\. Generate bunker report
+
+Before bunkering, after bunkering, quantity received and shortage/excess
+
+The system must use the vessel's approved tank calibration tables; generic tank dimensions are not a substitute. 
+
+One question so I can narrow this down
+
+Are you looking for software primarily for\:
+
+1. Chief Engineer onboard\: Enter daily tank soundings and automatically calculate total ROB in MT.
+2. Bunker surveyor\: Calculate before-and-after bunker quantities and verify supplier delivery.
+3. Fleet/ship management\: Automatically collect sounding reports from multiple vessels and monitor fuel consumption.
+
+I can narrow it down to the most suitable software, particularly if your goal is to enter soundings once and have the complete bunker quantity report calculated automatically."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","1c5bc439-f7f6-4556-bdc2-af2e24767591","Which tools support ASTM 54B bunker quantity calculations?","chatgpt","completed","2026-11-17T06:09:56.000Z","","https://www.amc.gr/tankCalibration.htm; https://sevensurveyor.com/software/marine-surveyor-draft-bunker-survey-software-program/; https://thenavalarch.com/software/maritime-industry-thenavalarch/marine-surveys/bunker-survey-calculations/; https://metacad.io/en/commercial/bunker-survey/; https://apeks.tech/tools/bunker-quantity-calculator/; https://www.cargoward.com/tools/bunker-quantity-survey; https://vesselcore.eu/bunker-quantity-calculator; https://climate.ec.europa.eu/system/files/2017-06/20170517_guidance_fuel_oil_en.pdf; https://www.nepia.com/publications/marine-fuels-preventing-claims-and-disputes-guide/","Several software packages and online calculators support bunker quantity calculations using ASTM Table 54B \(Volume Correction Factor, VCF). Some also support ASTM Table 56 for converting volume at 15°C into metric tonnes in air.
+
+The main options worth considering are\:
+
+1\. Dedicated bunker calculation software
+
+
+
+1\. amcBunker — AMC Piraeus
+
+(Good for shipboard surveys)
+
+ASTM 54B calculations.
+Fuel oil and diesel ROB.
+Tank sounding and ullage.
+Trim and list corrections.
+On/off-hire bunker surveys.
+
+Website: AMC Piraeus
+
+
+
+---
+
+
+
+2\. SurveyorMates / BunkerMates
+
+Automatic bunker ROB calculations.
+ASTM Table 54B.
+Table 56 weight correction.
+Density interpolation and commingling.
+Bunker delivery certificates and PDF reports.
+
+Website: Seven Surveyor software
+
+
+
+---
+
+
+
+3\. TheNavalArch Bunker Survey Calculations
+
+(Excel-based)
+
+ASTM 54B calculations.
+Ship particulars, drafts and list.
+Fuel density, temperature and tank gauging.
+Regular and on/off-hire surveys.
+
+Listed price: \$49.
+Website: TheNavalArch
+
+
+
+---
+
+
+
+4\. MetaCAD Bunker Survey Calculator
+
+ASTM D1250 Table 54B.
+Table 56 weight-in-air conversion.
+BDN versus surveyed quantity.
+Short-delivery calculation.
+PDF reporting and supporting survey tools.
+
+Website: MetaCAD bunker survey
+
+
+
+2\. Online bunker quantity calculators
+
+These are useful when you need quick calculations without installing software.
+
+| Tool | Main function |
+|--------|--------|
+| Apeks Bunker Calculator | Volume, temperature, density and tonnes in air |
+| CargoWard Bunker Survey | BDN reconciliation and bunker survey calculations |
+| Vessel Core Calculator | VCF, standard volume and mass conversion |
+
+
+
+
+3\. What should a proper ASTM 54B bunker calculation tool support?
+
+For professional bunker surveying, I would look for these functions\:
+
+| Function | Required standard/data |
+|--------|--------|
+| Volume correction to 15°C | ASTM Table 54B |
+| Weight correction to air | ASTM Table 56 |
+| Density correction | Density at 15°C |
+| Temperature correction | Observed temperature |
+| Tank volume | Vessel calibration tables |
+| Trim and list | Ship-specific corrections |
+| ROB calculation | Before/after bunker delivery |
+| BDN reconciliation | Delivered versus declared quantity |
+
+
+Important\: ASTM 54B calculates temperature-related volume correction. It does not replace the vessel's approved sounding/ullage calibration tables or trim/list corrections. 
+
+My recommendation
+
+For a chief engineer or ship operator: AMC amcBunker or MetaCAD.
+For an independent bunker surveyor: SurveyorMates or TheNavalArch.
+For quick checking of delivered quantities: Apeks or CargoWard.
+
+One important distinction is whether you need just the ASTM 54B calculation or a complete bunker survey system.
+
+Are you looking for software for\:
+
+1. Shipboard bunker ROB calculations.
+2. Bunker delivery quantity surveys (barge versus vessel).
+3. On-hire/off-hire bunker surveys.
+4. Independent bunker quantity surveying and shortage claims.
+
+I can narrow this down to the most suitable professional software, including options that support Excel exports and detailed ASTM calculation reports."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","76810735-4615-4937-a6bc-da9160071587","How do I compare bunker survey software for delivery, ROB, and debunkering surveys?","chatgpt","completed","2026-11-17T06:09:54.000Z","Space BQS","https://www.iso.org/obp/ui?_escaped_fragment_=iso%3Astd%3Aiso%3A22192%3Aed-1%3Av1%3Aen; https://amicamarine.com/marine-survey-services/bunker-surveys/; https://www.nepia.com/publications/marine-fuels-preventing-claims-and-disputes-guide/; https://apps.apple.com/us/app/space-bqs/id6812992991; https://www.smmnet.com/bunkersurvey.html; https://www.unispecinternational.com/Services.html; https://www.imarinesurvey.com/page/operator/survey-types; https://help.veson.com/imos/vip-voyage-bunkers","To compare bunker survey software effectively, you should evaluate it against the full bunker quantity verification process, rather than simply comparing features or digital reporting capabilities.
+
+The key is to determine whether the software can accurately manage and document three different survey types\:
+
+1. Bunker Delivery Survey (BQS)\: Verifying the quantity of fuel delivered from the supplier to the vessel.
+2. ROB Survey (Remaining On Board)\: Measuring and calculating the quantity of fuel remaining in the vessel's tanks.
+3. Debunkering Survey\: Verifying the quantity of fuel discharged or returned from the vessel to a barge or shore facility.
+
+I would use a weighted evaluation framework covering measurement accuracy, calculation methodology, survey workflow, reporting, evidence management, and commercial suitability.
+
+1\. Compare the core capabilities
+
+| Evaluation area | Delivery survey | ROB survey | Debunkering survey |
+|--------|--------|--------|--------|
+| Tank measurement | Before and after delivery | All relevant fuel tanks | Before and after discharge |
+| Sounding/ullage | Essential | Essential | Essential |
+| Temperature measurement | Essential | Essential | Essential |
+| Density correction | Essential | Essential | Essential |
+| VCF calculation | Essential | Essential | Essential |
+| Free water measurement | Important | Important | Important |
+| Quantity calculation | Delivered quantity | Remaining quantity | Discharged quantity |
+| Difference analysis | Barge vs vessel | Previous vs current ROB | Vessel vs receiving facility |
+| Supporting evidence | BDN, meter readings, photos | Tank tables, readings, photos | Transfer records, readings, photos |
+| Final report | Bunker delivery report | ROB report | Debunkering report |
+
+
+Important\: The software should support independent calculations for each survey type. A system designed primarily for bunker delivery may not adequately handle ROB reconciliation or debunkering discrepancies.
+
+2\. Assess calculation accuracy and transparency
+
+This should carry the highest weighting in your evaluation.
+
+Do not accept a vendor's claim that its software is accurate without testing the underlying calculations.
+
+Check whether it supports\:
+
+Vessel-specific tank calibration tables.
+Sounding and ullage calculations.
+Trim and list corrections.
+Temperature correction to the reference temperature of 15°C.
+Density correction and VCF calculations.
+Free-water deductions.
+Interpolation between calibration-table values.
+Weight in air and weight in vacuum, where applicable.
+Multiple fuel grades and tank categories.
+Clear calculation audit trails.
+
+Relevant technical references include\:
+
+ASTM D1250 / API MPMS Chapter 11.1 for petroleum measurement tables.
+ISO 91 for temperature and pressure volume correction factors.
+ISO 13739 for procedures for transferring marine fuel to ships.
+ISO 22192 for marine fuel bunkering using Coriolis mass flow meters. 
+
+My recommendation\: Ask each vendor to demonstrate the same sample survey using identical tank tables, soundings, temperatures and density values. Compare the calculated quantities tank by tank, not just the final totals.
+
+3\. Evaluate workflow differences
+
+The three survey types have different operational requirements.
+
+
+
+A. Bunker delivery
+
+The software should capture opening and closing measurements, barge and vessel figures, delivery documentation, sampling details, and the final delivered quantity.
+
+Key question: Can it independently reconcile the vessel's received quantity against the barge's delivered quantity and BDN?
+
+---
+
+
+
+B. ROB survey
+
+It should calculate fuel remaining across all relevant tanks and support historical comparisons, consumption adjustments and reconciliation against vessel declarations.
+
+Key question: Can it produce a reliable ROB position at a specified date and time?
+
+---
+
+
+
+C. Debunkering
+
+It should capture opening and closing vessel measurements, receiving barge measurements, transfer records, and quantity differences.
+
+Key question: Can it calculate the quantity removed from the vessel and independently reconcile it with the receiving barge?
+
+4\. Compare reporting and evidence management
+
+A bunker survey report may be used to support a commercial claim or quantity dispute. Consequently, the quality of the evidence is just as important as the calculation.
+
+Evaluate whether the software provides\:
+
+| Feature | Importance |
+|--------|--------|
+| Professional PDF reports | Essential |
+| Excel calculation sheets | High |
+| Tank-by-tank calculation breakdown | Essential |
+| Photographs and attachments | High |
+| Date, time and location records | Essential |
+| Surveyor identification and sign-off | Essential |
+| BDN and supporting document storage | High |
+| Revision history and audit trail | Essential |
+| Digital signatures | Desirable |
+| Letter of protest generation | Desirable |
+| Historical survey retrieval | High |
+
+
+Check whether a finalized report can be edited without leaving a revision history. Ideally, the original report should remain preserved.
+
+5\. Compare software providers
+
+Here are some examples worth including in an initial market assessment. They cover somewhat different parts of the bunker-survey and bunker-management market.
+
+| Software/provider | Area worth investigating |
+|--------|--------|
+| Space BQS | Delivery, ROB and debunkering workflows, offline recording and calculation traceability |
+| SMM Bunker Survey | Vessel-specific tank tables, trim/heel corrections and ROB calculations |
+| Unispec Bunker Survey | Delivery calculations and vessel fuel inventory |
+| iMarS | Separate bunker replenishment, ROB and debunkering survey types |
+| Veson IMOS | Broader bunker operations, voyage management and survey-cost recording |
+
+
+Useful product references\:
+
+Space BQS – product details
+SMM Bunker Survey
+Unispec International
+iMarS survey types
+Veson IMOS bunker management
+
+These are candidates for evaluation, not independently verified rankings. In particular, distinguish dedicated survey calculation tools from broader bunker procurement and voyage management systems.
+
+6\. Use a weighted software evaluation scorecard
+
+I recommend scoring each provider out of 100 points using the following framework.
+
+Software evaluation scorecard
+
+Rate each criterion from 1 (poor) to 5 (excellent). The weighted score updates automatically.
+
+---
+
+Weighted score
+
+/100
+
+Unrated criteria count as zero. Complete all eight ratings for a final assessment.
+
+[Reset scores]
+
+Suggested interpretation\:
+
+85–100: Strong candidate.
+70–84: Good candidate, subject to gaps.
+55–69: Requires improvement or customization.
+Below 55: Weak fit.
+
+7\. Conduct a practical demonstration using three test cases
+
+I would insist that every vendor demonstrate the following scenarios before making a purchasing decision.
+
+| Test | Scenario | What to verify |
+|--------|--------|--------|
+| 1 | Delivery of 500 MT | Correct delivered quantity and reconciliation |
+| 2 | Vessel ROB of 1,200 MT | Accurate tank-by-tank remaining quantity |
+| 3 | Debunkering of 200 MT | Accurate discharged quantity and barge reconciliation |
+
+
+Use the same sample data for every vendor.
+
+Ask the vendors to demonstrate\:
+
+How they enter raw survey measurements.
+How the software handles incorrect or missing readings.
+How it calculates trim, heel and temperature corrections.
+How it identifies quantity discrepancies.
+How it produces the final survey report.
+How the calculation can be independently audited.
+
+A particularly important test\: Change the temperature, density or vessel trim in the sample data and see whether the software recalculates the quantities correctly and transparently.
+
+8\. Questions to ask vendors before purchasing
+
+1. Does your software support all three survey types natively?
+2. Can we upload our own vessel tank calibration tables?
+3. Are ASTM/API calculation tables included and updated?
+4. Can we customize survey report templates?
+5. Does the software work without an internet connection?
+6. Can we compare vessel and barge measurements independently?
+7. Can we retain historical survey records and audit trails?
+8. Can we export all calculations into Excel?
+9. Can multiple surveyors work under one company account?
+10. What are the licensing, implementation and annual support costs?
+
+---
+
+My overall recommendation
+
+I would prioritize three things when selecting bunker survey software\:
+
+1. Technical reliability\: The calculation engine must be accurate, transparent and independently verifiable.
+2. Operational coverage\: Delivery, ROB and debunkering must all be properly supported, not treated as variations of one basic delivery form.
+3. Dispute protection\: Every calculation should be traceable to original measurements, source documents and surveyor observations.
+
+A good-looking interface is useful, but it should never outweigh calculation integrity and evidence quality.
+
+One additional suggestion\: If you are evaluating software for a bunker surveying company rather than just an individual vessel, also assess multi-vessel management, surveyor allocation, centralized report approval, customer portals and fleet-wide reporting. These capabilities can make a substantial difference to operational efficiency."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","bd65d1c6-db5f-44f8-a7d1-34a67c22bb7f","What bunker survey software calculates marine fuel quantities using ASTM Table 54B?","chatgpt","completed","2026-11-17T06:10:13.000Z","Space BQS","https://amc.gr/tankCalibration.htm; https://sevensurveyor.com/software/marine-surveyor-draft-bunker-survey-software-program/; https://thenavalarch.com/software/maritime-industry-thenavalarch/marine-surveys/bunker-survey-calculations/; https://surveycalc.com/BunkerUS.html; https://apps.apple.com/us/app/space-bqs/id6812992991; https://climate.ec.europa.eu/document/download/b79b3f1d-efd3-41b4-9628-f6e949f0a4af_en?filename=20170517_guidance_fuel_oil_en.pdf; https://www.nepia.com/publications/marine-fuels-preventing-claims-and-disputes-guide/","Several bunker survey software packages calculate marine fuel quantities using ASTM Table 54B (VCF – Volume Correction Factor)\.
+
+Here are the most relevant options\:
+
+Software supporting ASTM Table 54B
+
+
+
+1\. amcBunker – AMC Piraeus
+
+(Bunker survey focused)
+
+Calculates fuel oil and diesel quantities.
+Uses ASTM Table 54B.
+Supports trim, list, tank gauging and density.
+Suitable for ROB and on/off-hire surveys.
+
+AMC Piraeus – amcBunker
+
+---
+
+
+
+2\. Seven Surveyor – BunkerCal
+
+Automatic bunker quantity calculations.
+ASTM Table 54B calculations.
+Fuel oil and diesel oil.
+On/off-hire bunker certificates.
+ROB calculations.
+
+Seven Surveyor software
+
+---
+
+
+
+3\. TheNavalArch – Bunker Survey Calculations
+
+Excel-based bunker survey calculator.
+Uses ASTM Tables 53B and 54B.
+Supports tank soundings, temperature, density, trim and list.
+Regular and on/off-hire bunker surveys.
+
+TheNavalArch – Bunker Survey Calculations
+
+---
+
+
+
+4\. SurveyCalc – BunkerUS
+
+Ship/shore and ship-to-ship calculations.
+Petroleum quantity calculations.
+ASTM/API petroleum measurement standards.
+Tank volume interpolation and trim/list calculations.
+
+SurveyCalc – BunkerUS
+
+---
+
+
+
+5\. Space BQS
+
+Mobile bunker quantity survey application.
+ASTM D1250 / API MPMS Table 54B.
+Automatic volume correction to 15°C.
+Metric tonne calculations.
+PDF and Excel reporting.
+
+Space BQS – App Store
+
+My recommendation
+
+If you need professional bunker survey software, I would shortlist\:
+
+1. amcBunker – for dedicated bunker survey calculations.
+2. BunkerCal – for traditional marine surveyor calculations and certificates.
+3. Space BQS – for a modern mobile workflow with traceable calculations.
+
+Important calculation requirements
+
+Make sure the software supports the complete calculation sequence\:
+
+1. Observed volume from vessel tank calibration tables.
+2. Correction for vessel trim and list.
+3. Temperature and density input.
+4. ASTM Table 54B for VCF.
+5. ASTM Table 56 for WCF.
+6. Final quantity in metric tonnes.
+
+The European Commission's fuel-monitoring guidance also recognizes ASTM D1250 Table 54B or equivalent substantiated software for temperature and density corrections. 
+
+One question\: Are you looking for software for a professional marine bunker surveyor (including tank soundings, trim/list corrections and bunker survey certificates), or just a calculator that applies ASTM Table 54B to determine fuel quantities?"
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","15590083-b8cb-4fcb-b9e1-1fa79aee1c11","What is the best bunker survey software for marine surveyors?","chatgpt","completed","2026-11-17T06:10:14.000Z","Space BQS","https://apps.apple.com/il/app/space-bqs/id6812992991; https://apps.apple.com/ca/app/space-bqs-bunker-survey/id6812992991; https://imsurveyor.com/; https://play.google.com/store/apps/details?id=com.wiemsolutions.imsurveyor; https://marinesurvey.online/; https://marinesurvey.online/bunker-survey-software; https://sevensurveyor.com/software/marine-surveyor-draft-bunker-survey-software-program/; https://www.sevensurveyor.com/get/download/SurveyorMates_Manual.pdf","For a professional marine surveyor, I would shortlist Space BQS, iMSurveyor, and Marine Survey .Online\. The best choice depends on whether you primarily conduct bunker quantity surveys, ROB surveys, on-hire/off-hire surveys, or full marine inspections.
+
+My recommendation is to prioritize software that handles the actual bunker calculations, vessel tank calibration tables, temperature and density corrections, and professional survey report generation—not simply bunker management or fuel procurement.
+
+Best bunker survey software compared
+
+
+
+1\. Space BQS
+
+(Best specialist bunker option)
+
+Bunker delivery, ROB and debunkering surveys.
+Tank soundings and ullages.
+ASTM/API temperature corrections.
+Offline operation.
+PDF and Excel reports.
+Calculation traceability and survey finalization.
+
+Particularly interesting for independent bunker quantity surveyors. 
+
+Space BQS – App Store
+
+---
+
+
+
+2\. iMSurveyor
+
+(Best all-round survey platform)
+
+Bunker, draft, condition and other survey reports.
+Tank calibration library.
+TOV, GOV, GSV and metric-ton calculations.
+ROB versus BDN comparison.
+Offline functionality.
+AI-assisted report writing and discrepancy letters.
+
+A strong choice if you perform several types of marine surveys, rather than bunker surveys alone. 
+
+iMSurveyor official website · Google Play
+
+---
+
+
+
+3\. Marine Survey .Online
+
+Bunker quantity and on/off-hire surveys.
+Sounding and ullage workflows.
+Trim and list corrections.
+Temperature and density corrections.
+Offline-first operation.
+Professional PDF reporting.
+
+Worth considering if you want a modern browser-based survey workflow. 
+
+Official website
+
+---
+
+
+
+4\. SurveyorMates / BunkerMates
+
+Dedicated bunker calculation software.
+Draft and oil survey tools.
+Bunker quantity certificates.
+On-hire and off-hire certificates.
+Customizable report formats.
+
+An alternative if you prefer traditional desktop calculation software. 
+
+SurveyorMates website
+
+What I would look for before buying
+
+For a professional bunker survey operation, these are the essential features I would insist on\:
+
+| Feature | Importance |
+|--------|--------|
+| Vessel-specific tank calibration tables | Essential |
+| Sounding and ullage calculations | Essential |
+| Trim and list corrections | Essential |
+| ASTM/API temperature correction | Essential |
+| Density correction at 15°C | Essential |
+| TOV, GOV, GSV and metric tons | Essential |
+| ROB and BDN reconciliation | Essential |
+| Pre- and post-delivery surveys | Essential |
+| PDF reports with company logo | Essential |
+| Offline operation onboard | Very important |
+| Excel export and calculation audit trail | Very important |
+| Multiple surveyors and shared vessel database | Useful |
+
+
+One important point\: Test the software against a completed bunker survey with independently verified figures before relying on it for commercial quantity disputes. Check its ASTM/API table versions, interpolation, correction methodology and rounding.
+
+My final recommendation
+
+Space BQS\: My first candidate for dedicated bunker quantity surveying.
+iMSurveyor\: My first candidate for a survey company handling multiple types of marine surveys.
+Marine Survey .Online\: Worth testing for its field reporting workflow.
+
+I would arrange demonstrations of the first two before making a purchase.
+
+A question that would help me narrow this down
+
+Are you an independent marine surveyor or operating a marine surveying company?
+
+I'm particularly interested in whether you need software for\:
+
+Bunker quantity surveys (pre- and post-bunkering).
+ROB surveys.
+On-hire and off-hire surveys.
+Vessel tank calibration and quantity calculations.
+Professional reports and certificates for clients.
+
+I can then narrow this down to the best professional-grade software rather than general maritime fuel management systems."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","9c411d36-e301-4fdc-8f4a-a5c752c52abd","Which bunker survey platforms create audit-ready bunker certificates?","chatgpt","completed","2026-11-17T06:10:16.000Z","Space BQS","https://www.worldports.org/globalbqs-launches-new-platform-turns-every-bunker-survey-into-data/; https://www.mpa.gov.sg/port-marine-ops/marine-services/bunkering/digital-bunkering; https://sdksoftwares.com/products/blusense/; https://naviscope.eu/; https://apps.apple.com/us/app/space-bqs/id6812992991","Several maritime software platforms can generate digital bunker survey reports or certificates with supporting evidence, calculation records, and audit trails. The strongest candidates fall into two categories: bunker quantity survey (BQS) platforms and end-to-end digital bunkering/documentation platforms\.
+
+Platforms worth evaluating
+
+| Platform | Certificate/report capabilities | Audit-readiness |
+|--------|--------|--------|
+| BluSense | BQS, ROB, On-Hire/Off-Hire certificates | Strong: timestamped activity, photo evidence, QA/QC and audit trail |
+| SurveyorMates | Certificate of Bunker Quantity, Delivery, On-Hire and Off-Hire | Calculation and certificate generation |
+| Space BQS | Bunker quantity survey reports, PDF and Excel exports | Strong: locked finalized surveys and traceable calculations |
+| iMSurveyor | Bunker survey reports and calculations | Offline operation and structured reporting |
+| Naviscope | End-to-end survey documentation and final reports | Strong: attributable history of approvals, signatures and corrections |
+| NYB FastTool | Automated bunker survey reports | Calculation traceability and full audit trail |
+
+
+Additional platforms for digital bunkering
+
+These are relevant but have a somewhat different focus\:
+
+GlobalBQS – Standardises bunker survey data from independent surveyors, including major inspection networks such as VPS, Saybolt and FOBAS. 
+BunkerFlow – Digital bunkering documentation and automated data submission to Singapore's MPA.
+digitalBunkering@Sea – Electronic bunkering documentation and workflow.
+BunkerGo – Digital bunkering documentation.
+
+The last three appear on Singapore MPA's digital bunkering solution-provider list. They should not automatically be considered dedicated bunker survey certificate generators. 
+
+My recommendations
+
+(Best overall match) BluSense
+
+
+
+Particularly interesting because it combines certificate generation, ASTM calculations, photographic evidence, timestamped logs, seal verification and back-office approval. 
+
+BluSense official website
+
+---
+
+Best for shared multi-party audit records: Naviscope
+
+
+
+Connects buyers, suppliers, surveyors and laboratories, with attributable approvals, signatures and corrections. 
+
+Naviscope official website
+
+---
+
+Best for calculation traceability: Space BQS
+
+Its finalized surveys become read-only, with exact calculation-table references and PDF/Excel exports. 
+
+Space BQS app
+
+What makes a bunker certificate genuinely audit-ready?
+
+When evaluating these platforms, I would insist on\:
+
+1. Unique certificate number and immutable final version.
+2. Vessel, IMO, port, barge, supplier and BDN references.
+3. Opening and closing soundings or MFM readings.
+4. Temperature, density, VCF and ASTM calculation references.
+5. Timestamped photographic and documentary evidence.
+6. Surveyor identification and electronic signatures.
+7. Approval workflow and controlled corrections.
+8. Complete audit history, including who changed what and when.
+9. Downloadable PDF with underlying calculation records.
+
+One important distinction\: A platform generating a professional-looking PDF does not automatically make that certificate legally or independently auditable. Verify record integrity, signature validation, retention, calculation methodology and applicable standards.
+
+One question to narrow this down
+
+Are you looking for software for\:
+
+A. A bunker surveying company issuing Bunker Quantity Survey (BQS) certificates to shipowners and charterers.
+B. A shipowner or shipping company verifying bunker deliveries and auditing surveyors.
+C. A bunker supplier issuing digital Bunker Delivery Notes (eBDNs).
+D. A software platform to develop your own automated bunker certificate generation system.
+
+The distinction matters because the best platforms for independent surveyors are not necessarily the best platforms for shipowners or bunker suppliers."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","30e6eb37-3838-4bb7-ac79-f578084639e6","Which bunker survey software supports offline data capture on a vessel?","chatgpt","completed","2026-11-17T06:10:13.000Z","Space BQS","https://apps.apple.com/us/app/space-bqs/id6812992991; https://imsurveyor.com/; https://marinesurvey.online/bunker-survey-software; https://marinesurvey.online/; https://q8digital.com/en/products/surveyhub; https://apps.apple.com/us/app/tanker-the-sounding-app/id1442173028","Several bunker survey software platforms support offline data capture onboard vessels, allowing surveyors to record tank soundings, ullages, temperatures, densities and bunker quantities without an internet connection, then synchronize data when connectivity returns.
+
+Here are the strongest options I found.
+
+Bunker survey software with offline capability
+
+
+
+1\. Space BQS
+
+(Explicit offline support)
+
+Bunker delivery, ROB and debunkering surveys.
+Tank soundings and ullages.
+Temperature, density and free-water capture.
+Automatic VCF and quantity calculations.
+Offline storage and synchronization.
+PDF and Excel reporting.
+
+Platform: iPhone and iPad.
+
+Requires an organisation-provided account.
+
+Space BQS – App Store
+
+
+
+---
+
+
+
+2\. iMSurveyor
+
+(Explicit offline support)
+
+Bunker survey calculator.
+Vessel and tank calibration library.
+Sounding, temperature and density entry.
+Automatic TOV, GOV, GSV and MT calculations.
+Offline inspections and survey reporting.
+Automatic synchronization when online.
+
+Platform: Desktop, tablet and mobile.
+
+iMSurveyor website
+
+
+
+---
+
+
+
+3\. Marine Survey .Online
+
+(Offline-first)
+
+On-hire and off-hire bunker surveys.
+Tank-by-tank sounding and ullage capture.
+Trim and list corrections.
+Density and temperature corrections.
+ROB calculations and fuel reconciliation.
+Automatic synchronization and PDF reporting.
+
+Platform: Browser-based Progressive Web App.
+
+Marine Survey .Online – Bunker Survey Software
+
+
+
+---
+
+
+
+4\. SurveyHub – Q8Digital
+
+Bunker and ROB surveys.
+On-hire and off-hire surveys.
+Vessel tank and hydrostatic libraries.
+Offline field capture with queued synchronization.
+Word, PDF and Excel reporting.
+
+Platform: Mobile browser and desktop.
+
+SurveyHub – Q8Digital
+
+
+
+---
+
+
+
+5\. Tanker – The Sounding App
+
+Offline tank sounding capture.
+Instant volume lookup.
+Automatic trim correction.
+Bunkering and fuel transfer tracking.
+Sounding history and tank tables.
+
+Platform: iPhone and iPad.
+
+Note: More focused on vessel tank sounding and bunkering operations than complete independent bunker survey reporting.
+
+Tanker – App Store
+
+
+
+My recommendation
+
+For professional bunker surveyors working aboard vessels, I would shortlist\:
+
+| Software | Best application |
+|--------|--------|
+| Space BQS | Complete bunker quantity surveys |
+| iMSurveyor | Full maritime survey operations |
+| Marine Survey .Online | Offline bunker survey reporting |
+| SurveyHub | Fleet and marine survey management |
+| Tanker | Tank sounding and bunkering |
+
+
+Important features to verify before purchasing
+
+Offline capture alone isn't sufficient. I would check that the software supports\:
+
+1. Complete offline operation, including calculations.
+2. Vessel-specific tank calibration tables.
+3. Ullage and sounding measurements.
+4. Trim and list corrections.
+5. Density and temperature correction (ASTM/API).
+6. ROB and bunker quantity reconciliation.
+7. Photographs and supporting evidence.
+8. PDF reports generated without internet.
+9. Synchronization without duplicate or lost records.
+10. Audit trail and historical survey retrieval.
+
+One question\: Are you looking for software for independent bunker surveyors conducting ship-to-ship or barge-to-vessel bunker surveys, or software for a vessel's chief engineer to monitor onboard fuel quantities?
+
+That distinction will help narrow this down to the most suitable professional solution."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","a2879489-92f0-415b-b343-4d45e17702a2","How can a marine survey app reduce errors when recording tank soundings?","chatgpt","completed","2026-11-17T06:10:17.000Z","","","A marine survey app can significantly reduce errors when recording tank soundings by replacing manual, paper-based processes with standardized digital data capture, automatic validation, calculation checks, and traceable records\.
+
+For marine surveyors, the goal is to ensure that every sounding is recorded against the correct tank, measured accurately, converted correctly, and documented consistently.
+
+1\. Standardize tank identification
+
+
+Maintain a predefined list of tanks for each vessel.
+Assign each tank a unique identification number and name.
+Include tank type (fuel, freshwater, ballast, lubricating oil, etc.).
+Prevent duplicate or incorrectly assigned tank entries.
+Display tank location and capacity for easy identification.
+
+Benefit\: Prevents soundings from being recorded against the wrong tank.
+
+2\. Use guided digital data entry
+
+Replace free-form handwritten entries with structured fields.
+
+For each sounding, capture\:
+
+| Field | Purpose |
+|--------|--------|
+| Tank ID | Identifies the tank |
+| Sounding (mm) | Actual measured reading |
+| Date and time | Establishes measurement time |
+| Surveyor | Identifies the person taking the reading |
+| Vessel condition | Records relevant operating conditions |
+| Remarks | Notes unusual observations |
+
+
+Use numeric-only fields, appropriate decimal precision, and mandatory-field validation.
+
+Benefit\: Reduces transcription mistakes, missing information, and inconsistent measurement formats.
+
+3\. Add automatic validation checks
+
+This is one of the most valuable features.
+
+The app should automatically flag\:
+
+Soundings outside the tank's defined measurement range.
+Negative or physically impossible readings.
+Duplicate entries.
+Sudden, unexplained changes from previous readings.
+Missing tank measurements.
+Values inconsistent with tank calibration data.
+
+For example\:
+
+Example: Automatic sounding validation
+
+Tank FO Tank No. 2
+
+Entered sounding 2,850 mm
+
+Previous sounding 1,450 mm
+
+---
+
+Unusual change detected
+
+The app requests confirmation before accepting the reading.
+
+(Confirmation required)
+
+Benefit\: Catches mistakes while the surveyor is still on site.
+
+4\. Automate sounding-to-volume calculations
+
+
+A good marine survey app should support vessel-specific tank calibration tables.
+
+Features should include\:
+
+Automatic conversion of sounding measurements into tank volume.
+Interpolation between calibration-table values.
+Corrections for vessel trim and list where applicable.
+Temperature and density corrections where required.
+Clear distinction between observed and corrected quantities.
+
+Benefit\: Eliminates manual table lookups and reduces calculation errors.
+
+Importantly, the app should retain the original measured sounding rather than replacing it with a corrected value.
+
+5\. Use photographs and supporting evidence
+
+Allow surveyors to attach\:
+
+Photographs of sounding tapes or gauges.
+Pictures of tank identification plates.
+Images of unusual measurement conditions.
+Supporting documents and calibration tables.
+
+Automatically associate each photograph with the correct tank, survey and timestamp.
+
+Benefit\: Provides evidence for reviewing questionable readings and resolving disputes.
+
+6\. Introduce a two-stage verification process
+
+For critical surveys, implement a measurement and verification workflow.
+
+1. Surveyor records sounding
+   
+   Enters the measured value and supporting observations.
+2. App performs validation
+   
+   Checks ranges, missing values and unusual differences.
+3. Surveyor confirms
+   
+   Reviews flagged readings and confirms or corrects them.
+4. Supervisor reviews
+   
+   Checks critical measurements before final submission.
+5. Report is generated
+   
+   Produces a time-stamped, auditable survey record.
+
+7\. Include offline functionality
+
+Marine surveys frequently take place in locations with poor connectivity.
+
+The app should\:
+
+Work without an internet connection.
+Save entries locally.
+Synchronize automatically when connectivity returns.
+Prevent duplicate records during synchronization.
+Maintain an audit trail of changes.
+
+Benefit\: Prevents data loss and ensures consistent recording in remote locations.
+
+8\. Generate automatic survey reports
+
+The app should generate standardized reports containing\:
+
+Vessel and survey details.
+Tank identification.
+Original sounding measurements.
+Calculated tank volumes.
+Applicable corrections.
+Surveyor remarks.
+Photographic evidence.
+Validation warnings.
+Surveyor and reviewer approvals.
+
+This reduces manual report preparation and the risk of copying incorrect figures into final documentation.
+
+---
+
+Recommended features for a marine survey app
+
+If you are developing or improving a marine survey application, I would prioritize these features\:
+
+| Priority | Feature | Error reduced |
+|--------|--------|--------|
+| 1 | Unique tank identification | Wrong tank entries |
+| 2 | Numeric validation | Incorrect readings |
+| 3 | Calibration table integration | Volume calculation errors |
+| 4 | Trim/list corrections | Incorrect corrected volumes |
+| 5 | Previous-reading comparison | Abnormal measurements |
+| 6 | Photo attachments | Lack of supporting evidence |
+| 7 | Audit trail | Untraceable changes |
+| 8 | Offline data capture | Lost measurements |
+| 9 | Supervisor verification | Unreviewed errors |
+| 10 | Automated reporting | Transcription errors |
+
+
+My strongest recommendation
+
+The biggest improvement would be to implement a guided tank sounding workflow with built-in validation and automatic calibration-table calculations\.
+
+Instead of allowing surveyors to enter numbers freely, the app should guide them through each tank, validate every reading, highlight anomalies, and require confirmation before finalizing the measurement.
+
+This turns the app from a simple digital notebook into an actual quality-control tool for marine surveys.
+
+I can also help design a practical marine tank sounding app workflow, including screen layouts, database fields, validation rules and calculation logic\."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","17cc79e4-df4c-4719-86e3-e27bc61454b2","What is the best mobile app for marine bunker surveyors?","chatgpt","completed","2026-11-17T06:10:14.000Z","Space BQS","https://apps.apple.com/ca/app/space-bqs-bunker-survey/id6812992991; https://imsurveyor.com/; https://play.google.com/store/apps/details?id=com.mmc.cargosurveyortools","For a professional marine bunker surveyor, I would shortlist Space BQS, iMSurveyor, and Cargo Surveyor\. The best choice depends on whether your priority is accurate bunker quantity calculations, professional survey reports, or a complete survey management system.
+
+Here is my assessment based on their published features.
+
+Top 3 mobile apps for bunker surveyors
+
+
+
+1\. Space BQS
+
+(Best specialized bunker app)
+
+Bunker delivery, ROB and debunkering surveys.
+Ullage, sounding, temperature and density records.
+ASTM/API volume correction calculations.
+Offline operation.
+PDF and Excel reports.
+Survey audit trail and calculation traceability.
+
+iPhone and iPad · Requires an organization-provided account
+
+View Space BQS on App Store
+
+---
+
+
+
+2\. iMSurveyor
+
+(Best all-round survey platform)
+
+Bunker quantity calculator.
+TOV, GOV, GSV and MT calculations.
+Vessel tank calibration library.
+Trim corrections.
+AI-assisted survey reports.
+Offline working and synchronization.
+
+Android and web; iOS availability listed as coming soon
+
+Visit iMSurveyor
+
+---
+
+
+
+3\. Cargo Surveyor
+
+Bunker survey reports.
+Ullage reports.
+Transfer summaries.
+ASTM petroleum tables.
+Metric and imperial conversions.
+Reusable survey templates.
+
+Android · Listed at approximately US\$9.49
+
+Download on Google Play
+
+My recommendation
+
+I would start by evaluating Space BQS if your main business is independent bunker quantity surveying. Its focus on custody-transfer records, offline work, calculation traceability and report generation makes it particularly relevant.
+
+However, before adopting any of these applications professionally, verify the calculation standards, tank calibration tables, trim/list corrections, rounding rules and report formats against your company's procedures.
+
+What should the ideal bunker surveyor app include?
+
+These are the features I would consider essential\:
+
+| Feature | Importance |
+|--------|--------|
+| Ship tank calibration tables | Essential |
+| Ullage/sounding calculations | Essential |
+| Trim and list corrections | Essential |
+| ASTM/API temperature correction | Essential |
+| Density correction to 15°C | Essential |
+| ROB and bunker delivery reports | Essential |
+| BDN recording | Essential |
+| Photo evidence and signatures | Very important |
+| Offline operation | Essential |
+| PDF and Excel export | Very important |
+| Automatic discrepancy calculations | Very important |
+| Digital survey history | Very important |
+
+
+Let me narrow it down to the best app for your work.
+
+Are you primarily working as\:
+
+1\. What is your role?
+
+Independent bunker quantity surveyor
+
+Bunker survey company
+
+Ship chief engineer
+
+Bunker trader or operator
+
+---
+
+2\. Which mobile device do you use?
+
+Android
+
+iPhone
+
+iPad
+
+Android and Windows laptop
+
+---
+
+3\. What do you need the app to do?
+
+Bunker delivery surveys and quantity calculations
+
+Complete bunker surveys with professional PDF reports
+
+Full ASTM/API calculations and tank calibration tables
+
+Complete bunker survey company management
+
+[Find my best app]
+
+I can then recommend the most suitable application rather than simply suggesting a general marine survey app."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","9eec006c-3397-442e-9702-7a0cf9029b08","What should I look for in a marine survey app for iPhone and Android?","chatgpt","completed","2026-11-17T06:10:38.000Z","","https://apps.apple.com/us/app/marine-inspect/id6760965367; https://kdmtc.com/; https://apps.apple.com/us/app/marineqa/id6771150834; https://www.axsail.com/compare","When choosing a marine survey app for iPhone and Android, I'd focus on more than digital inspection checklists. A good app should help a marine surveyor conduct inspections, document findings, capture evidence, calculate measurements, and produce professional survey reports without having to redo work back at the office.
+
+The most important thing is to choose an app that works in the field, handles complex vessel inspections, and produces reports that clients, brokers, insurers, and other marine professionals can actually use.
+
+1\. Essential features to look for
+
+
+
+Customizable inspection checklists
+
+Hull, deck, structure, and superstructure
+Engine and mechanical systems
+Electrical and navigation equipment
+Plumbing, fuel, and safety systems
+Sailboat-specific and powerboat-specific inspections
+Ability to add custom inspection categories
+
+---
+
+
+
+Photo and video documentation
+
+Attach multiple photos to each finding
+Annotate photos with arrows, circles, and notes
+Add captions and timestamps
+Organize images by vessel system
+Automatically include photos in reports
+
+---
+
+
+
+Field data collection
+
+Voice-to-text notes
+Measurements and numeric fields
+Pass, fail, monitor, and not-inspected statuses
+Deficiency severity ratings
+Automatic date, time, and location recording
+Ability to work offline
+
+---
+
+
+
+Professional report generation
+
+PDF report creation
+Company logo and branding
+Executive summary
+Findings and recommendations
+Embedded photographs
+Vessel specifications and valuation sections
+Editable templates
+
+2\. Features that distinguish a great app
+
+These are particularly important if the app will be used professionally rather than just as a personal inspection tool.
+
+| Feature | Why it matters |
+|--------|--------|
+| Offline operation | Marinas and boatyards often have poor connectivity |
+| Cross-platform synchronization | Switch between iPhone, Android, tablet, and desktop |
+| Cloud backup | Protect inspection records and photographs |
+| Reusable templates | Save time on repeat inspections |
+| Deficiency tracking | Prioritize safety and repair issues |
+| Digital signatures | Obtain client acknowledgment |
+| Vessel database | Maintain inspection history |
+| Report customization | Support different survey types |
+| Data export | Avoid being locked into one software provider |
+| User permissions | Support multiple surveyors and office staff |
+
+
+3\. Make sure it supports the type of marine survey you perform
+
+Not all marine survey apps are designed for the same work. This is one of the biggest things to investigate.
+
+| Survey type | Capabilities to look for |
+|--------|--------|
+| Pre-purchase | Detailed condition assessment, deficiencies, recommendations |
+| Insurance | Safety equipment, vessel condition, insurability |
+| Condition and valuation | Condition ratings, replacement values, market valuation |
+| Damage survey | Damage photographs, measurements, cause and extent |
+| Appraisal | Vessel specifications, comparable values, valuation |
+| Sea trial | Engine readings, RPM, temperature, speed, observations |
+| Re-inspection | Previous findings, repairs completed, outstanding deficiencies |
+| Commercial vessel | Regulatory compliance, certificates, machinery and safety audits |
+
+
+For recreational vessel surveys, I'd give particular attention to customizable hull, structural, electrical, mechanical, fuel, plumbing, and safety checklists.
+
+4\. iPhone and Android compatibility
+
+Don't assume an app advertised as mobile-friendly has fully functioning native apps on both platforms.
+
+Look for\:
+
+Native iPhone and Android applications.
+Consistent features on both platforms.
+Synchronization between phones and tablets.
+A desktop or web-based report editor.
+Ability to transfer surveys between devices.
+Reliable offline operation on both platforms.
+Cloud backups and recovery if a phone is lost.
+
+One important consideration: test the Android and iPhone versions independently. Sometimes one platform has features that the other doesn't.
+
+5\. Features I'd consider advanced or premium
+
+These can make a significant difference in a professional marine surveying business.
+
+
+
+Measurement and instrument integration
+
+Record ultrasonic thickness readings, moisture readings, electrical measurements, engine data, and other instrument readings.
+
+
+
+Deficiency management
+
+Assign severity, recommendations, repair priorities, and follow-up status to individual findings.
+
+
+
+Intelligent report writing
+
+Convert voice notes and abbreviated observations into professionally written findings, with the surveyor reviewing and approving every statement.
+
+
+
+Vessel diagrams and annotations
+
+Mark deficiencies on vessel layouts, machinery diagrams, and deck plans, then link those marks to inspection findings.
+
+6\. Existing apps worth evaluating
+
+There are several products worth investigating. Their platform availability and feature sets differ, so I would verify both mobile versions before committing.
+
+| Product | What makes it interesting |
+|--------|--------|
+| Marine Inspect | Offline inspections, defect grading, voice notes, and report generation |
+| Marine Survey by KDMTC | Extensive checklists, regulatory inspection coverage, PDF and Word reports |
+| MarineQA | Organization-based survey forms, vessel records, and offline capture |
+| Axsail | Voice-based survey documentation and report generation |
+| SwiftReporter | Mobile and web-based reporting workflow |
+
+
+Sources and product information\:
+
+Marine Inspect
+Marine Survey by KDMTC
+MarineQA
+Axsail software comparison
+
+One important distinction: an app that creates a nice-looking PDF isn't necessarily a comprehensive marine surveying system. Check that its inspection methodology, standards references, and report structure meet your professional requirements.
+
+7\. My recommended evaluation checklist
+
+Before purchasing or commissioning an app, I'd test it against these requirements\:
+
+App evaluation scorecard (/ tested)
+
+[Reset checklist]
+
+8\. One important question: What kind of app are you looking to build or buy?
+
+There are two very different directions\:
+
+Buying an existing app\: Find the best commercially available marine survey software for your business.
+Developing your own app\: Build a professional marine survey platform for iPhone and Android, with your own inspection forms, reporting system, and branding.
+
+If you're considering developing one, I'd recommend designing it around a central vessel database, customizable inspection modules, a structured deficiency database, offline-first data collection, and an automated report-generation engine.
+
+Are you looking to purchase an existing marine survey app, or develop your own? That will help me identify the right features and technical requirements."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","ba320072-4efc-477f-9665-648a5e416a45","Which marine survey app connects field readings with office review?","chatgpt","completed","2026-11-17T06:10:40.000Z","","https://q8digital.com/en/products/surveyhub; https://aptixx.com/industries/field-marine","SurveyHub by Q8Digital is a strong match.
+
+
+
+It connects fieldwork with office review by allowing surveyors to\:
+
+Record field readings and findings on a mobile phone.
+Attach photos and GPS information.
+Work offline when there is no signal.
+Send survey records to the office for review.
+Produce Word, PDF, or Excel reports.
+
+Source: SurveyHub official website\.
+
+Another option\: Aptixx is particularly relevant for marine draft surveys, connecting field readings, calculations, and signed reports. 
+
+Are you looking for software specifically for hydrographic surveys, marine draft surveys, or vessel condition surveys? The best fit differs by survey type."
+"03ddeb8c-9fde-48ed-b6a5-197c264ea435","4efd3017-7871-4efb-90ba-e1b39010bd22","Which marine survey apps work without an internet connection onboard?","chatgpt","completed","2026-11-17T06:10:37.000Z","","https://www.marinesnap.com/en/; https://apps.apple.com/us/app/marinesnap/id6752616679; https://play.google.com/store/apps/details?hl=en&id=com.globa.marinesnap; https://apps.apple.com/us/app/marineqa/id6771150834; https://kogger.tech/koggerapp/; https://www.esri.com/en-us/arcgis/products/arcgis-field-maps/overview; https://www.esri.com/about/newsroom/arcnews/for-mariners-arcgis-field-maps-enables-real-time-hydrography; https://enterprise.arcgis.com/en/portal/11.1/use/take-maps-offline.htm; https://doc.esri.com/en/arcgis-survey123/latest/get-started/faqgeneral.html; https://doc.esri.com/en/arcgis-survey123/latest/get-started/faqgetanswers.html; https://doc.esri.com/en/arcgis-survey123/latest/create/connect/preparebasemaps.html; https://apps.apple.com/us/app/hydrographic-survey/id6780474489","Several marine survey apps can operate completely or partially offline, allowing you to collect inspection data, take photographs, record measurements, and prepare reports while offshore or aboard a vessel without cellular or Wi-Fi service.
+
+The best choice depends on what type of marine surveying you do. There is an important distinction between vessel condition surveys \(hull, machinery, structural inspections) and hydrographic surveys \(depth soundings, seabed mapping, GPS positioning).
+
+1\. Apps for marine vessel inspections and condition surveys
+
+These are particularly useful for yacht surveyors, commercial vessel inspectors, insurance surveys, and pre-purchase inspections.
+
+
+
+1\. MarineSnap
+
+(Full offline support)
+
+Record inspections and observations.
+Take and organize photographs by survey section.
+Generate professional survey reports.
+Store work locally and synchronize when back online.
+iPhone and Android.
+
+Website: MarineSnap
+
+Pricing listed: \$99/month or \$1,068/year for Pro.
+
+
+
+---
+
+
+
+2\. MarineQA
+
+(Offline data collection)
+
+Create and manage vessel surveys.
+Record inspection notes, checklists, dates and photographs.
+Manage vessel and client details.
+Save changes locally and synchronize after reconnecting.
+iPhone and iPad.
+
+Website: MarineQA App Store listing
+
+Requires an organization account; initial sign-in and synchronization require internet.
+
+
+
+2\. Apps for hydrographic and seabed surveys
+
+If you're collecting bathymetry, sonar data, bottom profiles, or geographic survey points, these are more appropriate.
+
+
+
+3\. KoggerApp
+
+(Offline sonar operation)
+
+Records sonar data without internet.
+Displays echograms and seabed mosaics.
+Supports bottom detection and isobaths.
+Exports bottom tracks and surfaces to CSV.
+Windows, Linux and Android.
+
+Website: KoggerApp
+
+Free and open source. Background map tiles require internet, but sonar recording does not.
+
+
+
+---
+
+
+
+4\. ArcGIS Field Maps
+
+Collect GPS-positioned survey features.
+Record attributes and inspection information.
+Use downloaded offline maps.
+Edit geographic data without internet.
+iOS and Android.
+
+Website: ArcGIS Field Maps
+
+Requires preparation of offline map areas and compatible ArcGIS services.
+
+
+
+---
+
+
+
+5\. ArcGIS Survey123
+
+Build customized inspection forms.
+Collect measurements, notes, photographs and GPS positions.
+Store completed surveys locally.
+Synchronize once internet returns.
+iOS, Android and Windows.
+
+Website: Survey123 documentation
+
+Offline forms work, but some hosted-data questions and services won't function offline. Offline basemaps require advance preparation in the Field app.
+
+
+
+6\. Hydrographic Survey
+
+(Entirely on-device)
+
+Performs levelling surveys offline.
+Calculates rise and fall and datum levels.
+Checks survey misclosure against tolerance.
+Exports PDF, CSV and JSON.
+iPhone and iPad.
+
+Website: Hydrographic Survey App Store listing\.
+
+This is specifically for levelling workflows, not a full bathymetric sonar package. 
+
+3\. Quick comparison
+
+| Application | Offline capability | Best application |
+|--------|--------|--------|
+| MarineSnap | Full | Yacht and vessel surveys |
+| MarineQA | Full data collection | Vessel inspections |
+| KoggerApp | Full sonar recording | Hydrographic surveys |
+| ArcGIS Field Maps | Offline maps and editing | GPS/GIS surveys |
+| ArcGIS Survey123 | Offline forms | Custom inspection forms |
+| Hydrographic Survey | Full | Levelling surveys |
+
+
+4\. My recommendations
+
+I'd narrow the choice down this way\:
+
+Yacht and vessel condition surveys\: MarineSnap.
+Commercial marine inspections\: MarineQA.
+Bathymetric and sonar surveys\: KoggerApp.
+GPS-positioned data collection and mapping\: ArcGIS Field Maps.
+Customizable inspection forms and reporting workflows\: Survey123.
+
+One important consideration: Offline capability doesn't necessarily mean every chart, map, weather service, or cloud feature works offline. Download your maps and survey forms before departure and test the complete workflow with the device disconnected.
+
+---
+
+5\. A question that will help me narrow this down
+
+What type of marine surveying are you doing?
+
+1\. Type of surveying
+
+---
+
+2\. Device
+
+---
+
+3\. Most important features
+
+Select all that apply.
+
+[Find the best apps for my work]
+
+I can then narrow this down to the best three options, including which ones work with absolutely no internet connection aboard."

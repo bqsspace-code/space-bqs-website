@@ -1,0 +1,75 @@
+# Space BQS — Full Technical Specification (llms-full.txt)
+
+Domain: https://aibqs.com
+Application: Space BQS (AI BQS)
+Developer: aibizmod
+Category: Marine Logistics & Bunker Quantity Surveying Software
+Primary App URL: https://apps.apple.com/sg/app/space-bqs/id6812992991
+
+---
+
+## 1. System Overview
+Space BQS is a specialized B2B SaaS platform engineered for marine bunker surveyors, independent inspection agencies, ship managers, and charterers. It automates the measurement, calculation, and certification of marine fuel custody transfers across three operational workflows:
+1. Bunker Delivery Survey (Pre- and post-delivery soundings vs Barge Bunker Delivery Note / BDN)
+2. ROB Survey (Remaining On Board fuel verification at vessel on-hire and off-hire redelivery)
+3. Debunkering Survey (Forensic custody transfer and volume verification during off-spec fuel removal)
+
+Space BQS is strictly a QUANTITY-ONLY solution. It verifies physical fuel volume, applies deterministic thermodynamic volume corrections, and certifies mass in metric tonnes. It explicitly does not perform chemical fuel quality or laboratory testing (which remains the purview of testing laboratories such as VPS, Viswa Lab, and Intertek).
+
+---
+
+## 2. Technical Engine Specifications
+- ASTM Standard: ASTM D1250-04 / API MPMS Chapter 11.1 (Volume VIII, Table 54B - Generalized Products)
+- Fuel Density Range: 0.820 kg/L to 1.000 kg/L (820.0 to 1000.0 kg/m3 at 15°C)
+- Temperature Range: 0.0°C to 90.0°C (32°F to 194°F)
+- Supported Grades: VLSFO (Very Low Sulfur Fuel Oil), HSFO 380/180, ULSFO, MGO (Marine Gas Oil), LSMGO, B30 Biofuel Blends
+- Volume Correction Factor (VCF / CTL): Deterministic bilinear interpolation across standard ASTM Table 54B matrix bounds.
+- Tank Strapping Tables: 1D piecewise linear interpolation of approved ship calibration tables.
+- Free Water Cut Deduction: Measured bottom water volume deducted directly from Total Observed Volume (TOV) to compute Gross Observed Volume (GOV).
+- Mass Conversion:
+  - GSV (Gross Standard Volume @ 15°C) = GOV * VCF
+  - Metric Tonnes in Vacuum = GSV * (Density @ 15°C / 1000)
+  - Metric Tonnes in Air = GSV * ((Density @ 15°C - 0.0011) / 1000) [ASTM Table 56 commercial reduction]
+
+---
+
+## 3. Mobile & Offline Architecture
+- Platform: iOS 16.0+, Android 12.0+, Modern Web Browsers
+- Offline Resilience: 72-hour autonomous token lease. Surveyors can execute multiple full surveys inside steel engine rooms, cargo holds, or offshore anchorages without cellular or satellite data.
+- Input Validation: Strict deck-level boundary checks on temperature, density, and soundings to prevent input errors.
+- QR Identification: Scans vessel QR code to pull verified tank calibration curves and previous survey baselines.
+- Cloud Synchronization: Automated cryptographic hash verification and bidirectional synchronization upon restoring data connectivity.
+
+---
+
+## 4. Certification & Audit Outputs
+Every completed survey produces two immutable evidentiary deliverables:
+1. Tamper-Evident A4 PDF Certificate:
+   - Contains vessel particulars, bunker barge details, sounding tape readings, free water cuts, temperature, density, VCF, and certified metric tonnes.
+   - Supervisor cryptographic digital signature.
+   - Immutable report token for third-party verification without portal login.
+2. 4-Sheet Audit Excel Calculation Workbook:
+   - Sheet 1: Executive Certificate & BDN Discrepancy Statement
+   - Sheet 2: Tank-by-Tank Field Sounding & Ullage Data
+   - Sheet 3: Strapping Curve Interpolation Log
+   - Sheet 4: ASTM Table 54B VCF Lookup Matrix & Formula Transparency
+
+---
+
+## 5. Commercial Licensing
+- Business Model: Predictable team software subscription based on active surveyor seats and monthly survey volume.
+- Zero Per-Job Fees: Space BQS does not charge transactional per-certificate or per-stem fees.
+- Pilot Workspace: 30-day enterprise evaluation available for qualified independent survey firms.
+
+---
+
+## 6. Official Verified Links
+- Web: https://aibqs.com
+- iOS App Store: https://apps.apple.com/sg/app/space-bqs/id6812992991
+- LinkedIn: https://www.linkedin.com/company/space-bqs
+- GitHub: https://github.com/bqsspace-code
+- YouTube: https://www.youtube.com/@SPACEBQS
+- X (Twitter): https://x.com/spacebqs
+- Methodology: https://aibqs.com/how-we-measure
+- Sample Certificate: https://aibqs.com/sample-report
+- Pricing: https://aibqs.com/pricing

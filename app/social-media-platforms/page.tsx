@@ -1,8 +1,9 @@
 import type { Metadata } from "next";
 import SocialMediaPlatformsClient from "./SocialMediaPlatformsClient";
+import { SITE_URL } from "../lib/site";
 
 export const metadata: Metadata = {
-  title: "Official Social Media Platforms & Verified Channels — Space BQS",
+  title: "Official Social Media Platforms & Verified Channels",
   description:
     "Official directory of verified Space BQS channels across the web: developer repositories, engineering publications, video walkthroughs, and community hubs.",
   keywords: [
@@ -17,7 +18,7 @@ export const metadata: Metadata = {
     title: "Official Social Media Platforms — Space BQS",
     description:
       "A verified directory of all official and registered Space BQS accounts. Connect with us across every platform.",
-    url: "https://spacebqs.com/social-media-platforms",
+    url: `${SITE_URL}/social-media-platforms`,
     siteName: "Space BQS",
     type: "website",
   },

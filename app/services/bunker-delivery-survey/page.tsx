@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Section, AnswerBlock, CtaRow, Faq, Breadcrumbs } from "../../components/ui";
 
 export const metadata: Metadata = {
-  title: "Bunker Delivery Workflow — Software for Surveyors",
+  title: "Bunker Delivery Survey Workflow",
   description:
     "Space BQS bunker-delivery workflow for survey firms: before/after capture, temperature correction, water deduction, BDN cross-check, locked MT certificate.",
 };

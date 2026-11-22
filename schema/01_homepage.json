@@ -1,0 +1,74 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "Organization",
+      "@id": "https://aibqs.com/#organization",
+      "name": "Space BQS",
+      "alternateName": ["AI BQS", "Space BQS Marine"],
+      "url": "https://aibqs.com",
+      "logo": {
+        "@type": "ImageObject",
+        "url": "https://aibqs.com/assets/logo.png",
+        "caption": "Space BQS Logo"
+      },
+      "description": "Deterministic Bunker Quantity Survey (BQS) calculation software and offline mobile platform for independent marine fuel surveyors, inspection agencies, and vessel charterers.",
+      "sameAs": [
+        "https://www.linkedin.com/company/space-bqs",
+        "https://x.com/spacebqs",
+        "https://github.com/bqsspace-code",
+        "https://www.youtube.com/@SPACEBQS",
+        "https://www.instagram.com/bqsspace",
+        "https://apps.apple.com/sg/app/space-bqs/id6812992991"
+      ],
+      "contactPoint": {
+        "@type": "ContactPoint",
+        "email": "ops@aibqs.com",
+        "contactType": "customer support",
+        "areaServed": "Global",
+        "availableLanguage": ["English"]
+      }
+    },
+    {
+      "@type": "WebSite",
+      "@id": "https://aibqs.com/#website",
+      "url": "https://aibqs.com",
+      "name": "Space BQS",
+      "publisher": {
+        "@id": "https://aibqs.com/#organization"
+      },
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": {
+          "@type": "EntryPoint",
+          "urlTemplate": "https://aibqs.com/resources?q={search_term_string}"
+        },
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "SoftwareApplication",
+      "@id": "https://aibqs.com/#software",
+      "name": "Space BQS Platform",
+      "operatingSystem": "iOS 16.0+, Android 12.0+, Web (Modern Browsers)",
+      "applicationCategory": "BusinessApplication",
+      "applicationSubCategory": "Maritime Logistics & Inspection Software",
+      "description": "Professional Bunker Quantity Survey software suite for marine surveyors. Combines an offline mobile deck app with a tamper-evident ASTM Table 54B calculation engine, automated tank sounding interpolation, locked PDF certificates, and audit-ready Excel packages.",
+      "offers": {
+        "@type": "Offer",
+        "price": "0",
+        "priceCurrency": "USD",
+        "description": "Commercial team license based on active surveyors and monthly survey volume. Pilot workspace available upon request."
+      },
+      "featureList": [
+        "ASTM D1250 Table 54B Volume Correction Factor (VCF) Engine",
+        "72-Hour Zero-Connectivity Deck Offline Lease",
+        "QR Vessel Identification & Tank Strapping Curve Interpolation",
+        "Locked Cryptographic PDF Certificate Generation",
+        "Four-Sheet Raw Data Audit Excel Package",
+        "Three Dedicated Workflows: Bunker Delivery vs BDN, On/Off-Hire ROB Settlement, Debunkering Removal",
+        "Quantity-Only Independent Verification Scope"
+      ]
+    }
+  ]
+}

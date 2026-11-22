@@ -5,7 +5,7 @@ import WaveDivider from "../components/WaveDivider";
 import { ServiceLinks } from "../components/MarketingPage";
 
 export const metadata: Metadata = {
-  title: "Bunker Survey Workflows — Delivery, ROB, Debunkering",
+  title: "Bunker Survey Workflows & Services",
   description:
     "Bunker survey workflows plus data migration and public-cloud, private-cloud, and on-premises implementation services.",
 };

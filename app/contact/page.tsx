@@ -1,8 +1,13 @@
+import type { Metadata } from "next";
 import QuoteForm from "../components/QuoteForm";
 import { Section, Breadcrumbs } from "../components/ui";
 import { CONTACT_EMAIL } from "../lib/site";
 
-export const metadata = { title: "Contact — Space BQS" };
+export const metadata: Metadata = {
+  title: "Contact & Survey Firm Sales",
+  description:
+    "Get in touch with Space BQS for team licensing, technical inquiries, and pilot workspace setup for marine survey firms.",
+};
 
 export default function Page() {
   return (

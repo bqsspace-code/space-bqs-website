@@ -1,4 +1,5 @@
 import type { MetadataRoute } from "next";
+import { SITE_URL } from "./lib/site";
 
 export default function robots(): MetadataRoute.Robots {
   return {
@@ -13,6 +14,6 @@ export default function robots(): MetadataRoute.Robots {
       { userAgent: "PerplexityBot", allow: "/" },
       { userAgent: "Claude-SearchBot", allow: "/" },
     ],
-    sitemap: "https://www.spacebqs.example/sitemap.xml",
+    sitemap: `${SITE_URL}/sitemap.xml`,
   };
 }

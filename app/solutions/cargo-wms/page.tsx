@@ -13,7 +13,7 @@ import ScrollReveal from "../../components/ScrollReveal";
 import "./cargo-wms-page.css";
 
 export const metadata: Metadata = {
-  title: "Cargo WMS — Custom Warehouse Management Implementation",
+  title: "Custom Cargo WMS Implementation",
   description: "Scope a Cargo WMS covering manifests, destuffing, cargo tracking, tariffs, controlled release, customer access, reporting, and data migration.",
 };
 

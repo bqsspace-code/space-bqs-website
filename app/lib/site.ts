@@ -1,4 +1,4 @@
 export const SITE_NAME = "Space BQS";
-export const SITE_URL = "https://www.spacebqs.example";
-export const CONTACT_EMAIL = "ops@spacebqs.example";
+export const SITE_URL = process.env.NEXT_PUBLIC_SITE_URL || "https://aibqs.com";
+export const CONTACT_EMAIL = "ops@aibqs.com";
 export const ENGINE_VERSION = "1.0.0";

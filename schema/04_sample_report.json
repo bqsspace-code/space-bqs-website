@@ -1,0 +1,46 @@
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "DigitalDocument",
+      "@id": "https://aibqs.com/sample-report#document",
+      "name": "Space BQS Sample Bunker Survey Certificate & Evidence Package",
+      "description": "Downloadable authentic sample of a Space BQS Bunker Quantity Survey deliverable: tamper-evident locked A4 PDF Certificate of Bunkers Delivered accompanied by a 4-sheet auditable Excel calculation workbook with cell-by-cell transparency.",
+      "url": "https://aibqs.com/sample-report",
+      "encodingFormat": "application/pdf, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+      "hasPart": [
+        {
+          "@type": "DigitalDocument",
+          "name": "Tamper-Evident A4 PDF Bunker Certificate",
+          "description": "Cryptographically locked, supervisor-signed bunker certificate containing vessel particulars, soundings, free water cut, VCF, and received metric tonnes."
+        },
+        {
+          "@type": "DigitalDocument",
+          "name": "4-Sheet Raw Data Audit Excel Workbook",
+          "description": "Comprehensive workbook containing Tank-by-Tank Sounding Data, Strapping Curve Interpolation Points, Table 54B VCF Lookup Matrix, and BDN vs Measured Discrepancy Reconciliation."
+        }
+      ],
+      "audience": {
+        "@type": "Audience",
+        "audienceType": "Marine Surveyors, Ship Owners, Charterers, Bunker Traders, P&I Claims Executives"
+      }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Home",
+          "item": "https://aibqs.com"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Sample Report",
+          "item": "https://aibqs.com/sample-report"
+        }
+      ]
+    }
+  ]
+}

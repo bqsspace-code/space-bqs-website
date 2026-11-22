@@ -4,7 +4,7 @@ import { Breadcrumbs } from "../components/ui";
 import AppDemoVideoSection from "../components/AppDemoVideoSection";
 
 export const metadata: Metadata = {
-  title: "Demo & Mobile App Walkthrough — Space BQS",
+  title: "Interactive Demo & Mobile Walkthrough",
   description:
     "Watch the Space BQS mobile deck tool in action, explore our ASTM Table 54B calculation engine, and request a pilot workspace for your survey firm.",
 };

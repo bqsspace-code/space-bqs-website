@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const r = getResource(slug);
   if (!r) return {};
   return {
-    title: `${r.title} — Space BQS`,
+    title: r.title,
     description: r.description,
     openGraph: { title: r.title, description: r.description, type: "article" },
   };
@@ -24,15 +24,35 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
   const r = getResource(slug);
   if (!r) notFound();
 
-  const articleSchema = {
+  const schemaGraph: any[] = [
+    {
+      "@type": "Article",
+      headline: r.title,
+      description: r.description,
+      datePublished: r.updated,
+      dateModified: r.updated,
+      author: { "@type": "Organization", name: "Space BQS", url: SITE_URL },
+      mainEntityOfPage: `${SITE_URL}/resources/${r.slug}`,
+    },
+  ];
+
+  if (r.faq && r.faq.length > 0) {
+    schemaGraph.push({
+      "@type": "FAQPage",
+      mainEntity: r.faq.map((item) => ({
+        "@type": "Question",
+        name: item.q,
+        acceptedAnswer: {
+          "@type": "Answer",
+          text: item.a,
+        },
+      })),
+    });
+  }
+
+  const structuredData = {
     "@context": "https://schema.org",
-    "@type": "Article",
-    headline: r.title,
-    description: r.description,
-    datePublished: r.updated,
-    dateModified: r.updated,
-    author: { "@type": "Organization", name: "Space BQS" },
-    mainEntityOfPage: `${SITE_URL}/resources/${r.slug}`,
+    "@graph": schemaGraph,
   };
 
   return (
@@ -50,7 +70,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         <p className="mt-3 text-lg text-slate-600">{r.description}</p>
       </div>
       <Section eyebrow="Answer" title="In short">
-        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }} />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <AnswerBlock><p>{r.answer}</p></AnswerBlock>
         <div className="mt-6 space-y-4 text-slate-700">
           {r.body.map((p) => (

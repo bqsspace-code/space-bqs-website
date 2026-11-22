@@ -5,7 +5,7 @@ import LiveCalculator from "../components/LiveCalculator";
 import { ShieldCheck, Ruler, Droplets, Thermometer, Scale, AlertOctagon } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "How the Engine Calculates — From Tank Reading to Tonnes",
+  title: "How the BQS Calculation Engine Works",
   description:
     "Plain-English methodology for survey teams: tank reading, minus water, temperature volume correction, to mass in MT. No guessing.",
 };
@@ -102,6 +102,59 @@ export default function Page() {
                 <span><strong>Public tools:</strong> worksheets use explicitly supplied factors and do not issue certificates.</span>
               </li>
             </ul>
+          </div>
+        </div>
+
+        {/* Standards & Regulatory Framework */}
+        <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+          <div className="flex items-center gap-2 mb-2">
+            <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800 font-mono">
+              Regulatory Architecture
+            </span>
+          </div>
+          <h3 className="font-display font-bold text-ocean-950 text-xl">
+            Governing Standards &amp; Calculation References
+          </h3>
+          <p className="mt-2 text-xs text-slate-600 leading-relaxed max-w-3xl">
+            Space BQS adheres strictly to international petroleum metrology standards. The engine replaces unstandardized spreadsheet macros with the official ASTM D1250 Table 54B matrix, providing legal defensibility in charterparty disputes and arbitration:
+          </p>
+
+          <div className="mt-6 grid gap-6 md:grid-cols-2">
+            <div className="rounded-xl border border-slate-100 bg-slate-50 p-5">
+              <h4 className="font-display font-bold text-ocean-950 text-sm">
+                ASTM D1250-04 &amp; API MPMS Chapter 11.1
+              </h4>
+              <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+                Implementation of Petroleum Measurement Tables, Volume VIII, Table 54B (Generalized Products). Governs temperature volume corrections for residual fuel oils (HFO, VLSFO) and distillate fuels (LSMGO, MDO) to standard 15°C reference condition using density ranges of 0.820 to 1.000 kg/L and temperatures from 0°C to 90°C.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-100 bg-slate-50 p-5">
+              <h4 className="font-display font-bold text-ocean-950 text-sm">
+                ISO 13739:2020 &amp; Singapore SS 600 / SS 648
+              </h4>
+              <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+                Alignment with international procedures for bunker fuel transfer by barge or shore pipeline. Supports before-and-after sounding documentation, free water deduction, cross-check against supplier Bunker Delivery Notes (BDN), and alignment with Singapore digital bunkering documentation standards.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-100 bg-slate-50 p-5">
+              <h4 className="font-display font-bold text-ocean-950 text-sm">
+                BIMCO Standard Bunker Terms 2018
+              </h4>
+              <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+                Structured evidence packets engineered for rapid claim resolution. In custody shortfalls, Space BQS exports locked PDF certificates and 4-sheet transparent Excel packs suitable for immediate attachment to Letters of Protest (LOP) and maritime claims arbitration.
+              </p>
+            </div>
+
+            <div className="rounded-xl border border-slate-100 bg-slate-50 p-5">
+              <h4 className="font-display font-bold text-ocean-950 text-sm">
+                Bilinear Grid Interpolation &amp; Zero Extrapolation
+              </h4>
+              <p className="mt-2 text-xs text-slate-600 leading-relaxed">
+                Table 54B factors are calculated via bilinear interpolation across exact standard density and temperature coordinates. The engine enforces an unyielding safety boundary: out-of-range inputs trigger explicit validation exceptions rather than extrapolating speculative values.
+              </p>
+            </div>
           </div>
         </div>
 
