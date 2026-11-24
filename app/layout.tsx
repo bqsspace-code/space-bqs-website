@@ -31,6 +31,8 @@ const jetbrainsMono = JetBrains_Mono({
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
+  // Next resolves "./" against the current route, including dynamic slugs.
+  alternates: { canonical: "./" },
   title: {
     default: `${SITE_NAME} — BQS Software for Marine Surveyors`,
     template: `%s | ${SITE_NAME}`,

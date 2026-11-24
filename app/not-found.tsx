@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-export const metadata = { title: "Page not found — Space BQS" };
+export const metadata = { title: "Page not found — Space BQS", alternates: null };
 
 export default function NotFound() {
   return (
