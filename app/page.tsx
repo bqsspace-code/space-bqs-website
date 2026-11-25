@@ -73,6 +73,18 @@ export default function Home() {
           {/* Real app in action — on-deck execution card */}
           <div className="mt-12 lg:mt-16">
             <AppPreviewCard asSection={false} badge="See It In Action" />
+            <aside aria-label="Worked bunker survey example" className="mt-6 border-l-2 border-[#19b5c9] pl-5 text-sm leading-7 text-[#52657c]">
+              <h3 className="font-semibold text-[#031038]">Worked example: checking a bunker delivery note</h3>
+              <table className="my-3 w-full max-w-md text-sm">
+                <caption className="pb-2 text-left">Illustrative figures in metric tonnes (MT), not a customer result.</caption>
+                <tbody className="divide-y divide-[#d3e9f3]">
+                  <tr><th scope="row" className="py-1 text-left font-normal">Supplier’s bunker delivery note</th><td className="text-right tabular-nums">460.000</td></tr>
+                  <tr><th scope="row" className="py-1 text-left font-normal">Sample survey total</th><td className="text-right tabular-nums">457.819</td></tr>
+                  <tr><th scope="row" className="py-1 text-left font-semibold">Difference (survey minus note)</th><td className="text-right font-semibold tabular-nums">−2.181 (−0.47%)</td></tr>
+                </tbody>
+              </table>
+              <Link href="/sample-report" className="font-semibold text-[#032aac] underline">Trace the difference in the sample certificate and workbook</Link>
+            </aside>
           </div>
         </div>
       </section>

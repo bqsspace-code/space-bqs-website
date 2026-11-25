@@ -31,15 +31,15 @@ export default function SampleReportPage() {
         />
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
-            Official BQS Evidence Package
+            Sample BQS Evidence Package
           </span>
-          <span className="text-xs text-slate-500 font-mono">Verified Calculation</span>
+          <span className="text-xs text-slate-500 font-mono">Illustrative calculation</span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
           Sample Bunker Quantity Survey Report
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          What your surveyors issue upon completion and what your clients forward to vessel owners, charterers, and bunker suppliers.
+          Compare a sample survey total with a supplier’s bunker delivery note, then switch to the workbook to see the figures behind the comparison. The figures illustrate the calculation; they do not establish an actual delivery or shortage.
         </p>
 
         {/* Format Selector Pills */}
@@ -84,7 +84,7 @@ export default function SampleReportPage() {
               </div>
               <div className="flex items-center gap-2">
                 <span className="rounded bg-sea-100 px-2 py-0.5 text-[10px] font-bold text-sea-800">
-                  SHA-256 SIGNED
+                  UNSIGNED SAMPLE
                 </span>
               </div>
             </div>
@@ -171,7 +171,7 @@ export default function SampleReportPage() {
                   <tfoot className="border-t-2 border-ocean-900 bg-ocean-50 text-ocean-950 font-bold">
                     <tr>
                       <td colSpan={7} className="px-4 py-3 text-xs uppercase tracking-wide">
-                        CERTIFIED TOTAL QUANTITY DELIVERED (IN AIR)
+                    SAMPLE SURVEY TOTAL (IN AIR)
                       </td>
                       <td className="px-4 py-3 text-right text-base font-black text-sea-700">
                         457.819 MT
@@ -185,7 +185,7 @@ export default function SampleReportPage() {
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs space-y-1">
                 <span className="font-bold text-ocean-950 block">Cross-Reference vs. Supplier BDN</span>
                 <p className="text-slate-600">
-                  Barge BDN stated figure: <strong>460.000 MT</strong>. Measured independent quantity: <strong>457.819 MT</strong>. Net difference: <strong>−2.181 MT (−0.47%)</strong>. Notice of apparent discrepancy issued prior to vessel departure.
+                  Sample survey total minus the quantity on the bunker delivery note: <strong>457.819 − 460.000 = −2.181 MT</strong>. Relative to the note, that is <strong>−0.47%</strong>.
                 </p>
               </div>
 
@@ -194,26 +194,23 @@ export default function SampleReportPage() {
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase font-semibold block">Attending Marine Surveyor</span>
                   <div className="mt-2 h-10 border-b border-dashed border-slate-400 flex items-center">
-                    <span className="font-serif italic text-base text-ocean-900">Capt. M. Rahman</span>
+                    <span className="font-serif italic text-base text-ocean-900">Unsigned</span>
                   </div>
-                  <span className="font-mono text-[10px] text-slate-500 block mt-1">ID: SRV-8491 · Independent Attendance</span>
                 </div>
 
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase font-semibold block">Chief Engineer Acknowledgment</span>
                   <div className="mt-2 h-10 border-b border-dashed border-slate-400 flex items-center">
                     <span className="rounded bg-slate-200 px-2 py-0.5 text-[10px] font-mono font-semibold text-slate-700">
-                      Chief Engineer Stamp & Signature On File
+                      No signature on this sample
                     </span>
                   </div>
-                  <span className="font-mono text-[10px] text-slate-500 block mt-1">Vessel Stamp Verified</span>
                 </div>
               </div>
 
               {/* Security Hash & Disclaimer Footer */}
               <div className="border-t border-slate-200 pt-4 flex flex-wrap justify-between items-center text-[10px] text-slate-400 font-mono">
-                <span>Cryptographic Digest: SHA256: 8f3d9a12c8b0e9c471b0457819</span>
-                <span>Space BQS Verified Certificate</span>
+                <span>Space BQS · Certificate layout preview</span>
               </div>
             </div>
           </div>
@@ -257,12 +254,12 @@ export default function SampleReportPage() {
             <div className="p-6">
               {activeExcelSheet === 1 && (
                 <div className="space-y-4 text-xs font-mono">
-                  <p className="font-bold text-slate-900 uppercase">Sheet 1: Survey Overview & Verified Mass</p>
+                  <p className="font-bold text-slate-900 uppercase">Sheet 1: Survey Overview & Sample Mass</p>
                   <table className="w-full border border-slate-200 text-left">
                     <tbody className="divide-y divide-slate-100 text-slate-700">
                       <tr><td className="bg-slate-50 px-3 py-2 font-semibold w-48">SURVEY_NO</td><td className="px-3 py-2">BQS-2026-0142</td></tr>
                       <tr><td className="bg-slate-50 px-3 py-2 font-semibold">VESSEL_IMO</td><td className="px-3 py-2">9412345</td></tr>
-                      <tr><td className="bg-slate-50 px-3 py-2 font-semibold">DELIVERED_MT</td><td className="px-3 py-2 font-bold text-sea-700">457.819 MT</td></tr>
+                        <tr><td className="bg-slate-50 px-3 py-2 font-semibold">SAMPLE_TOTAL_MT</td><td className="px-3 py-2 font-bold text-sea-700">457.819 MT</td></tr>
                       <tr><td className="bg-slate-50 px-3 py-2 font-semibold">WATER_DEDUCTED_M3</td><td className="px-3 py-2">0.120 m³</td></tr>
                       <tr><td className="bg-slate-50 px-3 py-2 font-semibold">VCF_METHOD</td><td className="px-3 py-2">Table 54B (VCF)</td></tr>
                     </tbody>
@@ -308,8 +305,8 @@ export default function SampleReportPage() {
                       <tr><th className="px-3 py-2">TIMESTAMP</th><th className="px-3 py-2">EVENT</th><th className="px-3 py-2">USER</th><th className="px-3 py-2">SHA256</th></tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-slate-700">
-                      <tr><td className="px-3 py-2">2026-10-16 11:42:09 UTC</td><td className="px-3 py-2 text-sea-700 font-bold">FINALISED</td><td className="px-3 py-2">capt.rahman@survey.com</td><td className="px-3 py-2">8f3d...b7a2</td></tr>
-                      <tr><td className="px-3 py-2">2026-10-16 11:31:14 UTC</td><td className="px-3 py-2 text-ocean-700">UNDER_REVIEW</td><td className="px-3 py-2">capt.rahman@survey.com</td><td className="px-3 py-2">e9c4...71b0</td></tr>
+                      <tr><td className="px-3 py-2">2026-10-16 11:42:09 UTC</td><td className="px-3 py-2 text-sea-700 font-bold">FINALISED</td><td className="px-3 py-2">Demo user</td><td className="px-3 py-2">Example hash</td></tr>
+                      <tr><td className="px-3 py-2">2026-10-16 11:31:14 UTC</td><td className="px-3 py-2 text-ocean-700">UNDER_REVIEW</td><td className="px-3 py-2">Demo user</td><td className="px-3 py-2">Example hash</td></tr>
                       <tr><td className="px-3 py-2">2026-10-16 11:28:40 UTC</td><td className="px-3 py-2 text-slate-600">CALCULATED</td><td className="px-3 py-2">deck-mobile-01</td><td className="px-3 py-2">4a11...09cf</td></tr>
                     </tbody>
                   </table>

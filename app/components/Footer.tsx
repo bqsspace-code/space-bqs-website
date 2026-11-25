@@ -354,6 +354,10 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
           <div className="mx-auto max-w-[1200px] px-6 lg:px-8 py-6 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-slate-400">
             <div>
               © {new Date().getFullYear()} Space BQS
+              <nav aria-label="Legal" className="mt-2 flex gap-4">
+                <Link href="/legal/privacy" className="hover:text-white">Privacy policy</Link>
+                <Link href="/legal/terms" className="hover:text-white">Terms of service</Link>
+              </nav>
             </div>
 
             {/* Pill: ✦ POWERED BY aibizmod (matching 1st image) */}

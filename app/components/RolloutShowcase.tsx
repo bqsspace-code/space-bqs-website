@@ -126,7 +126,11 @@ export default function RolloutShowcase() {
             <header ref={el => { panels.current[0] = el; }} className="rollout-showcase-intro" onFocusCapture={() => { if (enhanced) navigate(0); }}>
               <p className="mb-4 font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-[#032aac]">Solutions &amp; implementation</p>
               <WeightText id="rollout-showcase-heading" tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="font-display text-4xl font-bold leading-[1.08] tracking-tight text-[#031038] sm:text-5xl">A Rollout That Fits Your Operation.</WeightText>
-              <p className="mt-5 max-w-xs text-sm leading-7 text-[#52657c]">Bring your records, your infrastructure, and your next operational challenge. Build the right starting point.</p>
+                <p className="mt-5 max-w-xs text-sm leading-7 text-[#52657c]">
+                  Space BQS is bunker quantity survey software for independent marine survey firms.
+                  Choose a <Link href="/services/deployment" className="text-[#032aac] underline">hosting environment</Link> for your team
+                  or <Link href="/services/data-migration" className="text-[#032aac] underline">migrate existing vessel and tank records</Link>.
+                </p>
               <Link href="/request-demo" className="mt-6 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#032aac]">Let’s scope your rollout<ArrowUpRight className="h-4 w-4" aria-hidden="true" /></Link>
               <p className="mt-8 inline-flex items-center gap-2 font-mono text-[10px] text-[#637c94]"><MoveHorizontal className="h-4 w-4" aria-hidden="true" />{enhanced ? "Scroll to explore" : "Swipe or choose an offering"}</p>
             </header>

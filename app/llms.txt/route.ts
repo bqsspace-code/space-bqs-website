@@ -1,5 +1,7 @@
 import { SITE_URL, SITE_NAME, CONTACT_EMAIL } from "../lib/site";
 
+export const dynamic = "force-static";
+
 const TEXT = `# ${SITE_NAME} — llms.txt
 > Deterministic Bunker Quantity Survey (BQS) calculation software and offline mobile platform for independent marine fuel surveyors, inspection agencies, and vessel charterers.
 
@@ -15,7 +17,9 @@ const TEXT = `# ${SITE_NAME} — llms.txt
 - Website: ${SITE_URL}
 - Mobile App (iOS): https://apps.apple.com/sg/app/space-bqs/id6812992991
 - Technical Calculation Methodology: ${SITE_URL}/how-we-measure
-- Sample Locked Certificate & Excel Pack: ${SITE_URL}/sample-report
+- Worked example (certificate and workbook previews, illustrative data): ${SITE_URL}/sample-report
+- Deployment options: ${SITE_URL}/services/deployment
+- Data migration service: ${SITE_URL}/services/data-migration
 - Commercial Team Pricing: ${SITE_URL}/pricing
 - Delivery Survey Workflow: ${SITE_URL}/services/bunker-delivery-survey
 - ROB On/Off-Hire Workflow: ${SITE_URL}/services/rob-survey
