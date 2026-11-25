@@ -495,23 +495,18 @@ export default function WeightText({
                               lineHeight: "inherit",
                             }}
                           >
-                            {/* Sizing anchor at activeWeight: locks width from initial render so text never moves lines on scroll. Strictly hidden. */}
+                            {/* Sizing anchor at activeWeight: locks width from initial render so text never moves lines on scroll. Uses CSS pseudo-element without DOM text node to prevent crawler character duplication. */}
                             <span
                               aria-hidden="true"
-                              className="invisible select-none pointer-events-none"
-                              style={{
-                                gridArea: "char",
-                                fontVariationSettings: `"wght" ${activeWeight}`,
-                                fontWeight: activeWeight,
-                                lineHeight: "inherit",
-                                visibility: "hidden",
-                                opacity: 0,
-                                userSelect: "none",
-                                pointerEvents: "none",
-                              }}
-                            >
-                              {letter}
-                            </span>
+                              className="wt-char-sizer"
+                              data-char={letter}
+                              style={
+                                {
+                                  "--active-wght": `"wght" ${activeWeight}`,
+                                  "--active-fw": activeWeight,
+                                } as React.CSSProperties
+                              }
+                            />
 
                             {/* Visible animated letter */}
                             <span

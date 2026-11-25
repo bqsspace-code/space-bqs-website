@@ -1,9 +1,10 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../components/ui";
-import DeckInteractiveShowcase from "../components/DeckInteractiveShowcase";
+import DeckInteractiveShowcase from "../components/DeckInteractiveShowcase";
 import AppDemoVideoSection from "../components/AppDemoVideoSection";
 import { QrCode, WifiOff, Clock, ShieldCheck, CheckCircle2, AlertCircle, Smartphone } from "lucide-react";
+import mobileAppSchema from "@/schema/02_mobile_app.json";
 
 export const metadata: Metadata = {
   title: "Mobile App — Survey on Deck, Even Offline",
@@ -14,6 +15,10 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="space-y-12 pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(mobileAppSchema) }}
+      />
       <div className="mx-auto max-w-6xl px-6 pt-32">
         <Breadcrumbs
           trail={[
@@ -43,9 +48,9 @@ export default function Page() {
         </AnswerBlock>
       </div>
 
-      {/* Mobile App Demo Video */}
-      <AppDemoVideoSection />
-
+      {/* Mobile App Demo Video */}
+      <AppDemoVideoSection />
+
       {/* Visual Interactive Mobile Showcase */}
       <DeckInteractiveShowcase />
 

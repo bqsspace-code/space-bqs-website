@@ -2,6 +2,8 @@ import type { MetadataRoute } from "next";
 import { SITE_URL } from "./lib/site";
 import { RESOURCES } from "./lib/resources";
 import { TOOLS } from "./lib/tools";
+import { ALL_PORTS } from "./lib/ports";
+import { ALL_GLOSSARY_TERMS } from "./lib/glossary";
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const statics = [
@@ -38,6 +40,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     "/changelog",
     "/request-demo",
     "/resources",
+    "/ports",
+    "/glossary",
     "/videos",
     "/about",
     "/contact",
@@ -47,5 +51,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...statics.map((p) => ({ url: `${SITE_URL}${p || "/"}`, lastModified: new Date() })),
     ...TOOLS.map((tool) => ({ url: `${SITE_URL}/tools/${tool.slug}` })),
     ...RESOURCES.map((r) => ({ url: `${SITE_URL}/resources/${r.slug}`, lastModified: new Date(r.updated) })),
+    ...ALL_PORTS.map((port) => ({ url: `${SITE_URL}/ports/${port.slug}`, lastModified: new Date() })),
+    ...ALL_GLOSSARY_TERMS.map((term) => ({ url: `${SITE_URL}/glossary/${term.slug}`, lastModified: new Date() })),
   ];
 }

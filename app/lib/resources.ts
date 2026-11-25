@@ -233,8 +233,94 @@ export const RESOURCES: Resource[] = [
         "a": "Specialization ensures defensibility. Mixing laboratory quality testing with field quantity measurement creates conflicting responsibilities. Space BQS focuses exclusively on delivering unassailable quantity proof."
       }
     ]
+  },
+  {
+    "slug": "cappuccino-effect-bunker-survey",
+    "title": "Cappuccino Effect in Bunker Surveys: Detection & Protest Guide",
+    "description": "How micro-aeration expands bunker volume, visual detection signs on deck, and issuing an unyielding Letter of Protest.",
+    "updated": "2026-11-20",
+    "answer": "The cappuccino effect occurs when compressed air is entrained into heavy fuel oil during pumping, causing micro-bubbles that temporarily inflate measured tank volume. When the froth settles over 24-48 hours, volume collapses, creating massive delivery deficits. Space BQS enforces density stabilization logging and auto-populates Letters of Protest (LOP).",
+    "body": [
+      "The 'cappuccino effect' is one of the most persistent and costly physical deceptions in marine fuel bunkering. By introducing compressed air into the delivery line—either through intentional air injection, aggressive line blowing, or running barge pumps dry—the viscous fuel oil traps micro-bubbles into a persistent foam emulsion.",
+      "During post-delivery tank sounding, this aerated emulsion artificially elevates the liquid level. The surveyor's tape touches a liquid surface that appears to contain full fuel volume. However, the true mass of oil delivered is substantially lower because a significant percentage of the observed volume consists of trapped air bubbles.",
+      "Within 24 to 48 hours of voyage departure, the entrained air gradually breaks free from the heavy oil and vents to atmosphere. The fuel level in the vessel's settling and storage tanks plummets, often leaving ship operators with apparent shortfalls ranging from 15 to over 80 metric tonnes.",
+      "How to detect cappuccino fuel on deck: Look for continuous hissing or sputtering at the bunker manifold, irregular surging on line pressure gauges, frothy oil clinging to the sounding tape bob, and unexpected fuel temperature spikes (compressed air generates thermodynamic heat). Taking hydrometer density readings on deck can also reveal an apparent density lower than the BDN specification.",
+      "When aeration is detected, the surveyor and chief engineer must immediately issue a formal Letter of Protest (LOP) before signing commercial receipts. Space BQS streamlines this with an automated LOP generator that timestamps evidence, attaches manifold pressure records, and marks certificates as 'Volume subject to aeration settling protest'."
+    ],
+    "faq": [
+      {
+        "q": "Can a Coriolis Mass Flow Meter (MFM) detect cappuccino fuel?",
+        "a": "Yes. Modern Coriolis mass flow meters monitor drive gain and resonant frequency damping. When multi-phase aerated flow passes through the vibrating sensor tubes, drive gain spikes or triggers error alerts. However, severe aeration can still distort mass integration if meter security profiles are improperly configured."
+      },
+      {
+        "q": "What should the Chief Engineer write on the Bunker Delivery Note (BDN) if cappuccino fuel is suspected?",
+        "a": "The Chief Engineer should write: 'Delivered volume contains entrained air (cappuccino effect). Accepted for volume under protest. Subject to settling and re-measurement after 24 hours. Letter of Protest attached.'"
+      },
+      {
+        "q": "How long does it take for aerated fuel to settle in ship fuel tanks?",
+        "a": "Heavy fuel oil (VLSFO / HSFO) typically requires between 24 and 48 hours to fully de-aerate, depending on tank heating temperatures and fuel viscosity."
+      }
+    ]
+  },
+  {
+    "slug": "singapore-ss600-bunker-surveying-standard",
+    "title": "Singapore SS 600 & SS 648: Digital Standards for Bunkering",
+    "description": "Deep dive into MPA Singapore's SS 600 bunker survey standard and mandatory SS 648 Mass Flow Meter (MFM) procedures.",
+    "updated": "2026-11-20",
+    "answer": "Singapore SS 600 governs the code of practice for marine bunker surveying, establishing standardized tank sounding, sampling, and custody handoff rules. SS 648 mandates Coriolis Mass Flow Metering (MFM) across all MPA-licensed bunker tankers, requiring strict meter seal verification, profile logging, and zero-drift custody accounting.",
+    "body": [
+      "The Maritime and Port Authority of Singapore (MPA) pioneered global bunkering governance by introducing the Singapore Standard SS 600 (Code of Practice for Bunker Surveying) and subsequently SS 648 (Code of Practice for Bunker Mass Flow Metering). Together, these standards have transformed Singapore into the world's most transparent and high-volume bunkering port.",
+      "Under SS 600:2022, licensed bunker surveyors must follow strict operational sequences: pre-delivery barge and ship tank gauging, continuous composite drip sampling at the receiving ship manifold (in compliance with MARPOL Annex VI), and post-delivery soundings to establish custody transfer quantities.",
+      "Under SS 648:2024, Coriolis Mass Flow Meters (MFMs) are mandatory for all bunker deliveries in Singapore waters. The standard eliminates traditional dip-and-sounding disputes between barge masters and chief engineers by measuring true mass flow directly in metric tonnes, independent of temperature expansion or fluid viscosity.",
+      "However, SS 648 does NOT eliminate the need for independent BQS surveyors. Independent surveyors must verify that physical wire seals on MFM meter transmitters and bypass valves remain intact, ensure that zero-drift checks are executed, inspect the bunker barge for unauthorized tank connections, and take legally binding representative manifold samples.",
+      "Space BQS natively integrates SS 600 inspection workflows and SS 648 MFM totalizer data fields directly into its offline mobile deck app. Surveyors capture meter ticket start/stop totals alongside vessel soundings, generating MPA-compliant audit evidence packs ready within 60 seconds."
+    ],
+    "faq": [
+      {
+        "q": "Why is an independent bunker survey still necessary under SS 648?",
+        "a": "An independent surveyor verifies physical meter seal integrity, verifies that delivery pipelines are primed without air pocket pockets, monitors manifold pressure, draws certified MARPOL samples, and reconciles receiving vessel tank soundings against meter totalizers."
+      },
+      {
+        "q": "What happens if there is a discrepancy between Singapore MFM readings and ship soundings?",
+        "a": "Under MPA terms, the approved MFM reading is the primary commercial delivery figure unless physical meter tampering, seal breakage, or meter system error is documented. Space BQS produces side-by-side comparison sheets to clearly isolate line displacement from meter readings."
+      },
+      {
+        "q": "Does Space BQS support Singapore MPA digital bunkering initiatives?",
+        "a": "Yes. Space BQS produces locked, tamper-evident digital certificates and structured data payloads designed to interface with electronic bunker delivery note (e-BDN) workflows."
+      }
+    ]
+  },
+  {
+    "slug": "mass-flow-meters-vs-tank-sounding",
+    "title": "Mass Flow Meters vs Tank Sounding: Reconciling Discrepancies",
+    "description": "Why Coriolis mass flow meters and manual dip soundings disagree, and how to prove custody quantities without disputes.",
+    "updated": "2026-11-20",
+    "answer": "Mass flow meters measure fluid mass directly through inertial Coriolis forces, whereas tank soundings measure liquid height and calculate mass via strapping tables, temperature corrections (VCF), and density in air. Common discrepancies arise from vessel trim errors, piping line packing, bottom sludge, or entrained air.",
+    "body": [
+      "In modern marine bunkering, chief engineers and surveyors frequently encounter differences between the bunker barge's Mass Flow Meter (MFM) totalizer readout and the receiving vessel's manual tank sounding calculations. Understanding why these discrepancies occur is essential for preventing costly charter disputes.",
+      "A Coriolis MFM measures mass directly: fluid flowing through vibrating sensor tubes causes phase shifts proportional to true inertial mass flow rate. In contrast, tank sounding is an indirect volumetric calculation: tape height -> strapping table -> gross volume -> minus water -> times Table 54B VCF -> times (density - 0.0011).",
+      "Discrepancy Source 1: Vessel Trim & List Corrections. Ship sounding tables are calibrated on an even keel. If the ship has a 2-meter stern trim and the surveyor applies approximate or non-linear corrections improperly, the calculated tank volume can deviate by 1% to 3% from true mass.",
+      "Discrepancy Source 2: Bunker Line Pack and Piping Hold-Up. The ship's bunker delivery manifold and internal engine room transfer lines can hold between 1 and 6 metric tonnes of fuel. If lines were empty prior to bunkering and remain full upon completion, that volume is measured by the MFM but does not appear in the soundings of the storage tanks.",
+      "Discrepancy Source 3: Temperature Stratification & Density Mismatch. If fuel in the vessel's deep double-bottom tanks is unheated and stratified, a single surface temperature reading will miscalculate the Volume Correction Factor (VCF). Space BQS eliminates these disputes by providing systematic line pack accounting, bilinear Table 54B interpolation, and transparent 4-sheet comparison workbooks."
+    ],
+    "faq": [
+      {
+        "q": "What is an acceptable discrepancy tolerance between MFM and ship soundings?",
+        "a": "In commercial bunkering practice, a discrepancy of up to ±0.5% is widely recognized as standard measurement variance. Discrepancies exceeding 0.5% warrant investigation of line displacement, trim corrections, and density parameters."
+      },
+      {
+        "q": "Can ship tank strapping tables be wrong?",
+        "a": "Yes. Strapping tables reflect shipyard calculations when the vessel was built. Over years of service, structural modifications, hull deformations, and accumulated unpumpable tank bottom sludge can alter true tank volume."
+      },
+      {
+        "q": "How does Space BQS resolve MFM vs sounding disagreements?",
+        "a": "Space BQS provides a dual-input reconciliation matrix that compares MFM start/stop figures against vessel opening/closing soundings, factoring in line displacement and multi-depth temperature readings to pinpoint the exact root cause of any divergence."
+      }
+    ]
   }
+
 ];
+
 
 export function getResource(slug: string) {
   return RESOURCES.find((r) => r.slug === slug);

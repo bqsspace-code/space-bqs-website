@@ -3,6 +3,7 @@ import { Section, AnswerBlock, CtaRow, Breadcrumbs } from "../components/ui";
 import EnginePipelineGraphic from "../components/EnginePipelineGraphic";
 import LiveCalculator from "../components/LiveCalculator";
 import { ShieldCheck, Ruler, Droplets, Thermometer, Scale, AlertOctagon } from "lucide-react";
+import howWeMeasureSchema from "@/schema/03_how_we_measure.json";
 
 export const metadata: Metadata = {
   title: "How the BQS Calculation Engine Works",
@@ -13,6 +14,10 @@ export const metadata: Metadata = {
 export default function Page() {
   return (
     <div className="space-y-12 pb-16">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(howWeMeasureSchema) }}
+      />
       <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs
           trail={[

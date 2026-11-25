@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import SampleReportClient from "./SampleReportClient";
+import sampleReportSchema from "@/schema/04_sample_report.json";
 
 export const metadata: Metadata = {
   title: "Sample Bunker Certificate & Excel Evidence Package",
@@ -13,5 +14,13 @@ export const metadata: Metadata = {
 };
 
 export default function Page() {
-  return <SampleReportClient />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(sampleReportSchema) }}
+      />
+      <SampleReportClient />
+    </>
+  );
 }

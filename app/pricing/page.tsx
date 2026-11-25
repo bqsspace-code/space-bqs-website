@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock, Faq } from "../components/ui";
 import Link from "next/link";
 import { ShieldCheck, CheckCircle2, Users, FileSpreadsheet, Lock, HelpCircle, ArrowRight } from "lucide-react";
+import pricingSchema from "@/schema/05_pricing.json";
 
 export const metadata: Metadata = {
   title: "Pricing — Team License for Survey Firms",
@@ -79,6 +80,10 @@ const PRICING_FAQS = [
 export default function Page() {
   return (
     <div className="space-y-12 pb-20">
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }}
+      />
       {/* Header */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/pricing", label: "Pricing" }]} />

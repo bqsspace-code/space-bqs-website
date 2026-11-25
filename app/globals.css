@@ -622,3 +622,19 @@ body {
 .transition-bg {
   transition: background-color 0.3s ease;
 }
+
+/* WeightText character sizer: sets width using CSS ::before generated content to prevent DOM text duplication */
+.wt-char-sizer {
+  grid-area: char;
+  line-height: inherit;
+  visibility: hidden;
+  user-select: none;
+  pointer-events: none;
+}
+.wt-char-sizer::before {
+  content: attr(data-char);
+  font-variation-settings: var(--active-wght, "wght" 700);
+  font-weight: var(--active-fw, 700);
+  line-height: inherit;
+  visibility: hidden;
+}
