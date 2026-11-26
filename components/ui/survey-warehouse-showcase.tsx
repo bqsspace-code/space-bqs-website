@@ -9,6 +9,7 @@ import {
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import WeightText from "@/app/components/WeightText";
+import OperationsStrip from "@/app/components/OperationsStrip";
 
 const BENEFITS = [
   { icon: Search, title: "Find the survey", subtitle: "Search, not folder-hunt.", detail: "Use survey identifiers to get back to the whole record. Try “Singapore”, “ROB”, or “0002” in this sample archive." },
@@ -119,6 +120,7 @@ export default function SurveyWarehouseShowcase() {
         </div>
 
         <div className="mt-6 flex flex-col justify-between gap-3 sm:flex-row sm:items-center"><p className="flex items-center gap-2 text-[11px] text-[#697f95]"><span aria-hidden="true" className="size-1.5 shrink-0 rounded-full bg-[#19b5c9]" />Readings. Calculations. Table versions. History. Outputs.</p><Link href="/features/survey-register-dashboard" className="group inline-flex items-center gap-2 text-sm font-semibold text-[#032aac]">Explore Register & Dashboard <ArrowRight aria-hidden="true" className="size-4 transition-transform group-hover:translate-x-1 motion-reduce:transition-none" /></Link></div>
+        <OperationsStrip />
       </div>
     </section>
   );

@@ -1,0 +1,27 @@
+.section { margin-top: clamp(2.5rem, 6vw, 5rem); padding-top: clamp(1.5rem, 4vw, 3rem); border-top: 1px solid #ccdee8; }
+.section { text-align: center; }
+.grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 1.25rem; gap: 1.25rem; }
+.station { display: block; padding: .5rem; color: #123e72; }
+.station:is(:hover, :focus-visible) h3 { text-decoration: underline; text-underline-offset: .2em; }
+.station:focus-visible { outline: 2px solid #126a96; outline-offset: 2px; }
+.scene { display: block; width: 9rem; max-width: 100%; margin: 0 auto .5rem; }
+.station h3 { font-size: 1.125rem; font-weight: 650; line-height: 1.25; }
+.station p { max-width: 28ch; margin: .4rem auto 0; color: #455d72; font-size: .875rem; line-height: 1.55; }
+.cable { stroke-dasharray: 5 3; }
+.signal { opacity: .55; }
+@media (prefers-reduced-motion: no-preference) {
+  .pin, .boat, .signal, .check, .cable { transition: transform 260ms ease-out, opacity 260ms, stroke-dashoffset 360ms; }
+  .station:is(:hover, :focus-visible) .pin { transform: translateY(-5px); }
+  .station:is(:hover, :focus-visible) .boat { transform: translate(4px,-2px); }
+  .station:is(:hover, :focus-visible) .signal { opacity: 1; }
+  .station:is(:hover, :focus-visible) .cable { stroke-dashoffset: -16; }
+  .check { stroke-dasharray: 28; stroke-dashoffset: 9; }
+  .station:is(:hover, :focus-visible) .check { stroke-dashoffset: 0; }
+}
+@media (max-width: 52rem) { .grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 36rem) {
+  .grid { grid-template-columns: 1fr; }
+  .station { display: grid; grid-template-columns: 5.5rem 1fr; gap: .75rem; align-items: center; text-align: left; }
+  .scene { margin: 0; }
+  .station p { margin-inline: 0; }
+}

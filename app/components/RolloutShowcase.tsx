@@ -141,7 +141,7 @@ export default function RolloutShowcase() {
                   <div className="rollout-photo-shade" />
                   <span className="rollout-visual-note">{index === 1 ? "Deployment requirements to confirm" : "Manifests / Locations / Controlled release"}</span>
                 </>}
-                <span className="rollout-showcase-tag"><item.icon className="h-3.5 w-3.5" aria-hidden="true" />{item.tag}</span>
+                <span className="rollout-showcase-tag">{item.tag}</span>
               </div>
               <div className="mt-5 flex items-start justify-between gap-5">
                 <div>
