@@ -30,10 +30,13 @@ function initialValues(tool: ToolSlug) {
   return Object.fromEntries(FIELDS[tool].map((field) => [field.key, field.initial]));
 }
 
-export default function SurveyTool({ tool }: { tool: ToolSlug }) {
+export default function SurveyTool({ tool, deliveryExample = false }: { tool: ToolSlug; deliveryExample?: boolean }) {
   const id = useId();
   const config = TOOLS.find((item) => item.slug === tool)!;
-  const [inputs, setInputs] = useState<Record<string, string>>(() => initialValues(tool));
+  const startingInputs = () => deliveryExample && tool === "bdn-discrepancy"
+    ? { ...initialValues(tool), declared: "460.000", measured: "457.819" }
+    : initialValues(tool);
+  const [inputs, setInputs] = useState<Record<string, string>>(startingInputs);
   const [dimension, setDimension] = useState<"volume" | "mass">("volume");
   const [from, setFrom] = useState("m³");
   const [to, setTo] = useState("L");
@@ -62,7 +65,7 @@ export default function SurveyTool({ tool }: { tool: ToolSlug }) {
   } catch (cause) { error = cause instanceof Error ? cause.message : "Check your inputs."; }
 
   function reset() {
-    setInputs(initialValues(tool)); setDimension("volume"); setFrom("m³"); setTo("L"); setExportError("");
+    setInputs(startingInputs()); setDimension("volume"); setFrom("m³"); setTo("L"); setExportError("");
   }
 
   function exportCsv() {

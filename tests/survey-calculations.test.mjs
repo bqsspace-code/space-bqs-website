@@ -15,6 +15,10 @@ test("mass worksheet rejects impossible inputs and accepts a zero net volume", (
   assert.equal(volumeToMass(10, 10, 1, 0.95).mass, 0);
 });
 test("BDN difference is signed and uses declared mass as denominator", () => {
+  const sample = compareDelivery(460, 457.819);
+  assert.equal(sample.difference.toFixed(3), "-2.181");
+  assert.equal(sample.percent.toFixed(2), "-0.47");
+  assert.deepEqual(compareDelivery(500, 500), { difference: 0, percent: 0 });
   assert.deepEqual(compareDelivery(500, 497.5), { difference: -2.5, percent: -0.5 });
   assert.deepEqual(compareDelivery(500, 505), { difference: 5, percent: 1 });
   assert.throws(() => compareDelivery(0, 5), /greater than zero/);

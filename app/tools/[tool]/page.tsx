@@ -1,6 +1,8 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import SurveyTool from "@/components/ui/survey-tool";
+import BdnExampleTool from "@/components/ui/bdn-example-tool";
+import { Suspense } from "react";
 import { MarketingHeader } from "../../components/MarketingPage";
 import { Section, Faq, CtaRow } from "../../components/ui";
 import { TOOLS } from "../../lib/tools";
@@ -48,7 +50,11 @@ export default async function Page({
 
       {/* Interactive Tool Widget */}
       <Section>
-        <SurveyTool tool={config.slug} />
+        {config.slug === "bdn-discrepancy" ? (
+          <Suspense fallback={<SurveyTool tool="bdn-discrepancy" />}>
+            <BdnExampleTool />
+          </Suspense>
+        ) : <SurveyTool tool={config.slug} />}
       </Section>
 
       {/* Methodology & Formula */}

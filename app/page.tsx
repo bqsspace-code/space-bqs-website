@@ -8,6 +8,7 @@ import WaveTransition from "./components/WaveTransition";
 import { SurveyWarehouseSection, SpreadsheetCompareSection, WhoItsForSection } from "./components/HomeEnhancements";
 import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
 import RolloutShowcase from "./components/RolloutShowcase";
+import ServiceSchema from "./components/ServiceSchema";
 import AppPreviewCard from "./components/AppPreviewCard";
 import WeightText from "./components/WeightText";
 import { routeMetadata } from "./lib/seo-metadata";
@@ -83,7 +84,11 @@ export default function Home() {
                   <tr><th scope="row" className="py-1 text-left font-semibold">Difference (survey minus note)</th><td className="text-right font-semibold tabular-nums">−2.181 (−0.47%)</td></tr>
                 </tbody>
               </table>
-              <Link href="/sample-report" className="font-semibold text-[#032aac] underline">Trace the difference in the sample certificate and workbook</Link>
+              <div className="flex flex-wrap gap-x-5 gap-y-1 font-semibold text-[#032aac]">
+                <Link href="/tools/bdn-discrepancy?example=delivery-note" className="underline">Check these figures</Link>
+                <Link href="/sample-report" className="underline">View the sample certificate and workbook</Link>
+                <Link href="/how-we-measure#bdn-validation" className="underline">See the formula and test cases</Link>
+              </div>
             </aside>
           </div>
         </div>
@@ -108,6 +113,8 @@ export default function Home() {
 
       {/* 8. Implementation and licensing now share a single decision point. */}
       <RolloutShowcase />
+      <ServiceSchema offering="deployment" />
+      <ServiceSchema offering="data-migration" />
       <WaveTransition variant="sweep" />
 
       {/* 9. Remaining objections, followed by the shared footer's final demo CTA. */}

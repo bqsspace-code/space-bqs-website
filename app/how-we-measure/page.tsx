@@ -2,6 +2,8 @@ import type { Metadata } from "next";
 import { Section, AnswerBlock, CtaRow, Breadcrumbs } from "../components/ui";
 import EnginePipelineGraphic from "../components/EnginePipelineGraphic";
 import LiveCalculator from "../components/LiveCalculator";
+import Link from "next/link";
+import { ENGINE_VERSION } from "../lib/site";
 import { ShieldCheck, Ruler, Droplets, Thermometer, Scale, AlertOctagon } from "lucide-react";
 import howWeMeasureSchema from "@/schema/03_how_we_measure.json";
 import { routeMetadata } from "../lib/seo-metadata";
@@ -66,6 +68,20 @@ export default function Page() {
       </section>
 
       {/* Mathematical Rigor & Proof Standards */}
+      <Section id="bdn-validation" eyebrow="Calculation checks" title="How we check a bunker delivery note difference">
+        <p>Subtract the declared mass from the measured mass. Divide the difference by the declared mass and multiply by 100. A negative result means the measured figure is lower; the arithmetic alone cannot establish why.</p>
+        <table className="my-5 w-full max-w-2xl text-left text-sm">
+          <caption className="pb-2 text-left">Reference checks for Space BQS calculation engine {ENGINE_VERSION}. Masses are in metric tonnes.</caption>
+          <thead><tr><th scope="col">Declared</th><th scope="col">Measured</th><th scope="col">Expected difference</th></tr></thead>
+          <tbody className="divide-y">
+            <tr><td>460.000</td><td>457.819</td><td>−2.181 MT (−0.47%, rounded to two decimals)</td></tr>
+            <tr><td>500</td><td>505</td><td>+5 MT (+1%)</td></tr>
+            <tr><td>500</td><td>500</td><td>0 MT (0%)</td></tr>
+            <tr><td>0</td><td>5</td><td>Rejected: percentage difference requires a positive declared mass.</td></tr>
+          </tbody>
+        </table>
+        <p><Link className="underline" href="/tools/bdn-discrepancy?example=delivery-note">Try the worked example</Link>. Space BQS maintains these software checks. <Link className="underline" href="/contact">Report a calculation or documentation error</Link>.</p>
+      </Section>
       <Section eyebrow="Calculation review" title="Inspect the inputs and method">
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
