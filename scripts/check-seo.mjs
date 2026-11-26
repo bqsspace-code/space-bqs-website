@@ -139,6 +139,16 @@ try {
       const serviceCount = jsonLdEntities.filter((entity) => entity["@type"] === "Service").length;
       if (serviceCount < 2) fail.push(`homepage has ${serviceCount} Service entities, expected at least two`);
     }
+
+    if (["/videos", "/solutions/cargo-wms"].includes(pathName) && !jsonLdEntities.some((entity) => entity["@type"] === "VideoObject")) {
+      fail.push(`${pathName} is missing VideoObject JSON-LD`);
+    }
+    if (pathName === "/videos" && !jsonLdEntities.some((entity) => entity["@type"] === "VideoObject" && entity.name?.startsWith("Space WMS"))) {
+      fail.push("/videos is missing the Space WMS VideoObject");
+    }
+    if (pathName === "/how-we-measure" && !jsonLdEntities.some((entity) => entity["@type"] === "TechArticle")) {
+      fail.push("/how-we-measure is missing TechArticle JSON-LD");
+    }
   }
 
   console.log(`Checked ${urls.length} sitemap URLs, canonicals, titles, descriptions, H1 counts, social metadata, and JSON-LD.`);

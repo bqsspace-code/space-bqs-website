@@ -7,6 +7,7 @@ import { motion, AnimatePresence, useReducedMotion } from "framer-motion";
 import { ShinyButton } from "@/components/ui/shiny-button";
 import { LiquidGlassNav } from "@/components/ui/liquid-glass-nav";
 import { useLenis } from "lenis/react";
+import { createPortal } from "react-dom";
 import { ChevronDown, ArrowRight, PhoneCall } from "lucide-react";
 import { FlagUSA, CountryFlag } from "./flags/CountryFlags";
 import ContactDropdownCard from "./ContactDropdownCard";
@@ -54,6 +55,9 @@ export default function Header() {
   });
   const headerRef = useRef<HTMLElement>(null);
   const navContainerRef = useRef<HTMLDivElement>(null);
+  const mobileMenuRef = useRef<HTMLDivElement>(null);
+  const navigationToggleRef = useRef<HTMLButtonElement>(null);
+  const inertElementsRef = useRef<Array<{ element: HTMLElement; wasInert: boolean }>>([]);
   const solutionsTriggerRef = useRef<HTMLButtonElement>(null);
   const contactTriggerRef = useRef<HTMLButtonElement>(null);
   const scrolledRef = useRef(false);
@@ -114,6 +118,31 @@ export default function Header() {
   }, [mobileMenuOpen, lenis]);
 
   useEffect(() => {
+    if (!mobileMenuOpen) return;
+    const drawer = mobileMenuRef.current;
+    if (!drawer) return;
+
+    const backgroundElements = Array.from(document.body.children).filter(
+      (element): element is HTMLElement => element instanceof HTMLElement && element !== drawer,
+    );
+    inertElementsRef.current = backgroundElements.map((element) => ({ element, wasInert: element.inert }));
+    backgroundElements.forEach((element) => { element.inert = true; });
+
+    const firstFocusable = drawer.querySelector<HTMLElement>(
+      'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+    );
+    (firstFocusable ?? drawer).focus();
+
+    return () => {
+      inertElementsRef.current.forEach(({ element, wasInert }) => { element.inert = wasInert; });
+      inertElementsRef.current = [];
+      if (navigationToggleRef.current?.getClientRects().length) {
+        navigationToggleRef.current.focus();
+      }
+    };
+  }, [mobileMenuOpen]);
+
+  useEffect(() => {
     const desktop = matchMedia("(min-width: 1280px)");
     const closeOnDesktop = () => { if (desktop.matches) setMobileMenuOpen(false); };
     desktop.addEventListener("change", closeOnDesktop);
@@ -144,7 +173,6 @@ export default function Header() {
     const close = (event: KeyboardEvent) => {
       if (event.key === "Escape" && mobileMenuOpen) {
         setMobileMenuOpen(false);
-        document.getElementById("navigation-toggle")?.focus();
       }
       if (event.key === "Escape" && solutionsOpen) {
         setSolutionsOpen(false);
@@ -298,12 +326,13 @@ export default function Header() {
                 <ShinyButton
                   href="/request-demo"
                   onClick={() => track("cta_click", { target: "demo", location: "header" })}
-                  className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full px-3.5 sm:px-4 xl:px-5 py-2 text-xs sm:text-[13px] font-semibold text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
+                  className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full px-3 sm:px-4 xl:px-5 py-2 text-xs sm:text-[13px] font-semibold text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                   style={{
                     boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 8px rgba(3,42,172,0.18)",
                   }}
                 >
-                  <span>Request a demo</span>
+                  <span className="hidden min-[400px]:inline">Request a demo</span>
+                  <span className="min-[400px]:hidden">Demo</span>
                   <svg
                     width="12"
                     height="12"
@@ -331,7 +360,7 @@ export default function Header() {
                   aria-haspopup="dialog"
                   aria-controls="contact-nav-popover"
                   aria-label="Direct contact numbers & global offices"
-                  className={`group relative flex h-9 items-center gap-1.5 sm:gap-2 rounded-full border px-2.5 sm:px-3.5 py-1 text-[12.5px] font-medium transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#032aac] ${
+                  className={`group relative hidden h-9 items-center gap-1.5 sm:flex sm:gap-2 rounded-full border px-2.5 sm:px-3.5 py-1 text-[12.5px] font-medium transition-all duration-200 focus-visible:outline-2 focus-visible:outline-[#032aac] ${
                     contactOpen
                       ? "border-[#032aac] bg-white text-[#032aac] shadow-[inset_0_1px_0_#fff,0_0_0_2px_rgba(3,42,172,0.15),0_4px_12px_rgba(3,42,172,0.12)]"
                       : "border-[#b9d3e8] bg-white/80 text-[#031038] hover:border-[#032aac]/50 hover:bg-white shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_2px_6px_rgba(3,42,172,0.06)] backdrop-blur-md"
@@ -362,6 +391,7 @@ export default function Header() {
 
                 {/* Mobile Hamburger Toggle */}
                 <button
+                  ref={navigationToggleRef}
                   id="navigation-toggle"
                   onClick={() => {
                     setMobileMenuOpen(!mobileMenuOpen);
@@ -370,6 +400,7 @@ export default function Header() {
                   className="flex h-10 w-10 sm:h-11 sm:w-11 shrink-0 items-center justify-center rounded-xl transition-colors xl:hidden"
                   style={{ color: "#031038" }}
                   aria-label="Toggle navigation"
+                  aria-haspopup="dialog"
                   aria-expanded={mobileMenuOpen}
                   aria-controls="mobile-navigation"
                 >
@@ -521,13 +552,51 @@ export default function Header() {
       </div>
 
       {/* Mobile Menu Drawer */}
-      {mobileMenuOpen && (
+      {mobileMenuOpen && createPortal((
         <div
+          ref={mobileMenuRef}
           id="mobile-navigation"
+          role="dialog"
+          aria-modal="true"
+          aria-label="Mobile navigation"
+          tabIndex={-1}
+          onKeyDown={(event) => {
+            if (event.key !== "Tab" || !mobileMenuRef.current) return;
+            const focusable = Array.from(mobileMenuRef.current.querySelectorAll<HTMLElement>(
+              'a[href], button:not([disabled]), input:not([disabled]), select:not([disabled]), textarea:not([disabled]), [tabindex]:not([tabindex="-1"])',
+            )).filter((element) => element.getClientRects().length > 0);
+            if (!focusable.length) {
+              event.preventDefault();
+              mobileMenuRef.current.focus();
+              return;
+            }
+            const first = focusable[0];
+            const last = focusable[focusable.length - 1];
+            if (!mobileMenuRef.current.contains(document.activeElement)) {
+              event.preventDefault();
+              first.focus();
+            } else if (event.shiftKey && document.activeElement === first) {
+              event.preventDefault();
+              last.focus();
+            } else if (!event.shiftKey && document.activeElement === last) {
+              event.preventDefault();
+              first.focus();
+            }
+          }}
           className="marine-mobile-menu fixed inset-x-3 top-[88px] bottom-3 z-40 overflow-y-auto overscroll-contain rounded-3xl xl:hidden"
           data-lenis-prevent
         >
           <nav className="flex flex-col gap-1 p-6" aria-label="Mobile navigation">
+            <div className="mb-2 flex items-center justify-between gap-4 border-b border-[#d3e9f3] pb-4">
+              <span className="font-display text-sm font-semibold text-[#031038]">Navigate Space BQS</span>
+              <button
+                type="button"
+                onClick={() => setMobileMenuOpen(false)}
+                className="rounded-full border border-[#c6ddec] bg-white px-3 py-2 text-xs font-semibold text-[#032aac] focus-visible:outline-2 focus-visible:outline-[#032aac]"
+              >
+                Close menu
+              </button>
+            </div>
             {NAV_LINKS.map((l) => (
               <Link
                 key={l.href}
@@ -614,7 +683,7 @@ export default function Header() {
             </div>
           </nav>
         </div>
-      )}
+      ), document.body)}
     </header>
   );
 }

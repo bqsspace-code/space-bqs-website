@@ -1,7 +1,7 @@
 # Space BQS: implementation and release plan for an AI visibility score of 90
 
 **Target:** reach 90/100 on a comparable AI-visibility audit of `https://aibqs.com/`.
-**Current audit baseline:** 69/100 in the November 26, 2026 PDF. The report's category totals add to 70, so use the auditor's displayed overall score and retain the category breakdown for comparison.
+**Current audit baseline:** 73/100 in the latest November 26, 2026 PDF (13:09 IST). An earlier report scored 69/100. Retain the report date, URL scope and category breakdown when comparing results.
 **Important:** 90 is a target, not a guaranteed result. The audit evaluates a limited set of on-page signals; actual discovery and citations also depend on indexing, third-party authority, and the audit provider's methodology.
 
 ## Production and source status (verified November 26, 2026)
@@ -13,7 +13,8 @@
 - Existing score-improvement work is documented in `docs/ai-visibility-80-plan.md`; this 90-point plan supersedes its target, not its useful validation guidance.
 - The first implementation batch adds a consistent Product entity to the homepage and pricing page, removes unsupported pricing claims from the pricing JSON-LD, and makes the SEO smoke check assert the expected homepage entities.
 - This batch passes typecheck, all 10 project tests, production build, and the SEO smoke check across 92 sitemap routes. The production score has not been remeasured.
-- Person, location, case-study, review, and VideoObject signals remain intentionally deferred where the required facts or video metadata are not verified.
+- Person, location, case-study, and review signals remain intentionally deferred where the required facts are not verified.
+- After the 73-point report arrived, a local follow-up batch added truthful VideoObject metadata using the live video's measured 194.1-second duration, corrected overclaiming methodology schema, documented the boundaries of the source-code regression checks, and extended SEO checks. This batch is local only and must not be deployed without the user's approval.
 
 ## Phase 0 — Re-establish the baseline (required before code work)
 
@@ -31,7 +32,7 @@ For checks that the refreshed audit still reports as missing:
 - Validate Organization, SoftwareApplication, FAQPage, and both Service entities in the rendered homepage output.
 - Publish the Product entity on the homepage and pricing page with no fabricated offer or price; keep the description aligned with visible product copy.
 - Add or repair BreadcrumbList on interior pages where the matching visible breadcrumb exists.
-- Add VideoObject to the video page only if the public video URL, poster, title, description, and duration can be verified. Do not invent dates or video metadata.
+- Add VideoObject to the video page only if the public video URL, poster, title, description, and duration can be verified. Do not invent dates or video metadata. The current local implementation uses the verified app walkthrough URL and a measured duration of 194.1 seconds.
 - Keep product/service schema on the page describing that actual offering; do not inflate homepage markup with unrelated entities.
 - Do not add Review/AggregateRating, Product claims, Person entities, business address, or service promises without accurate first-party evidence and a matching visible page.
 
@@ -75,4 +76,4 @@ These are likely the largest remaining opportunities; implementation is blocked 
 
 ## Current release status
 
-The public site was serving the `main` version before this implementation batch. The local code changes are validated and ready for the configured production release; the new AI visibility score remains unknown until the same audit is rerun against the deployed URL. Do not treat the documentation update or the passing SEO smoke check as proof of a 90/100 score. Further high-impact E-E-A-T work still requires owner-approved people, customer/pilot evidence, or company identity details.
+The previous Product-schema batch was deployed; the later video/schema/content corrections are local changes only. The new AI visibility score remains unknown until the same audit is rerun against the deployed URL. Do not treat the passing SEO smoke check as proof of a 90/100 score. Further high-impact E-E-A-T work still requires owner-approved people, customer/pilot evidence, or company identity details. Do not push or deploy these pending changes without explicit user approval.

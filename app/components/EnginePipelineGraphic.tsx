@@ -72,23 +72,23 @@ export default function EnginePipelineGraphic() {
         </div>
       </div>
 
-      {/* Tank Strapping Curve Visual Representation */}
+      {/* Conceptual vessel calibration illustration */}
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-md">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
           <div>
             <h3 className="font-display text-lg font-bold text-ocean-950">Illustrative tank calibration curve</h3>
-            <p className="text-xs text-slate-500">Conceptual diagram only; use the vessel&apos;s applicable calibration documentation.</p>
+            <p className="text-xs text-slate-500">Conceptual illustration only. Actual tank geometry and calibration data are vessel-specific.</p>
           </div>
           <div className="flex items-center gap-2">
-            <span className="inline-flex items-center gap-1 rounded bg-sea-100 px-2 py-0.5 text-xs font-semibold text-sea-700">
-              Example diagram
+            <span className="inline-flex items-center gap-1 rounded-full border border-[#b8dbea] bg-[#eaf4f9] px-3 py-1 text-xs font-semibold text-[#032aac]">
+              Not to scale
             </span>
           </div>
         </div>
 
         <div className="mt-6 grid grid-cols-1 lg:grid-cols-12 gap-6 items-center">
           <div className="lg:col-span-8 bg-slate-900 rounded-xl p-4 border border-slate-800 relative">
-            <p className="text-[11px] font-mono text-slate-400 mb-2">Tank 1P Calibration Geometry (Volume vs Sounding)</p>
+            <p className="text-[11px] font-mono text-slate-300 mb-2">Conceptual relationship · sounding and volume</p>
             {/* SVG Calibration Curve */}
             <svg viewBox="0 0 600 220" className="w-full h-48 overflow-visible">
               {/* Grid Lines */}
@@ -109,33 +109,29 @@ export default function EnginePipelineGraphic() {
                 strokeWidth="3"
               />
 
-              {/* Verified Interpolation Point */}
+              {/* Illustrative point; does not represent a production calculation */}
               <circle cx="340" cy="90" r="6" fill="#10b981" stroke="#ffffff" strokeWidth="2" />
               <line x1="340" y1="90" x2="340" y2="180" stroke="#10b981" strokeDasharray="2 2" />
               <line x1="60" y1="90" x2="340" y2="90" stroke="#10b981" strokeDasharray="2 2" />
 
               <text x="350" y="85" fill="#34d399" fontSize="11" fontFamily="monospace" fontWeight="bold">
-                Measured: 4.250 m → 245.10 m³
+                Example position
               </text>
-
-              {/* Out of range boundary zones */}
-              <rect x="540" y="20" width="40" height="160" fill="rgba(239, 68, 68, 0.15)" />
-              <text x="510" y="55" fill="#f87171" fontSize="9" fontFamily="monospace">Max Table</text>
             </svg>
           </div>
 
-          <div className="lg:col-span-4 space-y-3 text-xs">
-            <div className="rounded-lg bg-slate-50 border border-slate-200 p-3">
-              <span className="font-bold text-ocean-950 block">OutOfRangeError Protection</span>
-              <p className="text-slate-600 mt-1">
-                If a sounding or ullage exceeds the vessel&apos;s physical calibration booklet, the engine raises an explicit flag. It never guesses or extrapolates beyond manufacturer limits.
+          <div className="lg:col-span-4 space-y-3 text-sm">
+            <div className="rounded-xl bg-[#f0f6fc] border border-[#cddfef] p-4">
+              <span className="font-bold text-[#031038] block">Use the applicable vessel records</span>
+              <p className="text-slate-600 mt-2 leading-6">
+                Calibration tables and tank geometry are specific to the vessel. The diagram is an explanatory sketch, not a tank table or survey result.
               </p>
             </div>
 
-            <div className="rounded-lg bg-sea-50 border border-sea-200 p-3 text-sea-900">
-              <span className="font-bold block">ASTM D1250-04 Grid Tables</span>
-              <p className="text-sea-700 mt-1">
-                Fuel Oils (0.900–1.000 kg/L, 0–90°C) and Middle Distillates (0.820–0.900 kg/L, 0–60°C) evaluated on pure mathematical grids without black-box approximations.
+            <div className="rounded-xl bg-white border border-[#cddfef] p-4">
+              <span className="font-bold text-[#031038] block">Confirm release-specific details</span>
+              <p className="text-slate-600 mt-2 leading-6">
+                Product materials reference Table 54B. Confirm the licensed table edition, supported inputs, and out-of-range behavior for your release with the product team.
               </p>
             </div>
           </div>

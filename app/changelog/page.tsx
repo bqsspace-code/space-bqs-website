@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Section, Breadcrumbs } from "../components/ui";
+import { ArrowDownRight, History } from "lucide-react";
 import { routeMetadata } from "../lib/seo-metadata";
 
 export const metadata: Metadata = routeMetadata("/changelog", {
   title: "Changelog — What Shipped",
-  description: "Space BQS website changelog: only live, customer-visible changes.",
+  description: "See customer-visible Space BQS website updates, including new pages, tools, and workflow changes, listed newest first.",
 });
 
 const ENTRIES = [
@@ -20,15 +21,26 @@ export default function Page() {
         <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">Changelog</h1>
         <p className="mt-3 text-slate-600">Only live, customer-visible changes. Newest first.</p>
       </div>
-      <Section eyebrow="History" title="Releases">
-        <ul className="space-y-3">
-          {ENTRIES.map((e) => (
-            <li key={e.v} className="rounded-xl border p-4">
-              <p className="font-bold">{e.v}</p>
-              <p className="mt-1 text-sm text-slate-600">{e.t}</p>
-            </li>
-          ))}
-        </ul>
+      <Section eyebrow="History" title="Website releases">
+        <ol className="relative space-y-4 before:absolute before:bottom-7 before:left-[19px] before:top-7 before:w-px before:bg-slate-200">
+          {ENTRIES.map((e, index) => {
+            const [version, date] = e.v.split(" — ");
+            return (
+              <li key={e.v} className="relative grid grid-cols-[40px_minmax(0,1fr)] gap-3 sm:gap-5">
+                <div className="relative z-10 mt-5 flex h-10 w-10 items-center justify-center rounded-full border border-slate-200 bg-white text-ocean-700 shadow-sm">
+                  {index === 0 ? <History className="h-4 w-4" aria-hidden="true" /> : <ArrowDownRight className="h-4 w-4" aria-hidden="true" />}
+                </div>
+                <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm sm:p-6">
+                  <div className="flex flex-wrap items-center gap-2">
+                    <span className="rounded-full bg-ocean-50 px-3 py-1 font-mono text-xs font-bold text-ocean-800">{version}</span>
+                    <time className="text-sm text-slate-500" dateTime={date}>{date}</time>
+                  </div>
+                  <p className="mt-3 text-sm leading-7 text-slate-700">{e.t}</p>
+                </article>
+              </li>
+            );
+          })}
+        </ol>
       </Section>
     </div>
   );

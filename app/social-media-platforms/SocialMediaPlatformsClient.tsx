@@ -2,7 +2,7 @@
 
 import React, { useState, useMemo } from "react";
 import Link from "next/link";
-import { Search, ExternalLink, ShieldCheck, Sparkles, Filter, ArrowUpRight, Globe, Layers, Terminal, BookOpen, Users } from "lucide-react";
+import { Search, ExternalLink, ArrowUpRight, Globe, Layers, Terminal, BookOpen, Users } from "lucide-react";
 import { SOCIAL_PLATFORMS, SocialPlatform } from "./socialPlatformsData";
 import { PlatformIcon } from "./PlatformIcon";
 
@@ -47,29 +47,6 @@ export default function SocialMediaPlatformsClient() {
         }}
       />
 
-      <style jsx global>{`
-        @keyframes social-blob {
-          0% {
-            transform: translate(-100%, -100%) rotate(0deg);
-          }
-          25% {
-            transform: translate(20%, -100%) rotate(90deg);
-          }
-          50% {
-            transform: translate(20%, 20%) rotate(180deg);
-          }
-          75% {
-            transform: translate(-100%, 20%) rotate(270deg);
-          }
-          100% {
-            transform: translate(-100%, -100%) rotate(360deg);
-          }
-        }
-        .animate-social-blob {
-          animation: social-blob 10s linear infinite;
-        }
-      `}</style>
-
       {/* Hero Header Section */}
       <section className="relative pt-28 pb-12 sm:pt-36 sm:pb-16 lg:pt-40 border-b border-[#D3E9F3]/70">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -83,9 +60,9 @@ export default function SocialMediaPlatformsClient() {
           </div>
 
           <div className="mt-6 max-w-3xl space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full bg-[#032AAC]/10 border border-[#032AAC]/20 px-3.5 py-1 text-xs font-semibold text-[#032AAC] shadow-sm">
-              <ShieldCheck className="w-4 h-4 text-[#032AAC]" />
-              <span>OFFICIAL VERIFIED REGISTRY · {categoryCounts.all} PLATFORMS</span>
+            <div className="inline-flex items-center gap-2 rounded-full border border-[#b8dbea] bg-[#eaf4f9] px-3.5 py-1 text-xs font-semibold text-[#032aac]">
+              <Globe className="w-4 h-4 text-[#032aac]" aria-hidden="true" />
+              <span>SPACE BQS PROFILES · {categoryCounts.all} LISTINGS</span>
             </div>
             <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#031038] leading-[1.1]">
               Find Space BQS <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#032AAC] via-[#1B4FD1] to-[#19B5C9]">Everywhere</span>
@@ -100,17 +77,18 @@ export default function SocialMediaPlatformsClient() {
       {/* Filter and Search Bar Section */}
       <section className="sticky top-20 sm:top-24 z-30 bg-[#F7FBFD]/90 backdrop-blur-md border-b border-[#D3E9F3]/80 py-4 shadow-sm">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          <div className="flex flex-col lg:flex-row items-stretch lg:items-center justify-between gap-4">
+          <div className="flex flex-col items-stretch gap-4">
             {/* Category Filter Pills */}
-            <div className="flex items-center gap-1.5 overflow-x-auto pb-1 sm:pb-0 scrollbar-none">
+            <div role="group" aria-label="Filter profiles by category" className="flex flex-wrap items-center gap-2">
               <button
                 type="button"
                 onClick={() => setActiveCategory("all")}
+                aria-pressed={activeCategory === "all"}
                 className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   activeCategory === "all"
                     ? "bg-[#032AAC] text-white shadow-md shadow-[#032AAC]/20"
                     : "bg-white/80 text-[#52657c] hover:text-[#031038] hover:bg-white border border-[#D3E9F3]"
-                }`}
+                  } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#032aac]`}
               >
                 <Layers className="w-3.5 h-3.5" />
                 <span>All Platforms</span>
@@ -124,11 +102,12 @@ export default function SocialMediaPlatformsClient() {
               <button
                 type="button"
                 onClick={() => setActiveCategory("core")}
+                aria-pressed={activeCategory === "core"}
                 className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   activeCategory === "core"
                     ? "bg-[#032AAC] text-white shadow-md shadow-[#032AAC]/20"
                     : "bg-white/80 text-[#52657c] hover:text-[#031038] hover:bg-white border border-[#D3E9F3]"
-                }`}
+                  } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#032aac]`}
               >
                 <Globe className="w-3.5 h-3.5" />
                 <span>Core Channels</span>
@@ -142,11 +121,12 @@ export default function SocialMediaPlatformsClient() {
               <button
                 type="button"
                 onClick={() => setActiveCategory("dev")}
+                aria-pressed={activeCategory === "dev"}
                 className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   activeCategory === "dev"
                     ? "bg-[#032AAC] text-white shadow-md shadow-[#032AAC]/20"
                     : "bg-white/80 text-[#52657c] hover:text-[#031038] hover:bg-white border border-[#D3E9F3]"
-                }`}
+                  } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#032aac]`}
               >
                 <Terminal className="w-3.5 h-3.5" />
                 <span>Engineering &amp; Code</span>
@@ -160,11 +140,12 @@ export default function SocialMediaPlatformsClient() {
               <button
                 type="button"
                 onClick={() => setActiveCategory("publishing")}
+                aria-pressed={activeCategory === "publishing"}
                 className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   activeCategory === "publishing"
                     ? "bg-[#032AAC] text-white shadow-md shadow-[#032AAC]/20"
                     : "bg-white/80 text-[#52657c] hover:text-[#031038] hover:bg-white border border-[#D3E9F3]"
-                }`}
+                  } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#032aac]`}
               >
                 <BookOpen className="w-3.5 h-3.5" />
                 <span>Research &amp; Articles</span>
@@ -178,11 +159,12 @@ export default function SocialMediaPlatformsClient() {
               <button
                 type="button"
                 onClick={() => setActiveCategory("community")}
+                aria-pressed={activeCategory === "community"}
                 className={`inline-flex items-center gap-2 px-3.5 py-2 rounded-xl text-xs font-semibold transition-all whitespace-nowrap ${
                   activeCategory === "community"
                     ? "bg-[#032AAC] text-white shadow-md shadow-[#032AAC]/20"
                     : "bg-white/80 text-[#52657c] hover:text-[#031038] hover:bg-white border border-[#D3E9F3]"
-                }`}
+                  } focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#032aac]`}
               >
                 <Users className="w-3.5 h-3.5" />
                 <span>Community &amp; Hubs</span>
@@ -195,9 +177,11 @@ export default function SocialMediaPlatformsClient() {
             </div>
 
             {/* Search Input Box */}
-            <div className="relative w-full lg:w-72 shrink-0">
+            <div className="relative w-full max-w-xl self-start">
+              <label htmlFor="profile-search" className="sr-only">Search Space BQS profiles</label>
               <Search className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#52657c]" />
               <input
+                id="profile-search"
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -208,6 +192,7 @@ export default function SocialMediaPlatformsClient() {
                 <button
                   type="button"
                   onClick={() => setSearchQuery("")}
+                  aria-label="Clear profile search"
                   className="absolute right-2.5 top-1/2 -translate-y-1/2 text-xs font-bold text-slate-400 hover:text-slate-600 p-1"
                 >
                   ✕
@@ -221,6 +206,10 @@ export default function SocialMediaPlatformsClient() {
       {/* Main Grid Section */}
       <section className="py-12 sm:py-16">
         <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <h2 className="sr-only">Official Space BQS profile directory</h2>
+          <p aria-live="polite" aria-atomic="true" className="mb-5 text-sm font-medium text-[#52657c]">
+            Showing {filteredPlatforms.length} of {categoryCounts.all} profiles
+          </p>
           {filteredPlatforms.length === 0 ? (
             <div className="rounded-3xl border border-[#D3E9F3] bg-white p-12 text-center max-w-lg mx-auto shadow-sm">
               <div className="w-12 h-12 rounded-2xl bg-slate-100 flex items-center justify-center mx-auto text-slate-400 mb-4">
@@ -228,7 +217,7 @@ export default function SocialMediaPlatformsClient() {
               </div>
               <h3 className="font-display font-bold text-lg text-[#031038]">No platforms found</h3>
               <p className="text-xs text-[#52657c] mt-1.5 leading-relaxed">
-                No matching profile for &quot;{searchQuery}&quot;. Try searching for &quot;GitHub&quot;, &quot;YouTube&quot;, or reset your filters.
+                {searchQuery ? <>No matching profile for &quot;{searchQuery}&quot;. Try a different search or reset your filters.</> : "No profiles match this category yet. Reset filters to see all profiles."}
               </p>
               <button
                 type="button"
@@ -236,7 +225,7 @@ export default function SocialMediaPlatformsClient() {
                   setSearchQuery("");
                   setActiveCategory("all");
                 }}
-                className="mt-5 inline-flex items-center gap-1.5 px-4 py-2 rounded-xl bg-[#032AAC] text-white text-xs font-semibold hover:bg-[#1B4FD1] transition-all"
+                  className="mt-5 inline-flex min-h-11 items-center gap-1.5 px-4 py-2 rounded-xl bg-[#032AAC] text-white text-xs font-semibold hover:bg-[#1B4FD1] transition-all focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#032aac]"
               >
                 Reset Search Filters
               </button>
@@ -249,15 +238,9 @@ export default function SocialMediaPlatformsClient() {
                   href={platform.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="group relative w-full min-h-[240px] rounded-[18px] flex flex-col overflow-hidden bg-white shadow-[0_4px_20px_rgba(3,16,56,0.04),0_1px_3px_rgba(3,16,56,0.06)] border border-[#D3E9F3] hover:border-[#19B5C9] hover:shadow-[0_16px_36px_rgba(3,42,172,0.12)] transition-all duration-300 transform hover:-translate-y-1"
+                  className="group relative w-full min-h-[240px] rounded-[18px] flex flex-col overflow-hidden bg-white shadow-[0_4px_20px_rgba(3,16,56,0.04),0_1px_3px_rgba(3,16,56,0.06)] border border-[#D3E9F3] hover:border-[#19B5C9] hover:shadow-[0_16px_36px_rgba(3,42,172,0.12)] transition-[border-color,box-shadow,transform] duration-300 hover:-translate-y-1 motion-reduce:transition-none motion-reduce:hover:transform-none focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#032aac]"
                 >
-                  {/* Rotating Gradient Blob Behind Glass (Inspired by aibizmod) */}
-                  <div
-                    className={`absolute top-1/2 left-1/2 w-[160px] h-[160px] rounded-full opacity-40 filter blur-[26px] z-0 animate-social-blob bg-gradient-to-r ${platform.blobGradient}`}
-                  />
-
-                  {/* Glass Inner Container */}
-                  <div className="relative inset-[3px] bg-white/95 backdrop-blur-[20px] rounded-[15px] z-10 p-5 flex flex-col justify-between h-full">
+                  <div className="relative flex h-full flex-col justify-between p-5">
                     <div className="space-y-3.5">
                       {/* Top Header: Icon + Badge */}
                       <div className="flex items-start justify-between gap-3">
@@ -321,9 +304,9 @@ export default function SocialMediaPlatformsClient() {
               <span className="text-[10px] font-mono tracking-widest text-[#032AAC] uppercase font-bold">
                 PARTNERSHIPS &amp; CHANNEL VERIFICATION
               </span>
-              <h3 className="font-display text-2xl sm:text-3xl font-bold text-[#031038]">
+              <h2 className="font-display text-2xl sm:text-3xl font-bold text-[#031038]">
                 Don&apos;t see your preferred platform?
-              </h3>
+              </h2>
               <p className="text-sm text-[#52657c] leading-relaxed">
                 If you represent a maritime registry, port community system, or technical publication and want to discuss a listing or integration, contact the Space BQS team.
               </p>

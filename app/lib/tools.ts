@@ -23,10 +23,10 @@ export const TOOLS: ToolConfig[] = [
     note: "Enter a VCF from your approved table or calculation source and density at the same reference condition as the corrected volume. This worksheet does not calculate a Table 54B factor, apply air-buoyancy corrections, or issue a certificate.",
     standards: "Arithmetic worksheet using a user-supplied VCF; not a standards-compliance check.",
     guidance: [
-      "Observed Volume: The total gross liquid volume determined from vessel tank sounding or ullage tape measurements using official calibration tables.",
+      "Observed Volume: The liquid volume recorded for this worksheet. Use the measurement basis and calibration references established by the responsible survey team.",
       "Free Water Volume: Measurable unmixed water settled at tank bottom, deducted before applying temperature correction factors.",
       "Volume Correction Factor (VCF): Dimensionless multiplier normalizing liquid volume from observed temperature to 15°C reference condition.",
-      "Standard Density: Density at 15°C (in vacuum or air) as stated on the bunker delivery note (BDN) or surveyor lab certificate.",
+      "Density: Enter density at a reference condition consistent with the VCF and the mass basis required for the arithmetic. This worksheet does not determine the correct value or mass basis.",
       "Calculated mass: Standard Volume (m³) × Density (kg/m³) ÷ 1,000. This worksheet result is not a survey certificate.",
     ],
     workedExample: {
@@ -64,8 +64,8 @@ export const TOOLS: ToolConfig[] = [
     guidance: [
       "BDN Declared Quantity: The supplier's stated fuel mass in metric tonnes from the physical or digital bunker delivery note.",
       "Surveyor Measured Quantity: Independent custody transfer mass calculated from vessel sounding sheets before and after delivery.",
-      "Signed Difference (MT): Measured mass minus declared BDN mass. A negative figure indicates a physical delivery shortfall.",
-      "Percentage difference: The signed difference divided by the declared mass. Use the applicable contract and local procedure to determine next steps.",
+      "Signed Difference (MT): Entered measured mass minus the entered BDN declared mass. A negative arithmetic result does not by itself establish cause, fault, or a contractual shortfall.",
+      "Percentage difference: The signed difference divided by the declared mass. Use the applicable contract and local procedure to interpret the result.",
     ],
     workedExample: {
       inputs: [
@@ -74,7 +74,7 @@ export const TOOLS: ToolConfig[] = [
         "Compare the calculated difference with the tolerance, if any, stated in the applicable contract.",
       ],
       calculation: "Difference = 988.500 − 1,000.000 = −11.500 MT → Percentage = (−11.500 ÷ 1,000.000) × 100 = −1.15%",
-      output: "−11.500 MT difference (−1.15%)",
+      output: "−11.500 MT arithmetic difference (−1.15%)",
     },
     faqs: [
       {
@@ -87,23 +87,23 @@ export const TOOLS: ToolConfig[] = [
       },
       {
         q: "Does a BDN discrepancy automatically prove supplier fault?",
-        a: "Not automatically. Discrepancies can arise from tank air pockets (cappuccino effect), temperature differences, unmeasured pipe lines, or incorrect barge soundings. Defensible evidence packages with before/after records are crucial to substantiate claims.",
+          a: "No. This worksheet compares the values entered; it does not establish why they differ or determine responsibility. The relevant records, procedures, and contractual terms must be assessed by the responsible parties.",
       },
     ],
   },
   {
     slug: "rob-balance",
     title: "ROB balance",
-    description: "Reconcile opening ROB, receipts, transfers out, and closing ROB.",
+    description: "Calculate a fuel balance from opening ROB, receipts, transfers out, and closing ROB. Check scope, units, and period.",
     formula: "Calculated consumption = opening ROB + receipts − transfers out − closing ROB.",
     note: "Use one fuel grade, period, and mass basis. Include all movements. This is a balance worksheet; it does not independently verify readings or replace a survey record.",
-    standards: "BIMCO Fuel Settlement Principles, IMO DCS / EU MRV Fuel Monitoring Guidelines",
+    standards: "Arithmetic balance worksheet; not a charter settlement or regulatory compliance determination.",
     guidance: [
       "Opening ROB: Recorded fuel remaining on board at the start of the selected period.",
-      "Bunker Receipts: Total delivered mass received from all verified bunker delivery attendances during the period.",
+      "Receipts: Fuel quantities entered as received during the selected period.",
       "Transfers / Debunkering Out: Fuel pumped off the vessel or transferred between segregated systems during the period.",
       "Closing ROB: Recorded fuel remaining on board at the end of the selected period.",
-      "Calculated balance: A result from the opening ROB, receipts, transfers out, and closing ROB values entered.",
+      "Calculated balance: A result from the opening ROB, receipts, transfers out, and closing ROB values entered. Verify scope, fuel grade, period, and source records before interpretation.",
     ],
     workedExample: {
       inputs: [
@@ -133,36 +133,36 @@ export const TOOLS: ToolConfig[] = [
   {
     slug: "unit-converter",
     title: "Marine unit converter",
-    description: "Convert volume or mass between metric, US, and imperial units.",
+    description: "Convert supported marine volume or mass units in a browser worksheet. Review the formulas and limits before using the result.",
     formula: "Converted quantity = input × source-unit factor ÷ target-unit factor.",
     note: "US and imperial gallons are different units. Unit conversion does not correct temperature or convert volume to mass. For volume-to-mass calculations, use density and a supplied correction factor in the separate worksheet.",
     standards: "NIST Special Publication 811, ISO 80000-1 Quantities and Units",
     guidance: [
-      "Metric Tonnes (MT) vs Long Tons (LT): 1 Metric Tonne = 1,000 kg (2,204.62 lbs). 1 Long Ton (Imperial) = 1,016.047 kg (2,240 lbs). 1 Short Ton (US) = 907.185 kg (2,000 lbs).",
-      "Cubic Metres (m³) vs Barrels (bbl): 1 m³ = 6.28981 standard petroleum barrels (42 US gallons per barrel).",
-      "US Gallons vs Imperial Gallons: 1 US Liquid Gallon = 3.78541 litres. 1 Imperial Gallon = 4.54609 litres (approx 20% larger).",
-      "Litres to Cubic Metres: 1,000 litres = exactly 1.000 cubic metre (m³).",
+      "Volume units available: cubic metres (m³), litres (L), US gallons (US gal), and Imperial gallons (Imp gal).",
+      "Mass units available: metric tonnes (MT), kilograms (kg), and pounds (lb).",
+      "US and Imperial gallons are distinct units; select the intended source and target units explicitly.",
+      "This worksheet converts within volume or mass. It does not convert volume to mass, apply a temperature correction, or include barrels or long tons.",
     ],
     workedExample: {
       inputs: [
         "Bunker Quantity in Metric Tonnes: 500.000 MT",
-        "Target Unit: Long Tons (LT)",
+        "Target Unit: Kilograms (kg)",
       ],
-      calculation: "Converted Mass = 500.000 MT × 1,000 kg/MT ÷ 1,016.0469 kg/LT = 492.103 LT",
-      output: "492.103 Long Tons (LT)",
+      calculation: "Converted Mass = 500.000 MT × 1,000 kg/MT = 500,000 kg",
+      output: "500,000 kg",
     },
     faqs: [
       {
-        q: "Why do bunker deliveries in North America reference barrels while Asia/Europe uses MT?",
-        a: "Historical regional market customs. US Gulf Coast and Caribbean suppliers often nominate bunkers in petroleum barrels (bbl), whereas international charterparties settle accounts in Metric Tonnes. Accurate unit conversions ensure billing alignment.",
+        q: "Why are US gallons and Imperial gallons separate options?",
+        a: "They are different volume units with different conversion factors. Select the unit shown in the source record before converting.",
       },
       {
         q: "Does converting cubic metres to barrels correct for temperature?",
         a: "No. Pure unit conversions assume both units exist under the exact same temperature condition. To convert hot observed volume into standard 60°F barrels or 15°C cubic metres, ASTM Table 54B/Table 52 factors must be applied.",
       },
       {
-        q: "What is the exact definition of a petroleum barrel?",
-        a: "A standard petroleum barrel (bbl) is defined as exactly 42 US liquid gallons, or approximately 158.9873 litres.",
+        q: "Can this converter convert barrels or long tons?",
+        a: "No. The current worksheet supports m³, L, US gal, and Imp gal for volume, and MT, kg, and lb for mass.",
       },
     ],
   },

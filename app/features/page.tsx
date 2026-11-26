@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../components/ui";
-import { Calculator, ShieldCheck, Database, FileText, ArrowRight, Smartphone, CheckCircle2 } from "lucide-react";
+import { Section, CtaRow, AnswerBlock } from "../components/ui";
+import EditorialHero, { HeroImage } from "../components/EditorialHero";
+import { Calculator, ShieldCheck, Database, FileText, ArrowRight, CheckCircle2 } from "lucide-react";
 import { routeMetadata } from "../lib/seo-metadata";
 
 export const metadata: Metadata = routeMetadata("/features", {
@@ -64,23 +65,17 @@ const MODULES = [
 export default function Page() {
   return (
     <div className="space-y-12 pb-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
-        <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/features", label: "Features" }]} />
-        <div className="mt-4 flex items-center gap-2">
-          <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
-            System Capabilities
-          </span>
-          <span className="text-xs text-slate-500 font-mono">Core Platform</span>
-        </div>
-        <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl lg:text-5xl">
-          Space BQS features for bunker survey teams
-        </h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          Explore mobile capture, web review, calculation inputs, vessel references, and PDF/Excel report workflows.
-        </p>
-      </div>
+      <EditorialHero
+        trail={[{ href: "/", label: "Home" }, { href: "/features", label: "Features" }]}
+        eyebrow="Platform / capabilities"
+        title="A survey record has a journey."
+        description="Explore the product areas that support field capture, calculation review, vessel reference data, and report handover—then confirm release-specific details with the product team."
+        primaryAction={{ href: "/request-demo", label: "Walk through the platform" }}
+        secondaryAction={{ href: "/how-we-measure", label: "Understand the method" }}
+        visual={<HeroImage src="/assets/videos/space-bqs-survey-01.webp" alt="View over the deck of a tanker underway at sea" caption="From field context to an office-ready record." position="center" />}
+      />
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <AnswerBlock>
           <p>
             Space BQS is bunker quantity survey software for marine survey firms and inspection teams. Its product materials describe field capture, office review, vessel reference data, and report workflows. The technical scope of each production feature should be confirmed for the software release being evaluated.
@@ -90,39 +85,41 @@ export default function Page() {
 
       {/* Modules Grid */}
       <section className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-8 md:grid-cols-2">
-          {MODULES.map((module) => {
+        <h2 className="sr-only">Explore the product areas</h2>
+        <div className="grid gap-4 md:grid-cols-2">
+          {MODULES.map((module, index) => {
             const IconComponent = module.icon;
             return (
               <div
                 key={module.href}
-                className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-7 shadow-sm transition-all hover:border-ocean-600 hover:shadow-md"
+                className="group relative flex min-h-[330px] flex-col justify-between overflow-hidden rounded-[1.4rem] border border-[#d3e4ee] bg-white p-6 shadow-[0_12px_36px_-28px_rgba(3,42,172,.35)] transition duration-300 hover:-translate-y-1 hover:border-[#81c7d2] hover:shadow-[0_24px_50px_-30px_rgba(3,42,172,.42)] motion-reduce:transform-none motion-reduce:transition-none sm:p-7"
               >
+                <span aria-hidden="true" className="absolute -right-2 -top-8 font-display text-[8rem] font-semibold leading-none text-[#eaf4f9]">0{index + 1}</span>
                 <div>
-                  <div className="flex items-center gap-3">
-                    <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ocean-50 text-ocean-700">
-                      <IconComponent className="h-5 w-5" />
+                  <div className="relative flex items-start gap-4">
+                    <div className="grid size-12 shrink-0 place-items-center rounded-2xl bg-[#eaf4f9] text-[#176a8e]">
+                      <IconComponent aria-hidden="true" className="size-5" />
                     </div>
-                    <h3 className="font-display text-xl font-bold text-ocean-950">
+                    <h3 className="max-w-sm pt-1 font-display text-xl font-semibold tracking-tight text-[#031038] sm:text-2xl">
                       {module.title}
                     </h3>
                   </div>
-                  <p className="mt-4 text-sm text-slate-600 leading-relaxed">
+                  <p className="relative mt-5 text-sm leading-7 text-[#52657c]">
                     {module.description}
                   </p>
-                  <ul className="mt-5 space-y-2.5 border-t border-slate-100 pt-5">
+                  <ul className="relative mt-5 space-y-3 border-t border-[#e5eef3] pt-5">
                     {module.bullets.map((b) => (
-                      <li key={b} className="flex items-start gap-2.5 text-xs text-slate-700 leading-normal">
-                        <CheckCircle2 className="h-4 w-4 text-ocean-600 shrink-0 mt-0.5" />
+                      <li key={b} className="flex items-start gap-2.5 text-sm leading-6 text-[#435971]">
+                        <CheckCircle2 aria-hidden="true" className="mt-1 size-4 shrink-0 text-[#148b98]" />
                         <span>{b}</span>
                       </li>
                     ))}
                   </ul>
                 </div>
-                <div className="mt-6 pt-5 border-t border-slate-100">
+                <div className="relative mt-6 border-t border-[#e5eef3] pt-5">
                   <Link
                     href={module.href}
-                    className="inline-flex items-center gap-1.5 text-sm font-semibold text-ocean-700 hover:text-ocean-900"
+                    className="inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-[#032aac] underline decoration-[#9bcbd7] underline-offset-4 focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#032aac]"
                   >
                     Explore module details <ArrowRight className="h-4 w-4" />
                   </Link>
@@ -135,25 +132,25 @@ export default function Page() {
 
       {/* Field to Office Architecture */}
       <Section eyebrow="Workflow" title="From mobile capture to office review">
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <span className="font-mono text-xs font-semibold text-ocean-700 uppercase">Step 1: Field capture</span>
-            <h3 className="font-display mt-2 text-lg font-bold text-ocean-950">Offline survey input</h3>
-            <p className="mt-2 text-xs leading-relaxed text-slate-600">
+        <div className="grid gap-4 md:grid-cols-3">
+          <div className="rounded-2xl border border-[#d3e4ee] bg-white p-6 sm:p-7">
+            <span className="font-mono text-[10px] font-semibold tracking-[.18em] text-[#16879a] uppercase">Step 01 / Field</span>
+            <h3 className="font-display mt-8 text-xl font-semibold text-[#031038]">Capture in context</h3>
+            <p className="mt-3 text-sm leading-7 text-[#52657c]">
               Surveyors can record tank readings offline and sync their work when connectivity returns.
             </p>
           </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <span className="font-mono text-xs font-semibold text-ocean-700 uppercase">Step 2: Calculation</span>
-            <h3 className="font-display mt-2 text-lg font-bold text-ocean-950">Review the calculation inputs</h3>
-            <p className="mt-2 text-xs leading-relaxed text-slate-600">
+          <div className="rounded-2xl border border-[#d3e4ee] bg-white p-6 sm:p-7">
+            <span className="font-mono text-[10px] font-semibold tracking-[.18em] text-[#16879a] uppercase">Step 02 / Review</span>
+            <h3 className="font-display mt-8 text-xl font-semibold text-[#031038]">Inspect the working</h3>
+            <p className="mt-3 text-sm leading-7 text-[#52657c]">
               Space BQS product materials refer to ASTM Table 54B. Confirm the production table edition and calculation details for the release used by your team.
             </p>
           </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <span className="font-mono text-xs font-semibold text-ocean-700 uppercase">Step 3: Office workflow</span>
-            <h3 className="font-display mt-2 text-lg font-bold text-ocean-950">Review and report</h3>
-            <p className="mt-2 text-xs leading-relaxed text-slate-600">
+          <div className="rounded-2xl border border-[#d3e4ee] bg-white p-6 sm:p-7">
+            <span className="font-mono text-[10px] font-semibold tracking-[.18em] text-[#16879a] uppercase">Step 03 / Handover</span>
+            <h3 className="font-display mt-8 text-xl font-semibold text-[#031038]">Prepare the record</h3>
+            <p className="mt-3 text-sm leading-7 text-[#52657c]">
               Product materials describe supervisor review and PDF/Excel report workflows. See the illustrative report layout, which uses fictional data.
             </p>
           </div>

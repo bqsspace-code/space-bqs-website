@@ -7,7 +7,9 @@ import CargoWmsJourney from "@/components/ui/cargo-wms-journey";
 import CargoWmsFlight from "@/components/ui/cargo-wms-flight";
 import { ShinyButton } from "@/components/ui/shiny-button";
 import CargoWmsControls from "./CargoWmsControls";
+import WmsVideoSection from "../../components/WmsVideoSection";
 import { ServiceLinks } from "../../components/MarketingPage";
+import { BreadcrumbJsonLd } from "../../components/ui";
 import WeightText from "../../components/WeightText";
 import WaveTransition from "../../components/WaveTransition";
 import ScrollReveal from "../../components/ScrollReveal";
@@ -38,7 +40,7 @@ export default function Page() {
       <section className="cargo-wms-hero" aria-labelledby="cargo-wms-title">
         <div className="cargo-hero-current" aria-hidden="true" />
         <div className="cargo-hero-inner">
-          <nav aria-label="Breadcrumb" className="cargo-breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/solutions">Solutions</Link><span aria-hidden="true">/</span><span aria-current="page">Cargo WMS</span></nav>
+          <nav aria-label="Breadcrumb" className="cargo-breadcrumb"><BreadcrumbJsonLd trail={[{ href: "/", label: "Home" }, { href: "/solutions", label: "Solutions" }, { href: "/solutions/cargo-wms", label: "Cargo WMS" }]} /><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/solutions">Solutions</Link><span aria-hidden="true">/</span><span aria-current="page">Cargo WMS</span></nav>
           <p className="cargo-hero-badge"><Warehouse className="h-3.5 w-3.5" aria-hidden="true" />Cargo WMS · Custom Implementation</p>
           <WeightText id="cargo-wms-title" tag="h1" mode="cursor-radius" restWeight={350} activeWeight={750} className="cargo-hero-title font-display">From Expected Cargo<br />{" "}To Controlled Release.</WeightText>
           <p className="cargo-hero-description">Manifests, locations, charges, approvals, and customer visibility. A warehouse-management solution scoped around the way your operation works.</p>
@@ -51,6 +53,7 @@ export default function Page() {
         </div>
       </section>
       <WaveTransition variant="swell" to="#f0f6fc" />
+      <WmsVideoSection pagePath="/solutions/cargo-wms" />
 
       <section id="operational-journey" className="cargo-wms-section cargo-wms-cinematic" aria-labelledby="cargo-journey-heading">
         <div className="cargo-content-width"><CargoHeading id="cargo-journey-heading" eyebrow="The Operational Journey" description="Follow the proposed workflow from manifests and receipt to locations, charges, and an approved handover.">Keep Every Handoff<br />{" "}Connected.</CargoHeading></div>

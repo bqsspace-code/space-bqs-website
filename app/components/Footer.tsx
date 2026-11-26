@@ -9,9 +9,10 @@ import FlowingCenterRipple from "./FlowingCenterRipple";
 export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
   const pathname = usePathname();
   const isDemoPage = pathname === "/demo" || pathname === "/request-demo";
+  const isPolicyPage = pathname.startsWith("/legal/");
   const isCargoWmsPage = pathname === "/solutions/cargo-wms";
   const isBqsSolutionPage = pathname === "/solutions/space-bqs";
-  const shouldShowCta = !hideCta && !isDemoPage;
+  const shouldShowCta = !hideCta && !isDemoPage && !isPolicyPage;
 
   return (
     <footer className="relative text-white overflow-hidden bg-transparent">

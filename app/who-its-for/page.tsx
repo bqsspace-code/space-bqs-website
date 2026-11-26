@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Section, CtaRow, Breadcrumbs } from "../components/ui";
 import { routeMetadata } from "../lib/seo-metadata";
 
@@ -19,15 +20,17 @@ export default function Page() {
       <Section eyebrow="Personas" title="Pick yourself">
         <div className="grid gap-4 md:grid-cols-3">
           {[
-            { t: "Surveyor on your team", d: "Scans vessel QR. Three steps: Ship, Fuel, Tanks. Big buttons, works offline, autosaves. Submits when done.", cta: "See mobile app" },
-            { t: "Supervisor in your office", d: "Reviews breakdown, recalculates, completes, exports PDF + Excel. Dashboard shows fleet, trends, attention list.", cta: "See platform" },
-            { t: "Your client (owner / charterer)", d: "Receives the issued PDF + Excel report from your team. Searchable later by your team.", cta: "See sample report" },
+            { t: "Surveyor on your team", d: "Scans vessel QR. Three steps: Ship, Fuel, Tanks. Big buttons, works offline, autosaves. Submits when done.", cta: "See mobile app", href: "/mobile-app" },
+            { t: "Supervisor in your office", d: "Reviews breakdown, recalculates, completes, exports PDF + Excel. Dashboard shows fleet, trends, attention list.", cta: "See platform", href: "/platform" },
+            { t: "Your client (owner / charterer)", d: "Receives the issued PDF + Excel report from your team. Searchable later by your team.", cta: "See sample report", href: "/sample-report" },
           ].map((p) => (
-            <div key={p.t} className="rounded-xl border border-slate-200 p-5">
-              <p className="font-display font-bold">{p.t}</p>
-              <p className="mt-2 text-sm text-slate-600">{p.d}</p>
-              <p className="mt-3 text-sm font-semibold text-ocean-700">{p.cta} →</p>
-            </div>
+            <article key={p.t} className="flex flex-col rounded-2xl border border-slate-200 bg-white p-5 shadow-sm transition hover:border-ocean-300 hover:shadow-md">
+              <h3 className="font-display font-bold text-ocean-950">{p.t}</h3>
+              <p className="mt-2 flex-1 text-sm leading-6 text-slate-600">{p.d}</p>
+              <Link href={p.href} className="mt-4 inline-flex min-h-11 items-center gap-2 text-sm font-semibold text-ocean-700 underline decoration-ocean-300 underline-offset-4 hover:text-ocean-900 focus-visible:rounded-sm focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-ocean-700">
+                {p.cta} <span aria-hidden="true">→</span>
+              </Link>
+            </article>
           ))}
         </div>
         <div className="mt-6"><CtaRow /></div>

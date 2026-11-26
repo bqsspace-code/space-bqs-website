@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useId } from "react";
 
 import WeightText from "./WeightText";
 import { ShinyButton } from "@/components/ui/shiny-button";
@@ -210,6 +210,7 @@ export function Faq({ items }: { items: { q: string; a: string }[] }) {
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
+  const panelId = useId();
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentH, setContentH] = useState(0);
 
@@ -222,9 +223,11 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   return (
     <div data-glass-surface className="glass-faq-item py-5">
       <button
+        type="button"
         onClick={() => setOpen(!open)}
-        className="flex w-full items-center justify-between text-left group"
+        className="group flex w-full items-center justify-between text-left focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#032aac]"
         aria-expanded={open}
+        aria-controls={panelId}
       >
         <span className="font-display text-base font-semibold text-abyss-900 pr-4 group-hover:text-marine-700 transition-colors">
           {q}
@@ -244,6 +247,8 @@ function FaqItem({ q, a }: { q: string; a: string }) {
         </span>
       </button>
       <div
+        id={panelId}
+        hidden={!open}
         className="overflow-hidden transition-all duration-400"
         style={{
           maxHeight: open ? contentH + 20 : 0,
@@ -260,33 +265,46 @@ function FaqItem({ q, a }: { q: string; a: string }) {
 }
 
 /* ─── Breadcrumbs ─── */
-export function Breadcrumbs({ trail }: { trail: { href: string; label: string }[] }) {
+export function BreadcrumbJsonLd({ trail }: { trail: { href: string; label: string }[] }) {
   const schema = {
     "@context": "https://schema.org",
     "@type": "BreadcrumbList",
-    itemListElement: trail.map((t, i) => ({
+    itemListElement: trail.map((item, index) => ({
       "@type": "ListItem",
-      position: i + 1,
-      name: t.label,
-      item: t.href.startsWith("http") ? t.href : `${SITE_URL}${t.href.startsWith("/") ? "" : "/"}${t.href}`,
+      position: index + 1,
+      name: item.label,
+      ...(item.href === "#"
+        ? {}
+        : {
+            item: item.href.startsWith("http")
+              ? item.href
+              : `${SITE_URL}${item.href.startsWith("/") ? "" : "/"}${item.href}`,
+          }),
     })),
   };
 
   return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
+    />
+  );
+}
+
+export function Breadcrumbs({ trail }: { trail: { href: string; label: string }[] }) {
+  return (
     <nav aria-label="Breadcrumb" className="text-sm" style={{ color: "rgba(3,16,56,0.44)" }}>
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(schema) }}
-      />
+      <BreadcrumbJsonLd trail={trail} />
       {trail.map((t, i) => (
         <span key={t.href}>
           {i > 0 && <span className="mx-1.5" style={{ color: "rgba(3,16,56,0.2)" }}>›</span>}
-          <Link
-            href={t.href}
-            className="hover:text-marine-700 transition-colors"
-          >
-            {t.label}
-          </Link>
+          {i === trail.length - 1 ? (
+            <span aria-current="page" className="font-medium text-[#031038]">{t.label}</span>
+          ) : (
+            <Link href={t.href} className="hover:text-marine-700 transition-colors focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#032aac]">
+              {t.label}
+            </Link>
+          )}
         </span>
       ))}
     </nav>

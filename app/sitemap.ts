@@ -54,7 +54,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     ...TOOLS.map((tool) => ({ url: `${SITE_URL}/tools/${tool.slug}` })),
     ...MARKETS.filter((market) => market.publishable !== false).map((market) => ({ url: `${SITE_URL}/markets/${market.slug}` })),
     ...RESOURCES.map((r) => ({ url: `${SITE_URL}/resources/${r.slug}`, lastModified: new Date(r.updated) })),
-    ...ALL_PORTS.map((port) => ({ url: `${SITE_URL}/ports/${port.slug}`, lastModified: new Date() })),
-    ...ALL_GLOSSARY_TERMS.map((term) => ({ url: `${SITE_URL}/glossary/${term.slug}`, lastModified: new Date() })),
+    ...ALL_PORTS.map((port) => ({ url: `${SITE_URL}/ports/${port.slug}` })),
+    ...ALL_GLOSSARY_TERMS.map((term) => ({ url: `${SITE_URL}/glossary/${term.slug}` })),
   ];
 }

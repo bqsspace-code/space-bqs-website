@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Section, CtaRow, Breadcrumbs } from "../components/ui";
 import { routeMetadata } from "../lib/seo-metadata";
 
@@ -17,12 +18,27 @@ export default function Page() {
         <p className="mt-3 max-w-3xl text-lg text-slate-600">Space BQS is designed for organizations that perform bunker quantity surveys and want software for field capture, office review, and report workflows.</p>
       </div>
       <Section eyebrow="Fit" title="Teams that may evaluate Space BQS">
-        <ul className="list-disc space-y-2 pl-5 text-slate-700">
-          <li>Survey firms wanting one standard report from every surveyor and port.</li>
-          <li>Teams losing hours to spreadsheets, retyping and version confusion.</li>
-          <li>Firms whose clients demand audit trails: table versions, flags, locks.</li>
-          <li>Operations covering delivery, ROB and debunkering with one method.</li>
-        </ul>
+        <div className="grid gap-4 md:grid-cols-3">
+          <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-ocean-700">Organization</p>
+            <h2 className="mt-2 font-display text-lg font-bold text-ocean-950">Bunker survey firms</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Explore a shared software workflow for survey records, office review, and report preparation.</p>
+          </article>
+          <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-ocean-700">Field role</p>
+            <h2 className="mt-2 font-display text-lg font-bold text-ocean-950">Survey teams</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-600">Review the mobile capture workflow for delivery, remaining-on-board, and debunkering records.</p>
+          </article>
+          <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
+            <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-ocean-700">Office role</p>
+            <h2 className="mt-2 font-display text-lg font-bold text-ocean-950">Supervisors</h2>
+            <p className="mt-2 text-sm leading-6 text-slate-600">See the web workflow for reviewing survey records and preparing report outputs.</p>
+          </article>
+        </div>
+        <div className="mt-6 flex flex-wrap gap-3">
+          <Link href="/who-its-for" className="inline-flex min-h-11 items-center rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-ocean-800 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ocean-700">Explore team roles <span className="ml-2" aria-hidden="true">→</span></Link>
+          <Link href="/sample-report" className="inline-flex min-h-11 items-center rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-ocean-800 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ocean-700">View illustrative sample report <span className="ml-2" aria-hidden="true">→</span></Link>
+        </div>
         <div className="mt-6"><CtaRow /></div>
       </Section>
     </div>

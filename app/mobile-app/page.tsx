@@ -4,7 +4,7 @@ import { routeMetadata } from "../lib/seo-metadata";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../components/ui";
 import DeckInteractiveShowcase from "../components/DeckInteractiveShowcase";
 import AppDemoVideoSection from "../components/AppDemoVideoSection";
-import { QrCode, WifiOff, Clock, ShieldCheck, CheckCircle2, AlertCircle, Smartphone } from "lucide-react";
+import { QrCode, WifiOff, Clock, ShieldCheck, CheckCircle2, AlertCircle, Smartphone, ExternalLink } from "lucide-react";
 import mobileAppSchema from "@/schema/02_mobile_app.json";
 
 export const metadata: Metadata = routeMetadata("/mobile-app", {
@@ -48,6 +48,19 @@ export default function Page() {
           </p>
         </AnswerBlock>
       </div>
+
+      <section aria-labelledby="official-app-listings" className="mx-auto max-w-6xl px-4">
+        <div className="rounded-2xl border border-[#d3e4ee] bg-white p-5 shadow-sm sm:flex sm:items-center sm:justify-between sm:gap-6 sm:p-6">
+          <div>
+            <h2 id="official-app-listings" className="font-display text-lg font-semibold text-[#031038]">Official Space BQS app listings</h2>
+            <p className="mt-1 text-sm leading-6 text-[#52657c]">Open the publisher listings for current availability and device requirements.</p>
+          </div>
+          <div className="mt-4 flex flex-wrap gap-3 sm:mt-0">
+            <a href="https://apps.apple.com/in/app/space-bqs/id6812992991" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-full bg-[#032aac] px-5 text-sm font-semibold text-white hover:bg-[#1b4fd1] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#032aac]">App Store <ExternalLink aria-hidden="true" className="size-4" /></a>
+            <a href="https://play.google.com/store/apps/details?id=com.spaceai.bqs" target="_blank" rel="noreferrer" className="inline-flex min-h-11 items-center gap-2 rounded-full border border-[#b9d3e8] bg-white px-5 text-sm font-semibold text-[#032aac] hover:bg-[#f7fbfd] focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#032aac]">Google Play <ExternalLink aria-hidden="true" className="size-4" /></a>
+          </div>
+        </div>
+      </section>
 
       {/* Mobile App Demo Video */}
       <AppDemoVideoSection />

@@ -212,7 +212,7 @@ export const MARKETS: MarketPage[] = [
     slug: "canada",
     country: "Canada",
     title: "Bunker Quantity Survey Software for Canada",
-    description: "Bunker quantity survey software for Canadian marine inspection and survey teams. Review onboard records alongside applicable transfer and recordkeeping requirements.",
+    description: "Bunker survey software for Canadian marine teams. Review quantity-survey records alongside applicable transfer procedures and recordkeeping rules.",
     terminology: "Canadian federal regulations use the terms “oil transfer operations”, “person in charge”, “declaration of inspection”, and “record-keeping”.",
     context: [
       "Canada's Vessel Pollution and Dangerous Chemicals Regulations include provisions for oil transfer operations and record-keeping. Applicability depends on the vessel, operation, and regulatory scope; software should not be represented as satisfying those obligations by itself.",

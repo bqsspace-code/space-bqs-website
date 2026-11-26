@@ -7,7 +7,7 @@ import { MarketingHeader } from "../../components/MarketingPage";
 import { Section, Faq, CtaRow } from "../../components/ui";
 import { TOOLS } from "../../lib/tools";
 import { routeMetadata } from "../../lib/seo-metadata";
-import { CheckCircle2, BookOpen, Calculator, ShieldCheck } from "lucide-react";
+import { CheckCircle2, Calculator } from "lucide-react";
 
 export const dynamicParams = false;
 
@@ -41,37 +41,43 @@ export default async function Page({
   return (
     <div className="bg-[#f7fbfd]">
       <MarketingHeader
+        currentHref={`/tools/${config.slug}`}
         parent="/tools"
         parentLabel="Tools"
         eyebrow={config.title}
         title={config.title}
         description={config.description}
+        visual={null}
+        primaryAction={{ href: "#worksheet", label: "Open the worksheet" }}
+        secondaryAction={{ href: "/tools", label: "Choose another tool" }}
       />
 
       {/* Interactive Tool Widget */}
-      <Section>
-        {config.slug === "bdn-discrepancy" ? (
-          <Suspense fallback={<SurveyTool tool="bdn-discrepancy" />}>
-            <BdnExampleTool />
-          </Suspense>
-        ) : <SurveyTool tool={config.slug} />}
-      </Section>
+      <div id="worksheet" className="scroll-mt-24">
+        <Section eyebrow="Interactive worksheet" title="Edit the inputs. Inspect the result." lede="Values update in your browser. The worksheet displays the formula and provides a CSV download when the inputs are valid.">
+          {config.slug === "bdn-discrepancy" ? (
+            <Suspense fallback={<SurveyTool tool="bdn-discrepancy" />}>
+              <BdnExampleTool />
+            </Suspense>
+          ) : <SurveyTool tool={config.slug} />}
+        </Section>
+      </div>
 
       {/* Methodology & Formula */}
       <Section eyebrow="Methodology" title="Formula and calculation notes">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
+        <div className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-[0_12px_36px_-28px_rgba(3,42,172,.35)] sm:p-8">
           <div className="flex items-center gap-2 mb-3">
-            <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800 font-mono">
+              <span className="inline-flex rounded-full border border-[#c6ddec] bg-[#eaf4f9] px-3 py-2 text-[10px] font-semibold leading-5 text-[#176a8e] font-mono">
               Method context: {config.standards}
             </span>
           </div>
-          <h3 className="font-display text-lg font-bold text-ocean-950">
+          <h3 className="font-display text-xl font-semibold text-[#031038]">
             Mathematical Expression
           </h3>
-          <div className="mt-3 rounded-xl bg-slate-50 p-4 font-mono text-sm text-ocean-950 border border-slate-200">
+          <div className="mt-3 overflow-x-auto rounded-xl border border-[#d3e4ee] bg-[#f4f8fb] p-4 font-mono text-sm leading-7 text-[#031038]">
             {config.formula}
           </div>
-          <p className="mt-3 text-xs text-slate-500 leading-relaxed italic">
+          <p className="mt-3 text-sm leading-7 text-[#60748a]">
             Note: {config.note}
           </p>
 
@@ -81,8 +87,8 @@ export default async function Page({
             </h4>
             <ul className="space-y-3">
               {config.guidance.map((item, idx) => (
-                <li key={idx} className="flex items-start gap-2.5 text-xs text-slate-700 leading-relaxed">
-                  <CheckCircle2 className="h-4 w-4 text-ocean-600 shrink-0 mt-0.5" />
+                <li key={idx} className="flex items-start gap-2.5 text-sm leading-7 text-[#435971]">
+                  <CheckCircle2 aria-hidden="true" className="mt-1 size-4 shrink-0 text-[#148b98]" />
                   <span>{item}</span>
                 </li>
               ))}
@@ -93,26 +99,26 @@ export default async function Page({
 
       {/* Worked Benchmark Example */}
       <Section eyebrow="Illustrative example" title="Worked calculation example">
-        <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
-          <h3 className="font-display text-base font-bold text-ocean-950 mb-3 flex items-center gap-2">
-            <Calculator className="h-4 w-4 text-ocean-600" /> Reference Parameters
+        <div className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-[0_12px_36px_-28px_rgba(3,42,172,.35)] sm:p-8">
+          <h3 className="font-display text-xl font-semibold text-[#031038] mb-4 flex items-center gap-2">
+            <Calculator aria-hidden="true" className="size-5 text-[#16879a]" /> Reference parameters
           </h3>
           <div className="grid gap-3 sm:grid-cols-2">
             {config.workedExample.inputs.map((input, idx) => (
-              <div key={idx} className="rounded-lg bg-slate-50 p-3 text-xs text-slate-700 border border-slate-100 font-mono">
+              <div key={idx} className="rounded-xl border border-[#e1ebf1] bg-[#f7fbfd] p-4 text-sm leading-6 text-[#435971] font-mono">
                 {input}
               </div>
             ))}
           </div>
           <div className="mt-5 border-t border-slate-100 pt-4">
-            <p className="text-xs font-mono uppercase text-slate-500">Step-by-step arithmetic:</p>
-            <p className="mt-1 font-mono text-xs text-slate-800 bg-slate-50 p-3 rounded-lg border border-slate-100">
+            <p className="text-[10px] font-mono uppercase tracking-[.16em] text-slate-500">Step-by-step arithmetic</p>
+            <p className="mt-2 overflow-x-auto rounded-xl border border-[#e1ebf1] bg-[#f7fbfd] p-4 font-mono text-sm leading-7 text-[#031038]">
               {config.workedExample.calculation}
             </p>
           </div>
-          <div className="mt-4 rounded-xl bg-ocean-50 p-4 border border-ocean-200 flex items-center justify-between">
-            <span className="text-xs font-semibold text-ocean-900">Result Output:</span>
-            <span className="font-mono text-sm font-bold text-ocean-700">
+          <div className="mt-4 flex flex-wrap items-center justify-between gap-3 rounded-xl border border-[#b8dbea] bg-[#eaf4f9] p-4">
+            <span className="text-sm font-semibold text-[#176a8e]">Illustrative result</span>
+            <span className="font-mono text-base font-bold text-[#032aac]">
               {config.workedExample.output}
             </span>
           </div>

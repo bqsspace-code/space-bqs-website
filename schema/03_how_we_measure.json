@@ -1,103 +1,32 @@
 {
   "@context": "https://schema.org",
-  "@graph": [
+  "@type": "TechArticle",
+  "@id": "https://aibqs.com/how-we-measure#article",
+  "headline": "How bunker quantity calculations work",
+  "description": "An explanation of the inputs and arithmetic used in bunker quantity worksheets, including tank-volume context, free-water deduction, a supplied volume correction factor, density, and signed BDN comparisons. The public worksheets do not calculate a Table 54B factor or issue a survey certificate.",
+  "url": "https://aibqs.com/how-we-measure",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://aibqs.com/#organization"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "@id": "https://aibqs.com/#organization"
+  },
+  "about": [
     {
-      "@type": "TechArticle",
-      "@id": "https://aibqs.com/how-we-measure#article",
-      "headline": "How the Space BQS Engine Calculates: Deterministic Marine Fuel Quantity Verification",
-      "description": "Technical specification of the deterministic calculation methodology used in Space BQS: from physical sounding and tank strapping tables to ASTM D1250 Table 54B Volume Correction Factor (VCF) and certified metric tonnes in vacuum and air.",
-      "url": "https://aibqs.com/how-we-measure",
-      "author": {
-        "@type": "Organization",
-        "name": "Space BQS Technical Architecture Team",
-        "url": "https://aibqs.com"
-      },
-      "publisher": {
-        "@type": "Organization",
-        "name": "Space BQS",
-        "url": "https://aibqs.com"
-      },
-      "datePublished": "2026-01-15T08:00:00+00:00",
-      "dateModified": "2026-11-17T12:00:00+00:00",
-      "about": [
-        {
-          "@type": "DefinedTerm",
-          "name": "ASTM D1250 Table 54B",
-          "description": "Standard Guide for the Use of the Petroleum Measurement Tables (Generalized Products - Correction of Volume to 15°C against Density at 15°C)"
-        },
-        {
-          "@type": "DefinedTerm",
-          "name": "Volume Correction Factor (VCF)",
-          "description": "Correction factor (CTL) applied to observed volume to calculate gross standard volume at 15°C"
-        },
-        {
-          "@type": "DefinedTerm",
-          "name": "Bunker Quantity Survey (BQS)",
-          "description": "Independent measurement of marine fuel custody transfers to determine received or remaining on board quantities"
-        }
-      ]
+      "@type": "DefinedTerm",
+      "name": "Bunker quantity survey"
     },
     {
-      "@type": "HowTo",
-      "@id": "https://aibqs.com/how-we-measure#howto",
-      "name": "How to Convert Tank Soundings to Certified Metric Tonnes",
-      "description": "Four-step deterministic mathematical procedure for calculating marine fuel quantity without spreadsheet interpolation errors.",
-      "step": [
-        {
-          "@type": "HowToStep",
-          "position": 1,
-          "name": "Tank Strapping Table Lookup",
-          "text": "Match physical tape sounding or ullage against the vessel's official classification-approved calibration tables using 1D piecewise linear interpolation to determine Total Observed Volume (TOV)."
-        },
-        {
-          "@type": "HowToStep",
-          "position": 2,
-          "name": "Free Water Deduction",
-          "text": "Measure water paste cut at tank bottom and deduct free water volume to calculate Gross Observed Volume (GOV)."
-        },
-        {
-          "@type": "HowToStep",
-          "position": 3,
-          "name": "ASTM Table 54B VCF Lookup",
-          "text": "Execute bilinear interpolation across the standard ASTM D1250 Table 54B matrix using fuel temperature (°C) and standard density at 15°C (kg/L) to determine the Volume Correction Factor (VCF). Multiply GOV by VCF to derive Gross Standard Volume at 15°C (GSV)."
-        },
-        {
-          "@type": "HowToStep",
-          "position": 4,
-          "name": "Mass Conversion in Air and Vacuum",
-          "text": "Compute mass in vacuum (Metric Tonnes Vac = GSV × Density @ 15°C / 1000) and mass in air applying commercial buoyancy reduction (Metric Tonnes Air = GSV × (Density @ 15°C - 0.0011) / 1000)."
-        }
-      ]
+      "@type": "DefinedTerm",
+      "name": "Volume correction factor",
+      "alternateName": "VCF"
     },
     {
-      "@type": "FAQPage",
-      "@id": "https://aibqs.com/how-we-measure#faq",
-      "mainEntity": [
-        {
-          "@type": "Question",
-          "name": "Does Space BQS perform fuel quality analysis or laboratory testing?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "No. Space BQS is strictly a quantity-only software platform. It deterministically calculates physical volume, Volume Correction Factors (VCF), and certified mass in metric tonnes based on physical soundings, temperature, and standard density. Fuel quality, viscosity, sulfur compliance, and chemical contaminants remain the domain of specialized accredited testing laboratories."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "How are trim and list corrections handled in Space BQS?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "Trim and list observations are recorded as vital field context in the survey record and certificate. The engine applies the vessel's official tank calibration trim and heel tables directly to soundings before volumetric lookup, preventing arbitrary manual offsets."
-          }
-        },
-        {
-          "@type": "Question",
-          "name": "What fuel grades are supported by the ASTM 54B calculation engine?",
-          "acceptedAnswer": {
-            "@type": "Answer",
-            "text": "The engine supports all commercial marine distillate and residual fuels within ASTM Table 54B generalized products density bounds (0.820 to 1.000 kg/L and 0 to 90°C), including VLSFO (Very Low Sulfur Fuel Oil), ULSFO, HSFO / HFO, MGO (Marine Gas Oil), and LSMGO."
-          }
-        }
-      ]
+      "@type": "DefinedTerm",
+      "name": "Bunker Delivery Note",
+      "alternateName": "BDN"
     }
   ]
 }

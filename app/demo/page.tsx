@@ -18,7 +18,7 @@ export default function Page() {
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/demo", label: "Demo" }]} />
         <div className="mt-4 flex items-center gap-2">
           <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
-            Interactive Product Demo
+            Video walkthrough
           </span>
           <span className="text-xs text-slate-500 font-mono">Mobile Deck Tool</span>
         </div>

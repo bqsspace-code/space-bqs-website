@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { AnswerBlock, Breadcrumbs, Section } from "../../components/ui";
+import { AnswerBlock, Breadcrumbs, Faq, Section } from "../../components/ui";
 import { routeMetadata } from "../../lib/seo-metadata";
 import { MARKETS } from "../market-data";
 import TrackLink from "../../components/TrackLink";
@@ -78,9 +78,7 @@ export default async function MarketPage({ params }: { params: Promise<{ country
       </Section>
 
       <Section eyebrow="Questions" title={`Space BQS in ${market.country}`}>
-        <div className="space-y-5">
-          {market.faqs.map((faq) => <div key={faq.q}><h2 className="font-display text-base font-semibold text-[#031038]">{faq.q}</h2><p className="mt-2 text-sm leading-7 text-[#52657c]">{faq.a}</p></div>)}
-        </div>
+        <Faq items={market.faqs} />
         <div className="mt-8 flex flex-wrap gap-3">
           <TrackLink href={`/request-demo?country=${encodeURIComponent(market.country)}`} event="cta_click" params={{ target: "market_demo", market: market.slug }} className="marine-shiny marine-shiny--primary inline-flex min-h-11 items-center rounded-full px-6 text-sm font-semibold text-white">Request a demo in {market.country}</TrackLink>
           <Link href="/sample-report" className="inline-flex min-h-11 items-center rounded-full border border-[#b9d3e8] bg-white px-6 text-sm font-semibold text-[#032aac]">View sample report</Link>

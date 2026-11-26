@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Section, AnswerBlock, CtaRow, Breadcrumbs } from "../../components/ui";
+import { Section, AnswerBlock, CtaRow } from "../../components/ui";
+import EditorialHero, { HeroImage } from "../../components/EditorialHero";
 import { FileText, FileSpreadsheet, CheckCircle2 } from "lucide-react";
 import { routeMetadata } from "../../lib/seo-metadata";
 
@@ -13,29 +14,17 @@ export const metadata: Metadata = routeMetadata("/features/reports-ai", {
 export default function Page() {
   return (
     <div className="space-y-12 pb-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
-        <Breadcrumbs
-          trail={[
-            { href: "/", label: "Home" },
-            { href: "/features", label: "Features" },
-            { href: "/features/reports-ai", label: "Reports" },
-          ]}
-        />
-        <div className="mt-4 flex items-center gap-2">
-          <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
-            Report outputs
-          </span>
-          <span className="text-xs text-slate-500 font-mono">Illustrative report formats</span>
-        </div>
-        <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl lg:text-5xl">
-          PDF and Excel reports for bunker quantity surveys
-        </h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          Explore the report formats used in the Space BQS survey workflow. Values shown on this page are illustrative, not customer survey results.
-        </p>
-      </div>
+      <EditorialHero
+        trail={[{ href: "/", label: "Home" }, { href: "/features", label: "Features" }, { href: "/features/reports-ai", label: "Reports" }]}
+        eyebrow="Feature / report handover"
+        title="A report is the next reader's starting point."
+        description="Explore PDF and Excel report workflows for bunker quantity survey records. Examples are illustrative and use fictional data—not customer survey results."
+        primaryAction={{ href: "/sample-report", label: "View illustrative report" }}
+        secondaryAction={{ href: "/request-demo", label: "Discuss report workflows" }}
+        visual={<HeroImage src="/assets/videos/space-bqs-survey-04.webp" alt="Illustrative quantity certificate and audit workbook mockups" caption="Illustrative visuals with fictional information—not a customer survey record." position="center" />}
+      />
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <AnswerBlock>
           <p>
             Space BQS provides PDF and Excel report workflows for bunker survey records. The report contents depend on the survey information and current product release. A software report does not itself certify a survey, establish fuel quality, or determine legal admissibility.
@@ -45,8 +34,8 @@ export default function Page() {
 
       {/* Deliverables Breakdown */}
       <Section eyebrow="Report workflows" title="PDF and Excel report layouts">
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <div className="grid gap-4 md:grid-cols-2">
+          <div className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-[0_12px_36px_-28px_rgba(3,42,172,.35)] sm:p-7">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ocean-50 text-ocean-700">
                 <FileText className="h-5 w-5" />
@@ -55,10 +44,10 @@ export default function Page() {
                 PDF report layout
               </h3>
             </div>
-            <p className="mt-3 text-xs text-slate-600 leading-relaxed">
+            <p className="mt-3 text-sm text-slate-600 leading-7">
               The linked sample page shows an illustrative report layout with fictional data. It is not an issued certificate or a real customer survey.
             </p>
-            <ul className="mt-4 space-y-2 text-xs text-slate-700 border-t border-slate-100 pt-4">
+            <ul className="mt-4 space-y-3 border-t border-slate-100 pt-4 text-sm leading-6 text-slate-700">
               <li className="flex items-center gap-2">
                 <CheckCircle2 className="h-3.5 w-3.5 text-ocean-600" />
                 <span>Example survey particulars and report fields</span>
@@ -74,7 +63,7 @@ export default function Page() {
             </ul>
           </div>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <div className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-[0_12px_36px_-28px_rgba(3,42,172,.35)] sm:p-7">
             <div className="flex items-center gap-3">
               <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-ocean-50 text-ocean-700">
                 <FileSpreadsheet className="h-5 w-5" />
@@ -83,10 +72,10 @@ export default function Page() {
                 Excel report layout
               </h3>
             </div>
-            <p className="mt-3 text-xs text-slate-600 leading-relaxed">
+            <p className="mt-3 text-sm text-slate-600 leading-7">
               The workbook preview illustrates how measurement and calculation information can be organized for review. The displayed rows are fictional examples, not a customer record.
             </p>
-            <ul className="mt-4 space-y-2 text-xs text-slate-700 border-t border-slate-100 pt-4">
+            <ul className="mt-4 space-y-3 border-t border-slate-100 pt-4 text-sm leading-6 text-slate-700">
               <li className="flex items-center gap-2">
                 <span className="font-mono text-ocean-700 font-bold">Example:</span>
                 <span>Survey particulars and BDN reference</span>

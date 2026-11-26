@@ -14,18 +14,21 @@ const TEXT = `# ${SITE_NAME}
 
 ## Core URLs & Resources
 - Website: ${SITE_URL}
+- Sitemap: ${SITE_URL}/sitemap.xml
 - Mobile App (iOS): https://apps.apple.com/sg/app/space-bqs/id6812992991
+- Mobile App (Google Play): https://play.google.com/store/apps/details?id=com.spaceai.bqs
 - Calculation methodology: ${SITE_URL}/how-we-measure
 - Illustrative sample report layout (fictional values): ${SITE_URL}/sample-report
-- Deployment options: ${SITE_URL}/services/deployment
-- Data migration service: ${SITE_URL}/services/data-migration
-- Commercial Team Pricing: ${SITE_URL}/pricing
-- Delivery Survey Workflow: ${SITE_URL}/services/bunker-delivery-survey
-- ROB On/Off-Hire Workflow: ${SITE_URL}/services/rob-survey
-- Debunkering Survey Workflow: ${SITE_URL}/services/debunkering-survey
-- Why Spreadsheets Fail in Bunker Audits: ${SITE_URL}/why-independent
-- Free Calculation Tools: ${SITE_URL}/tools
-- Evaluation & Pilot Consultation: ${SITE_URL}/request-demo or ${CONTACT_EMAIL}
+- Product and solutions: ${SITE_URL}/solutions/space-bqs, ${SITE_URL}/mobile-app, ${SITE_URL}/platform
+- Survey workflow guides: ${SITE_URL}/services/bunker-delivery-survey, ${SITE_URL}/services/rob-survey, ${SITE_URL}/services/debunkering-survey
+- Implementation information: ${SITE_URL}/services/deployment, ${SITE_URL}/services/data-migration
+- Tools and resources: ${SITE_URL}/tools, ${SITE_URL}/resources, ${SITE_URL}/glossary
+- Market and port guides: ${SITE_URL}/markets, ${SITE_URL}/ports
+- Features and security: ${SITE_URL}/features, ${SITE_URL}/security-audit, ${SITE_URL}/integrations-api
+- Commercial licensing: ${SITE_URL}/pricing
+- Contact and demo requests: ${SITE_URL}/request-demo or ${CONTACT_EMAIL}
+- Video walkthroughs: ${SITE_URL}/videos
+- Official profiles: ${SITE_URL}/social-media-platforms
 
 ## Standards references
 - ASTM D1250 is the ASTM/API guide family for temperature and pressure volume correction factors. Confirm the applicable edition and licensed adjunct against the production product release and survey requirements.
@@ -34,5 +37,10 @@ const TEXT = `# ${SITE_NAME}
 `;
 
 export async function GET() {
-  return new Response(TEXT, { headers: { "Content-Type": "text/plain; charset=utf-8" } });
+  return new Response(TEXT, {
+    headers: {
+      "Content-Type": "text/plain; charset=utf-8",
+      "Cache-Control": "public, max-age=0, s-maxage=3600",
+    },
+  });
 }

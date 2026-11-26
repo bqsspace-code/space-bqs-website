@@ -1,40 +1,28 @@
 import type { Metadata } from "next";
-import { Section, AnswerBlock, CtaRow, Breadcrumbs } from "../../components/ui";
-import { Calculator, ShieldCheck, CheckCircle2, AlertOctagon, Layers, ArrowRight, FileCheck } from "lucide-react";
+import { Section, AnswerBlock, CtaRow } from "../../components/ui";
+import EditorialHero, { HeroImage } from "../../components/EditorialHero";
 import { routeMetadata } from "../../lib/seo-metadata";
 
 export const metadata: Metadata = routeMetadata("/features/calculation-audit", {
   title: "Deterministic ASTM 54B Calculation Engine",
   description:
-    "Explore the Space BQS calculation core: deterministic ASTM D1250 Table 54B volume correction, tank strapping curve interpolation, free water deduction, and mass conversion.",
+    "Review bunker calculation inputs, tank readings, water deductions, and volume correction. Confirm the production method and table edition for your release.",
 });
 
 export default function Page() {
   return (
     <div className="space-y-12 pb-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
-        <Breadcrumbs
-          trail={[
-            { href: "/", label: "Home" },
-            { href: "/features", label: "Features" },
-            { href: "/features/calculation-audit", label: "Calculation & Audit" },
-          ]}
-        />
-        <div className="mt-4 flex items-center gap-2">
-          <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
-            Calculation Engine v1.0.0
-          </span>
-          <span className="text-xs text-slate-500 font-mono">ASTM D1250 Table 54B</span>
-        </div>
-        <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl lg:text-5xl">
-          Deterministic ASTM Table 54B calculation engine
-        </h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          Explore the calculation inputs and method described by the product, from tank readings to a quantity result. Confirm the engine version used by your organization with the product team.
-        </p>
-      </div>
+      <EditorialHero
+        trail={[{ href: "/", label: "Home" }, { href: "/features", label: "Features" }, { href: "/features/calculation-audit", label: "Calculation workflow" }]}
+        eyebrow="Feature / calculation review"
+        title="Make the calculation path easier to follow."
+        description="Explore the inputs and method described by the product—from tank readings and reference data to a quantity result. Confirm production implementation and table edition with the product team."
+        primaryAction={{ href: "/tools/volume-to-mass", label: "Try the volume worksheet" }}
+        secondaryAction={{ href: "/sample-report", label: "View illustrative report" }}
+        visual={<HeroImage src="/assets/videos/space-bqs-survey-02.webp" alt="Surveyor using a tablet beside an open vessel tank" caption="Inputs, references, and reported values should remain reviewable." position="center" />}
+      />
 
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
+      <div className="mx-auto max-w-6xl px-5 sm:px-6">
         <AnswerBlock>
           <p>
             Space BQS product materials identify ASTM Table 54B as a volume-correction reference. The exact production implementation, applicable table edition, reference conditions, and validation behavior should be confirmed for the product release used by your organization. This website&apos;s public volume-to-mass worksheet accepts a user-supplied factor and is not the production table engine.
@@ -44,8 +32,8 @@ export default function Page() {
 
       {/* 5-Step Pipeline */}
       <Section eyebrow="Calculation steps" title="Five steps from tape reading to metric tonnes">
-        <div className="space-y-6">
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+        <ol className="grid gap-4 md:grid-cols-2">
+          <li className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-[0_12px_36px_-28px_rgba(3,42,172,.35)] sm:p-7">
             <div className="flex items-start gap-4">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-sm font-bold text-white font-mono">
                 1
@@ -59,9 +47,9 @@ export default function Page() {
                 </p>
               </div>
             </div>
-          </div>
+          </li>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <li className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-[0_12px_36px_-28px_rgba(3,42,172,.35)] sm:p-7">
             <div className="flex items-start gap-4">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-sm font-bold text-white font-mono">
                 2
@@ -81,9 +69,9 @@ export default function Page() {
                 </p>
               </div>
             </div>
-          </div>
+          </li>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <li className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-[0_12px_36px_-28px_rgba(3,42,172,.35)] sm:p-7">
             <div className="flex items-start gap-4">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-sm font-bold text-white font-mono">
                 3
@@ -103,9 +91,9 @@ export default function Page() {
                 </p>
               </div>
             </div>
-          </div>
+          </li>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <li className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-[0_12px_36px_-28px_rgba(3,42,172,.35)] sm:p-7">
             <div className="flex items-start gap-4">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-sm font-bold text-white font-mono">
                 4
@@ -122,9 +110,9 @@ export default function Page() {
                 </div>
               </div>
             </div>
-          </div>
+          </li>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
+          <li className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-[0_12px_36px_-28px_rgba(3,42,172,.35)] sm:p-7">
             <div className="flex items-start gap-4">
               <span className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-sm font-bold text-white font-mono">
                 5
@@ -138,8 +126,8 @@ export default function Page() {
                 </p>
               </div>
             </div>
-          </div>
-        </div>
+          </li>
+        </ol>
       </Section>
 
       {/* Worked Example */}
@@ -149,13 +137,13 @@ export default function Page() {
             Worked benchmark check: VLSFO example
           </h3>
           <p className="mt-2 text-xs text-slate-600">
-            Standard engine test case verifying intermediate steps and final metric tonnage output:
+            Illustrative arithmetic using the listed inputs. The result is not a production-engine validation or a customer survey result:
           </p>
           <div className="mt-4 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
             <div className="rounded-xl bg-white p-4 border border-slate-200">
-              <span className="text-[11px] font-mono uppercase text-slate-500">Observed Sounding</span>
-              <p className="mt-1 font-display text-xl font-bold text-ocean-950">4.850 m</p>
-              <span className="text-[11px] text-slate-500">Net Volume: 498.020 m³</span>
+              <span className="text-[11px] font-mono uppercase text-slate-500">Observed volume</span>
+              <p className="mt-1 font-display text-xl font-bold text-ocean-950">500.000 m³</p>
+              <span className="text-[11px] text-slate-500">Free water: 2.000 m³ · net: 498.000 m³</span>
             </div>
             <div className="rounded-xl bg-white p-4 border border-slate-200">
               <span className="text-[11px] font-mono uppercase text-slate-500">Fuel Density @ 15°C</span>

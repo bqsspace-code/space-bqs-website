@@ -4,6 +4,7 @@ import Link from "next/link";
 import { Breadcrumbs, AnswerBlock, Section, Faq, CtaRow } from "@/app/components/ui";
 import { ALL_GLOSSARY_TERMS, getGlossaryTerm } from "@/app/lib/glossary";
 import { SITE_URL } from "@/app/lib/site";
+import { routeMetadata } from "@/app/lib/seo-metadata";
 import { BookOpen, ShieldCheck, ArrowRight, FileText, CheckCircle2, Calculator } from "lucide-react";
 
 export function generateStaticParams() {
@@ -19,15 +20,11 @@ export async function generateMetadata({
   const t = getGlossaryTerm(term);
   if (!t) return {};
 
-  return {
-    title: `${t.term} — Marine Sounding & BQS Definition`,
+  return routeMetadata(`/glossary/${t.slug}`, {
+    title: `${t.term} — Marine BQS Definition`,
     description: `${t.shortDefinition} Standards reference: ${t.standardsReference}.`,
-    openGraph: {
-      title: `${t.term} — Marine Sounding & BQS Definition | Space BQS`,
-      description: t.shortDefinition,
-      type: "article",
-    },
-  };
+    openGraph: { type: "article" },
+  });
 }
 
 export default async function GlossaryTermPage({
@@ -60,26 +57,11 @@ export default async function GlossaryTermPage({
       "url": `${SITE_URL}/glossary/${t.slug}`,
       "author": {
         "@type": "Organization",
-        "name": "Space BQS Maritime Engineering Team",
-        "url": SITE_URL,
+        "@id": `${SITE_URL}/#organization`,
       },
+      "publisher": { "@id": `${SITE_URL}/#organization` },
     },
   ];
-
-  if (t.faqs && t.faqs.length > 0) {
-    schemaGraph.push({
-      "@type": "FAQPage",
-      "@id": `${SITE_URL}/glossary/${t.slug}#faq`,
-      "mainEntity": t.faqs.map((f) => ({
-        "@type": "Question",
-        "name": f.q,
-        "acceptedAnswer": {
-          "@type": "Answer",
-          "text": f.a,
-        },
-      })),
-    });
-  }
 
   const structuredData = {
     "@context": "https://schema.org",

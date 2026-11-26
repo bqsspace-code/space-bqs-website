@@ -1,55 +1,22 @@
 {
   "@context": "https://schema.org",
-  "@graph": [
-    {
-      "@type": "MobileApplication",
-      "@id": "https://aibqs.com/mobile-app#app",
-      "name": "Space BQS Mobile App",
-      "operatingSystem": "iOS, Android",
-      "applicationCategory": "BusinessApplication",
-      "applicationSubCategory": "Marine Inspection Tool",
-      "downloadUrl": "https://apps.apple.com/sg/app/space-bqs/id6812992991",
-      "installUrl": "https://apps.apple.com/sg/app/space-bqs/id6812992991",
-      "softwareVersion": "1.0.0",
-      "fileSize": "24MB",
-      "description": "Offline-first mobile application for marine bunker quantity surveyors. Enables direct onboard sounding capture, water cut deductions, tank temperature entry, vessel QR identification, and 72-hour autonomous offline lease with automatic cryptographic sync upon reconnection.",
-      "author": {
-        "@type": "Organization",
-        "name": "Space BQS",
-        "url": "https://aibqs.com"
-      },
-      "screenshot": "https://aibqs.com/assets/mobile-deck-sounding-mockup.png",
-      "featureList": [
-        "72-Hour Full Offline Operation in Steel Holds and Anchorages",
-        "QR Vessel Profile Scan for Automated Tank Calibration Tables",
-        "Guided Ship-Fuel-Tanks Field Wizard",
-        "Sounding and Ullage Mode Toggles with Free Water Cuts",
-        "Immediate Local Validation of Density at 15°C and Temperature Inputs",
-        "Bi-directional Cryptographic Cloud Sync"
-      ],
-      "offers": {
-        "@type": "Offer",
-        "price": "0",
-        "priceCurrency": "USD",
-        "description": "Included with enterprise survey firm team license"
-      }
-    },
-    {
-      "@type": "BreadcrumbList",
-      "itemListElement": [
-        {
-          "@type": "ListItem",
-          "position": 1,
-          "name": "Home",
-          "item": "https://aibqs.com"
-        },
-        {
-          "@type": "ListItem",
-          "position": 2,
-          "name": "Mobile App",
-          "item": "https://aibqs.com/mobile-app"
-        }
-      ]
-    }
+  "@type": "MobileApplication",
+  "@id": "https://aibqs.com/mobile-app#app",
+  "name": "Space BQS Mobile App",
+  "url": "https://aibqs.com/mobile-app",
+  "operatingSystem": "iOS, Android",
+  "applicationCategory": "BusinessApplication",
+  "applicationSubCategory": "Bunker Quantity Survey Software",
+  "downloadUrl": "https://apps.apple.com/sg/app/space-bqs/id6812992991",
+  "description": "Mobile application for marine bunker quantity survey teams to capture tank readings, work offline, and synchronize records for office review when connectivity returns.",
+  "author": {
+    "@type": "Organization",
+    "@id": "https://aibqs.com/#organization"
+  },
+  "featureList": [
+    "Vessel selection and QR identification",
+    "Tank-reading capture for bunker survey workflows",
+    "Offline field work with synchronization when connected",
+    "Office review through the Space BQS web platform"
   ]
 }

@@ -42,27 +42,61 @@ export default function SurveyTool({ tool, deliveryExample = false }: { tool: To
   const [to, setTo] = useState("L");
   const [exportError, setExportError] = useState("");
   let rows: { label: string; value: number; unit: string }[] = [];
-  let error = "";
-  try {
-    const values: Record<string, number> = {};
-    for (const field of FIELDS[tool]) {
-      if (!inputs[field.key]?.trim()) throw new Error(`Enter ${field.label.toLowerCase()}.`);
-      values[field.key] = Number(inputs[field.key]);
-      if (!Number.isFinite(values[field.key])) throw new Error(`${field.label} must be a finite number.`);
+  const fieldErrors: Record<string, string> = {};
+  const values: Record<string, number> = {};
+  for (const field of FIELDS[tool]) {
+    const rawValue = inputs[field.key]?.trim();
+    if (!rawValue) {
+      fieldErrors[field.key] = `Enter ${field.label.toLowerCase()}.`;
+      continue;
     }
-    if (tool === "volume-to-mass") {
-      const result = volumeToMass(values.observed, values.water, values.vcf, values.density);
-      rows = [{ label: "Net observed volume", value: result.net, unit: "m³" }, { label: "Standard volume", value: result.standard, unit: "m³" }, { label: "Calculated mass", value: result.mass, unit: "MT" }];
-    } else if (tool === "bdn-discrepancy") {
-      const result = compareDelivery(values.declared, values.measured);
-      rows = [{ label: "Measured minus BDN", value: result.difference, unit: "MT" }, { label: "Difference relative to BDN", value: result.percent, unit: "%" }];
-    } else if (tool === "rob-balance") {
-      const result = robBalance(values.opening, values.receipts, values.transfers, values.closing);
-      rows = [{ label: "Opening ROB + receipts", value: result.available, unit: "MT" }, { label: "Calculated consumption", value: result.consumption, unit: "MT" }];
-    } else {
-      rows = [{ label: `${from} → ${to}`, value: convertUnit(values.quantity, from, to, dimension), unit: to }];
+    values[field.key] = Number(rawValue);
+    if (!Number.isFinite(values[field.key])) {
+      fieldErrors[field.key] = `${field.label} must be a finite number.`;
+      continue;
     }
-  } catch (cause) { error = cause instanceof Error ? cause.message : "Check your inputs."; }
+    if (values[field.key] < 0) {
+      fieldErrors[field.key] = `${field.label} must be zero or more.`;
+    }
+  }
+
+  const positiveFields = tool === "volume-to-mass"
+    ? ["vcf", "density"]
+    : tool === "bdn-discrepancy" ? ["declared"] : [];
+  for (const key of positiveFields) {
+    if (values[key] === 0 && !fieldErrors[key]) {
+      const field = FIELDS[tool].find((item) => item.key === key);
+      if (field) fieldErrors[key] = `${field.label} must be greater than zero.`;
+    }
+  }
+
+  if (tool === "volume-to-mass" && values.water > values.observed && !fieldErrors.water && !fieldErrors.observed) {
+    fieldErrors.water = "Free-water volume cannot exceed observed volume.";
+  }
+  if (tool === "rob-balance" && values.closing + values.transfers > values.opening + values.receipts && !Object.keys(fieldErrors).length) {
+    fieldErrors.closing = "Closing ROB and transfers out exceed opening ROB plus receipts. Reconcile the entries.";
+  }
+
+  let resultError = "";
+  if (!Object.keys(fieldErrors).length) {
+    try {
+      if (tool === "volume-to-mass") {
+        const result = volumeToMass(values.observed, values.water, values.vcf, values.density);
+        rows = [{ label: "Net observed volume", value: result.net, unit: "m³" }, { label: "Standard volume", value: result.standard, unit: "m³" }, { label: "Calculated mass", value: result.mass, unit: "MT" }];
+      } else if (tool === "bdn-discrepancy") {
+        const result = compareDelivery(values.declared, values.measured);
+        rows = [{ label: "Measured minus BDN", value: result.difference, unit: "MT" }, { label: "Difference relative to BDN", value: result.percent, unit: "%" }];
+      } else if (tool === "rob-balance") {
+        const result = robBalance(values.opening, values.receipts, values.transfers, values.closing);
+        rows = [{ label: "Opening ROB + receipts", value: result.available, unit: "MT" }, { label: "Calculated consumption", value: result.consumption, unit: "MT" }];
+      } else {
+        rows = [{ label: `${from} → ${to}`, value: convertUnit(values.quantity, from, to, dimension), unit: to }];
+      }
+    } catch (cause) {
+      resultError = cause instanceof Error ? cause.message : "Check your inputs.";
+    }
+  }
+  const hasErrors = Boolean(resultError || Object.keys(fieldErrors).length);
 
   function reset() {
     setInputs(startingInputs()); setDimension("volume"); setFrom("m³"); setTo("L"); setExportError("");
@@ -86,13 +120,23 @@ export default function SurveyTool({ tool, deliveryExample = false }: { tool: To
     <div className="grid lg:grid-cols-[1.1fr_0.9fr]">
       <div className="p-6 sm:p-8"><p className="mb-5 text-xs leading-6 text-[#60748a]">Edit the example inputs. Results update locally in your browser.</p>
         {tool === "unit-converter" && <div className="mb-5 grid gap-4 sm:grid-cols-3"><label className="text-xs font-semibold text-[#334e69]">Measurement<select value={dimension} onChange={(event) => { const next = event.target.value as "volume" | "mass"; setDimension(next); setFrom(next === "mass" ? "MT" : "m³"); setTo(next === "mass" ? "kg" : "L"); }} className="mt-2 w-full rounded-lg border border-[#c6ddec] bg-white p-3"><option value="volume">Volume</option><option value="mass">Mass</option></select></label><label className="text-xs font-semibold text-[#334e69]">From<select value={from} onChange={(event) => setFrom(event.target.value)} className="mt-2 w-full rounded-lg border border-[#c6ddec] bg-white p-3">{units.map((unit) => <option key={unit}>{unit}</option>)}</select></label><label className="text-xs font-semibold text-[#334e69]">To<select value={to} onChange={(event) => setTo(event.target.value)} className="mt-2 w-full rounded-lg border border-[#c6ddec] bg-white p-3">{units.map((unit) => <option key={unit}>{unit}</option>)}</select></label></div>}
-        <div className="grid gap-5 sm:grid-cols-2">{FIELDS[tool].map((field) => <label key={field.key} htmlFor={`${id}-${field.key}`} className="text-xs font-semibold text-[#334e69]">{field.label}<span className="mt-1 block text-[10px] font-normal leading-5 text-[#6c8197]">{tool === "unit-converter" ? from : field.unit}</span><input id={`${id}-${field.key}`} type="number" min={field.key === "density" || field.key === "vcf" || field.key === "declared" ? "0.000001" : "0"} step="any" inputMode="decimal" value={inputs[field.key] ?? ""} onChange={(event) => setInputs((values) => ({ ...values, [field.key]: event.target.value }))} aria-invalid={error ? true : undefined} aria-describedby={error ? `${id}-error` : undefined} className="mt-2 w-full rounded-lg border border-[#c6ddec] bg-[#f8fbfe] px-4 py-3 font-mono text-base text-[#031038] outline-none focus:border-[#032aac] focus:ring-2 focus:ring-[#032aac]/10" /></label>)}</div>
+        <div className="grid gap-5 sm:grid-cols-2">{FIELDS[tool].map((field) => {
+          const errorId = `${id}-${field.key}-error`;
+          const fieldError = fieldErrors[field.key];
+          return <div key={field.key}>
+            <label htmlFor={`${id}-${field.key}`} className="text-xs font-semibold text-[#334e69]">{field.label}<span className="mt-1 block text-[10px] font-normal leading-5 text-[#6c8197]">{tool === "unit-converter" ? from : field.unit}</span></label>
+            <input id={`${id}-${field.key}`} type="number" min={field.key === "density" || field.key === "vcf" || field.key === "declared" ? "0.000001" : "0"} step="any" inputMode="decimal" value={inputs[field.key] ?? ""} onChange={(event) => setInputs((current) => ({ ...current, [field.key]: event.target.value }))} aria-invalid={fieldError ? true : undefined} aria-describedby={fieldError ? errorId : undefined} className={`mt-2 w-full rounded-lg border bg-[#f8fbfe] px-4 py-3 font-mono text-base text-[#031038] outline-none focus:ring-2 focus:ring-[#032aac]/10 ${fieldError ? "border-[#b45309] focus:border-[#b45309]" : "border-[#c6ddec] focus:border-[#032aac]"}`} />
+            {fieldError && <p id={errorId} className="mt-1.5 text-xs leading-5 text-[#9a3412]">{fieldError}</p>}
+          </div>;
+        })}</div>
         <p className="mt-6 text-xs leading-6 text-[#60748a]">{config.note}</p>
       </div>
       <div className="border-t border-[#d3e9f3] bg-gradient-to-br from-[#f1f8fc] to-[#e2edff] p-6 sm:p-8 lg:border-l lg:border-t-0"><p className="font-mono text-[10px] uppercase tracking-[.14em] text-[#032aac]">Worksheet result</p>
-        {error ? <p id={`${id}-error`} role="status" className="mt-6 rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-7 text-amber-900">{error}</p> : <dl className="mt-4 divide-y divide-[#c8ddec]">{rows.map((row, index) => <div key={row.label} className="py-4"><dt className="text-xs text-[#52657c]">{row.label}</dt><dd className={`mt-2 break-all font-mono font-semibold tabular-nums text-[#032aac] ${index === rows.length - 1 ? "text-3xl" : "text-xl"}`}>{row.value.toLocaleString("en-US", { minimumFractionDigits: 3, maximumFractionDigits: tool === "unit-converter" ? 6 : 3 })} <span className="text-xs font-medium">{row.unit}</span></dd></div>)}</dl>}
+        <div className="mt-4" aria-live="polite" aria-atomic="true">
+          {hasErrors ? <p role="status" className="rounded-xl border border-amber-200 bg-amber-50 p-4 text-sm leading-7 text-amber-900">{resultError || "Correct the highlighted fields to update the result."}</p> : <dl className="divide-y divide-[#c8ddec]">{rows.map((row, index) => <div key={row.label} className="py-4"><dt className="text-xs text-[#52657c]">{row.label}</dt><dd className={`mt-2 break-all font-mono font-semibold tabular-nums text-[#032aac] ${index === rows.length - 1 ? "text-3xl" : "text-xl"}`}>{row.value.toLocaleString("en-US", { minimumFractionDigits: 3, maximumFractionDigits: tool === "unit-converter" ? 6 : 3 })} <span className="text-xs font-medium">{row.unit}</span></dd></div>)}</dl>}
+        </div>
         <p className="mt-5 text-[11px] leading-6 text-[#52657c]">{config.formula}</p>
-        <button type="button" onClick={exportCsv} disabled={Boolean(error)} className="marine-shiny marine-shiny--primary mt-6 inline-flex items-center gap-2 rounded-full px-5 py-3 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"><Download aria-hidden="true" className="size-4" />Download worksheet CSV</button>{exportError && <p role="status" className="mt-3 text-xs text-red-700">{exportError}</p>}
+        <button type="button" onClick={exportCsv} disabled={hasErrors} className="marine-shiny marine-shiny--primary mt-6 inline-flex items-center gap-2 rounded-full px-5 py-3 text-xs font-semibold text-white disabled:cursor-not-allowed disabled:opacity-40"><Download aria-hidden="true" className="size-4" />Download worksheet CSV</button>{exportError && <p role="status" className="mt-3 text-xs text-red-700">{exportError}</p>}
       </div>
     </div>
   </div>;

@@ -100,6 +100,9 @@ export default function QuoteForm({ compact = false, formType = "space-bqs", ini
   if (status === "done") {
     return (
       <motion.div
+        role="status"
+        aria-live="polite"
+        aria-atomic="true"
         initial={reducedMotion ? { opacity: 0 } : { opacity: 0, y: 10, scale: 0.98 }}
         animate={{ opacity: 1, y: 0, scale: 1 }}
         transition={{ duration: 0.28, ease: EASE_OUT }}

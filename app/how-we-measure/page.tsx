@@ -51,6 +51,7 @@ export default function Page() {
 
       {/* 4-Stage Graphic & Strapping Curve */}
       <section className="mx-auto max-w-6xl px-4">
+        <h2 className="sr-only">The calculation workflow at a glance</h2>
         <EnginePipelineGraphic />
       </section>
 
@@ -80,7 +81,8 @@ export default function Page() {
             <tr><td>0</td><td>5</td><td>Rejected: percentage difference requires a positive declared mass.</td></tr>
           </tbody>
         </table>
-        <p><Link className="underline" href="/tools/bdn-discrepancy?example=delivery-note">Try the worked example</Link>. Space BQS maintains these software checks. <Link className="underline" href="/contact">Report a calculation or documentation error</Link>.</p>
+        <p>These are automated regression checks for the signed BDN comparison arithmetic, including positive, negative, equal, and zero-declared-mass cases. They do not independently validate vessel measurements, the production Table 54B lookup, or a customer survey. <a className="underline" href="https://github.com/bqsspace-code/space-bqs-website/blob/main/tests/survey-calculations.test.mjs">Review the calculation test source</a>.</p>
+        <p className="mt-3"><Link className="underline" href="/tools/bdn-discrepancy?example=delivery-note">Try the worked example</Link>. Space BQS maintains these software checks. <Link className="underline" href="/contact">Report a calculation or documentation error</Link>.</p>
       </Section>
       <Section eyebrow="Calculation review" title="Inspect the inputs and method">
         <div className="grid gap-6 md:grid-cols-2">

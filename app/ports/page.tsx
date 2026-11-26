@@ -1,19 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs, Section, CtaRow } from "../components/ui";
 import { ALL_PORTS } from "../lib/ports";
-import { Anchor, ShieldCheck, MapPin, Gauge, FileCheck2, ArrowRight } from "lucide-react";
+import { MapPin, ArrowRight, ShieldCheck, FileCheck2 } from "lucide-react";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Global Bunker Surveying Ports & Hub Guides | Space BQS",
+export const metadata = routeMetadata("/ports", {
+  title: "Bunker Survey Port Guides",
   description:
-    "Port-specific bunker quantity survey guides, local regulations, Mass Flow Meter mandates, and sounding procedures for Singapore, Rotterdam, Fujairah, Houston, Piraeus, and Shanghai.",
-  openGraph: {
-    title: "Global Bunker Surveying Ports & Hub Guides | Space BQS",
-    description:
-      "Port-specific bunker quantity survey guides, local regulations, Mass Flow Meter mandates, and sounding procedures for the world's top bunkering hubs.",
-  },
-};
+    "Browse bunker survey port guides with local terminology, operating context, standards references, and questions to verify with authorities.",
+});
 
 export default function PortsPage() {
   return (
@@ -27,34 +22,34 @@ export default function PortsPage() {
         />
         <div className="mt-4 flex items-center gap-2">
           <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
-            Global Maritime Hubs
+            Bunker Survey Reference
           </span>
-          <span className="text-xs text-slate-500 font-mono">Port-Specific Survey Protocols</span>
+          <span className="text-xs text-slate-500 font-mono">Independent location guides</span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl lg:text-5xl">
-          Bunker Quantity Surveying Across Major Global Ports
+          Bunker Survey Guides by Port
         </h1>
         <p className="mt-4 max-w-3xl text-lg text-slate-600">
-          From Singapore’s mandatory Coriolis MFM cross-checks to Fujairah’s deep-water swell anchorages and Rotterdam’s SECA bio-blend density corrections, discover how Space BQS adapts to local maritime regulations, measurement standards, and dispute risks.
+          Explore port-specific reference guides covering local terminology, standards references, operating context, and survey workflows. Use the linked authority sources and confirm current requirements with the relevant port and survey stakeholders.
         </p>
 
-        {/* Global Stats Overview */}
+        {/* Guide scope, not market-volume or product-performance claims */}
         <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-            <span className="text-2xl font-bold text-ocean-900">6 Key Hubs</span>
-            <p className="text-xs text-slate-500 mt-1">Covering primary global bunker volume</p>
+            <span className="text-2xl font-bold text-ocean-900">{ALL_PORTS.length} Guides</span>
+            <p className="text-xs text-slate-500 mt-1">Port-specific reference pages</p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-            <span className="text-2xl font-bold text-ocean-900">100M+ MT</span>
-            <p className="text-xs text-slate-500 mt-1">Annual marine fuel volume tracked</p>
+            <span className="text-2xl font-bold text-ocean-900">Local Context</span>
+            <p className="text-xs text-slate-500 mt-1">Terminology and operating notes</p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-            <span className="text-2xl font-bold text-ocean-900">72-Hour</span>
-            <p className="text-xs text-slate-500 mt-1">Offline lease in exposed anchorages</p>
+            <span className="text-2xl font-bold text-ocean-900">Standards</span>
+            <p className="text-xs text-slate-500 mt-1">References to verify with authorities</p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-            <span className="text-2xl font-bold text-ocean-900">Zero Drift</span>
-            <p className="text-xs text-slate-500 mt-1">ASTM Table 54B & API Table 6B engine</p>
+            <span className="text-2xl font-bold text-ocean-900">Workflows</span>
+            <p className="text-xs text-slate-500 mt-1">Survey process and review topics</p>
           </div>
         </div>
       </div>
@@ -73,9 +68,7 @@ export default function PortsPage() {
                     <MapPin className="h-3 w-3 text-ocean-600" />
                     {port.country}
                   </span>
-                  <span className="text-xs font-semibold text-ocean-700 font-mono">
-                    {port.rank}
-                  </span>
+                  <span className="text-xs font-semibold text-ocean-700 font-mono">Port guide</span>
                 </div>
 
                 <h2 className="font-display mt-4 text-xl font-bold text-ocean-950">
@@ -84,31 +77,13 @@ export default function PortsPage() {
                   </Link>
                 </h2>
 
-                <div className="mt-2 flex items-center gap-2 text-xs text-slate-500">
-                  <span className="font-semibold text-slate-700">Vol:</span> {port.annualBunkerVolume}
-                </div>
-
                 <p className="mt-3 text-sm text-slate-600 line-clamp-3">
-                  {port.summary}
+                  General reference for teams researching bunker quantity survey work in {port.city}, {port.country}. Verify current local requirements with the relevant authorities.
                 </p>
-
-                {/* Key Standards Tags */}
-                <div className="mt-4 flex flex-wrap gap-1.5">
-                  {port.primaryStandards.slice(0, 2).map((std) => (
-                    <span
-                      key={std}
-                      className="rounded-md bg-slate-50 border border-slate-200 px-2 py-0.5 text-[11px] text-slate-600"
-                    >
-                      {std}
-                    </span>
-                  ))}
-                </div>
               </div>
 
               <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs text-slate-500">
-                  {port.challenges.length} Local Survey Challenges
-                </span>
+                <span className="text-xs text-slate-500">Location guide</span>
                 <Link
                   href={`/ports/${port.slug}`}
                   className="inline-flex items-center gap-1 text-sm font-semibold text-ocean-700 hover:text-ocean-900"
@@ -121,28 +96,28 @@ export default function PortsPage() {
         </div>
       </section>
 
-      {/* Port Operational Standards Comparison */}
-      <Section eyebrow="Standardization" title="Why Port-Specific BQS Workflows Matter">
+      {/* General planning guidance, not port-specific regulatory assertions */}
+      <Section eyebrow="Planning reference" title="What to verify before a survey">
         <div className="grid gap-6 md:grid-cols-3">
           <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <Gauge className="h-6 w-6 text-ocean-600 mb-2" />
-            <h3 className="font-bold text-ocean-950 text-base">Mass Flow Meter Verification</h3>
+            <ShieldCheck className="h-6 w-6 text-ocean-600 mb-2" />
+            <h3 className="font-bold text-ocean-950 text-base">Current requirements</h3>
             <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              In ports mandating Coriolis meters (Singapore, Rotterdam ARA), Space BQS reconciles electronic totalizer readings against manual tank strapping tables to resolve piping hold-up and line packing disputes.
+              Check the relevant port authority's current instructions and confirm which measurement standards and editions apply to the operation.
             </p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <Anchor className="h-6 w-6 text-ocean-600 mb-2" />
-            <h3 className="font-bold text-ocean-950 text-base">Offshore Swell & Trim Validation</h3>
+            <MapPin className="h-6 w-6 text-ocean-600 mb-2" />
+            <h3 className="font-bold text-ocean-950 text-base">Agreed survey scope</h3>
             <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              In open roadsteads (Fujairah, Galveston, Zhoushan), vessel motion creates liquid sloshing. Space BQS enforces dual-dip sounding checks and trim boundary interpolation without speculative extrapolation.
+              Agree the measurement method, inputs, responsible parties, and records to be retained before the survey begins.
             </p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-5">
             <FileCheck2 className="h-6 w-6 text-ocean-600 mb-2" />
-            <h3 className="font-bold text-ocean-950 text-base">Regional Commercial Documentation</h3>
+            <h3 className="font-bold text-ocean-950 text-base">Product fit</h3>
             <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Whether meeting USCG 33 CFR conference guidelines in Houston or Greek Customs procedures in Piraeus, Space BQS exports tamper-evident PDF certificates and 4-sheet transparent Excel packages.
+              Review the published <Link href="/how-we-measure" className="font-semibold text-ocean-700 underline">calculation methodology</Link> and confirm current product scope with the Space BQS team.
             </p>
           </div>
         </div>

@@ -1,19 +1,14 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs, Section, CtaRow } from "../components/ui";
 import { ALL_GLOSSARY_TERMS } from "../lib/glossary";
 import { BookOpen, Search, ArrowRight, Bookmark, Calculator, ShieldAlert, FlaskConical } from "lucide-react";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Marine Sounding & BQS Glossary — 20 Essential Industry Terms",
+export const metadata = routeMetadata("/glossary", {
+  title: "Marine Bunker Survey Glossary",
   description:
-    "Comprehensive glossary of marine bunker quantity survey terms: sounding, ullage, strapping tables, ASTM Table 54B, VCF, cappuccino effect, LOP, and ROB.",
-  openGraph: {
-    title: "Marine Sounding & BQS Glossary | Space BQS",
-    description:
-      "Comprehensive glossary of marine bunker quantity survey terms, ASTM calculation formulas, and field measurement procedures.",
-  },
-};
+    "Explanations of marine bunker quantity survey terms, including sounding, ullage, tank tables, volume correction factors, BDN, and ROB.",
+});
 
 const CATEGORIES = [
   "Physical Gauging",

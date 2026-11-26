@@ -8,6 +8,7 @@ import { ShinyButton } from "@/components/ui/shiny-button";
 import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
 import SpaceBqsSurveyFlight from "@/components/ui/space-bqs-survey-flight";
 import { ServiceLinks } from "../../components/MarketingPage";
+import { BreadcrumbJsonLd } from "../../components/ui";
 import WeightText from "../../components/WeightText";
 import WaveTransition from "../../components/WaveTransition";
 import ScrollReveal from "../../components/ScrollReveal";
@@ -28,7 +29,7 @@ export default function Page() {
     <section className="cargo-wms-hero" aria-labelledby="space-bqs-title">
       <div className="cargo-hero-current" aria-hidden="true" />
       <div className="cargo-hero-inner">
-        <nav aria-label="Breadcrumb" className="cargo-breadcrumb"><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/solutions">Solutions</Link><span aria-hidden="true">/</span><span aria-current="page">Space BQS</span></nav>
+        <nav aria-label="Breadcrumb" className="cargo-breadcrumb"><BreadcrumbJsonLd trail={[{ href: "/", label: "Home" }, { href: "/solutions", label: "Solutions" }, { href: "/solutions/space-bqs", label: "Space BQS" }]} /><Link href="/">Home</Link><span aria-hidden="true">/</span><Link href="/solutions">Solutions</Link><span aria-hidden="true">/</span><span aria-current="page">Space BQS</span></nav>
         <p className="cargo-hero-badge"><Smartphone className="h-3.5 w-3.5" aria-hidden="true" />Space BQS · Mobile + Web</p>
         <WeightText id="space-bqs-title" tag="h1" mode="cursor-radius" restWeight={350} activeWeight={750} className="cargo-hero-title font-display">Mobile On Deck.<br />{" "}Web In The Office.</WeightText>
         <p className="cargo-hero-description">Bunker quantity survey software for survey firms. Keep the reading, calculation, review, and client proof in one connected workflow.</p>

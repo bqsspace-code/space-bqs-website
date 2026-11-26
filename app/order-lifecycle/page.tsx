@@ -7,7 +7,7 @@ import { routeMetadata } from "../lib/seo-metadata";
 export const metadata: Metadata = routeMetadata("/order-lifecycle", {
   title: "Bunker Survey Record Workflow",
   description:
-    "How Space BQS moves from job nomination to a finalised report: Draft → In Progress → Submitted → Completed on mobile, and Draft → Calculated → Under Review → Finalised on web.",
+    "See how Space BQS moves a bunker survey from mobile capture to web review and report preparation, with release-specific workflow states.",
 });
 
 export default function Page() {
@@ -94,7 +94,7 @@ export default function Page() {
 
       <Section eyebrow="Workflow states" title="Step-by-step survey workflow">
         <div className="space-y-6">
-          {steps.map((s, idx) => {
+          {steps.map((s) => {
             const Icon = s.icon;
             return (
               <div
@@ -107,23 +107,23 @@ export default function Page() {
                       <Icon className="h-6 w-6" />
                     </div>
                     <div>
-                      <div className="flex items-center gap-2">
+                      <div className="flex flex-wrap items-center gap-2">
                         <span className="font-mono text-xs font-bold text-sea-700">PHASE {s.num}</span>
                         <span className="text-slate-300">·</span>
-                        <span className="rounded bg-slate-100 px-2 py-0.5 text-[10px] font-mono font-bold text-slate-700">
+                        <span className="rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-mono font-bold text-slate-700">
                           Web: {s.webState}
                         </span>
-                        <span className="rounded bg-ocean-50 px-2 py-0.5 text-[10px] font-mono font-bold text-ocean-800">
+                        <span className="rounded-md bg-ocean-50 px-2.5 py-1 text-[11px] font-mono font-bold text-ocean-800">
                           Mobile: {s.mobileState}
                         </span>
                       </div>
                       <h3 className="font-display text-xl font-bold text-ocean-950 mt-1">{s.name}</h3>
                       <p className="mt-2 text-sm text-slate-600 leading-relaxed max-w-2xl">{s.summary}</p>
 
-                      <ul className="mt-4 space-y-1.5 text-xs text-slate-700">
+                      <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-700">
                         {s.details.map((d, i) => (
-                          <li key={i} className="flex items-center gap-2">
-                            <CheckCircle2 className="h-3.5 w-3.5 text-sea-600 shrink-0" />
+                          <li key={i} className="flex items-start gap-2">
+                            <CheckCircle2 className="mt-1 h-4 w-4 text-sea-600 shrink-0" />
                             <span>{d}</span>
                           </li>
                         ))}
@@ -131,15 +131,6 @@ export default function Page() {
                     </div>
                   </div>
 
-                  <div className="rounded-xl border border-slate-100 bg-slate-50 p-4 text-xs font-mono shrink-0 md:w-56">
-                    <span className="text-[10px] text-slate-400 uppercase tracking-wide block">Gated Actions</span>
-                    <p className="mt-1 font-semibold text-slate-800">
-                      {idx === 3 ? "PDF & Excel ready" : "Export unavailable (Draft)"}
-                    </p>
-                    <span className="text-[10px] text-slate-500 block mt-1">
-                      {idx === 3 ? "Survey marked finalised" : "Local draft storage"}
-                    </span>
-                  </div>
                 </div>
               </div>
             );
