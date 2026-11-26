@@ -347,7 +347,7 @@ export function WhereNumbersGoWrong() {
                   </svg>
                 </div>
                 <span className="font-display font-semibold text-[18px] text-[#032AAC]">
-                  One locked record you can open.
+                  One finalised record you can open.
                 </span>
               </div>
             </div>

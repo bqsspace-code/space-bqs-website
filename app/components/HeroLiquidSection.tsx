@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { motion, useInView, useMotionValueEvent, useReducedMotion, useScroll, useTransform } from "framer-motion";
 import { ArrowDown } from "lucide-react";
 import { AuroraBackground } from "@/components/ui/aurora-background";
@@ -56,23 +57,23 @@ export default function HeroLiquidSection({ className = "", transitionMode = "wa
 
       <motion.div style={{ y: reducedMotion ? 0 : y }} className="mx-auto flex w-full max-w-[1000px] flex-1 flex-col justify-center px-5 pb-12 pt-28 sm:px-6 sm:pb-16 sm:pt-36">
         <div className="flex flex-col items-center space-y-5 text-center sm:space-y-6">
-          <p className="hero-glass-label max-w-2xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.16em] text-[#032AAC]/85 sm:text-xs">The world’s first mobile app for bunker quantity surveys.</p>
+          <p className="hero-glass-label max-w-2xl font-mono text-[11px] uppercase leading-relaxed tracking-[0.16em] text-[#032AAC]/85 sm:text-xs">Software for bunker quantity surveys</p>
           <WeightText
             tag="h1" mode="cursor-radius" restWeight={300} activeWeight={800} radius={160}
             activeColor="#032AAC" baseColor="#031038" accentColor="#19B5C9"
             className="mx-auto w-full max-w-4xl font-display text-[clamp(32px,4.5vw,68px)] leading-[1.1] tracking-[-0.03em]"
           >
-            Bunker Quantity Survey Software.
+            Bunker Quantity Survey Software
             <br className="hidden sm:inline" />
             {" "}Built for Deck and Office.
           </WeightText>
           <p className="max-w-2xl text-sm leading-relaxed text-[#031038]/70 sm:text-base lg:text-lg">
-            Capture readings and calculate offline on the mobile app. Review surveys,
-            manage records, and issue locked certificates through the web app.
+            Capture tank readings offline, review survey calculations in the web platform,
+            and prepare PDF and Excel reports for your clients.
           </p>
           <div className="pt-1"><CtaRow className="justify-center" /></div>
           <AppStoreBadges showSubtitle={false} />
-          {compact && <p className="max-w-xl font-mono text-[9px] uppercase leading-6 tracking-[.08em] text-[#52657c] sm:text-[10px]">Offline capture · Locked PDF + Excel</p>}
+          {compact && <p className="max-w-xl font-mono text-[9px] uppercase leading-6 tracking-[.08em] text-[#52657c] sm:text-[10px]">Offline capture · Finalised PDF + Excel</p>}
         </div>
       </motion.div>
 

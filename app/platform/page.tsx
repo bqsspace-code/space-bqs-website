@@ -1,14 +1,15 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { routeMetadata } from "../lib/seo-metadata";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../components/ui";
 import OfficeDashboardMock from "../components/OfficeDashboardMock";
 import { Search, Filter, Lock, Download, ShieldCheck, CheckCircle2, Database, Layers, ArrowRight } from "lucide-react";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/platform", {
   title: "Platform — Your Office View of Every Survey",
   description:
-    "Space BQS platform: survey register, dashboard trends, vessel list, master tank and correction tables, locked audit trail, PDF and Excel export.",
-};
+    "Review bunker survey calculations, manage vessel records, follow survey status, and prepare PDF and Excel reports in the Space BQS web platform.",
+});
 
 export default function Page() {
   return (
@@ -24,13 +25,13 @@ export default function Page() {
           <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
             Supervisor & Office Console
           </span>
-          <span className="text-xs text-slate-500 font-mono">Real-Time Fleet Oversight</span>
+          <span className="text-xs text-slate-500 font-mono">Web review and reporting</span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
           The web app — your office view of every survey.
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          All your surveyors&apos; jobs, all vessels, one immutable register. No loose spreadsheets or disputed figures lost in email chains.
+          Review survey records, manage vessel information, and access report workflows in the Space BQS web platform.
         </p>
       </div>
 
@@ -44,19 +45,20 @@ export default function Page() {
 
       {/* Interactive Platform Mockup */}
       <section className="mx-auto max-w-6xl px-4">
-              <OfficeDashboardMock />
+        <p className="mb-3 text-xs font-medium text-slate-500">Illustrative interface preview; dashboard figures are sample data, not customer results.</p>
+        <OfficeDashboardMock />
       </section>
 
       {/* Core Capabilities */}
-      <Section eyebrow="Core Capabilities" title="Built for high-volume survey operations">
+      <Section eyebrow="Web platform" title="Office tools for survey teams">
         <div className="grid gap-6 md:grid-cols-3">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="rounded-xl bg-ocean-50 p-3 text-ocean-700 w-fit">
               <Search className="h-6 w-6" />
             </div>
-            <h3 className="font-display font-bold text-ocean-950 text-lg mt-4">Unified Survey Register</h3>
+              <h3 className="font-display font-bold text-ocean-950 text-lg mt-4">Survey register</h3>
             <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Instant multi-attribute search by survey ID, vessel IMO, port, inspector, or BDN reference. Filter by fuel grade (VLSFO, MGO, ULSFO) and execution status.
+              Review bunker survey records and use the available search and status controls to find relevant work.
             </p>
           </div>
 
@@ -64,9 +66,9 @@ export default function Page() {
             <div className="rounded-xl bg-sea-50 p-3 text-sea-700 w-fit">
               <Lock className="h-6 w-6" />
             </div>
-            <h3 className="font-display font-bold text-ocean-950 text-lg mt-4">Immutable Finalization Lock</h3>
+              <h3 className="font-display font-bold text-ocean-950 text-lg mt-4">Supervisor review and finalization</h3>
             <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Once a survey is finalised by an authorized supervisor, it is cryptographically locked with SHA-256. Figures cannot be altered or soft-deleted by field surveyors or external parties.
+              The web workflow supports review and finalization by an authorized supervisor or administrator. Confirm the current correction and record-retention behavior with the product team.
             </p>
           </div>
 
@@ -84,7 +86,7 @@ export default function Page() {
         <div className="mt-8 flex flex-wrap gap-4 items-center">
           <CtaRow />
           <Link href="/portal-roadmap" className="text-xs font-semibold text-ocean-700 hover:underline">
-            Read about our upcoming Client Portal roadmap →
+            Read about the client portal roadmap concept →
           </Link>
         </div>
       </Section>

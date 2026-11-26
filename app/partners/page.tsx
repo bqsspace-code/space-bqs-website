@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Section, CtaRow, Breadcrumbs } from "../components/ui";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Partners — Resell or Implement Space BQS",
+export const metadata: Metadata = routeMetadata("/partners", {
+  title: "Software Partnerships",
   description:
-    "For resellers and implementation partners serving marine survey firms: one standard method, same locked certificate everywhere.",
-};
+    "For resellers and implementation partners serving marine survey firms: one software workflow for bunker quantity survey records.",
+});
 
 export default function Page() {
   return (
@@ -13,7 +14,7 @@ export default function Page() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/partners", label: "Partners" }]} />
         <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">Partners — implement with us</h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">For resellers and implementation partners serving marine survey firms. One standard method, same locked certificate everywhere.</p>
+        <p className="mt-3 max-w-3xl text-lg text-slate-600">For resellers and implementation partners serving marine survey firms. One software workflow for bunker quantity survey records.</p>
       </div>
       <Section eyebrow="Two ways" title="Buy for your firm or resell to firms">
         <div className="grid gap-4 md:grid-cols-2">

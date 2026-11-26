@@ -1,12 +1,14 @@
 "use client";
 
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState, useRef, useEffect } from "react";
 
 import WeightText from "./WeightText";
 import { ShinyButton } from "@/components/ui/shiny-button";
 import ScrollReveal from "./ScrollReveal";
 import { SITE_URL } from "../lib/site";
+import { track } from "../lib/analytics";
 
 /* ─── Eyebrow ─── */
 export function Eyebrow({
@@ -133,10 +135,12 @@ export function AnswerBlock({
 
 /* ─── CtaRow ─── */
 export function CtaRow({ className = "" }: { className?: string }) {
+  const pathname = usePathname();
   return (
     <div className={`flex flex-wrap items-center justify-center gap-2.5 sm:gap-4 ${className}`}>
       <ShinyButton
         href="/request-demo"
+        onClick={() => track("cta_click", { target: "demo", location: pathname })}
         className="inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-[#032AAC] hover:bg-[#1B4FD1] text-white font-semibold text-xs sm:text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98]"
       >
         <span>Request a demo</span>
@@ -156,6 +160,7 @@ export function CtaRow({ className = "" }: { className?: string }) {
       <ShinyButton
         variant="secondary"
         href="/sample-report"
+        onClick={() => track("sample_report_view", { location: pathname })}
         className="inline-flex items-center gap-2 px-5 sm:px-7 py-2.5 sm:py-3 rounded-full bg-white hover:bg-slate-50 border border-slate-300 text-[#031038] font-semibold text-xs sm:text-sm shadow-xs transition-all hover:scale-[1.02] active:scale-[0.98]"
       >
         <span>See sample report</span>

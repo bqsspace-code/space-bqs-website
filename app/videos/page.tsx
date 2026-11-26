@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import AppDemoVideoSection from "../components/AppDemoVideoSection";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Videos — Explore Space BQS",
+export const metadata: Metadata = routeMetadata("/videos", {
+  title: "App and Product Walkthrough Videos",
   description:
     "Explore the Space BQS workflow, from on-deck tank readings and volume correction to the final survey certificate.",
-};
+});
 
 export default function VideosPage() {
   return (

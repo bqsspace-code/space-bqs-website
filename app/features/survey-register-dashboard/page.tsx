@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../../components/ui";
 import { Search, Database, BarChart3, Filter, ShieldCheck, CheckCircle2, Clock, Users } from "lucide-react";
+import { routeMetadata } from "../../lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/features/survey-register-dashboard", {
   title: "Survey Register & Bunker Dashboard",
   description:
     "Space BQS register: search by survey number, vessel, port, inspector or BDN. Filters, Total MT, dashboard trends, needs-attention. Plain guide.",
-};
+});
 
 export default function Page() {
   return (
@@ -64,7 +65,7 @@ export default function Page() {
               Live Job Lifecycle Tracking
             </h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Filter surveys by operational state: Draft (deck capture in progress), Submitted (surveyor finished, awaiting supervisor review), or Finalised (locked certificate issued to client).
+              Filter surveys by operational state: Draft (deck capture in progress), Submitted (surveyor finished, awaiting supervisor review), or Finalised (review complete and report issued).
             </p>
           </div>
 
@@ -86,7 +87,7 @@ export default function Page() {
       <Section eyebrow="Governance" title="Multi-role permissions for field surveyors and supervisors">
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
           <h3 className="font-display text-xl font-bold text-ocean-950">
-            Defensible checks before any certificate is locked
+            Review checks before a certificate is finalised
           </h3>
           <p className="mt-2 text-xs text-slate-600 leading-relaxed max-w-3xl">
             In marine surveying, issuing an incorrect certificate exposes your firm to claim liability. Space BQS enforces a strict separation of duties between deck surveyors recording physical measurements and senior supervisors reviewing calculation outputs:
@@ -104,14 +105,14 @@ export default function Page() {
               <span className="font-mono text-xs font-bold text-ocean-700 uppercase">Role 2: Operations Supervisor</span>
               <h4 className="font-display mt-1 font-bold text-slate-900 text-sm">Review &amp; Finalisation</h4>
               <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                Reviews calculation audit trail, verifies BDN numbers, resolves any flagged warnings, and applies the digital seal to lock the certificate.
+                Reviews the calculation record, checks BDN figures, resolves flagged warnings where applicable, and finalises the report.
               </p>
             </div>
             <div className="rounded-xl bg-white p-4 border border-slate-200">
               <span className="font-mono text-xs font-bold text-ocean-700 uppercase">Role 3: Client Viewer</span>
-              <h4 className="font-display mt-1 font-bold text-slate-900 text-sm">Read-Only Token Access</h4>
+              <h4 className="font-display mt-1 font-bold text-slate-900 text-sm">Read-only client access</h4>
               <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                Shipowners, charterers, and bunker buyers receive a direct token link to download locked PDF certificates and Excel sheets with zero login hurdles.
+                Product materials describe read-only client access by link. Confirm current availability, scope, and access controls with the product team before relying on it.
               </p>
             </div>
           </div>

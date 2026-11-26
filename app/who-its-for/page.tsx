@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Section, CtaRow, Breadcrumbs } from "../components/ui";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Who It's For — Owners, Charterers, Operators, Survey Firms",
+export const metadata: Metadata = routeMetadata("/who-its-for", {
+  title: "Bunker Survey Software for Survey Teams",
   description:
-    "Space BQS for owners, charterers, operators and survey firms: surveyor on deck, supervisor in office, client receiving locked proof. No login needed for clients.",
-};
+    "Space BQS is designed for independent bunker survey firms, marine inspection agencies, surveyors, and supervisors reviewing survey records.",
+});
 
 export default function Page() {
   return (
@@ -20,7 +21,7 @@ export default function Page() {
           {[
             { t: "Surveyor on your team", d: "Scans vessel QR. Three steps: Ship, Fuel, Tanks. Big buttons, works offline, autosaves. Submits when done.", cta: "See mobile app" },
             { t: "Supervisor in your office", d: "Reviews breakdown, recalculates, completes, exports PDF + Excel. Dashboard shows fleet, trends, attention list.", cta: "See platform" },
-            { t: "Your client (owner / charterer)", d: "No login needed. Receives your locked PDF + Excel to forward to anyone. Searchable later by your team.", cta: "See sample report" },
+            { t: "Your client (owner / charterer)", d: "Receives the issued PDF + Excel report from your team. Searchable later by your team.", cta: "See sample report" },
           ].map((p) => (
             <div key={p.t} className="rounded-xl border border-slate-200 p-5">
               <p className="font-display font-bold">{p.t}</p>

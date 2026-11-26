@@ -54,7 +54,7 @@ const WORKFLOWS: WorkflowStageData[] = [
     stepNumber: "02",
     eyebrow: "WORKFLOW 02 / CHARTER REDELIVERY",
     heading: "Pair two surveys. Settle charter fuel.",
-    sentence: "Pair delivery and redelivery surveys to settle charter fuel disputes with an immutable record both sides can follow.",
+    sentence: "Pair delivery and redelivery surveys so the quantities and inputs behind a charter fuel comparison can be reviewed together.",
     tag: "ROB Audit Trail",
     href: "/services/rob-survey",
     accentColor: "#3B82F6",
@@ -67,9 +67,9 @@ const WORKFLOWS: WorkflowStageData[] = [
     id: "debunkering",
     stepNumber: "03",
     eyebrow: "WORKFLOW 03 / OFFLOAD RECORD",
-    heading: "Record what left the tank on one certificate.",
-    sentence: "Record what left the tank, with pumping rates, discharge temperatures, and manifold seals on a single locked certificate.",
-    tag: "Offload Proof",
+    heading: "Record what left the tank.",
+    sentence: "Record the quantities and supporting particulars collected during fuel removal, then review the finalised report.",
+    tag: "Fuel removal record",
     href: "/services/debunkering-survey",
     accentColor: "#10B981",
     lightBg: "linear-gradient(180deg, #F0F8F6 0%, #E1EFEA 100%)",
@@ -531,7 +531,7 @@ export default function WorkflowInteractiveShowcase() {
                   <div className="mt-2 bg-white p-2.5 rounded-xl border border-slate-200 shadow-2xs">
                     <div className="flex items-center gap-1.5 text-teal-700">
                       <CheckCircle2 className="w-3 h-3" />
-                      <span className="text-[8px] font-bold">Removal Certified &amp; Locked</span>
+                      <span className="text-[8px] font-bold">Removal Record Finalised</span>
                     </div>
                     <p className="text-[7px] text-slate-500 leading-relaxed mt-0.5">
                       Tank 3P: 310.4 MT → 26.25 MT. Seals #4892 verified.

@@ -42,7 +42,7 @@ test("invalid, negative, infinite, and overflowing inputs are not exported as va
 });
 
 test("inquiries preserve solution and deployment choices with backward-compatible defaults", () => {
-  const base = { name: "Test User", email: "user@example.com", company: "Example", role: "Operations", teamSize: "1–5" };
+  const base = { name: "Test User", email: "user@example.com", company: "Example", country: "Singapore", organizationType: "Independent bunker survey company", companySize: "1-10", role: "Operations", teamSize: "1–5" };
   for (const deployment of ["Public cloud", "Private cloud", "On-premises", "Discuss options"]) {
     const parsed = quoteSchema.parse({ ...base, solution: "Cargo WMS", deployment });
     assert.equal(parsed.solution, "Cargo WMS");
@@ -58,8 +58,10 @@ test("demo request schema validates split names, optional fields, and email form
     lastName: "Doe",
     email: "jane@example.com",
     company: "Example Ltd",
+    country: "Singapore",
+    organizationType: "Independent bunker survey company",
     phoneNumber: "",
-    companySize: "",
+    companySize: "1-10",
     solution: "Space BQS",
     deployment: "Public cloud",
     message: "Evaluating deck survey sync.",
@@ -68,7 +70,7 @@ test("demo request schema validates split names, optional fields, and email form
   assert.equal(parsed.firstName, "Jane");
   assert.equal(parsed.lastName, "Doe");
   assert.equal(parsed.phoneNumber, undefined);
-  assert.equal(parsed.companySize, undefined);
+  assert.equal(parsed.companySize, "1-10");
   assert.equal(parsed.formType, "space-bqs");
   assert.equal(quoteSchema.safeParse({ firstName: "Jane", lastName: "Doe", email: "not-an-email", company: "Co" }).success, false);
 });
@@ -79,6 +81,8 @@ test("buildCreateDemoRequestInput maps Space BQS fields into CreateDemoRequestIn
     lastName: "Doe",
     email: "jane@example.com",
     company: "Example Ltd",
+    country: "Malaysia",
+    organizationType: "Marine inspection agency",
     phoneNumber: "+15551234567",
     companySize: "11-50",
     role: "Fleet Superintendent",
@@ -96,6 +100,8 @@ test("buildCreateDemoRequestInput maps Space BQS fields into CreateDemoRequestIn
   assert.equal(input.company, "Example Ltd");
   assert.equal(input.phoneNumber, "+15551234567");
   assert.equal(input.companySize, "11-50");
+  assert.match(input.projectDetails ?? "", /Country: Malaysia/);
+  assert.match(input.projectDetails ?? "", /Organization type: Marine inspection agency/);
   assert.equal(input.formType, "space-bqs");
   assert.match(input.projectDetails ?? "", /Solution: Cargo WMS/);
   assert.match(input.projectDetails ?? "", /Deployment: Private cloud/);
@@ -107,6 +113,9 @@ test("buildCreateDemoRequestInput maps Space BQS fields into CreateDemoRequestIn
     name: "Captain Alex",
     email: "alex@example.com",
     company: "Harbor Marine",
+    country: "United States",
+    organizationType: "Fleet operator",
+    companySize: "11-50",
     role: "Lead Surveyor",
     teamSize: "6–20",
   });

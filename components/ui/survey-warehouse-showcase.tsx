@@ -13,8 +13,8 @@ import WeightText from "@/app/components/WeightText";
 const BENEFITS = [
   { icon: Search, title: "Find the survey", subtitle: "Search, not folder-hunt.", detail: "Use survey identifiers to get back to the whole record. Try “Singapore”, “ROB”, or “0002” in this sample archive." },
   { icon: Layers, title: "Keep the context", subtitle: "Tables stay with the job.", detail: "The supporting table versions and engine context stay with the survey, so a later check starts with the right inputs." },
-  { icon: LockKeyhole, title: "Trust the final", subtitle: "A clear, locked end point.", detail: "Finalisation locks the record. Its status history shows how the survey progressed through calculation and review." },
-  { icon: FileCheck2, title: "Share the proof", subtitle: "A readable client handover.", detail: "A PDF certificate and four-sheet Excel workbook keep the issued result and supporting calculations together." },
+  { icon: LockKeyhole, title: "Trust the final", subtitle: "A clear end point.", detail: "Finalisation closes the reviewed record. Its status history shows how the survey progressed through calculation and review." },
+  { icon: FileCheck2, title: "Share the proof", subtitle: "A readable client handover.", detail: "Product materials describe PDF and Excel report outputs that keep the result and supporting calculations together." },
 ] as const;
 
 const RECORDS = [
@@ -79,7 +79,7 @@ export default function SurveyWarehouseShowcase() {
               {record ? <>
                 <div className="warehouse-record-header relative overflow-hidden px-6 py-6 sm:px-8">
                   <div aria-hidden="true" className="pointer-events-none absolute -right-12 -top-12 size-56 rounded-full border border-white/10 shadow-[0_0_0_35px_rgba(255,255,255,.025),0_0_0_70px_rgba(255,255,255,.02)]" />
-                  <div className="relative flex flex-wrap items-center justify-between gap-3"><span className="flex items-center gap-2 font-mono text-[10px] text-white/75"><Ship aria-hidden="true" className="size-3.5" />{record.vessel}</span><span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-100/20 bg-white/10 px-2.5 py-1 text-[9px] text-cyan-100"><LockKeyhole aria-hidden="true" className="size-3" />Finalised · locked</span></div>
+                  <div className="relative flex flex-wrap items-center justify-between gap-3"><span className="flex items-center gap-2 font-mono text-[10px] text-white/75"><Ship aria-hidden="true" className="size-3.5" />{record.vessel}</span><span className="inline-flex items-center gap-1.5 rounded-full border border-cyan-100/20 bg-white/10 px-2.5 py-1 text-[9px] text-cyan-100"><LockKeyhole aria-hidden="true" className="size-3" />Finalised</span></div>
                   <h3 className="relative mt-4 font-display text-2xl font-semibold tracking-tight text-white sm:text-3xl">{record.id}</h3><p className="relative mt-2 text-xs text-blue-100/80">{record.type} <span className="mx-2 text-white/25">/</span> {record.port} <span className="mx-2 text-white/25">/</span> {record.date}</p>
                 </div>
 
@@ -99,7 +99,7 @@ export default function SurveyWarehouseShowcase() {
                       </>}
 
                       {view === 2 && <>
-                        <div className="mb-5 flex items-center gap-3 rounded-xl border border-[#d7e7f2] bg-[#eef6fc] p-4"><LockKeyhole aria-hidden="true" className="size-5 text-[#032aac]" /><div><p className="text-xs font-semibold text-[#032aac]">Finalised record · read-only</p><p className="mt-1 text-[10px] leading-5 text-[#688097]">The issued record has reached its locked end point.</p></div></div>
+                        <div className="mb-5 flex items-center gap-3 rounded-xl border border-[#d7e7f2] bg-[#eef6fc] p-4"><LockKeyhole aria-hidden="true" className="size-5 text-[#032aac]" /><div><p className="text-xs font-semibold text-[#032aac]">Finalised record · read-only</p><p className="mt-1 text-[10px] leading-5 text-[#688097]">The issued record has reached its finalised end point.</p></div></div>
                         <ol className="grid grid-cols-2 gap-x-4 gap-y-4 sm:grid-cols-4">{["Draft", "Calculated", "Under review", "Finalised"].map((status, index) => <li key={status} className="relative"><div className="mb-2 flex items-center gap-2"><span className="flex size-6 shrink-0 items-center justify-center rounded-full bg-[#032aac] text-white"><Check aria-hidden="true" className="size-3" /></span>{index < 3 && <span aria-hidden="true" className="h-px flex-1 bg-[#b9d0e9]" />}</div><span className="text-[10px] font-medium text-[#334e69]">{status}</span></li>)}</ol>
                         <p className="mt-5 text-xs leading-6 text-[#60778e]">Follow the web lifecycle from first draft through review to finalisation.</p>
                       </>}

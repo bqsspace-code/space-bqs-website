@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Section, CtaRow, Breadcrumbs } from "../components/ui";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/integrations-api", {
   title: "Integrations & API — Webhooks, Keys, MCP",
   description:
     "Connect Space BQS: finalisation webhooks to Activepieces, x-api-key REST fetch and analysis post, MCP tools, Firebase realtime bridge. Contact for keys.",
-};
+});
 
 const ROWS = [
   { want: "Notify your system on finalise", use: "Per-org webhook URL + API key", get: "POST with survey fetch and analysis-submit links (10s best-effort, never blocks)" },

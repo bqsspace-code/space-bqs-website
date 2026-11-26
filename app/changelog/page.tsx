@@ -1,10 +1,11 @@
 import type { Metadata } from "next";
 import { Section, Breadcrumbs } from "../components/ui";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/changelog", {
   title: "Changelog — What Shipped",
   description: "Space BQS website changelog: only live, customer-visible changes.",
-};
+});
 
 const ENTRIES = [
   { v: "0.2.0 — 2026-10-15", t: "Added services hub, demo, why-independent, who-its-for, features, integrations, security, partners, customers, changelog + 4 new guides." },

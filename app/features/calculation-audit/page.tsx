@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Section, AnswerBlock, CtaRow, Breadcrumbs } from "../../components/ui";
 import { Calculator, ShieldCheck, CheckCircle2, AlertOctagon, Layers, ArrowRight, FileCheck } from "lucide-react";
+import { routeMetadata } from "../../lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/features/calculation-audit", {
   title: "Deterministic ASTM 54B Calculation Engine",
   description:
     "Explore the Space BQS calculation core: deterministic ASTM D1250 Table 54B volume correction, tank strapping curve interpolation, free water deduction, and mass conversion.",
-};
+});
 
 export default function Page() {
   return (
@@ -29,20 +30,20 @@ export default function Page() {
           Deterministic ASTM Table 54B calculation engine
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          From deck tape soundings to certified metric tonnes: every calculation step is mathematically locked, transparent, and auditable per line.
+          Explore the calculation inputs and method described by the product, from tank readings to a quantity result. Confirm the engine version used by your organization with the product team.
         </p>
       </div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <AnswerBlock>
           <p>
-            The Space BQS calculation engine is deterministic: identical sounding inputs, temperatures, and fuel densities will produce the exact same metric tonnage on any device, web or offline. It replaces arbitrary spreadsheet macros with standardized ASTM D1250 Table 54B petroleum measurement algorithms, enforcing zero extrapolation and per-line audit trails.
+            Space BQS product materials identify ASTM Table 54B as a volume-correction reference. The exact production implementation, applicable table edition, reference conditions, and validation behavior should be confirmed for the product release used by your organization. This website&apos;s public volume-to-mass worksheet accepts a user-supplied factor and is not the production table engine.
           </p>
         </AnswerBlock>
       </div>
 
       {/* 5-Step Pipeline */}
-      <Section eyebrow="Mathematical Pipeline" title="Five deterministic steps from tape to metric tonnes">
+      <Section eyebrow="Calculation steps" title="Five steps from tape reading to metric tonnes">
         <div className="space-y-6">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="flex items-start gap-4">
@@ -54,7 +55,7 @@ export default function Page() {
                   Observed Volume from Tank Strapping Tables
                 </h3>
                 <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                  The surveyor records tape sounding (liquid depth in metres) or ullage (empty height from reference point). The engine looks up the vessel&apos;s digitized tank calibration table and performs 1D linear interpolation between calibration intervals. Exact interval hits are explicitly flagged in the audit register.
+                  The surveyor records tape sounding (liquid depth in metres) or ullage (empty height from reference point). The production application converts the reading using the vessel calibration data selected for the survey. Confirm the applicable table and lookup method for your release.
                 </p>
               </div>
             </div>
@@ -70,13 +71,13 @@ export default function Page() {
                   Free Water Volume Deduction
                 </h3>
                 <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                  Water paste readings identify settled water at the tank bottom. The engine calculates free water volume from the lower strapping table bounds and subtracts it directly from observed volume:
+                  Water paste readings identify settled water at the tank bottom. Where the survey method deducts free water, the record shows the volume deducted from observed volume:
                 </p>
                 <div className="mt-3 rounded-lg bg-slate-50 p-3 font-mono text-xs text-slate-800 border border-slate-200">
                   Net Observed Volume (m³) = Total Observed Volume (m³) − Free Water Volume (m³)
                 </div>
                 <p className="mt-2 text-xs text-slate-500">
-                  Negative results or free water exceeding observed volume are immediately rejected per line to prevent corrupted survey records.
+                  A negative result or free water exceeding observed volume needs review under the survey firm&apos;s procedure. Confirm how the release flags such inputs.
                 </p>
               </div>
             </div>
@@ -92,13 +93,13 @@ export default function Page() {
                   ASTM D1250 Table 54B Volume Correction Factor (VCF)
                 </h3>
                 <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                  Heated marine fuel expands in volume. To normalize volume to standard 15°C conditions, the engine executes a bilinear interpolation across the official ASTM D1250-04 Table 54B grid using the fuel&apos;s standard density at 15°C (kg/L) and observed tank temperature (°C).
+                  Heated marine fuel expands in volume. Space BQS product materials refer to ASTM D1250 Table 54B for volume correction using the fuel&apos;s density at 15°C (kg/L) and observed tank temperature (°C). Confirm the table edition, supported range, and production implementation with the product team.
                 </p>
                 <div className="mt-3 rounded-lg bg-slate-50 p-3 font-mono text-xs text-slate-800 border border-slate-200">
                   Standard Volume at 15°C (m³) = Net Observed Volume (m³) × Table 54B VCF
                 </div>
                 <p className="mt-2 text-xs text-slate-500">
-                  If density or temperature falls outside standard petroleum boundaries, the engine throws an explicit out-of-range flag rather than extrapolating or guessing.
+                  If density or temperature falls outside the supported range, the input should be flagged for review rather than assumed. Confirm the current release&apos;s validation behavior.
                 </p>
               </div>
             </div>
@@ -114,7 +115,7 @@ export default function Page() {
                   Mass Conversion to Metric Tonnes (MT)
                 </h3>
                 <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                  Charterparties and bunker delivery notes settle custody transfer by mass, not volume. Standard volume is multiplied by density and converted to metric tonnes:
+                  Bunker quantities are commonly expressed by mass. The report applies the density and mass basis defined for the survey, converting standard volume to metric tonnes:
                 </p>
                 <div className="mt-3 rounded-lg bg-slate-50 p-3 font-mono text-xs text-slate-800 border border-slate-200">
                   Mass (kg) = Standard Volume (m³) × Density at 15°C (kg/m³) &nbsp;|&nbsp; Mass in MT = Mass (kg) ÷ 1,000
@@ -130,10 +131,10 @@ export default function Page() {
               </span>
               <div>
                 <h3 className="font-display text-lg font-bold text-ocean-950">
-                  Precision Rounding &amp; Per-Line Audit Trail
+                  Rounding and record detail
                 </h3>
                 <p className="mt-2 text-sm text-slate-600 leading-relaxed">
-                  Internal arithmetic preserves 64-bit IEEE 754 precision to avoid cascading rounding drift. Rounding is applied only at export according to industry standards: Volume to 3 decimals, VCF to 4 decimals, and Metric Tonnes to 3 decimals. Every line stores its source table ID, revision hash, and method.
+                  Product materials describe tank-level working and report outputs. Confirm the current release&apos;s arithmetic precision, rounding rules, and the reference information retained with each line before relying on them in a survey procedure.
                 </p>
               </div>
             </div>
@@ -145,7 +146,7 @@ export default function Page() {
       <Section eyebrow="Benchmark" title="Worked mathematical validation check">
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
           <h3 className="font-display text-lg font-bold text-ocean-950">
-            Real-World Calculation Check: VLSFO Heavy Fuel Oil
+            Worked benchmark check: VLSFO example
           </h3>
           <p className="mt-2 text-xs text-slate-600">
             Standard engine test case verifying intermediate steps and final metric tonnage output:
@@ -167,9 +168,9 @@ export default function Page() {
               <span className="text-[11px] text-slate-500">Table 54B VCF: 0.9677</span>
             </div>
             <div className="rounded-xl bg-white p-4 border border-ocean-600 bg-ocean-50/30">
-              <span className="text-[11px] font-mono uppercase text-ocean-700 font-semibold">Certified Mass</span>
+              <span className="text-[11px] font-mono uppercase text-ocean-700 font-semibold">Resulting mass</span>
               <p className="mt-1 font-display text-xl font-bold text-ocean-700">457.819 MT</p>
-              <span className="text-[11px] text-ocean-600 font-medium">Locked custody transfer</span>
+              <span className="text-[11px] text-ocean-600 font-medium">Worked check output</span>
             </div>
           </div>
         </div>

@@ -1,12 +1,13 @@
 import type { Metadata } from "next";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../../components/ui";
 import { Ship, Table, FileSpreadsheet, History, ShieldCheck, CheckCircle2, AlertTriangle, Layers } from "lucide-react";
+import { routeMetadata } from "../../lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/features/vessels-master-data", {
   title: "Tank Strapping Tables & Master Data",
   description:
     "Space BQS vessels and reference data: vessel register with IMO and DWT, tank strapping maps with revisions, ASTM Table 54B VCF grids. Why tables build trust.",
-};
+});
 
 export default function Page() {
   return (
@@ -29,14 +30,14 @@ export default function Page() {
           Vessels register &amp; tank strapping calibration tables
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          The foundation of accurate bunker surveying: digitized tank calibration curves, trim and heel corrections, and version-controlled master data.
+          Vessel reference data and tank calibration information used by survey teams, kept alongside the survey record.
         </p>
       </div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <AnswerBlock>
           <p>
-            Accurate bunker quantity determination is impossible without authoritative vessel calibration data. Space BQS digitizes shipyard tank strapping tables directly into the system, matching soundings and ullages to precise volumes while enforcing version control whenever tanks are re-strapped or modified.
+            Bunker quantity calculations depend on the vessel calibration data used for the survey. Space BQS product materials describe vessel and tank reference data as part of the survey workflow. Confirm the data sources, revision handling, and production calculation method for the release your team evaluates.
           </p>
         </AnswerBlock>
       </div>
@@ -64,7 +65,7 @@ export default function Page() {
               Digitized Tank Strapping Tables
             </h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Physical shipyard tank tables converted into high-precision lookup curves. Supports sounding and ullage indices, pipe reference heights, and lower-zone water tables.
+              Product materials describe tank calibration tables used for sounding and ullage lookups. Confirm the supported table format and reference fields with the product team.
             </p>
           </div>
 
@@ -76,38 +77,38 @@ export default function Page() {
               Full Revision History
             </h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Every table edit or re-strapping update generates an immutable revision hash. Historic surveys always lock to the exact table version active at the time of delivery.
+              Product materials describe vessel and tank reference data. Confirm how table revisions are stored and associated with historical records in the current product release.
             </p>
           </div>
         </div>
       </Section>
 
       {/* Why Strapping Tables Build Trust */}
-      <Section eyebrow="Integrity" title="Why digitized calibration tables prevent bunker disputes">
+      <Section eyebrow="Data quality" title="Why calibration data quality matters">
         <div className="rounded-2xl border border-slate-200 bg-slate-50 p-6 md:p-8">
           <h3 className="font-display text-xl font-bold text-ocean-950">
-            Eliminating deck lookup errors and spreadsheet interpolation bugs
+            Reducing manual lookup and transcription steps
           </h3>
           <p className="mt-2 text-xs text-slate-600 leading-relaxed max-w-3xl">
-            When surveyors manually flip through greasy paper tank tables on deck or copy numbers into Excel sheets, interpolation typos frequently occur. Space BQS eliminates human error through automated calibration handling:
+            Manual tank-table lookups and copying between systems can introduce transcription errors. Space BQS product materials describe automated calibration handling; confirm the production method and validation behavior for the release your team uses.
           </p>
 
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             <div className="rounded-xl border border-slate-200 bg-white p-5">
               <h4 className="font-display font-bold text-ocean-950 text-sm flex items-center gap-2">
-                <CheckCircle2 className="h-4 w-4 text-ocean-600" /> Automated Linear Interpolation
+                <CheckCircle2 className="h-4 w-4 text-ocean-600" /> Calibration lookup
               </h4>
               <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                The engine calculates exact fractional volumes between strapping increments down to millimeter sounding precision. Intermediate steps are recorded in the audit trail.
+                Product materials describe converting a recorded sounding or ullage into a tank volume using the applicable calibration data. Confirm the interpolation method and how intermediate steps appear in the record.
               </p>
             </div>
 
             <div className="rounded-xl border border-slate-200 bg-white p-5">
               <h4 className="font-display font-bold text-ocean-950 text-sm flex items-center gap-2">
-                <AlertTriangle className="h-4 w-4 text-amber-600" /> Zero Extrapolation Safeguard
+                <AlertTriangle className="h-4 w-4 text-amber-600" /> Out-of-range readings
               </h4>
               <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                If a sounding or ullage exceeds the official shipyard table boundaries (e.g. tape reading higher than reference height), the calculation throws an error rather than guessing.
+                A reading outside the calibration table range needs review under the survey firm&apos;s procedure. Confirm how the current product release flags or handles out-of-range inputs.
               </p>
             </div>
           </div>

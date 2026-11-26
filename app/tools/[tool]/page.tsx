@@ -4,7 +4,7 @@ import SurveyTool from "@/components/ui/survey-tool";
 import { MarketingHeader } from "../../components/MarketingPage";
 import { Section, Faq, CtaRow } from "../../components/ui";
 import { TOOLS } from "../../lib/tools";
-import { SITE_URL } from "../../lib/site";
+import { routeMetadata } from "../../lib/seo-metadata";
 import { CheckCircle2, BookOpen, Calculator, ShieldCheck } from "lucide-react";
 
 export const dynamicParams = false;
@@ -21,14 +21,10 @@ export async function generateMetadata({
   const { tool } = await params;
   const config = TOOLS.find((item) => item.slug === tool);
   if (!config) return {};
-  return {
+  return routeMetadata(`/tools/${config.slug}`, {
     title: `${config.title} Calculator`,
     description: config.description,
-    openGraph: {
-      title: `${config.title} Calculator | Space BQS`,
-      description: config.description,
-    },
-  };
+  });
 }
 
 export default async function Page({
@@ -40,25 +36,8 @@ export default async function Page({
   const config = TOOLS.find((item) => item.slug === tool);
   if (!config) notFound();
 
-  const faqSchema = {
-    "@context": "https://schema.org",
-    "@type": "FAQPage",
-    mainEntity: config.faqs.map((faq) => ({
-      "@type": "Question",
-      name: faq.q,
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: faq.a,
-      },
-    })),
-  };
-
   return (
     <div className="bg-[#f7fbfd]">
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqSchema) }}
-      />
       <MarketingHeader
         parent="/tools"
         parentLabel="Tools"
@@ -73,11 +52,11 @@ export default async function Page({
       </Section>
 
       {/* Methodology & Formula */}
-      <Section eyebrow="Methodology" title="Formula & Calculation Guidance">
+      <Section eyebrow="Methodology" title="Formula and calculation notes">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
           <div className="flex items-center gap-2 mb-3">
             <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800 font-mono">
-              Governing Standards: {config.standards}
+              Method context: {config.standards}
             </span>
           </div>
           <h3 className="font-display text-lg font-bold text-ocean-950">
@@ -92,7 +71,7 @@ export default async function Page({
 
           <div className="mt-6 border-t border-slate-100 pt-6">
             <h4 className="font-display text-sm font-bold uppercase tracking-wider text-slate-700 font-mono mb-4">
-              Operational Instructions &amp; Rules
+              Worksheet guidance
             </h4>
             <ul className="space-y-3">
               {config.guidance.map((item, idx) => (
@@ -107,7 +86,7 @@ export default async function Page({
       </Section>
 
       {/* Worked Benchmark Example */}
-      <Section eyebrow="Benchmark" title="Worked Calculation Example">
+      <Section eyebrow="Illustrative example" title="Worked calculation example">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
           <h3 className="font-display text-base font-bold text-ocean-950 mb-3 flex items-center gap-2">
             <Calculator className="h-4 w-4 text-ocean-600" /> Reference Parameters

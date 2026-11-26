@@ -1,16 +1,17 @@
 import type { Metadata } from "next";
 import Link from "next/link";
+import { routeMetadata } from "../lib/seo-metadata";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../components/ui";
 import DeckInteractiveShowcase from "../components/DeckInteractiveShowcase";
 import AppDemoVideoSection from "../components/AppDemoVideoSection";
 import { QrCode, WifiOff, Clock, ShieldCheck, CheckCircle2, AlertCircle, Smartphone } from "lucide-react";
 import mobileAppSchema from "@/schema/02_mobile_app.json";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/mobile-app", {
   title: "Mobile App — Survey on Deck, Even Offline",
   description:
-    "Space BQS mobile app: scan ship QR, 3-step wizard Ship Fuel Tanks, offline calculation up to 72 hours, supervisor review. Quantity-only.",
-};
+    "Capture bunker survey readings on a mobile device, work offline, then sync records for supervisor review in the Space BQS web platform.",
+});
 
 export default function Page() {
   return (
@@ -33,7 +34,7 @@ export default function Page() {
           <span className="text-xs text-slate-500 font-mono">Offline-First Engine</span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
-          The world’s first mobile app for bunker quantity surveys.
+          Offline bunker survey app for marine teams
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
           Capture readings, calculate offline, and sync for office review when you reconnect. Built for quantity survey teams on deck and in engine rooms.
@@ -43,7 +44,7 @@ export default function Page() {
       <div className="mx-auto max-w-6xl px-4">
         <AnswerBlock>
           <p>
-            Choose or scan the vessel, enter fuel and tank details, and calculate locally. QR identifies the vessel and optional port; it does not populate tank measurements. A 72-hour offline lease supports field work before synchronising with the web platform.
+            Choose or scan the vessel, enter fuel and tank details, and calculate locally. QR identifies the vessel and optional port; it does not populate tank measurements. The app supports offline field work and synchronization when connectivity returns.
           </p>
         </AnswerBlock>
       </div>

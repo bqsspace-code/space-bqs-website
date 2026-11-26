@@ -1,11 +1,12 @@
 import type { Metadata } from "next";
 import { Section, AnswerBlock, CtaRow, Faq, Breadcrumbs } from "../../components/ui";
+import { routeMetadata } from "../../lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/services/bunker-delivery-survey", {
   title: "Bunker Delivery Survey Workflow",
   description:
-    "Space BQS bunker-delivery workflow for survey firms: before/after capture, temperature correction, water deduction, BDN cross-check, locked MT certificate.",
-};
+    "Space BQS bunker-delivery workflow for survey firms: before/after capture, temperature correction, water deduction, BDN comparison, and a finalised report record.",
+});
 
 export default function Page() {
   return (
@@ -13,13 +14,13 @@ export default function Page() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/services", label: "Services" }, { href: "/services/bunker-delivery-survey", label: "Bunker Delivery" }]} />
         <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">Bunker delivery workflow</h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">Your surveyors attend the delivery. The software produces the defensible number.</p>
+        <p className="mt-3 max-w-3xl text-lg text-slate-600">Your surveyors attend the delivery. The software supports the calculation and report workflow.</p>
       </div>
       <Section eyebrow="Who / When" title="For survey firms serving owners, charterers and bunker buyers">
         <ul className="list-disc space-y-2 pl-5 text-slate-700">
           <li>Your clients buy fuel far from the ship and need an independent number.</li>
           <li>Your surveyors measure before and after; the system keeps method identical every time.</li>
-          <li>You deliver a locked certificate, not a spreadsheet with edits.</li>
+          <li>You deliver a finalised report record with its supporting working.</li>
         </ul>
       </Section>
       <Section eyebrow="Workflow" title="What your team records">
@@ -30,11 +31,11 @@ export default function Page() {
         </ul>
         <div className="mt-6"><AnswerBlock><p>The BDN is the supplier&apos;s receipt. Your certificate is the independent check your clients forward. Differences come with dated method and version — not just a feeling.</p></AnswerBlock></div>
       </Section>
-      <Section eyebrow="Output" title="Locked certificate your clients share">
+      <Section eyebrow="Output" title="Finalised report your clients can review">
         <ul className="list-disc space-y-2 pl-5 text-slate-700">
           <li>PDF certificate: particulars, tank table, TOTAL MT, audit trail, remarks.</li>
           <li>Excel: measurements, steps, audit — for analysts and claims teams.</li>
-          <li>Locked after sign-off. Out-of-range readings flagged, never guessed.</li>
+          <li>Finalised after sign-off. Out-of-range readings should be flagged rather than guessed; confirm validation behavior for your release.</li>
         </ul>
         <div className="mt-6"><CtaRow /></div>
       </Section>

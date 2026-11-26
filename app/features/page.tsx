@@ -2,60 +2,61 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock } from "../components/ui";
 import { Calculator, ShieldCheck, Database, FileText, ArrowRight, Smartphone, CheckCircle2 } from "lucide-react";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Features — What the System Does",
+export const metadata: Metadata = routeMetadata("/features", {
+  title: "Bunker Survey Software Features",
   description:
-    "Explore Space BQS core capabilities: deterministic ASTM 54B calculation engine, survey register dashboard, vessel master data, locked PDF certificates, and offline mobile app.",
-};
+    "Explore Space BQS mobile capture, web review, survey records, calculation inputs, vessel references, and report workflows.",
+});
 
 const MODULES = [
   {
     href: "/features/survey-register-dashboard",
     title: "Survey Register & Bunker Dashboard",
-    description: "Search, filter, and track all live and completed surveys by vessel, port, date, surveyor, or BDN receipt number. Monitor shortage trends across bunker suppliers in real time.",
+    description: "Review bunker survey records and their status in the Space BQS web platform.",
     icon: Database,
     bullets: [
-      "Real-time survey status tracking (Draft, In Progress, Submitted, Finalised)",
-      "Instant multi-criteria search by IMO, BDN, port, or surveyor name",
-      "Supplier & barge discrepancy analytics across historical deliveries",
-      "Multi-role access controls for surveyors, reviewers, and operations leads",
+      "View survey records and their workflow status",
+      "Manage vessel and survey reference information",
+      "Support office review of field survey records",
+      "Explore the current register and dashboard in a demo",
     ],
   },
   {
     href: "/features/calculation-audit",
-    title: "Deterministic ASTM 54B Calculation Engine",
-    description: "Convert physical deck tape readings into certified metric tonnes with immutable mathematical proof. Bilinear ASTM Table 54B interpolation, water deductions, and zero extrapolation.",
+    title: "Bunker Quantity Calculation Workflow",
+    description: "Review how tank readings, reference inputs, volume correction, and density appear in the Space BQS calculation workflow.",
     icon: Calculator,
     bullets: [
-      "Automated tank strapping curve lookup with exact-interval detection",
-      "Exact free water deduction before standard volume correction",
-      "Standard ASTM D1250 Table 54B Volume Correction Factor (VCF) lookup",
-      "Fail-safe out-of-range protection: rejects invalid numbers rather than guessing",
+      "Inspect recorded tank measurements and calculation inputs",
+      "Review volume-correction details described by the product",
+      "Compare the calculation steps in an illustrative report layout",
+      "Confirm production engine and table versions with the product team",
     ],
   },
   {
     href: "/features/vessels-master-data",
     title: "Tank Strapping Tables & Master Data",
-    description: "Manage vessel fleet registers, shipyard tank strapping tables, trim and heel corrections, fuel grade definitions, and Table 54B density boundaries.",
+    description: "Review vessel particulars and tank reference data used in survey workflows.",
     icon: ShieldCheck,
     bullets: [
-      "Digitized tank calibration curves for Heavy Fuel, Low Sulphur, and Gas Oils",
-      "Trim and list calibration tables attached per vessel tank",
-      "Full revision audit trail whenever vessel strapping tables are updated",
-      "Pre-configured fuel density and temperature ranges to catch deck typos",
+      "Keep vessel particulars associated with survey records",
+      "Maintain reference information used by the survey team",
+      "Review table and reference-data requirements during a product demo",
+      "Trim and list are recorded as context; product materials state they are not calculated as corrections",
     ],
   },
   {
     href: "/features/reports-ai",
-    title: "Locked PDF Certificates & Analysis",
-    description: "Generate cryptographically locked A4 PDF survey certificates and 4-sheet transparent Excel calculation workbooks. Honest AI anomaly detection with strict quantity-only boundaries.",
+    title: "PDF and Excel Report Workflows",
+    description: "Explore how Space BQS presents bunker survey information in PDF and Excel report workflows for review and handover.",
     icon: FileText,
     bullets: [
-      "Tamper-evident locked PDF certificates forwarded to buyers and charterers",
-      "Four-sheet transparent Excel workbook showing raw soundings and exact formulas",
-      "Honest AI anomaly detection highlighting unusual temperature and sounding shifts",
-      "Strict quantity-only scope: does not fabricate numbers or guess lab quality",
+      "Explore PDF report workflows",
+      "Review Excel report outputs",
+      "See the fictional illustrative report layout before requesting a demo",
+      "Quantity-survey software; fuel-quality laboratory analysis is outside the stated product scope",
     ],
   },
 ];
@@ -72,17 +73,17 @@ export default function Page() {
           <span className="text-xs text-slate-500 font-mono">Core Platform</span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl lg:text-5xl">
-          Complete feature set for marine survey operations
+          Space BQS features for bunker survey teams
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          Everything required to capture deck tank soundings, calculate temperature-corrected fuel quantities, and issue audit-ready certificates without spreadsheet risk.
+          Explore mobile capture, web review, calculation inputs, vessel references, and PDF/Excel report workflows.
         </p>
       </div>
 
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <AnswerBlock>
           <p>
-            Space BQS is built specifically for marine fuel surveyors, superintendents, and inspection agencies. The system connects field soundings recorded on deck with office review and immutable client reporting across four core modules: Survey Register & Dashboard, Calculation & Audit Engine, Vessels & Master Data, and Locked Reports with AI Verification.
+            Space BQS is bunker quantity survey software for marine survey firms and inspection teams. Its product materials describe field capture, office review, vessel reference data, and report workflows. The technical scope of each production feature should be confirmed for the software release being evaluated.
           </p>
         </AnswerBlock>
       </div>
@@ -133,27 +134,27 @@ export default function Page() {
       </section>
 
       {/* Field to Office Architecture */}
-      <Section eyebrow="Architecture" title="From deck sounding tape to client certificate">
+      <Section eyebrow="Workflow" title="From mobile capture to office review">
         <div className="grid gap-6 md:grid-cols-3">
           <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <span className="font-mono text-xs font-semibold text-ocean-700 uppercase">Step 1: Deck Capture</span>
-            <h4 className="font-display mt-2 text-lg font-bold text-ocean-950">Offline Sounding Input</h4>
+            <span className="font-mono text-xs font-semibold text-ocean-700 uppercase">Step 1: Field capture</span>
+            <h3 className="font-display mt-2 text-lg font-bold text-ocean-950">Offline survey input</h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Surveyor scans vessel QR, selects tanks, and inputs tape soundings, free water, and temperatures. Works 72 hours without internet onboard.
+              Surveyors can record tank readings offline and sync their work when connectivity returns.
             </p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <span className="font-mono text-xs font-semibold text-ocean-700 uppercase">Step 2: Table 54B Engine</span>
-            <h4 className="font-display mt-2 text-lg font-bold text-ocean-950">Deterministic Math</h4>
+            <span className="font-mono text-xs font-semibold text-ocean-700 uppercase">Step 2: Calculation</span>
+            <h3 className="font-display mt-2 text-lg font-bold text-ocean-950">Review the calculation inputs</h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Calibration tables interpolate observed volume. ASTM D1250 Table 54B applies exact temperature corrections to compute Standard Metric Tonnes.
+              Space BQS product materials refer to ASTM Table 54B. Confirm the production table edition and calculation details for the release used by your team.
             </p>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-6">
-            <span className="font-mono text-xs font-semibold text-ocean-700 uppercase">Step 3: Verification</span>
-            <h4 className="font-display mt-2 text-lg font-bold text-ocean-950">Locked Defensible Proof</h4>
+            <span className="font-mono text-xs font-semibold text-ocean-700 uppercase">Step 3: Office workflow</span>
+            <h3 className="font-display mt-2 text-lg font-bold text-ocean-950">Review and report</h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Supervisor reviews audit trail and finalises survey. Tamper-evident PDF certificate and 4-sheet Excel workbook are locked and issued to clients.
+              Product materials describe supervisor review and PDF/Excel report workflows. See the illustrative report layout, which uses fictional data.
             </p>
           </div>
         </div>

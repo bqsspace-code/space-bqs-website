@@ -353,7 +353,7 @@ export default function LiquidTankStage() {
             Pick ullage or sounding for each tank. The app turns the reading into volume using the vessel&apos;s strapping table. A reading outside the table is refused, never guessed.
           </p>
           <div className="flex flex-wrap gap-2">
-            {["Strapping table", "No extrapolation", "Works offline for 72 h"].map((chip) => (
+            {["Tank reference data", "Calculation review", "Offline capture"].map((chip) => (
               <span
                 key={chip}
                 className="rounded-full border border-tide-200 bg-mist-100 px-3 py-1.5 text-xs font-medium text-abyss-900"
@@ -416,10 +416,10 @@ export default function LiquidTankStage() {
       content: (
         <div className="space-y-5 max-w-lg mx-auto text-center">
           <h2 className="font-display text-3xl font-bold text-abyss-900 tracking-tight lg:text-5xl">
-            Finalised means locked.
+            Finalised means ready to issue.
           </h2>
           <p className="text-body leading-relaxed">
-            A finalised survey cannot be edited or deleted. Owners and charterers get PDF and Excel proof without a login.
+            A finalised survey is the reviewed record your team issues. Product materials describe PDF and Excel report outputs.
           </p>
           <div className="flex flex-wrap items-center gap-3.5 justify-center pt-2">
             <a

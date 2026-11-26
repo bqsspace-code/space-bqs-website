@@ -1,9 +1,10 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import Link from "next/link";
 import { motion, useReducedMotion } from "framer-motion";
 import { CheckCircle2, RotateCcw } from "lucide-react";
-import { quoteSchema, COMPANY_SIZES } from "../lib/quote-schema";
+import { quoteSchema, COMPANY_SIZES, ORGANIZATION_TYPES } from "../lib/quote-schema";
 import { track } from "../lib/analytics";
 
 const EASE_OUT = [0.23, 1, 0.32, 1] as const;
@@ -11,25 +12,43 @@ const EASE_OUT = [0.23, 1, 0.32, 1] as const;
 interface QuoteFormProps {
   compact?: boolean;
   formType?: string;
+  initialCountry?: string;
 }
 
-export default function QuoteForm({ compact = false, formType = "space-bqs" }: QuoteFormProps) {
+export default function QuoteForm({ compact = false, formType = "space-bqs", initialCountry = "" }: QuoteFormProps) {
   const reducedMotion = useReducedMotion();
   const [status, setStatus] = useState<"idle" | "sending" | "error" | "done">("idle");
   const [message, setMessage] = useState("");
   const [submittedEmail, setSubmittedEmail] = useState("");
   const [referenceId, setReferenceId] = useState<string | null>(null);
+  const startedRef = useRef(false);
+  const [pilotIntent, setPilotIntent] = useState(false);
+
+  useEffect(() => {
+    const syncIntent = () => setPilotIntent(window.location.hash === "#pilot");
+    syncIntent();
+    window.addEventListener("hashchange", syncIntent);
+    return () => window.removeEventListener("hashchange", syncIntent);
+  }, []);
+
+  function onFormFocus() {
+    if (startedRef.current) return;
+    startedRef.current = true;
+    track("demo_form_start", { formType });
+  }
 
   async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     const form = e.currentTarget;
     const fd = new FormData(form);
-    const data = { ...Object.fromEntries(fd.entries()), formType };
+    const submissionType = window.location.hash === "#pilot" ? "space-bqs-pilot" : formType;
+    const data = { ...Object.fromEntries(fd.entries()), formType: submissionType };
     const parsed = quoteSchema.safeParse(data);
 
     if (!parsed.success) {
       setStatus("error");
       setMessage(parsed.error.issues[0]?.message ?? "Check the highlighted fields.");
+      track("demo_form_error", { formType: submissionType, reason: "validation" });
       return;
     }
 
@@ -49,17 +68,20 @@ export default function QuoteForm({ compact = false, formType = "space-bqs" }: Q
       }
 
       track("demo_submit", {
-        solution: parsed.data.solution,
         formType: parsed.data.formType,
+        lead_type: parsed.data.formType === "space-bqs-pilot" ? "pilot" : "demo",
       });
 
       setSubmittedEmail(parsed.data.email);
       setReferenceId(json.id ?? null);
       setStatus("done");
-      setMessage("Thanks — your demo request is saved. We’ll follow up with next steps tailored to your operation.");
+      setMessage(parsed.data.formType === "space-bqs-pilot"
+        ? "Thanks — your pilot enquiry is saved. We’ll follow up to discuss fit and scope."
+        : "Thanks — your demo request is saved. We’ll follow up with next steps for your team.");
       form.reset();
     } catch (err) {
       setStatus("error");
+      track("demo_form_error", { formType: parsed.data.formType, reason: "submission" });
       setMessage(
         err instanceof Error && err.message !== "Submit failed"
           ? err.message
@@ -123,29 +145,10 @@ export default function QuoteForm({ compact = false, formType = "space-bqs" }: Q
   const isSending = status === "sending";
 
   return (
-    <form onSubmit={onSubmit} className={`quote-form grid gap-5 ${compact ? "" : "md:grid-cols-2"}`}>
+    <form onSubmit={onSubmit} onFocusCapture={onFormFocus} className={`quote-form grid gap-5 ${compact ? "" : "md:grid-cols-2"}`}>
       <label className="quote-field">
-        First name <span aria-hidden="true">*</span>
-        <input
-          name="firstName"
-          autoComplete="given-name"
-          placeholder="Jane"
-          disabled={isSending}
-          className="rounded-lg border p-3"
-          required
-        />
-      </label>
-
-      <label className="quote-field">
-        Last name <span aria-hidden="true">*</span>
-        <input
-          name="lastName"
-          autoComplete="family-name"
-          placeholder="Doe"
-          disabled={isSending}
-          className="rounded-lg border p-3"
-          required
-        />
+        Your name <span aria-hidden="true">*</span>
+        <input name="name" autoComplete="name" placeholder="Your full name" disabled={isSending} className="rounded-lg border p-3" required />
       </label>
 
       <label className="quote-field">
@@ -162,7 +165,7 @@ export default function QuoteForm({ compact = false, formType = "space-bqs" }: Q
       </label>
 
       <label className="quote-field">
-        Phone number <span aria-hidden="true">*</span>
+        Phone number <span className="quote-optional">Optional</span>
         <input
           name="phoneNumber"
           type="tel"
@@ -171,7 +174,6 @@ export default function QuoteForm({ compact = false, formType = "space-bqs" }: Q
           maxLength={40}
           disabled={isSending}
           className="rounded-lg border p-3"
-          required
         />
       </label>
 
@@ -188,19 +190,33 @@ export default function QuoteForm({ compact = false, formType = "space-bqs" }: Q
       </label>
 
       <label className="quote-field">
-        Company size <span className="quote-optional">Optional</span>
+        Team size <span aria-hidden="true">*</span>
         <select
           name="companySize"
           disabled={isSending}
           className="rounded-lg border bg-white p-3"
           defaultValue=""
+          required
         >
-          <option value="">Select company size</option>
+          <option value="" disabled>Select team size</option>
           {COMPANY_SIZES.map((size) => (
             <option key={size} value={size}>
-              {size}
+              {size} team members
             </option>
           ))}
+        </select>
+      </label>
+
+      <label className="quote-field">
+        Country <span aria-hidden="true">*</span>
+        <input name="country" autoComplete="country-name" placeholder="Country where your team operates" defaultValue={initialCountry} maxLength={100} disabled={isSending} className="rounded-lg border p-3" required />
+      </label>
+
+      <label className="quote-field">
+        Organization type <span aria-hidden="true">*</span>
+        <select name="organizationType" disabled={isSending} className="rounded-lg border bg-white p-3" defaultValue="" required>
+          <option value="" disabled>Select organization type</option>
+          {ORGANIZATION_TYPES.map((type) => <option key={type} value={type}>{type}</option>)}
         </select>
       </label>
 
@@ -208,8 +224,8 @@ export default function QuoteForm({ compact = false, formType = "space-bqs" }: Q
         Project details <span className="quote-optional">Optional</span>
         <textarea
           name="projectDetails"
-          placeholder="Tell us about your operation—Space BQS, Cargo WMS, deployment, or data migration."
-          maxLength={2000}
+          placeholder="Tell us about your bunker survey workflows or what your team wants to evaluate."
+          maxLength={1500}
           disabled={isSending}
           className="rounded-lg border p-3"
           rows={3}
@@ -222,7 +238,7 @@ export default function QuoteForm({ compact = false, formType = "space-bqs" }: Q
           disabled={isSending}
           className="marine-shiny marine-shiny--primary inline-flex items-center gap-2 px-7 py-3.5 rounded-full text-white font-semibold text-sm shadow-md transition-all hover:scale-[1.02] active:scale-[0.98] cursor-pointer disabled:opacity-50"
         >
-          <span>{isSending ? "Sending…" : "Request a demo / consultation"}</span>
+          <span>{isSending ? "Sending…" : pilotIntent ? "Discuss a pilot" : "Request a demo"}</span>
           <svg
             width="13"
             height="13"
@@ -245,7 +261,7 @@ export default function QuoteForm({ compact = false, formType = "space-bqs" }: Q
           </p>
         )}
         <p className="mt-2.5 text-xs text-slate-500">
-          Discuss software, migration, or deployment. For BQS, we provide software—not survey attendance.
+          Space BQS provides survey software, not survey attendance. Read our <Link href="/legal/privacy" className="underline underline-offset-2">privacy information</Link> before submitting.
         </p>
       </div>
     </form>

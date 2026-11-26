@@ -2,11 +2,12 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Section, Breadcrumbs } from "../components/ui";
 import { RESOURCES } from "../lib/resources";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/resources", {
   title: "Resources — Simple BQS Guides",
   description: "Plain-English guides: what is BQS, ullage vs sounding, BDN vs measured, temperature correction, ROB checklist.",
-};
+});
 
 export default function Page() {
   return (

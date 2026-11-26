@@ -107,9 +107,9 @@ export default function HomeWorkflowJourney() {
             </article>
             <article className="journey-card journey-card--proof">
               <div className="journey-card-top"><FileCheck2 aria-hidden="true" /><span>03 / In the office</span></div>
-              <h3>Review. Lock. Deliver.</h3>
-              <p>A supervisor finalises the survey on the web. The client gets a locked PDF and a four-sheet Excel workbook.</p>
-              <div className="journey-outcome"><span>The deliverable</span><strong>Client-ready proof.</strong><p>The reviewed result and its supporting working, ready to share.</p><span className="journey-stamp"><LockKeyhole aria-hidden="true" />Locked</span></div>
+              <h3>Review. Finalise. Deliver.</h3>
+              <p>A supervisor finalises the survey on the web. The client receives the PDF and Excel report outputs.</p>
+              <div className="journey-outcome"><span>The deliverable</span><strong>Client-ready proof.</strong><p>The reviewed result and its supporting working, ready to share.</p><span className="journey-stamp"><LockKeyhole aria-hidden="true" />Finalised</span></div>
               <Link href="/sample-report">Explore the sample report<ArrowUpRight aria-hidden="true" /></Link>
             </article>
           </div>

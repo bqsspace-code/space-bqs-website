@@ -1,29 +1,31 @@
 import type { Metadata } from "next";
+import Link from "next/link";
 import { Section, AnswerBlock, CtaRow, Faq, Breadcrumbs } from "../../components/ui";
 import { Scale, CheckCircle2, ShieldCheck, Ship, ArrowRight, FileSpreadsheet, Lock } from "lucide-react";
+import { routeMetadata } from "../../lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/services/rob-survey", {
   title: "ROB Bunker Survey Workflow Software",
   description:
-    "Space BQS ROB workflow for survey firms: exact fuel on board at charter start and end, fair settlement packet, locked certificates.",
-};
+    "Space BQS ROB workflow for survey firms: fuel on board at charter start and end, a settlement-ready record, and finalised reports.",
+});
 
 const ROB_FAQS = [
   {
-    q: "Why should on-hire and off-hire surveys be run as separate jobs?",
-    a: "Each charter milestone represents a legally binding custody handoff at a distinct port, time, and draft condition. Space BQS tracks on-hire and off-hire as paired independent records with distinct cryptographic hashes, ensuring neither certificate can be retroactively tampered with when settling charterparty voyage accounts.",
+    q: "Why record on-hire and off-hire ROB separately?",
+    a: "They describe fuel quantities at different points in a charter period. Keeping the records separate helps teams compare the opening and closing figures with deliveries and other documented movements.",
   },
   {
     q: "How does the surveyor handle differences between engine room logbooks and physical soundings?",
-    a: "The surveyor records the Chief Engineer's logbook estimates for reference, but conducts independent manual tape soundings, temperature measurements, and free water checks across all bunker tanks. Both sets of figures are transparently reported, showing the exact variance without altering measured facts.",
+    a: "The survey firm decides which source records to collect and compare. Space BQS is software for entering survey information and supporting review; it does not perform the physical measurements.",
   },
   {
     q: "Are settling, service, and drain tanks included in an ROB survey?",
-    a: "Yes. Complete ROB surveys inventory every fuel-carrying compartment on the vessel, including storage tanks, settling tanks, daily service tanks, and overflow/sludge tanks. Recording all fuel prevents unrecorded bunker transfers from distorting consumption math.",
+    a: "The tanks included depend on the survey scope and applicable procedure. The survey team records the tanks it measures and the report should make the scope clear.",
   },
   {
     q: "Is Space BQS an automated condition survey tool?",
-    a: "No. Space BQS is strictly a bunker quantity measurement platform. It calculates temperature-corrected fuel quantities (Metric Tonnes) and does not perform vessel hull inspections, hatch cover testing, or laboratory fuel quality assays.",
+    a: "No. Space BQS is bunker quantity survey software, not a vessel inspection company or fuel-testing laboratory.",
   },
 ];
 
@@ -49,7 +51,7 @@ export default function Page() {
           ROB bunker survey workflow software
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          Capture exact fuel remaining on board (ROB) at charter delivery and redelivery. Eliminate charterparty settlement disputes with locked certificates both sides trust.
+          Record remaining-on-board (ROB) survey information at charter milestones. Space BQS provides software for survey teams to capture readings, review records, and prepare reports.
         </p>
       </div>
 
@@ -57,88 +59,85 @@ export default function Page() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <AnswerBlock>
           <p>
-            An ROB (Remaining On Board) survey establishes an independent, audited inventory of all bunker fuels on a vessel at delivery into or redelivery from a time charter. Space BQS enforces deterministic ASTM D1250 Table 54B temperature corrections and strapping curve calculations across all storage, settling, and service tanks, producing twin locked certificates for seamless commercial settlement.
+            A Remaining On Board (ROB) survey records fuel quantities on a vessel at a defined point, such as the start or end of a charter. A survey firm performs the measurement. Space BQS provides software for recording the survey, reviewing its calculation inputs, and preparing reports.
           </p>
         </AnswerBlock>
       </div>
 
-      {/* Financial Stakes of Disputes */}
-      <Section eyebrow="Financial Impact" title="Why charterparties dispute unverified ROB numbers">
+      {/* Reconciliation context */}
+      <Section eyebrow="Reconciliation" title="Keep the period and fuel movements clear">
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <h3 className="font-display text-lg font-bold text-ocean-950">
-              The Cost of Unverified Logbook Figures
+              Compare opening and closing records
             </h3>
             <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              With marine fuel prices ranging from $500 to $800 per metric tonne, a seemingly minor 30 MT discrepancy between the Chief Engineer&apos;s logbook estimate and actual tank soundings translates into an immediate $15,000 to $24,000 settlement dispute.
-            </p>
-            <p className="mt-3 text-xs text-slate-600 leading-relaxed">
-              Without an independent surveyor armed with locked calibration table proof, charterers and shipowners frequently find themselves trapped in weeks of contentious legal arbitration.
+              Opening ROB, closing ROB, deliveries, and other documented movements are distinct inputs. Check their time period, fuel grade, units, and scope before interpreting a balance.
             </p>
           </div>
 
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <h3 className="font-display text-lg font-bold text-ocean-950">
-              Complete Leg-by-Leg Consumption Accounting
+              A simple balance relationship
             </h3>
             <p className="mt-2 text-xs text-slate-600 leading-relaxed">
               Charter voyage fuel consumption is determined by a strict mathematical equation:
             </p>
             <div className="mt-3 rounded-lg bg-slate-50 p-3 font-mono text-xs text-slate-800 border border-slate-200">
-              Voyage Consumption = Opening On-Hire ROB + Total Bunkers Received − Closing Off-Hire ROB
+              Balance = Opening ROB + Receipts − Transfers out − Closing ROB
             </div>
             <p className="mt-3 text-xs text-slate-500">
-              By locking both opening and closing certificates in Space BQS, superintendents and chartering managers can reconcile actual fuel burn against charterparty speed and consumption warranties with complete certainty.
+              The expression is a reconciliation aid. The survey team should record the actual movements and follow the terms applicable to its charter and reporting process.
             </p>
           </div>
         </div>
       </Section>
 
-      {/* 5-Step Protocol */}
-      <Section eyebrow="Survey Protocol" title="Five-step independent ROB measurement procedure">
+      {/* ROB software workflow */}
+      <Section eyebrow="Software workflow" title="From ROB inputs to a reviewable report">
         <div className="space-y-4">
           <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-xs font-bold text-white font-mono">1</span>
             <div>
-              <h4 className="font-display font-bold text-ocean-950 text-base">Full Tank Inventory on Deck</h4>
+              <h3 className="font-display font-bold text-ocean-950 text-base">Select the survey scope</h3>
               <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                The surveyor inspects and measures all fuel compartments: heavy fuel storage, low-sulphur marine gas oil, settling tanks, daily service tanks, and overflow tanks using calibrated sounding tapes.
+                The survey firm determines the tanks, fuel grades, period, and records included in its ROB survey.
               </p>
             </div>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-xs font-bold text-white font-mono">2</span>
             <div>
-              <h4 className="font-display font-bold text-ocean-950 text-base">Free Water &amp; Bottom Sludge Detection</h4>
+              <h3 className="font-display font-bold text-ocean-950 text-base">Capture the field readings</h3>
               <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                Water-finding paste checks identify settled free water bottoms. Suction line bellmouth dead stock is calculated to differentiate usable commercial fuel from non-pumpable tank bottoms.
+                Surveyors enter the tank measurements and other inputs collected under their agreed procedure. Space BQS supports offline mobile capture.
               </p>
             </div>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-xs font-bold text-white font-mono">3</span>
             <div>
-              <h4 className="font-display font-bold text-ocean-950 text-base">Engine Room Logbook Cross-Examination</h4>
+              <h3 className="font-display font-bold text-ocean-950 text-base">Record other movements</h3>
               <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                Physical measurements are cross-checked against the Chief Engineer&apos;s daily sounding book and official deck logbook. Discrepancies are highlighted transparently on the report.
+                Add receipts, transfers, or other relevant records needed to understand the period balance, according to the team&apos;s process.
               </p>
             </div>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-xs font-bold text-white font-mono">4</span>
             <div>
-              <h4 className="font-display font-bold text-ocean-950 text-base">ASTM Table 54B Temperature Correction</h4>
+              <h3 className="font-display font-bold text-ocean-950 text-base">Review calculations and inputs</h3>
               <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                Observed tank temperatures and fuel densities are processed through the ASTM Table 54B engine to convert heated observed volumes into standardized metric tonnes at 15°C.
+                Review the recorded readings, calculation inputs, and fuel-grade breakdown before finalizing the survey record.
               </p>
             </div>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-xs font-bold text-white font-mono">5</span>
             <div>
-              <h4 className="font-display font-bold text-ocean-950 text-base">Locked Twin Certificate Package</h4>
+              <h3 className="font-display font-bold text-ocean-950 text-base">Prepare the report outputs</h3>
               <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                A tamper-evident PDF certificate and 4-sheet Excel audit workbook are finalized and digitally signed for immediate dispatch to the charterer, shipowner, and commercial broker.
+                Space BQS supports PDF and Excel report workflows. See the <Link className="underline" href="/sample-report">sample report</Link> for an example of the available outputs.
               </p>
             </div>
           </div>

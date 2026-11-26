@@ -1,6 +1,10 @@
 import { Section, Breadcrumbs, CtaRow } from "../components/ui";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata = { title: "About — Quantity-Only, Independent" };
+export const metadata = routeMetadata("/about", {
+  title: "About the Software",
+  description: "Learn about Space BQS, bunker quantity survey software for marine survey teams. Space BQS provides software, not survey attendance.",
+});
 
 export default function Page() {
   return (

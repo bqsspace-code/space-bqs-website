@@ -91,7 +91,7 @@ export default function SocialMediaPlatformsClient() {
               Find Space BQS <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#032AAC] via-[#1B4FD1] to-[#19B5C9]">Everywhere</span>
             </h1>
             <p className="text-base sm:text-lg text-[#52657c] leading-relaxed max-w-2xl">
-              A verified directory of all official and registered Space BQS channels across the web. Follow our engineering releases, ASTM Table 54B calculation research, and live deck tools.
+              A directory of Space BQS profiles listed by the team across the web. Follow engineering notes, calculation research, and product updates.
             </p>
           </div>
         </div>
@@ -228,7 +228,7 @@ export default function SocialMediaPlatformsClient() {
               </div>
               <h3 className="font-display font-bold text-lg text-[#031038]">No platforms found</h3>
               <p className="text-xs text-[#52657c] mt-1.5 leading-relaxed">
-                No matching verified profile for &quot;{searchQuery}&quot;. Try searching for &quot;GitHub&quot;, &quot;YouTube&quot;, or reset your filters.
+                No matching profile for &quot;{searchQuery}&quot;. Try searching for &quot;GitHub&quot;, &quot;YouTube&quot;, or reset your filters.
               </p>
               <button
                 type="button"
@@ -325,7 +325,7 @@ export default function SocialMediaPlatformsClient() {
                 Don&apos;t see your preferred platform?
               </h3>
               <p className="text-sm text-[#52657c] leading-relaxed">
-                If you represent a maritime registry, port community system, or technical publication and want to verify a channel or integrate with the Space BQS ASTM Table 54B engine, our team is ready to connect.
+                If you represent a maritime registry, port community system, or technical publication and want to discuss a listing or integration, contact the Space BQS team.
               </p>
             </div>
 

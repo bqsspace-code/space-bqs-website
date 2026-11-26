@@ -5,6 +5,8 @@ import Header from "./components/Header";
 import Footer from "./components/Footer";
 import SmoothScroll from "./components/SmoothScroll";
 import GlassInteractions from "./components/GlassInteractions";
+import CookieBanner from "./components/CookieBanner";
+import GoogleAnalytics from "./components/GoogleAnalytics";
 
 
 import { SITE_URL, SITE_NAME, CONTACT_EMAIL } from "./lib/site";
@@ -29,22 +31,40 @@ const jetbrainsMono = JetBrains_Mono({
   display: "swap",
 });
 
+const searchVerification: NonNullable<Metadata["verification"]> = {
+  ...(process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION
+    ? { google: process.env.NEXT_PUBLIC_GOOGLE_SITE_VERIFICATION }
+    : {}),
+  ...(process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION
+    ? { other: { "msvalidate.01": process.env.NEXT_PUBLIC_BING_SITE_VERIFICATION } }
+    : {}),
+};
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
-  // Next resolves "./" against the current route, including dynamic slugs.
+// Next resolves "./" against the current route, including dynamic slugs.
   alternates: { canonical: "./" },
+  verification: searchVerification,
   title: {
-    default: `${SITE_NAME} — BQS Software for Marine Surveyors`,
+    default: `Bunker Quantity Survey Software | ${SITE_NAME}`,
     template: `%s | ${SITE_NAME}`,
   },
   description:
-    "Space BQS is software for bunker surveyors and survey firms: offline mobile capture, temperature-corrected MT engine, locked certificates, fleet dashboard. Quantity-only.",
-    openGraph: {
+    "Bunker quantity survey software for marine survey teams. Capture tank readings offline, review calculations, and issue PDF and Excel survey reports.",
+  openGraph: {
     type: "website",
     siteName: SITE_NAME,
-    title: `${SITE_NAME} — BQS software for surveyors`,
+    title: `Bunker Quantity Survey Software | ${SITE_NAME}`,
     description:
-      "Software for survey firms: offline capture, temperature-corrected MT engine, locked PDF certificates, fleet dashboard. Quantity-only.",
+      "Bunker quantity survey software for marine survey teams. Capture tank readings offline, review calculations, and issue PDF and Excel survey reports.",
+    images: [`${SITE_URL}/opengraph-image`],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: `Bunker Quantity Survey Software | ${SITE_NAME}`,
+    description:
+      "Software for bunker survey teams: capture tank readings offline, review calculations, and issue PDF and Excel reports.",
+    images: [`${SITE_URL}/opengraph-image`],
   },
 };
 
@@ -55,22 +75,20 @@ const ORG_SCHEMA = {
       "@type": "Organization",
       "@id": `${SITE_URL}/#organization`,
       name: SITE_NAME,
-      alternateName: ["AI BQS", "Space BQS Marine"],
       url: SITE_URL,
       logo: {
         "@type": "ImageObject",
-        url: `${SITE_URL}/assets/logo.png`,
+        url: `${SITE_URL}/assets/linkedin/space-bqs-wave-linkedin-transparent-800x800.png`,
         caption: `${SITE_NAME} Logo`,
       },
       description:
-        "Deterministic Bunker Quantity Survey (BQS) calculation software and offline mobile platform for independent marine fuel surveyors, inspection agencies, and vessel charterers.",
+        "Bunker Quantity Survey software for marine survey firms and inspection teams.",
       sameAs: [
         "https://www.linkedin.com/company/space-bqs",
         "https://x.com/spacebqs",
         "https://github.com/bqsspace-code",
         "https://www.youtube.com/@SPACEBQS",
         "https://www.instagram.com/bqsspace",
-        "https://apps.apple.com/sg/app/space-bqs/id6812992991",
       ],
       contactPoint: {
         "@type": "ContactPoint",
@@ -92,27 +110,23 @@ const ORG_SCHEMA = {
     {
       "@type": "SoftwareApplication",
       "@id": `${SITE_URL}/#software`,
-      name: "Space BQS Platform",
-      operatingSystem: "iOS 16.0+, Android 12.0+, Web (Modern Browsers)",
+      name: "Space BQS",
+      url: `${SITE_URL}/solutions/space-bqs`,
+      operatingSystem: "iOS, Android, Web",
       applicationCategory: "BusinessApplication",
-      applicationSubCategory: "Maritime Logistics & Inspection Software",
+      applicationSubCategory: "Bunker Quantity Survey Software",
       description:
-        "Professional Bunker Quantity Survey software suite for marine surveyors. Combines an offline mobile deck app with a tamper-evident ASTM Table 54B calculation engine, automated tank sounding interpolation, locked PDF certificates, and audit-ready Excel packages.",
-      offers: {
-        "@type": "Offer",
-        price: "0",
-        priceCurrency: "USD",
-        description:
-          "Commercial team license based on active surveyors and monthly survey volume. Pilot workspace available upon request.",
-      },
+        "Bunker Quantity Survey software for marine survey teams, with mobile capture and a web platform for review and report workflows.",
+      downloadUrl: [
+        "https://apps.apple.com/in/app/space-bqs/id6812992991",
+        "https://play.google.com/store/apps/details?id=com.spaceai.bqs",
+      ],
       featureList: [
-        "ASTM D1250 Table 54B Volume Correction Factor (VCF) Engine",
-        "72-Hour Zero-Connectivity Deck Offline Lease",
-        "QR Vessel Identification & Tank Strapping Curve Interpolation",
-        "Locked Cryptographic PDF Certificate Generation",
-        "Four-Sheet Raw Data Audit Excel Package",
-        "Three Dedicated Workflows: Bunker Delivery vs BDN, On/Off-Hire ROB Settlement, Debunkering Removal",
-        "Quantity-Only Independent Verification Scope",
+        "Mobile capture for bunker survey workflows",
+        "Offline work with later synchronization",
+        "Web-based survey review",
+        "PDF and Excel report workflows",
+        "Delivery, ROB, and debunkering workflows",
       ],
     },
   ],
@@ -133,6 +147,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           <Footer />
           <PageProgress />
         </SmoothScroll>
+        <GoogleAnalytics />
+        <CookieBanner />
       </body>
     </html>
   );

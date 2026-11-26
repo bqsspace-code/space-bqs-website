@@ -5,7 +5,7 @@ import WeightText from "./WeightText";
 const PROBLEMS = [
   { icon: FilePenLine, label: "On Deck", title: "Paper That Gets Retyped", description: "Every copy from notebook to spreadsheet is another chance for a slip.", resolution: "Capture once, at the tank." },
   { icon: Calculator, label: "At The Desk", title: "Formulas That Quietly Break", description: "Copied workbooks carry old formulas and hidden mistakes into the next job.", resolution: "One versioned calculation engine." },
-  { icon: FolderSearch, label: "Months Later", title: "Files Nobody Can Find", description: "A disputed number should lead to its evidence, not a search through inboxes.", resolution: "One locked record to return to." },
+  { icon: FolderSearch, label: "Months Later", title: "Files Nobody Can Find", description: "A disputed number should lead to its evidence, not a search through inboxes.", resolution: "One finalised record to return to." },
 ];
 
 export default function HomeProblemSummary() {

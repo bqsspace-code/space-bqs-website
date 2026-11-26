@@ -33,8 +33,8 @@ const FEATURES = [
   {
     icon: FileCheck2,
     title: "Clients & Principals",
-    action: "Clear, defensible certificates",
-    description: "Receive A4 PDF certificates and four-sheet Excel workbooks. Follow the readings, factors, and totals in the locked proof, with no login needed.",
+    action: "Report handover",
+    description: "Receive A4 PDF reports and Excel workbooks. Follow the readings, factors, and totals in the finalised record.",
     tag: "End Deliverable",
   },
 ];

@@ -45,6 +45,7 @@ export function BevelWorkflowCards() {
           <p className="text-sm leading-relaxed text-[#031038]/70 max-w-[285px]">
             Check what was delivered against the delivery note (BDN), tank by tank with ASTM Table 54B precision.
           </p>
+          <p className="font-mono text-[9px] uppercase tracking-wider text-[#60748a]">Illustrative interface · sample values</p>
         </div>
 
         {/* Phone Frame: Top fully visible with Dynamic Island & metrics, bottom half cut off by card boundary */}
@@ -57,8 +58,8 @@ export function BevelWorkflowCards() {
                   <div className="w-5 h-5 rounded-full bg-slate-100 flex items-center justify-center text-slate-500">
                     <X className="w-3 h-3" />
                   </div>
-                  <span className="text-[10px] font-bold text-slate-800 tracking-tight">
-                    Delivery Score
+                    <span className="text-[10px] font-bold text-slate-800 tracking-tight">
+                      Delivery Survey
                   </span>
                   <div className="w-5" />
                 </div>
@@ -73,9 +74,9 @@ export function BevelWorkflowCards() {
                   </div>
                   <div className="text-right">
                     <span className="inline-block text-[8px] font-mono font-bold text-emerald-700 bg-emerald-50 border border-emerald-200/90 px-2 py-0.5 rounded-full">
-                      BDN Match = 100%
+                      BDN comparison
                     </span>
-                    <p className="text-[7px] text-slate-400 font-mono mt-0.5">Tolerance: ±0.15%</p>
+                    <p className="text-[7px] text-slate-400 font-mono mt-0.5">Illustrative sample result</p>
                   </div>
                 </div>
 
@@ -122,10 +123,7 @@ export function BevelWorkflowCards() {
                       <span>Delivery Flow</span>
                     </div>
                     <div className="flex items-baseline gap-2 mt-1">
-                      <span className="text-base font-display font-black text-slate-900">350 MT/h</span>
-                      <span className="text-[8px] font-mono font-bold text-blue-700 bg-blue-50 border border-blue-200/80 px-1.5 py-0.5 rounded-full">
-                        Stable rate
-                      </span>
+                      <span className="text-base font-display font-black text-slate-900">Flow record</span>
                     </div>
                   </div>
                   <svg className="w-14 h-7" viewBox="0 0 60 25">
@@ -161,6 +159,7 @@ export function BevelWorkflowCards() {
           <p className="text-sm leading-relaxed text-[#031038]/70 max-w-[285px]">
             Pair two surveys and settle charter fuel with a record both sides can follow.
           </p>
+          <p className="font-mono text-[9px] uppercase tracking-wider text-[#60748a]">Illustrative interface · sample values</p>
         </div>
 
         {/* Phone Frame: Dark Theme screen, top visible, bottom half cut off */}
@@ -175,7 +174,7 @@ export function BevelWorkflowCards() {
                   </div>
                   <div className="text-center">
                     <p className="text-[10px] font-bold text-white leading-tight">Charter ROB</p>
-                    <p className="text-[7px] font-mono text-white/50">Redelivery · 14:00 UTC</p>
+                    <p className="text-[7px] font-mono text-white/50">Example redelivery record</p>
                   </div>
                   <div className="w-5" />
                 </div>
@@ -219,11 +218,11 @@ export function BevelWorkflowCards() {
                 <div className="liquid-glass-ui liquid-glass-ui--dark mx-3 mt-2 p-3 rounded-2xl border border-white/20 shadow-[0_12px_28px_rgba(0,0,0,0.55)] flex items-center justify-between">
                   <div>
                     <span className="text-base font-display font-black text-white">646 MT</span>
-                    <p className="text-[8px] font-mono text-white/60 mt-0.5">Total ROB Certified</p>
+                   <p className="text-[8px] font-mono text-white/60 mt-0.5">Sample survey total</p>
                   </div>
                   <div className="flex items-center gap-1.5 text-[8px] font-mono font-bold text-[#19B5C9] bg-[#19B5C9]/10 px-2 py-1 rounded-full border border-[#19B5C9]/30">
                     <Lock className="w-2.5 h-2.5" />
-                    <span>Locked &amp; Signed</span>
+                     <span>Finalized record</span>
                   </div>
                 </div>
               </div>
@@ -255,6 +254,7 @@ export function BevelWorkflowCards() {
           <p className="text-sm leading-relaxed text-[#031038]/70 max-w-[285px]">
             Record what left the tank, with before and after on a single certificate.
           </p>
+          <p className="font-mono text-[9px] uppercase tracking-wider text-[#60748a]">Illustrative interface · sample values</p>
         </div>
 
         {/* Phone Frame: Recovery landscape ring at top, bottom half cut off */}
@@ -339,10 +339,10 @@ export function BevelWorkflowCards() {
                 <div className="mx-3.5 mt-2 bg-white/95 p-2 rounded-xl border border-slate-200 shadow-xs">
                   <div className="flex items-center gap-1.5 text-teal-700">
                     <CheckCircle2 className="w-3 h-3" />
-                    <span className="text-[8px] font-bold">Removal Certified &amp; Locked</span>
+                    <span className="text-[8px] font-bold">Removal report preview</span>
                   </div>
                   <p className="text-[7px] text-slate-500 leading-relaxed mt-0.5">
-                    Tank 3P: 310.4 MT → 26.25 MT. Seals #4892 verified.
+                    Example tank readings shown for illustration.
                   </p>
                 </div>
               </div>

@@ -70,7 +70,7 @@ export default function HeroCertificateMock() {
               border: "1px solid rgba(255, 106, 61, 0.15)",
             }}
           >
-            Locked
+            Finalised
           </span>
         </div>
 

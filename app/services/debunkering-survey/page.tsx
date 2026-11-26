@@ -1,29 +1,30 @@
 import type { Metadata } from "next";
 import { Section, CtaRow, Faq, Breadcrumbs, AnswerBlock } from "../../components/ui";
 import { AlertTriangle, ArrowRight, CheckCircle2, ShieldCheck, Ship, FileText, Droplets } from "lucide-react";
+import { routeMetadata } from "../../lib/seo-metadata";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/services/debunkering-survey", {
   title: "Debunkering Survey Workflow Software",
   description:
-    "Space BQS debunkering workflow for survey firms: before/after measurement of removed fuel with locked certificates both commercial sides accept.",
-};
+    "Space BQS software helps survey firms record and review information for fuel-removal surveys and prepare report outputs.",
+});
 
 const DEBUNKERING_FAQS = [
   {
-    q: "Why is a debunkering survey required instead of relying on barge flow meters?",
-    a: "Debunkering involves reverse transfer, often under challenging pumping conditions where air entrapment and line stripping affect mass flow meters. Measuring vessel fuel tanks before and after pumping provides an independent custody transfer record that protects shipowners and charterers against shortfalls.",
+    q: "Does Space BQS decide which measurement method to use?",
+    a: "No. The survey firm follows the applicable contract, port procedure, and agreed measurement method. Space BQS provides software for recording and reviewing survey information.",
   },
   {
     q: "How does the system account for unpumpable fuel and line displacement?",
-    a: "Vessel tank strapping curves specify suction bellmouth limits and non-pumpable dead bottoms. Space BQS enables surveyors to record unpumpable residues separately, ensuring the certified removed quantity reflects actual transferred mass.",
+    a: "That depends on the vessel reference data and survey scope. Survey teams should document any applicable limits and assumptions; the software does not determine what a contract treats as pumpable fuel.",
   },
   {
     q: "What documentation is generated when debunkering completes?",
-    a: "The surveyor generates a tamper-evident locked PDF Debunkering Certificate and 4-sheet transparent Excel calculation pack detailing opening/closing soundings, free water checks, ASTM Table 54B temperature corrections, and net metric tonnes offloaded.",
+    a: "Space BQS supports PDF and Excel report workflows for survey records. The available fields and report contents are shown in the sample report and should be checked against the current product output.",
   },
   {
     q: "Can debunkered fuel be blended or reused?",
-    a: "Reuse and commercial disposition depend on offloaded fuel quality and laboratory analysis, which is outside the quantity surveyor's scope. Space BQS reports quantity only with immutable calculation proof.",
+    a: "Fuel quality and reuse decisions require the appropriate technical and commercial assessment. Space BQS is quantity-survey software and does not perform laboratory fuel-quality testing.",
   },
 ];
 
@@ -49,7 +50,7 @@ export default function Page() {
           Debunkering survey workflow &amp; software
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          When fuel must be offloaded from a vessel, your surveyors record exactly what left the tanks. Immutable evidence accepted by shipowners, charterers, and receiving barges.
+          Space BQS is software for marine survey firms documenting fuel-removal work. The survey firm performs attendance and measurements; the software supports capture, review, and reporting.
         </p>
       </div>
 
@@ -57,23 +58,23 @@ export default function Page() {
       <div className="mx-auto max-w-6xl px-4 sm:px-6">
         <AnswerBlock>
           <p>
-            Debunkering is a high-risk reverse custody transfer where off-spec fuel, charter redelivery terms, or shipyard safety requirements mandate removing bunkers from a ship. Space BQS guides surveyors through pre-pumping and post-pumping soundings, free water checks, and ASTM D1250 Table 54B temperature corrections to issue locked, legally defensible certificates.
+            A debunkering survey records relevant fuel quantities before and after a removal operation under the agreed measurement procedure. Space BQS provides a software workflow for survey firms to capture survey details and prepare reports; it does not perform attendance, decide compliance, or determine contractual outcomes.
           </p>
         </AnswerBlock>
       </div>
 
       {/* Operational Scenarios */}
-      <Section eyebrow="Scenarios" title="When debunkering operations occur">
+      <Section eyebrow="Operational context" title="Examples of fuel-removal work">
         <div className="grid gap-6 md:grid-cols-3">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-amber-50 text-amber-700 mb-4">
               <AlertTriangle className="h-5 w-5" />
             </div>
             <h3 className="font-display text-lg font-bold text-ocean-950">
-              Off-Spec Fuel Removal
+              Fuel removal records
             </h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Bunkers failing ISO 8217 stability, flash point, or catalytic fines limits must be removed to prevent main engine damage. Independent quantity records substantiate claim recoveries.
+              If a vessel operator arranges fuel removal, the survey firm may record quantities and related particulars. Fuel quality decisions and removal requirements are determined by the responsible parties and applicable procedures.
             </p>
           </div>
 
@@ -82,10 +83,10 @@ export default function Page() {
               <Ship className="h-5 w-5" />
             </div>
             <h3 className="font-display text-lg font-bold text-ocean-950">
-              Charter Redelivery Terms
+              Charter or redelivery scope
             </h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Time charter agreements frequently stipulate redelivery fuel thresholds. Excess bunkers must be offloaded and credited back to the charterer before handover.
+              A charter or redelivery may include fuel quantity and handover terms. The parties and survey firm determine the relevant scope and documentation.
             </p>
           </div>
 
@@ -94,51 +95,51 @@ export default function Page() {
               <Droplets className="h-5 w-5" />
             </div>
             <h3 className="font-display text-lg font-bold text-ocean-950">
-              Drydock &amp; Tank Cleaning
+              Repair or tank-cleaning projects
             </h3>
             <p className="mt-2 text-xs leading-relaxed text-slate-600">
-              Shipyards require fuel tanks to be emptied and gas-freed before hot work, structural inspections, or conversion to low-carbon alternative fuels.
+              A repair or tank-cleaning project may involve fuel removal. Follow the facility&apos;s instructions and the survey scope agreed by the responsible parties.
             </p>
           </div>
         </div>
       </Section>
 
-      {/* 4-Stage Protocol */}
-      <Section eyebrow="Protocol" title="Four-stage debunkering measurement methodology">
+      {/* Survey information */}
+      <Section eyebrow="Software workflow" title="Information your survey team may record">
         <div className="space-y-4">
           <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-xs font-bold text-white font-mono">1</span>
             <div>
-              <h4 className="font-display font-bold text-ocean-950 text-base">Opening Soundings &amp; Water Check</h4>
+              <h3 className="font-display font-bold text-ocean-950 text-base">Opening measurements</h3>
               <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                Before hoses connect, the surveyor tapes all fuel and settling tanks, measures temperature at top/middle/bottom, and checks water bottoms using paste.
+                Record the tank readings and other inputs collected under the survey firm&apos;s agreed procedure before fuel removal.
               </p>
             </div>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-xs font-bold text-white font-mono">2</span>
             <div>
-              <h4 className="font-display font-bold text-ocean-950 text-base">Pumping &amp; Transfer Surveillance</h4>
+              <h3 className="font-display font-bold text-ocean-950 text-base">Transfer notes</h3>
               <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                Transfer rates, line pressure, and receiving barge soundings are monitored to guard against pipeline bypasses, spills, or unrecorded valve shifts.
+                Record relevant transfer particulars and documents if they are within the team's survey scope. Operational monitoring remains the responsibility of the transfer parties.
               </p>
             </div>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-xs font-bold text-white font-mono">3</span>
             <div>
-              <h4 className="font-display font-bold text-ocean-950 text-base">Closing Soundings &amp; Stripping Verification</h4>
+              <h3 className="font-display font-bold text-ocean-950 text-base">Closing measurements</h3>
               <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                After stripping suction breaks, final sounding tapes confirm remaining unpumpable volume. Line blowdown air is accounted for to prevent phantom tonnage.
+                Record post-removal measurements and document the survey scope, assumptions, and source information used.
               </p>
             </div>
           </div>
           <div className="rounded-xl border border-slate-200 bg-white p-5 flex items-start gap-4">
             <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-ocean-700 text-xs font-bold text-white font-mono">4</span>
             <div>
-              <h4 className="font-display font-bold text-ocean-950 text-base">Locked Certificate Generation</h4>
+              <h3 className="font-display font-bold text-ocean-950 text-base">Review and report</h3>
               <p className="mt-1 text-xs text-slate-600 leading-relaxed">
-                The engine applies Table 54B VCF to compute net metric tonnes removed. A tamper-evident PDF certificate and 4-sheet Excel audit pack are generated and signed.
+                Review the inputs and calculation information recorded for the survey, then use the current PDF and Excel report workflow.
               </p>
             </div>
           </div>

@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { Section, Eyebrow, H2, Faq } from "./components/ui";
@@ -11,29 +10,30 @@ import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
 import RolloutShowcase from "./components/RolloutShowcase";
 import AppPreviewCard from "./components/AppPreviewCard";
 import WeightText from "./components/WeightText";
+import { routeMetadata } from "./lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "BQS Software for Marine Surveyors — Capture, Calculate, Certify",
+export const metadata = routeMetadata("/", {
+  title: "Bunker Quantity Survey Software",
   description:
-    "Space BQS is software for bunker surveyors and survey firms: offline mobile capture, temperature-corrected MT engine, locked certificates, fleet dashboard. Quantity-only.",
-};
+    "Offline bunker quantity survey software for marine survey teams. Capture tank readings, review fuel calculations, and issue PDF and Excel reports.",
+});
 
 const FAQ_ITEMS = [
   {
     q: "What is Space BQS?",
-    a: "Space BQS is bunker quantity survey software built specifically for survey firms. It captures tank readings on deck, runs certified volume correction calculations, and produces locked, tamper-evident certificates.",
+    a: "Space BQS is bunker quantity survey software for marine survey firms. Surveyors capture tank readings in the mobile app; the web platform supports review and PDF and Excel report workflows.",
   },
   {
     q: "Does the mobile app work without internet on deck?",
-    a: "Yes. The mobile app carries your vessel tank register and volume correction tables cached locally. It computes quantities offline in engine rooms and barges, with a 72-hour offline lease that syncs automatically when signal returns.",
+    a: "Yes. The mobile app supports recording survey work offline and synchronizing it with the web platform when connectivity returns. Ask the team about current device and offline-storage requirements.",
   },
   {
     q: "Which fuel grades and calculation standards are supported?",
-    a: "Grades include VLSFO, HFO, MGO, LSMGO, and ULSFO, using standard temperature volume correction factors (VCF), with density ranges 0.820–1.000 kg/L and temperatures 0–90°C.",
+    a: "Space BQS product materials list VLSFO, HFO, MGO, LSMGO, and ULSFO. Confirm the exact calculation-table edition, fuel coverage, and supported input ranges for your product release with the team.",
   },
   {
     q: "What does the client receive?",
-    a: "Clients receive a locked, tamper-evident A4 PDF certificate, plus an audit-ready four-sheet Excel workbook detailing particulars, soundings, strapping interpolations, and volume correction factors.",
+    a: "Space BQS supports PDF and Excel report workflows. The illustrative sample on this site uses fictional data; request a current product output sample during a demo.",
   },
   {
     q: "Do surveyors need an account to use the mobile app?",
@@ -45,7 +45,7 @@ const FAQ_ITEMS = [
   },
   {
     q: "What happens to survey data after sign-off?",
-    a: "Every finalised survey is permanently stored in the Survey Warehouse with its raw tank readings, calibration table revisions, engine version, and certificate. When a dispute arrives months later, you open the verifiable record instead of rebuilding it.",
+    a: "Finalized survey records can be reviewed in the Space BQS register, with report outputs available through the web platform. Contact your organization administrator for account access and applicable retention details.",
   },
 ];
 

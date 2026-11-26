@@ -11,7 +11,7 @@ export default function DeckToolMock() {
             <WifiOff className="h-2.5 w-2.5" />
             <span>OFFLINE</span>
           </div>
-          <span className="text-[10px] text-slate-400">72h Lease Active</span>
+          <span className="text-[10px] text-slate-400">Offline capture preview</span>
         </div>
       </div>
 

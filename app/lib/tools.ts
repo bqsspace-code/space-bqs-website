@@ -21,13 +21,13 @@ export const TOOLS: ToolConfig[] = [
     description: "Deduct free water, apply a supplied VCF, and convert corrected volume to mass.",
     formula: "Net volume = observed − free water. Standard volume = net × supplied VCF. Mass = standard volume × density.",
     note: "Enter a VCF from your approved table or calculation source and density at the same reference condition as the corrected volume. This worksheet does not calculate a Table 54B factor, apply air-buoyancy corrections, or issue a certificate.",
-    standards: "ASTM D1250-04, API MPMS Chapter 11.1, ISO 13739:2020",
+    standards: "Arithmetic worksheet using a user-supplied VCF; not a standards-compliance check.",
     guidance: [
       "Observed Volume: The total gross liquid volume determined from vessel tank sounding or ullage tape measurements using official calibration tables.",
       "Free Water Volume: Measurable unmixed water settled at tank bottom, deducted before applying temperature correction factors.",
       "Volume Correction Factor (VCF): Dimensionless multiplier normalizing liquid volume from observed temperature to 15°C reference condition.",
       "Standard Density: Density at 15°C (in vacuum or air) as stated on the bunker delivery note (BDN) or surveyor lab certificate.",
-      "Custody Transfer Metric Tonnes: Final certified mass calculated as Standard Volume (m³) × Density (kg/m³) ÷ 1,000.",
+      "Calculated mass: Standard Volume (m³) × Density (kg/m³) ÷ 1,000. This worksheet result is not a survey certificate.",
     ],
     workedExample: {
       inputs: [
@@ -50,7 +50,7 @@ export const TOOLS: ToolConfig[] = [
       },
       {
         q: "Does this worksheet run the full production ASTM engine?",
-        a: "No. This public web tool allows surveyors and superintendents to verify volume-to-mass arithmetic using a user-supplied factor. The full Space BQS platform executes bilinear interpolation across the complete ASTM D1250 Table 54B matrix.",
+        a: "No. This public worksheet lets you check volume-to-mass arithmetic using a factor you supply. It is separate from the Space BQS production application; confirm the production calculation method and table edition for the release you evaluate.",
       },
     ],
   },
@@ -60,30 +60,30 @@ export const TOOLS: ToolConfig[] = [
     description: "Compare measured and declared mass, with a signed difference and percentage.",
     formula: "Difference = measured − declared. Percentage = difference ÷ declared × 100.",
     note: "A negative result means measured mass is below the BDN figure. Use the same mass basis and units for both inputs. This comparison does not decide contractual tolerance or liability.",
-    standards: "BIMCO Standard Bunker Terms 2018, Singapore SS 600:2022, ISO 13739:2020",
+    standards: "Compare figures using the same units and mass basis; contractual tolerances vary.",
     guidance: [
       "BDN Declared Quantity: The supplier's stated fuel mass in metric tonnes from the physical or digital bunker delivery note.",
       "Surveyor Measured Quantity: Independent custody transfer mass calculated from vessel sounding sheets before and after delivery.",
       "Signed Difference (MT): Measured mass minus declared BDN mass. A negative figure indicates a physical delivery shortfall.",
-      "Percentage Variance: Quantifies discrepancy relative to nomination size. Variations exceeding standard commercial tolerances (e.g. ±0.5%) typically warrant immediate issuance of a formal Letter of Protest.",
+      "Percentage difference: The signed difference divided by the declared mass. Use the applicable contract and local procedure to determine next steps.",
     ],
     workedExample: {
       inputs: [
         "Supplier BDN Declared Mass: 1,000.000 MT",
         "Independent Surveyor Measured Mass: 988.500 MT",
-        "Discrepancy Threshold: ±0.5% (5.000 MT)",
+        "Compare the calculated difference with the tolerance, if any, stated in the applicable contract.",
       ],
       calculation: "Difference = 988.500 − 1,000.000 = −11.500 MT → Percentage = (−11.500 ÷ 1,000.000) × 100 = −1.15%",
-      output: "−11.500 MT shortfall (−1.15% variance) — Exceeds ±0.5% tolerance threshold",
+      output: "−11.500 MT difference (−1.15%)",
     },
     faqs: [
       {
-        q: "What is the customary commercial tolerance in bunker delivery?",
-        a: "Many charterparty contracts reference a ±0.5% tolerance threshold to account for measurement uncertainty. However, under BIMCO Standard Terms, buyers pay for actual fuel delivered, and significant shortages should always be supported with a signed Letter of Protest and locked survey certificate.",
+        q: "Does this worksheet decide whether a delivery is outside contractual tolerance?",
+        a: "No. It calculates the difference and percentage from the values entered. Check the applicable contract and local procedures to interpret the result.",
       },
       {
         q: "When should our survey team issue a Letter of Protest (LOP)?",
-        a: "If the difference between the barge delivery figures and vessel tank measurements exceeds acceptable thresholds, the surveyor should draft a Letter of Protest immediately before the barge departs, presenting tank-by-tank evidence.",
+        a: "Follow the applicable contract, port procedure, and your organization’s process. This arithmetic worksheet does not provide legal or operational advice.",
       },
       {
         q: "Does a BDN discrepancy automatically prove supplier fault?",
@@ -99,11 +99,11 @@ export const TOOLS: ToolConfig[] = [
     note: "Use one fuel grade, period, and mass basis. Include all movements. This is a balance worksheet; it does not independently verify readings or replace a survey record.",
     standards: "BIMCO Fuel Settlement Principles, IMO DCS / EU MRV Fuel Monitoring Guidelines",
     guidance: [
-      "Opening ROB: Certified fuel remaining on board at the beginning of the charter voyage or survey period.",
+      "Opening ROB: Recorded fuel remaining on board at the start of the selected period.",
       "Bunker Receipts: Total delivered mass received from all verified bunker delivery attendances during the period.",
       "Transfers / Debunkering Out: Fuel pumped off the vessel or transferred between segregated systems during the period.",
-      "Closing ROB: Independent fuel inventory surveyed at off-hire redelivery or end of voyage monitoring.",
-      "Calculated Consumption: Reconciles total fuel consumed by main engines, auxiliary boilers, and generators.",
+      "Closing ROB: Recorded fuel remaining on board at the end of the selected period.",
+      "Calculated balance: A result from the opening ROB, receipts, transfers out, and closing ROB values entered.",
     ],
     workedExample: {
       inputs: [

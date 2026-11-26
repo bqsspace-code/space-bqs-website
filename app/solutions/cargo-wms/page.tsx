@@ -1,5 +1,6 @@
 import type { Metadata } from "next";
 import type { ReactNode } from "react";
+import { routeMetadata } from "../../lib/seo-metadata";
 import Link from "next/link";
 import { ArrowDown, ArrowUpRight, ClipboardList, Database, FileCheck2, Receipt, Settings2, ShieldCheck, Ship, Warehouse } from "lucide-react";
 import CargoWmsJourney from "@/components/ui/cargo-wms-journey";
@@ -12,10 +13,10 @@ import WaveTransition from "../../components/WaveTransition";
 import ScrollReveal from "../../components/ScrollReveal";
 import "./cargo-wms-page.css";
 
-export const metadata: Metadata = {
+export const metadata: Metadata = routeMetadata("/solutions/cargo-wms", {
   title: "Custom Cargo WMS Implementation",
   description: "Scope a Cargo WMS covering manifests, destuffing, cargo tracking, tariffs, controlled release, customer access, reporting, and data migration.",
-};
+});
 
 const MILESTONES = [
   { icon: ClipboardList, title: "Discover the operation.", text: "Review your current spreadsheets, cargo records, and warehouse process.", outcome: "A shared view of the workflow" },

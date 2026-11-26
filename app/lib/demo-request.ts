@@ -72,6 +72,9 @@ export function buildCreateDemoRequestInput(data: QuoteSubmission): CreateDemoRe
     data.companySize ?? (data.teamSize ? LEGACY_TEAM_SIZE_MAP[data.teamSize.trim()] : undefined);
 
   const detailLines = [
+    `Country: ${data.country}`,
+    `Organization type: ${data.organizationType}`,
+    data.companySize ? `Team size: ${data.companySize} surveyors / team members` : null,
     data.role || (data.deployment && data.deployment !== "Discuss options") || data.volume
       ? `Solution: ${data.solution}`
       : null,

@@ -1,4 +1,5 @@
 import type { Metadata } from "next";
+import { routeMetadata } from "../../lib/seo-metadata";
 import type { ReactNode } from "react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,10 +14,10 @@ import ScrollReveal from "../../components/ScrollReveal";
 import "../cargo-wms/cargo-wms-page.css";
 import "./space-bqs-page.css";
 
-export const metadata: Metadata = {
-  title: "Space BQS — Bunker Quantity Survey Software",
-  description: "An offline-first mobile app for surveyors and a web platform for supervisors, with quantity calculations, review, and locked survey records.",
-};
+export const metadata: Metadata = routeMetadata("/solutions/space-bqs", {
+  title: "Bunker Quantity Survey Software",
+  description: "Bunker quantity survey software for marine survey firms. Capture tank readings offline, review calculations, and issue PDF and Excel reports.",
+});
 
 function BqsHeading({ id, eyebrow, children, description }: { id: string; eyebrow: string; children: ReactNode; description: string }) {
   return <header className="cargo-section-heading"><div><p className="cargo-eyebrow">{eyebrow}</p><WeightText id={id} tag="h2" mode="scroll-reveal" restWeight={400} activeWeight={700} className="cargo-section-title font-display">{children}</WeightText></div><p className="cargo-section-lede">{description}</p></header>;
@@ -35,7 +36,7 @@ export default function Page() {
           <ShinyButton href="/request-demo" className="inline-flex min-h-12 items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-white">Request A Demo<ArrowUpRight className="h-4 w-4" aria-hidden="true" /></ShinyButton>
           <ShinyButton variant="secondary" href="#survey-journey" className="inline-flex min-h-12 items-center gap-2 rounded-full px-6 py-3 text-sm font-semibold text-[#031038]">Follow A Survey<ArrowDown className="h-4 w-4" aria-hidden="true" /></ShinyButton>
         </div>
-        <div className="cargo-hero-capabilities" aria-label="Product capabilities">{[{ icon: WifiOff, text: "Offline-first capture" }, { icon: Monitor, text: "Office review" }, { icon: LockKeyhole, text: "Locked records" }, { icon: FileCheck2, text: "PDF + Excel" }].map(item => <span key={item.text}><item.icon aria-hidden="true" />{item.text}</span>)}</div>
+        <div className="cargo-hero-capabilities" aria-label="Product capabilities">{[{ icon: WifiOff, text: "Offline-first capture" }, { icon: Monitor, text: "Office review" }, { icon: LockKeyhole, text: "Finalised records" }, { icon: FileCheck2, text: "PDF + Excel" }].map(item => <span key={item.text}><item.icon aria-hidden="true" />{item.text}</span>)}</div>
         <p className="cargo-hero-scope">Quantity-only · iOS &amp; Android · Accounts provided by your survey firm</p>
       </div>
     </section>
@@ -57,7 +58,7 @@ export default function Page() {
               <div className="bqs-mobile-caption"><WifiOff aria-hidden="true" /><span>On deck.<br />On device.<br />Offline.</span></div>
               <div className="bqs-phone-preview"><Image src="/assets/mobile_image/WhatsApp%20Image%202026-10-09%20at%2011.09.07%20PM%20(7).jpeg" alt="Space BQS mobile calculation preview with tank readings, draft saving, and survey total" fill sizes="180px" className="object-cover object-top" /></div>
             </div>
-            <div className="bqs-interface-copy"><p className="cargo-eyebrow">01 / The Mobile App</p><h3>Capture Without Retyping.</h3><p>Choose or scan a vessel, capture tank readings, calculate locally, and sync after field work. A 72-hour offline lease supports work without cellular coverage.</p><ul>{["Vessel context and field measurements", "Local calculation before submission", "Sync when your connection returns"].map(text => <li key={text}><Check aria-hidden="true" />{text}</li>)}</ul><Link href="/mobile-app">See the real app screens<ArrowUpRight aria-hidden="true" /></Link></div>
+            <div className="bqs-interface-copy"><p className="cargo-eyebrow">01 / The Mobile App</p><h3>Capture Without Retyping.</h3><p>Choose or scan a vessel, capture tank readings, calculate locally, and sync after field work. Offline support helps surveyors continue recording when connectivity is unavailable.</p><ul>{["Vessel context and field measurements", "Local calculation before submission", "Sync when your connection returns"].map(text => <li key={text}><Check aria-hidden="true" />{text}</li>)}</ul><Link href="/mobile-app">See the real app screens<ArrowUpRight aria-hidden="true" /></Link></div>
           </article></div>
           <div><article className="bqs-interface-card" data-glass-depth>
             <div className="bqs-interface-visual bqs-interface-visual--office">
@@ -66,7 +67,7 @@ export default function Page() {
                 <div className="bqs-office-body"><p>One place to review.</p><span className="bqs-office-caption">ILLUSTRATIVE REVIEW QUEUE</span>{[["Delivery survey", "Under review"], ["ROB survey", "Calculated"], ["Debunkering survey", "Finalised"]].map(([label, state]) => <div key={label} className="bqs-office-row"><span>{label}</span><span>{state}</span></div>)}<div className="bqs-office-lock"><LockKeyhole aria-hidden="true" />Supervisor-controlled finalisation</div></div>
               </div>
             </div>
-            <div className="bqs-interface-copy"><p className="cargo-eyebrow">02 / The Web App</p><h3>Review With The Working.</h3><p>Review calculation details, manage vessel master data, follow survey status, and retrieve issued PDF certificates and Excel workbooks.</p><ul>{["Tank-level calculation review", "Controlled finalisation and locked records", "Issued proof ready for the client"].map(text => <li key={text}><Check aria-hidden="true" />{text}</li>)}</ul><Link href="/platform">Explore the office platform<ArrowUpRight aria-hidden="true" /></Link></div>
+            <div className="bqs-interface-copy"><p className="cargo-eyebrow">02 / The Web App</p><h3>Review With The Working.</h3><p>Review calculation details, manage vessel master data, follow survey status, and retrieve issued PDF certificates and Excel workbooks.</p><ul>{["Tank-level calculation review", "Controlled finalisation of survey records", "Issued PDF and Excel outputs"].map(text => <li key={text}><Check aria-hidden="true" />{text}</li>)}</ul><Link href="/platform">Explore the office platform<ArrowUpRight aria-hidden="true" /></Link></div>
           </article></div>
         </ScrollReveal>
       </div>

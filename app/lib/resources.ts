@@ -5,6 +5,9 @@ export type Resource = {
   updated: string;
   answer: string;
   body: string[];
+  sections?: { heading: string; body: string[] }[];
+  sources?: { label: string; url: string }[];
+  related?: { label: string; href: string }[];
   faq: { q: string; a: string }[];
 };
 
@@ -13,28 +16,41 @@ export const RESOURCES: Resource[] = [
     "slug": "what-is-bunker-quantity-survey",
     "title": "What is a bunker quantity survey?",
     "description": "Simple explanation for survey teams: what happens on board and what your clients receive.",
-    "updated": "2026-10-15",
-    "answer": "A bunker quantity survey is an independent check of how much fuel a ship received. Your surveyors measure tanks before and after delivery, correct for temperature and water in the system, and issue a locked report in tonnes your clients compare against the supplier's BDN.",
-    "body": [
-      "Your clients buy fuel far from the ship. The delivery happens while they are in an office. The supplier gives them a BDN receipt with a number. Your BQS gives them their own number from your team.",
-      "On board your surveyor records vessel, port, date, inspector and BDN, then measures each tank: ullage or sounding in metres, temperature in Celsius, and free water in cubic metres.",
-      "Back in the system each tank goes through the same steps: volume from the tank table, minus water, times a temperature correction factor, times density, divided by 1000 to get metric tonnes. The total is the custody transfer quantity.",
-      "Your clients receive a PDF certificate and Excel breakdown. Once finalised it is locked and cannot be edited. If a reading is out of range it is flagged, never guessed.",
-      "Independent verification protects buyers from aerated deliveries (cappuccino effect) and ensures custody handoffs comply with ISO 13739 and BIMCO standard terms."
+    "updated": "2026-11-23",
+    "answer": "A bunker quantity survey records how much fuel is measured on a vessel during a delivery or at a specified point in a voyage. Survey teams record tank readings and relevant inputs, then compare the resulting quantity with delivery documents under the applicable contract and procedure.",
+    "body": [],
+    "sections": [
+      { "heading": "How a bunker quantity survey works", "body": [
+        "A bunker quantity survey is performed by a marine survey team. Space BQS provides software for recording survey information and supporting calculation and report workflows; it does not send surveyors to vessels.",
+        "The survey team records vessel and delivery details, tank soundings or ullages, temperature, free water where measured, fuel grade, density, and the supplier's Bunker Delivery Note (BDN). The applicable process depends on the contract, port procedure, and measurement method used.",
+        "A software workflow can organize the readings, apply configured calculation inputs, support supervisor review, and prepare PDF or Excel report outputs. The report documents its inputs; it does not itself decide contractual liability or prove fuel quality."
+      ] },
+      { "heading": "Where Space BQS fits", "body": [
+        "Space BQS supports bunker delivery, Remaining On Board (ROB), and debunkering workflows for survey firms. The mobile app supports field capture, while the web platform supports review and report workflows.",
+        "The sample report and calculation-method pages provide additional detail about product outputs and calculation inputs."
+      ] }
+    ],
+    "related": [
+      { "label": "View the sample bunker survey report", "href": "/sample-report" },
+      { "label": "Read how the calculation workflow works", "href": "/how-we-measure" }
     ],
     "faq": [
       {
         "q": "How long does a job take?",
-        "a": "Depends on tanks and operations. The survey runs alongside normal delivery."
+        "a": "Timing depends on the vessel, access, number of tanks, and the applicable survey procedure. Space BQS supplies software; the survey firm performs the attendance."
       },
       {
         "q": "Is quality tested?",
-        "a": "No. Space BQS is quantity-only."
+        "a": "No. Space BQS is software for bunker quantity survey workflows. Fuel quality testing is a separate service."
       },
       {
-        "q": "What standards govern the survey?",
-        "a": "ISO 13739:2020 commercial bunkering procedures, ASTM D1250 Table 54B petroleum measurement, and local port codes like Singapore SS 600."
+        "q": "Which procedure or standard applies?",
+        "a": "That depends on the port, transfer method, contract, and current applicable standard. Confirm requirements with the relevant authority and technical reviewer; the software is not a certification of compliance."
       }
+    ],
+    "sources": [
+      { "label": "ASTM D1250-25 catalog entry (current edition listing)", "url": "https://store.astm.org/d1250-25.html" },
+      { "label": "Singapore MPA bunkering standards (SS 600:2022 and SS 648:2024 information)", "url": "https://www.mpa.gov.sg/port-marine-ops/marine-services/bunkering/bunkering-standards" }
     ]
   },
   {
@@ -53,11 +69,11 @@ export const RESOURCES: Resource[] = [
     "faq": [
       {
         "q": "Which is more accurate?",
-        "a": "Neither is inherently more accurate. Precision depends on using calibrated tapes, reading against the verified datum plate, taking three temperature levels, and applying the ship's specific calibration tables."
+        "a": "Neither method is universally more accurate. Follow the vessel's calibration tables and applicable survey procedure, and record the measurement method used."
       },
       {
         "q": "What is the tank reference height?",
-        "a": "The total certified vertical distance from the striker plate at the tank bottom to the upper rim of the sounding pipe. Verifying this height ensures the pipe has not been deformed or damaged."
+        "a": "Reference height is a vessel tank-table datum. Use the value and definition supplied with the applicable calibration information; this article does not replace that vessel documentation."
       }
     ]
   },
@@ -65,163 +81,226 @@ export const RESOURCES: Resource[] = [
     "slug": "bdn-vs-actual",
     "title": "BDN says X, your team measured Y — what now?",
     "description": "What your surveyors hand clients when the supplier receipt and surveyed quantity differ.",
-    "updated": "2026-10-15",
-    "answer": "The BDN is the supplier's receipt. Your survey certificate is the independent check your clients forward. If they differ, share both with method, date and version, and let clients resolve commercially. The certificate is dated proof, not just an opinion.",
+    "updated": "2026-11-23",
+    "answer": "A Bunker Delivery Note records the supplier's declared delivery quantity. A survey firm's measurement record is a separate source that can be compared with the BDN using matching units, periods, tanks, and mass basis.",
     "body": [
-      "A Bunker Delivery Note (BDN) represents the barge or terminal's declared custody transfer figure. When the surveyor's post-delivery tank measurements indicate a shortfall, fast, methodical documentation is essential to preserve your client's commercial position.",
-      "First, re-examine the core arithmetic: verify that opening and closing soundings were taken on all fuel and settling tanks, ensure identical metric tonne mass units on both sides, confirm the BDN receipt number, and verify that the delivery barge pipeline was blown down with compressed air.",
-      "Second, examine the intermediate audit: inspect the ASTM D1250 Table 54B VCF factors applied, verify fuel density from the delivery note against observed tank temperatures, and confirm that free water bottoms were deducted before volume correction.",
-      "Third, draft and issue an immediate Letter of Protest (LOP) before the delivery barge casts off if the discrepancy exceeds customary commercial tolerance (typically ±0.5%). State the measured figures clearly and invite the barge master to countersign.",
-      "Finally, provide clients with the complete locked evidence packet: the tamper-evident PDF certificate for commercial executives, and the 4-sheet transparent Excel workbook for technical superintendents and claims analysts. Dated evidence backed by an immutable audit trail settles disputes far faster than late opinions."
+      "Check that the survey and BDN refer to the same delivery period, fuel grade, tanks, units, and mass basis before comparing totals.",
+      "Review the inputs used for the survey calculation, including tank readings, density, temperature, free water where measured, and the applicable vessel reference data.",
+      "Record the difference and supporting details. Whether a notice is required, when it must be sent, and who should receive it depend on the contract and local process.",
+      "Space BQS provides software for survey firms to capture and review quantity-survey information. The software does not determine the cause of a difference or give legal advice."
     ],
     "faq": [
       {
         "q": "Does a difference prove a shortage?",
-        "a": "It proves two numbers differ with methodology shown. Commercial contracts stipulate settlement terms, and a dated survey certificate provides the legal substantiation needed for claim recovery."
+        "a": "No. It shows that the compared figures differ under the inputs provided. Check scope, units, timing, and applicable contractual terms before drawing conclusions."
       },
       {
         "q": "What causes common BDN delivery discrepancies?",
-        "a": "Frequent causes include aerated fuel delivery (cappuccino effect), temperature stratification in barge tanks, unrecorded pipeline displacement, or uncalibrated flow meters."
+        "a": "Potential factors depend on the transfer and measurement method. Review the survey scope and inputs with the responsible technical team."
       }
+    ],
+    "related": [
+      { "label": "Bunker delivery workflow software", "href": "/services/bunker-delivery-survey" },
+      { "label": "Compare declared and measured mass", "href": "/tools/bdn-discrepancy" },
+      { "label": "View the illustrative report layout", "href": "/sample-report" }
     ]
   },
   {
     "slug": "temperature-correction-explained",
     "title": "Why temperature changes fuel quantity",
-    "description": "Hot fuel expands. Clients pay for mass in tonnes, not hot litres. How your system corrects it.",
-    "updated": "2026-10-15",
-    "answer": "Fuel expands when hot and shrinks when cold. The system corrects every tank to standard volume with ASTM D1250 Table 54B using grade, density and temperature, then converts to mass. That is why two identical volumes at different temperatures give different tonnes.",
-    "body": [
-      "Marine fuels, particularly heavy fuel oil (HFO) and very low sulphur fuel oil (VLSFO), are heated on board to maintain pumpable viscosity, often between 40°C and 60°C. As fuel warms, its volumetric thermal expansion increases physical volume while its mass remains constant.",
-      "Bunker contracts are priced and settled by mass (Metric Tonnes), not volumetric litres or cubic metres. Therefore, observed tank volumes must be mathematically normalized back to standard reference conditions at 15°C.",
-      "The Space BQS engine performs this normalization using ASTM D1250 Table 54B (Generalized Products). For example, a heavy fuel with density 0.9500 kg/L measured at 40°C has a Volume Correction Factor around 0.9677. Over a 500-tonne delivery, that factor represents a commercial difference of more than 16 metric tonnes—amounting to over $10,000.",
-      "The system displays the VCF per tank to four decimal places, computes the volume-weighted average factor for the entire survey, and alerts surveyors if a single degree of temperature measurement drift significantly impacts metric tonnage.",
-      "Because heated tanks frequently experience thermal stratification, surveyors must take temperature readings across three levels (top, middle, bottom) and compute a representative average rather than relying on a single surface measurement."
+    "description": "Learn how temperature-based volume correction factors fit into bunker quantity calculations and which inputs affect the result.",
+    "updated": "2026-11-23",
+    "answer": "A volume correction factor (VCF) is used by applicable petroleum measurement methods to relate observed volume to a base-temperature volume. The factor depends on the method, product classification, reference density, observed temperature, and units used.",
+    "body": [],
+    "sections": [
+      { "heading": "What a volume correction factor does", "body": [
+        "Liquid petroleum volume varies with temperature. A VCF is applied as part of a defined method to adjust observed volume to specified base conditions before converting volume to mass.",
+        "Do not use a generic example factor in place of a licensed table or the method specified by the applicable contract and survey procedure."
+      ] },
+      { "heading": "Check the method and reference data", "body": [
+        "ASTM lists D1250-25 as the active guide for API/ASTM temperature and pressure volume correction factors. The applicable adjunct, table, edition, commodity group, base condition, and product implementation must be verified for the survey.",
+        "Space BQS product materials refer to Table 54B. Confirm the production engine version and table source with the product team; this educational page does not reproduce the standard or establish standards compliance."
+      ] },
+      { "heading": "Inputs and review", "body": [
+        "Typical inputs include observed volume, temperature, reference density, units, and vessel tank calibration data. Survey teams should retain the source values and review the resulting calculation before completing a record."
+      ] }
+    ],
+    "sources": [
+      { "label": "ASTM D1250-25 catalog entry", "url": "https://store.astm.org/d1250-25.html" }
+    ],
+    "related": [
+      { "label": "Read the calculation-method guide", "href": "/how-we-measure" },
+      { "label": "Try the supplied-factor volume-to-mass worksheet", "href": "/tools/volume-to-mass" },
+      { "label": "Review calculation inputs", "href": "/features/calculation-audit" }
     ],
     "faq": [
       {
-        "q": "Do surveyors need to memorize Table 54B grids?",
-        "a": "No. The system automatically executes bilinear interpolation across the official ASTM D1250 Table 54B grid using standard density at 15°C and observed temperature, displaying intermediate factors transparently."
+        "q": "Does this guide reproduce Table 54B?",
+        "a": "No. ASTM standards and associated adjuncts are licensed publications. Consult the current authorized edition and confirm which version applies to the survey."
       },
       {
-        "q": "What happens if a temperature reading is out of range?",
-        "a": "The engine enforces fail-safe validation: inputs beyond standard petroleum matrix bounds trigger an immediate error rather than generating speculative extrapolated numbers."
+        "q": "Which exact table edition does Space BQS use?",
+        "a": "Confirm the engine and table version for the product release used by your organization in current product documentation or with the Space BQS team."
       }
     ]
   },
   {
     "slug": "rob-checklist",
     "title": "ROB at on-hire and off-hire: checklist for survey teams",
-    "description": "What your teams prepare for a Remaining On Board job at charter start and end.",
-    "updated": "2026-10-15",
-    "answer": "ROB records all fuel on board at charter start and end. Your teams prepare vessel, port, date, access to all fuel tanks, and logbook figures for comparison. Each leg gets its own locked ROB certificate for your clients.",
-    "body": [
-      "An ROB (Remaining On Board) survey establishes the precise fuel inventory on board at delivery into or redelivery from a time charter. Because fuel costs represent the largest variable expense of a voyage, meticulous execution prevents costly charterparty disputes.",
-      "Prior to boarding, confirm vessel schedule, berth access, and coordinate with the Chief Engineer. Ensure calibrated sounding tapes, water-finding paste, and certified digital thermometry are prepared.",
-      "On board, conduct physical soundings across all fuel storage tanks, settling tanks, daily service tanks, and overflow compartments. Take liquid temperatures across multiple depths and test for bottom water using paste.",
-      "Inspect the engine room daily sounding book and official logbooks. Record the ship's figures alongside independent surveyor measurements, noting any operational transfers in progress.",
-      "Account for non-suction dead bottom stock and unpumpable sludge allowances as documented in the ship's calibration tables, ensuring usable commercial fuel is clearly segregated from unusable residues.",
-      "Issue locked on-hire and off-hire certificates as paired independent records with cryptographic hashes. Consumption equals opening on-hire ROB plus bunkers received minus closing off-hire ROB per fuel grade."
+    "description": "Prepare a Remaining On Board (ROB) survey record for a charter start or end, with a clear period and fuel-grade scope.",
+    "updated": "2026-11-23",
+    "answer": "A Remaining On Board (ROB) survey records fuel quantities at a defined point, such as a charter start or end. To reconcile a period, teams compare opening and closing ROB with bunkers received and other recorded movements, using consistent fuel grades, units, and time boundaries.",
+    "body": [],
+    "sections": [
+      { "heading": "Define the period and scope", "body": [
+        "Record the vessel, date and time, port, survey type, fuel grades, and tanks included. The survey firm determines access, measurement scope, and the procedure applicable to its assignment.",
+        "Keep opening and closing records distinct when they occur at different charter milestones. Record transfers and deliveries that fall within the period being reconciled."
+      ] },
+      { "heading": "Reconcile the fuel movements", "body": [
+        "A basic balance for one fuel grade is opening ROB plus receipts, minus transfers out and closing ROB. The calculation is only meaningful when the input figures share the same period, unit, and mass basis.",
+        "The balance does not verify the physical measurements or determine contractual settlement. Review the original survey records and the applicable charter terms."
+      ] },
+      { "heading": "Where survey software fits", "body": [
+        "Space BQS provides software for marine survey firms to capture survey information, support review, and prepare report outputs. The survey firm performs attendance and measurements."
+      ] }
     ],
     "faq": [
       {
         "q": "What if logbook and measured differ?",
-        "a": "Both figures are transparently recorded on the survey certificate. The independent surveyor measurement represents the objective physical record, while logbook notes provide operational context."
+        "a": "Record the source and scope of each figure. Compare units, period, tanks, and measurement method before interpreting a difference."
       },
       {
-        "q": "Why must daily service and settling tanks be sounded?",
-        "a": "Excluding service or settling tanks can hide 10 to 40 metric tonnes of fuel, distorting redelivery settlement and speed/consumption warranties."
+        "q": "Which tanks should be included?",
+        "a": "The applicable survey scope and procedure determine which tanks are included. Document the tanks measured and any exclusions in the survey record."
       }
+    ],
+    "related": [
+      { "label": "ROB survey workflow software", "href": "/services/rob-survey" },
+      { "label": "ROB balance worksheet", "href": "/tools/rob-balance" },
+      { "label": "ROB and on/off-hire settlement math", "href": "/resources/on-off-hire-fuel-settlement" }
     ]
   },
   {
     "slug": "bunker-shortage-claim-checklist",
     "title": "Bunker shortage claim checklist: what your teams attach",
-    "description": "Steps when measured quantity is below the BDN, and which evidence clients send first.",
-    "updated": "2026-10-15",
-    "answer": "If measured quantity is below the BDN, your teams first recheck tanks, units and BDN number. Then clients send the locked PDF certificate plus Excel breakdown with method, date and version promptly to all parties. Dated evidence with audit trail settles faster than late claims.",
-    "body": [
-      "Recheck basics: same tanks included on both sides, metric tonnes on both, same delivery window, BDN number copied correctly.",
-      "Open the audit: which strapping and VCF tables and revisions were used, any interpolated or flagged lines, water deducted, temperatures noted, engine version and calculation time.",
-      "Hand clients a fast packet: PDF certificate for humans plus Excel for analysts, with survey number, vessel, port and date in the subject. Keep the register record searchable for later.",
-      "Note what this proves: two numbers differ with method shown. Settlement stays commercial — evidence helps, and speed helps more.",
-      "Include any signed Letters of Protest (LOP) countersigned by the barge master, as well as seal numbers and witness timestamps."
+    "description": "A neutral checklist for comparing measured bunker quantity with a supplier BDN and organizing the survey record.",
+    "updated": "2026-11-23",
+    "answer": "When a measured bunker quantity differs from the supplier BDN, first confirm the survey scope, period, units, fuel grade, and mass basis. Then review the readings and calculation inputs. Follow the contract and local procedures for any notice or commercial action.",
+    "body": [],
+    "sections": [
+      { "heading": "Check the comparison", "body": [
+        "Confirm that the BDN and survey refer to the same delivery, fuel grade, units, mass basis, tanks, and time period. Note any differences in scope before comparing totals.",
+        "Verify the BDN identifier and the vessel and port particulars recorded for the survey. A transcription or period mismatch can make otherwise correct figures incomparable."
+      ] },
+      { "heading": "Review survey inputs", "body": [
+        "Check the recorded tank readings, reference data, temperature, density, free water where measured, and volume-correction method. Keep the method and source versions with the report when the product provides them.",
+        "A difference identifies a discrepancy between figures; it does not establish the cause, responsibility, or legal outcome."
+      ] },
+      { "heading": "Follow the relevant procedure", "body": [
+        "Contract terms and port procedures determine whether a notice is needed, the recipient, and any deadline. Consult the responsible survey manager or legal/commercial adviser for case-specific action.",
+        "Space BQS is software for survey teams to record and review information. It does not provide legal advice or perform survey attendance."
+      ] }
     ],
     "faq": [
       {
-        "q": "How fast should I raise it?",
-        "a": "As soon as the certificate is finalised. Same-day with evidence beats next-week without."
+        "q": "How quickly should a discrepancy be raised?",
+        "a": "Follow the timing and notice requirements in the applicable contract and port procedure. This guide is not legal advice."
       },
       {
         "q": "What if the supplier disagrees?",
-        "a": "Share method and audit, not just the total. Tables, temperatures and warnings are harder to argue with."
-      },
-      {
-        "q": "Does the survey certificate serve as legal evidence in arbitration?",
-        "a": "Yes. Cryptographically sealed certificates with per-line calculation provenance and surveyor signatures are standard submissions in LMAA and international maritime arbitration."
+        "a": "Keep the compared figures, units, survey scope, and calculation inputs together, and follow the commercial process agreed by the parties."
       }
+    ],
+    "related": [
+      { "label": "Bunker delivery workflow", "href": "/services/bunker-delivery-survey" },
+      { "label": "BDN discrepancy worksheet", "href": "/tools/bdn-discrepancy" },
+      { "label": "Calculation methodology", "href": "/how-we-measure" }
     ]
   },
   {
     "slug": "glossary-10-terms",
-    "title": "10 bunker terms in plain English",
-    "description": "BDN, ROB, VCF, ullage, sounding, debunkering, MT and more — one line each for teams and clients.",
-    "updated": "2026-10-15",
-    "answer": "BDN is the supplier receipt. ROB is fuel left on board. VCF corrects volume for temperature. Ullage measures empty space from the top, sounding measures fuel depth from the bottom. MT is metric tonnes — what clients pay for.",
+    "title": "Bunker Quantity Survey Terms in Plain English",
+    "description": "Plain-English definitions for common bunker quantity survey abbreviations and tank measurement terms.",
+    "updated": "2026-11-23",
+    "answer": "BDN means Bunker Delivery Note, ROB means Remaining On Board, and VCF means Volume Correction Factor. Ullage measures the space above liquid; sounding measures liquid depth from a reference point. MT means metric tonne.",
     "body": [
       "BDN (Bunker Delivery Note): the supplier's receipt for a delivery. Your certificate is the independent check against it.",
       "ROB (Remaining On Board): all fuel left in tanks at a moment — used at charter start and end.",
       "VCF (Volume Correction Factor): adjusts measured volume for temperature using standard tables.",
       "Ullage: empty space from tank top to fuel. Sounding: fuel depth from tank bottom. Both map to volume via the tank table.",
       "Debunkering: removing fuel from the vessel, measured before and after like a delivery in reverse.",
-      "MT: metric tonnes of mass. Grades teams will see: VLSFO, HFO, MGO, LSMGO, ULSFO. Mass basis: in air or vacuum.",
+      "MT (metric tonne): a unit of mass. Fuel grades and reporting conventions depend on the product and applicable contract.",
       "Cappuccino Effect: aerated or frothy fuel pumped into tanks causing temporary volume inflation before settling.",
-      "Striker Plate: reinforced steel plate at the bottom of a sounding pipe protecting the hull plate from tape weight impact.",
-      "Water Finding Paste: chemically reactive paste applied to the bottom of a sounding tape that turns red in contact with free water."
+      "Striker plate: a reference surface at the lower end of a sounding pipe, as described in the vessel's measurement documentation.",
+      "Water-finding paste: a product applied according to its instructions to help identify a water interface."
     ],
     "faq": [
       {
         "q": "Where do I use these?",
         "a": "Every service and guide on this site links back here, so jargon never blocks you."
       }
+    ],
+    "related": [
+      { "label": "Explore bunker survey workflows", "href": "/services" },
+      { "label": "Read the calculation-method guide", "href": "/how-we-measure" }
     ]
   },
   {
     "slug": "on-off-hire-fuel-settlement",
     "title": "On/off-hire fuel settlement: the simple math",
-    "description": "Opening ROB plus bunkered minus closing ROB per grade. What your clients keep.",
-    "updated": "2026-10-15",
-    "answer": "Fuel used during a charter equals opening ROB plus all bunkered minus closing ROB, tracked per grade. Your teams hand clients both locked ROB certificates plus every BDN and delivery certificate — that packet settles the bill.",
-    "body": [
-      "Charter voyage fuel accounting relies on a straightforward mass balance principle: Voyage Consumption = Opening ROB (On-Hire) + Total Bunkers Received − Closing ROB (Off-Hire). However, execution errors frequently generate multi-thousand-dollar settlement claims.",
-      "Rule 1: Always calculate settlement separately per fuel grade. VLSFO 0.5%, LSMGO 0.1%, and high-sulphur heavy fuel have different densities, pricing, and consumption rates. Blending them into a single lump sum invalidates commercial accounting.",
-      "Rule 2: Collect the complete custody documentation chain: the on-hire ROB certificate, every delivery certificate with supporting BDNs during the charter voyage, and the off-hire redelivery ROB certificate.",
-      "Rule 3: Reconcile intermediate transfers and auxiliary generator consumption during off-hire waiting times or laydays. Discrepancies between logbook estimates and physical tank soundings must be recorded without retroactive adjustment.",
-      "Disputes evaporate when the commercial packet is complete, dated, and tamper-evident: cryptographically sealed Space BQS certificates protect charterers and shipowners alike far better than post-voyage reconstructed spreadsheets."
+    "description": "Understand the fuel balance between opening and closing ROB, receipts, and other recorded movements.",
+    "updated": "2026-11-23",
+    "answer": "A basic fuel-consumption balance is opening ROB plus receipts, minus transfers out and closing ROB. Calculate per fuel grade and for a defined period, using consistent units and mass basis. Contractual settlement terms determine how the result is applied.",
+    "body": [],
+    "sections": [
+      { "heading": "The balance relationship", "body": [
+        "For a defined period and one fuel grade: consumption balance = opening ROB + receipts − transfers out − closing ROB. Include other movements that affect the chosen scope and document the source for each value.",
+        "This arithmetic reconciles inputs; it does not verify the measurements or determine contractual settlement."
+      ] },
+      { "heading": "Keep records comparable", "body": [
+        "Use the same fuel grade, units, mass basis, time period, and scope for the opening, receipts, transfers, and closing figures. Keep on-hire and off-hire survey records distinct when they refer to different times or locations.",
+        "Space BQS provides software for survey firms to record bunker quantity survey work and prepare report outputs. The survey firm performs attendance and measurements."
+      ] }
     ],
     "faq": [
       {
         "q": "Can one ROB certificate cover both on-hire and off-hire?",
-        "a": "No. On-hire and off-hire are legally distinct delivery events taking place at different ports and draft conditions. Each requires its own independent locked certificate."
+        "a": "They refer to different points in time. Keeping the records separate helps preserve the survey scope and inputs for each point."
       },
       {
         "q": "How are intermediate bunkerings during the charter voyage verified?",
-        "a": "Every bunkering event during the charter period must include the supplier's signed BDN and independent bunker delivery survey certificate to prove actual received mass."
+        "a": "Record receipts that fall within the period and scope being reconciled. The applicable contract and survey process determine which supporting documents are required."
       }
+    ],
+    "related": [
+      { "label": "ROB survey checklist", "href": "/resources/rob-checklist" },
+      { "label": "ROB balance worksheet", "href": "/tools/rob-balance" },
+      { "label": "Compare ROB and delivery surveys", "href": "/resources/rob-vs-bunker-delivery-survey" }
     ]
   },
   {
     "slug": "standards-in-plain-English",
-    "title": "Fuel standards in plain English (context only)",
-    "description": "What ISO 8217, ISO 13739 and MARPOL Annex VI cover — and why the system stays quantity-only.",
-    "updated": "2026-10-15",
-    "answer": "ISO 8217 names fuel grades and quality limits. ISO 13739 covers how representative samples are drawn. MARPOL Annex VI governs sulphur and emissions sampling duties. Space BQS is quantity-only: surveyors measure how much through the system, not lab quality — this page is context, not certification.",
-    "body": [
-      "ISO 8217 is the grade catalogue teams see as VLSFO, HFO, MGO and friends, with quality limits a lab would test against.",
-      "ISO 13739 describes drawing a representative sample during transfer — the sampling discipline behind quality disputes.",
-      "MARPOL Annex VI sets sulphur and emissions duties, including keeping delivery samples on board.",
-      "Space BQS does not run labs, draw quality samples for testing, or certify compliance. It records quantity with BDN cross-reference so quality providers and lawyers have clean inputs.",
-      "ASTM D1250-04 governs petroleum measurement tables, providing the mathematical standard used by the Space BQS engine to convert temperature-expanded volumes to certified metric tonnes."
+    "title": "Bunkering standards and quantity measurement: context",
+    "description": "A sourced overview of selected bunkering standards and how their measurement approaches differ from survey software.",
+    "updated": "2026-11-23",
+    "answer": "Bunkering requirements depend on the port, contract, and measurement method. In Singapore, MPA lists SS 600:2022 for tank gauging and SS 648:2024 for mass-flow metering. ASTM D1250 is a separate guide family for volume correction factors; listing a standard does not certify software compliance.",
+    "body": [],
+    "sections": [
+      { "heading": "Tank gauging and mass-flow metering are distinct", "body": [
+        "Singapore MPA's current bunkering standards page describes SS 600:2022 for tank gauging and SS 648:2024 for mass-flow metering. The authority describes tank gauging for specified circumstances, including MFM system failure, subject to its stated procedures.",
+        "These standards concern different measurement approaches. A software workflow should not be described as replacing a required measurement method or as receiving port-authority approval unless that is explicitly documented."
+      ] },
+      { "heading": "Volume correction reference", "body": [
+        "ASTM lists D1250-25 as the active guide for API/ASTM temperature and pressure volume correction factors. The applicable adjunct, table, edition, and implementation must be confirmed for a particular calculation.",
+        "Space BQS product materials refer to Table 54B. Confirm the exact production implementation and version with the product team. This page does not reproduce ASTM material or determine regulatory compliance."
+      ] },
+      { "heading": "Quantity and fuel quality are separate scopes", "body": [
+        "Space BQS is bunker quantity survey software. It does not perform laboratory fuel-quality testing. Follow the applicable authority and contract documentation for sampling, quality analysis, and other obligations."
+      ] }
+    ],
+    "sources": [
+      { "label": "ASTM D1250-25 catalog entry", "url": "https://store.astm.org/d1250-25.html" },
+      { "label": "Singapore MPA bunkering standards", "url": "https://www.mpa.gov.sg/port-marine-ops/marine-services/bunkering/bunkering-standards" }
     ],
     "faq": [
       {
@@ -230,7 +309,7 @@ export const RESOURCES: Resource[] = [
       },
       {
         "q": "Why does Space BQS stay quantity-only?",
-        "a": "Specialization ensures defensibility. Mixing laboratory quality testing with field quantity measurement creates conflicting responsibilities. Space BQS focuses exclusively on delivering unassailable quantity proof."
+        "a": "Space BQS is designed for bunker quantity survey workflows. Fuel-quality testing and laboratory analysis are separate functions."
       }
     ]
   },
@@ -317,8 +396,101 @@ export const RESOURCES: Resource[] = [
         "a": "Space BQS provides a dual-input reconciliation matrix that compares MFM start/stop figures against vessel opening/closing soundings, factoring in line displacement and multi-depth temperature readings to pinpoint the exact root cause of any divergence."
       }
     ]
+  },
+  {
+    "slug": "rob-vs-bunker-delivery-survey",
+    "title": "ROB Survey vs Bunker Delivery Survey",
+    "description": "Understand the different questions answered by an onboard ROB record and a bunker delivery survey.",
+    "updated": "2026-11-23",
+    "answer": "A bunker delivery survey records a fuel transfer and compares pre- and post-delivery measurements with delivery information. A Remaining On Board (ROB) survey records fuel quantities at a defined point, such as charter start or end. They have different scopes and should be recorded as distinct survey events.",
+    "body": [],
+    "sections": [
+      { "heading": "Bunker delivery survey", "body": [
+        "A delivery survey concerns a bunkering transfer. A survey firm defines the tank scope, collects before-and-after readings under its procedure, and records the supplier Bunker Delivery Note (BDN) for comparison.",
+        "In Singapore, MPA describes SS 600:2022 tank gauging in specified circumstances and SS 648:2024 mass-flow metering. Follow current port procedures; a software workflow does not replace either measurement method."
+      ] },
+      { "heading": "Remaining On Board survey", "body": [
+        "An ROB survey records fuel in scope at a point in time. Common business contexts include charter start and end, but the applicable contract and survey instructions define the work.",
+        "To reconcile a period, teams compare opening ROB, bunker receipts, other movements, and closing ROB using consistent units, mass basis, fuel grades, and period boundaries."
+      ] },
+      { "heading": "What the software supports", "body": [
+        "Space BQS provides bunker quantity survey software for marine survey teams. It supports mobile capture, web review, and PDF/Excel report workflows; it does not send surveyors to vessels or decide contractual outcomes."
+      ] }
+    ],
+    "faq": [
+      { "q": "Can one record represent both an ROB survey and a bunker delivery?", "a": "They describe different survey scopes. Keep the event type and its readings, period, and supporting documents clear in the survey record." },
+      { "q": "Does a delivery-versus-BDN difference prove a shortage?", "a": "No. Confirm the compared scope, units, timing, and inputs, then follow the applicable contract and port procedure." }
+    ],
+    "sources": [
+      { "label": "Singapore MPA bunkering standards", "url": "https://www.mpa.gov.sg/port-marine-ops/marine-services/bunkering/bunkering-standards" }
+    ],
+    "related": [
+      { "label": "Bunker delivery workflow software", "href": "/services/bunker-delivery-survey" },
+      { "label": "ROB survey workflow software", "href": "/services/rob-survey" },
+      { "label": "ROB balance worksheet", "href": "/tools/rob-balance" }
+    ]
+  },
+  {
+    "slug": "reduce-spreadsheet-errors-in-bunker-surveys",
+    "title": "How to Reduce Spreadsheet Errors in Bunker Surveys",
+    "description": "A review checklist for controlling inputs, formulas, reference data, and survey report handoffs.",
+    "updated": "2026-11-23",
+    "answer": "Reduce spreadsheet risk by separating entered measurements from calculated outputs, validating units and ranges, controlling formula and reference-table versions, reviewing totals, and preserving each final record with its source inputs. These controls can help teams find mistakes; no tool guarantees every survey is error-free.",
+    "body": [],
+    "sections": [
+      { "heading": "Separate source readings from calculations", "body": [
+        "Keep original readings, units, timestamps, fuel grade, and source documents identifiable. Avoid overwriting readings with derived values or converting units without recording the transformation.",
+        "For volume-to-mass arithmetic, identify the observed volume, any water deduction, the correction factor, density, base condition, and final unit. Confirm reference values with the applicable survey procedure."
+      ] },
+      { "heading": "Control formulas and reference data", "body": [
+        "Keep dated, reviewed copies of workbooks and record which vessel tank and correction references were used. Validate required fields, review formula changes, and flag missing or out-of-range inputs rather than silently substituting values.",
+        "Test workbook changes against known examples and arrange an independent review of representative calculations. A spreadsheet check does not replace the applicable standard or qualified survey review."
+      ] },
+      { "heading": "Make review and handoff traceable", "body": [
+        "Compare totals back to line items, record who reviewed the result, and preserve the issued version with its inputs and supporting documents. Document corrections rather than silently overwriting a prior report.",
+        "Space BQS provides software for survey firms to capture, review, and report survey information. See the calculation-method guide and illustrative report layout for the current website examples."
+      ] }
+    ],
+    "faq": [
+      { "q": "Can spreadsheet checks guarantee a calculation is correct?", "a": "No. Validation and review can catch some data and formula errors, but accuracy still depends on correct readings, reference data, assumptions, and competent review." },
+      { "q": "What should be kept with a calculation?", "a": "Retain source readings, units, reference data and versions, calculation steps, reviewer information, and the report issued for the survey." }
+    ],
+    "related": [
+      { "label": "Explore the calculation review feature", "href": "/features/calculation-audit" },
+      { "label": "Read how the calculation workflow works", "href": "/how-we-measure" },
+      { "label": "View the illustrative report layout", "href": "/sample-report" }
+    ]
+  },
+  {
+    "slug": "what-a-bunker-survey-report-contains",
+    "title": "What a Bunker Survey Report Contains",
+    "description": "A guide to survey particulars, readings, calculation context, and report outputs teams may document.",
+    "updated": "2026-11-23",
+    "answer": "A bunker quantity survey report commonly identifies the vessel, port, time, survey scope, fuel grade, BDN reference, readings, calculation inputs, result, and relevant remarks. Required fields and formats depend on the survey firm's process, contract, and port procedure.",
+    "body": [],
+    "sections": [
+      { "heading": "Survey particulars and scope", "body": [
+        "A report should make clear which vessel and delivery it describes, when and where the survey took place, which tanks and fuel grades were included, and which documents were cross-referenced. Include only particulars collected and checked by the survey team."
+      ] },
+      { "heading": "Measurements and calculation context", "body": [
+        "A report may present tank readings, measurement mode, units, temperature, free-water input where measured, reference data, correction factor, density, and calculated quantities. Identify the method and versions used where the workflow retains them.",
+        "A result should be understandable from its inputs and stated assumptions. Record flags or exceptions rather than filling missing values with guesses."
+      ] },
+      { "heading": "Report outputs and limits", "body": [
+        "Space BQS supports PDF and Excel report workflows. The sample page on this site is an illustrative layout using fictional data, not a customer survey or issued certificate.",
+        "A quantity report documents measurement information. It does not establish fuel quality, decide a commercial claim, or guarantee legal admissibility."
+      ] }
+    ],
+    "faq": [
+      { "q": "Is the report example on this site a real survey?", "a": "No. The current web preview is labeled as an illustrative layout using fictional example data." },
+      { "q": "Does a bunker survey report certify fuel quality?", "a": "No. Space BQS is quantity-survey software; laboratory fuel-quality analysis is outside its stated product scope." }
+    ],
+    "related": [
+      { "label": "View the illustrative report layout", "href": "/sample-report" },
+      { "label": "Explore survey report workflows", "href": "/features/reports-ai" },
+      { "label": "Request a product demo", "href": "/request-demo" }
+    ]
   }
-
 ];
 
 

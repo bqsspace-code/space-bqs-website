@@ -3,6 +3,7 @@
 import TeamSplitCards from "@/components/ui/team-split-cards";
 import WorkflowScrollSections from "@/components/ui/workflow-scroll-sections";
 import SurveyWarehouseShowcase from "@/components/ui/survey-warehouse-showcase";
+import { track } from "../lib/analytics";
 
 /* ─── Official Store Badges ─── */
 export function AppStoreBadges({
@@ -20,6 +21,7 @@ export function AppStoreBadges({
         {/* Apple App Store */}
         <a
           href="https://apps.apple.com/in/app/space-bqs/id6812992991"
+          onClick={() => track("app_store_click", { platform: "apple", location: typeof window === "undefined" ? "" : window.location.pathname })}
           target="_blank"
           rel="noopener noreferrer"
           className={`inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-white transition-all hover:scale-[1.02] active:scale-[0.98] ${
@@ -43,6 +45,7 @@ export function AppStoreBadges({
         {/* Google Play */}
         <a
           href="https://play.google.com/store/apps/details?id=com.spaceai.bqs"
+          onClick={() => track("app_store_click", { platform: "google_play", location: typeof window === "undefined" ? "" : window.location.pathname })}
           target="_blank"
           rel="noopener noreferrer"
           className={`inline-flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-xl text-white transition-all hover:scale-[1.02] active:scale-[0.98] ${

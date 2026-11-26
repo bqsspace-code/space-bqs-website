@@ -44,9 +44,9 @@ export default function OfficeDashboardMock() {
         </div>
 
         <div className="p-2">
-          <p className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Audit & Lock Rate</p>
-          <p className="font-display text-2xl font-bold text-sea-600 mt-1">100.0%</p>
-          <p className="text-[10px] text-slate-500 mt-0.5">Zero unverified records</p>
+          <p className="text-[11px] font-medium text-slate-500 uppercase tracking-wide">Review status</p>
+          <p className="font-display text-2xl font-bold text-sea-600 mt-1">Finalised</p>
+          <p className="text-[10px] text-slate-500 mt-0.5">Sample interface value</p>
         </div>
       </div>
 

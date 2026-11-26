@@ -623,18 +623,16 @@ body {
   transition: background-color 0.3s ease;
 }
 
-/* WeightText character sizer: sets width using CSS ::before generated content to prevent DOM text duplication */
-.wt-char-sizer {
-  grid-area: char;
-  line-height: inherit;
-  visibility: hidden;
-  user-select: none;
-  pointer-events: none;
-}
-.wt-char-sizer::before {
+/* Width-lock animated heading letters without adding a second DOM text node. */
+.weight-char-wrapper::before {
   content: attr(data-char);
-  font-variation-settings: var(--active-wght, "wght" 700);
-  font-weight: var(--active-fw, 700);
-  line-height: inherit;
+  grid-area: char;
+  height: 0;
+  overflow: hidden;
   visibility: hidden;
+  pointer-events: none;
+  user-select: none;
+  line-height: inherit;
+  font-variation-settings: "wght" var(--wt-anchor-weight, 800);
+  font-weight: var(--wt-anchor-weight, 800);
 }

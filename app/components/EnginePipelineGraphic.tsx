@@ -1,4 +1,4 @@
-import { Ruler, Droplets, Thermometer, Scale, CheckCircle2, AlertOctagon } from "lucide-react";
+import { Ruler, Droplets, Thermometer, Scale } from "lucide-react";
 
 export default function EnginePipelineGraphic() {
   return (
@@ -13,12 +13,12 @@ export default function EnginePipelineGraphic() {
             </div>
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Step 1</span>
           </div>
-          <h4 className="font-display font-bold text-ocean-950 mt-3 text-base">Deck Measurement</h4>
+          <h3 className="font-display font-bold text-ocean-950 mt-3 text-base">Deck Measurement</h3>
           <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-            Tape reading in metres (ullage or sounding). Looked up against the vessel&apos;s verified tank calibration strapping table.
+            A survey team records the sounding or ullage and identifies the vessel reference data used for the survey.
           </p>
           <div className="mt-3 rounded bg-slate-50 p-2 text-[11px] font-mono text-slate-700">
-            Linear 1D Interpolation (No extrapolation allowed)
+            Survey reading + vessel reference data
           </div>
         </div>
 
@@ -30,9 +30,9 @@ export default function EnginePipelineGraphic() {
             </div>
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Step 2</span>
           </div>
-          <h4 className="font-display font-bold text-ocean-950 mt-3 text-base">Water Deduction</h4>
+          <h3 className="font-display font-bold text-ocean-950 mt-3 text-base">Water input</h3>
           <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-            Free water sounding is converted to volume and directly subtracted using Decimal.js precision. Clients never pay for water.
+            Record free water when it is measured and review how it is treated under the applicable survey method.
           </p>
           <div className="mt-3 rounded bg-slate-50 p-2 text-[11px] font-mono text-sea-700 font-semibold">
             Net Observed = Gross Vol − Free Water
@@ -47,9 +47,9 @@ export default function EnginePipelineGraphic() {
             </div>
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Step 3</span>
           </div>
-          <h4 className="font-display font-bold text-ocean-950 mt-3 text-base">ASTM 54B Correction</h4>
+          <h3 className="font-display font-bold text-ocean-950 mt-3 text-base">Volume correction</h3>
           <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-            Volume Correction Factor (VCF) calculated from standard density @ 15°C and measured deck temperature.
+            Space BQS product materials refer to ASTM Table 54B. Confirm the production table edition and method for the release used by your team.
           </p>
           <div className="mt-3 rounded bg-slate-50 p-2 text-[11px] font-mono text-ocean-700 font-semibold">
             Corrected Vol = Net Vol × VCF
@@ -64,13 +64,11 @@ export default function EnginePipelineGraphic() {
             </div>
             <span className="text-xs font-bold uppercase tracking-wider text-slate-400">Step 4</span>
           </div>
-          <h4 className="font-display font-bold text-ocean-950 mt-3 text-base">Mass Conversion</h4>
+          <h3 className="font-display font-bold text-ocean-950 mt-3 text-base">Mass conversion</h3>
           <p className="text-xs text-slate-600 mt-1 leading-relaxed">
-            Converted to Metric Tonnes (MT) in commercial air basis or vacuum basis. Stamped with engine version and locked.
+            Convert the corrected volume using the density and mass basis defined for the survey.
           </p>
-          <div className="mt-3 rounded bg-sea-50 border border-sea-200 p-2 text-[11px] font-mono text-sea-800 font-bold">
-            Benchmark: 457.819 MT
-          </div>
+          <div className="mt-3 rounded bg-sea-50 border border-sea-200 p-2 text-[11px] font-mono text-sea-800 font-bold">Result depends on the recorded inputs</div>
         </div>
       </div>
 
@@ -78,12 +76,12 @@ export default function EnginePipelineGraphic() {
       <div className="overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-md">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 border-b border-slate-100 pb-4">
           <div>
-            <h4 className="font-display text-lg font-bold text-ocean-950">Vessel Tank Strapping & Calibration Curve</h4>
-            <p className="text-xs text-slate-500">1D Linear interpolation with strictly enforced physical bounds</p>
+            <h3 className="font-display text-lg font-bold text-ocean-950">Illustrative tank calibration curve</h3>
+            <p className="text-xs text-slate-500">Conceptual diagram only; use the vessel&apos;s applicable calibration documentation.</p>
           </div>
           <div className="flex items-center gap-2">
             <span className="inline-flex items-center gap-1 rounded bg-sea-100 px-2 py-0.5 text-xs font-semibold text-sea-700">
-              <CheckCircle2 className="h-3.5 w-3.5" /> No Extrapolation Permitted
+              Example diagram
             </span>
           </div>
         </div>

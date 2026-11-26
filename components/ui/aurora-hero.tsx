@@ -25,22 +25,22 @@ export function AuroraHeroSection() {
         <div className="liquid-glass-ui liquid-glass-ui--strong inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-slate-200/80 dark:border-white/10 shadow-sm mb-6">
           <Sparkles className="w-4 h-4 text-blue-600 dark:text-blue-400" />
           <span className="text-xs font-semibold tracking-wide uppercase text-slate-800 dark:text-slate-200">
-            Next-Gen Marine Bunker Surveying
+            Bunker quantity survey software
           </span>
         </div>
 
         {/* Main Title */}
         <h1 className="text-3xl sm:text-5xl md:text-6xl font-display font-extrabold tracking-tight text-slate-950 dark:text-white max-w-4xl">
-          Precision ASTM Calculations with{" "}
+          Bunker quantity calculations with{" "}
           <span className="bg-gradient-to-r from-blue-600 via-indigo-500 to-cyan-500 bg-clip-text text-transparent">
-            Tamper-Proof
+            reviewable
           </span>{" "}
-          Certificates
+          report workflows
         </h1>
 
         {/* Subtitle */}
         <p className="mt-4 text-base sm:text-xl text-slate-600 dark:text-slate-300 max-w-2xl font-light">
-          Capture soundings offline on deck, compute temperature-corrected metric tons via Table 54B, and issue locked survey certificates in seconds.
+          Capture soundings offline on deck, review temperature-corrected quantities, and prepare finalised PDF and Excel survey reports.
         </p>
 
         {/* CTA Buttons */}

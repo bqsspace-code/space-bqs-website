@@ -42,7 +42,7 @@ const CHAPTERS: Chapter[] = [
     timestamp: "00:00",
     timeSec: 0,
     badge: "Tank 1P Entry",
-    summary: "Sounding tape 4.250 m entered on deck with automatic trim & heel correction.",
+    summary: "Example sounding tape reading entered on deck.",
   },
   {
     id: 2,
@@ -50,7 +50,7 @@ const CHAPTERS: Chapter[] = [
     timestamp: "00:15",
     timeSec: 15,
     badge: "VCF 0.9842",
-    summary: "Instant double-precision temperature volume correction without spreadsheet drift.",
+    summary: "Illustrative volume-correction step using supplied survey inputs.",
   },
   {
     id: 3,
@@ -58,15 +58,15 @@ const CHAPTERS: Chapter[] = [
     timestamp: "00:30",
     timeSec: 30,
     badge: "0 Anomaly Flags",
-    summary: "Real-time cross check against bunker delivery note within 0.037% tolerance.",
+    summary: "Compare the survey quantity against the bunker delivery note.",
   },
   {
     id: 4,
-    title: "Locked Certificate",
+    title: "Report Output",
     timestamp: "00:45",
     timeSec: 45,
-    badge: "SHA-256 Sealed",
-    summary: "Biometric Chief Engineer sign-off and tamper-proof PDF generation on deck.",
+    badge: "Report Preview",
+    summary: "Illustrative preview of a completed survey report workflow.",
   },
 ];
 
@@ -361,7 +361,7 @@ export default function ProductVideoSection({
                         </div>
                       </div>
                       <p className="mt-4 text-xs sm:text-sm text-white/70">
-                        Zero floating-point rounding skew. Built directly from certified ASTM algorithms to 6 decimal precision.
+                        Illustrative arithmetic using a supplied volume-correction factor. Confirm production method and precision for your release.
                       </p>
                     </div>
                   )}
@@ -407,18 +407,18 @@ export default function ProductVideoSection({
                         <div className="flex items-center gap-3">
                           <ShieldCheck className="w-7 h-7 text-[#19B5C9]" />
                           <div>
-                            <div className="text-xs font-mono text-white/50">Certificate Hash</div>
+                            <div className="text-xs font-mono text-white/50">Report reference</div>
                             <div className="text-xs sm:text-sm font-mono text-white">
-                              e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+                              Illustrative preview
                             </div>
                           </div>
                         </div>
                         <span className="px-2.5 py-1 rounded bg-emerald-500/20 text-emerald-400 font-mono text-xs font-semibold">
-                          LOCKED
+                          FINALISED
                         </span>
                       </div>
                       <p className="mt-4 text-xs sm:text-sm text-white/70">
-                        Signed on-deck by Chief Engineer & Surveyor. One unalterable record ready to export.
+                        Illustrative interface only. Sign-off and export behavior should be confirmed for the release you evaluate.
                       </p>
                     </div>
                   )}
@@ -619,7 +619,7 @@ export default function ProductVideoSection({
               Certified Volume Calculation
             </div>
             <p className="mt-2 text-xs text-[#031038]/70 leading-relaxed font-sans">
-              Exact Table 54B algorithms replace error-prone Excel approximations.
+              Space BQS product materials refer to ASTM Table 54B for volume correction.
             </p>
           </BorderBeamPanel>
 
@@ -628,13 +628,13 @@ export default function ProductVideoSection({
               <FileCheck2 className="w-5 h-5 text-[#19B5C9]" />
             </div>
             <div className="font-display font-bold text-2xl text-[#031038] tracking-tight">
-              SHA-256 Locked
+              PDF + Excel
             </div>
             <div className="text-xs font-mono text-[#032AAC] uppercase tracking-wider mt-0.5">
-              Tamper-Evident PDF
+              Report outputs
             </div>
             <p className="mt-2 text-xs text-[#031038]/70 leading-relaxed font-sans">
-              Cryptographically sealed certificate accepted by charterers and insurers.
+              Product materials describe PDF and Excel report outputs. Confirm the current output format with the team.
             </p>
           </BorderBeamPanel>
         </ScrollReveal>

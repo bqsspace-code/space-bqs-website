@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import QuoteForm from "../components/QuoteForm";
 import { Section, Breadcrumbs } from "../components/ui";
 import { CONTACT_EMAIL } from "../lib/site";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Contact & Survey Firm Sales",
+export const metadata: Metadata = routeMetadata("/contact", {
+  title: "Contact",
   description:
-    "Get in touch with Space BQS for team licensing, technical inquiries, and pilot workspace setup for marine survey firms.",
-};
+    "Contact Space BQS about bunker quantity survey software, team licensing, product questions, and demo requests.",
+});
 
 export default function Page() {
   return (

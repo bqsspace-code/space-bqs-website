@@ -12,7 +12,7 @@ import cargoImage from "@/public/assets/web_image/cargo-terminal-showcase.webp";
 
 const OFFERINGS = [
   { title: "Move Your Existing Data.", tag: "Data migration", description: "Map, trial-import, and reconcile your records before the final move. A clear path from old files to a shared system.", href: "/services/data-migration", link: "Plan a migration", icon: Database },
-  { title: "Choose Your Environment.", tag: "Deployment", description: "Public cloud, private cloud, or on-premises. Scope the rollout with your infrastructure team and your operational needs.", href: "/services/deployment", link: "Compare deployments", icon: Server },
+  { title: "Review Your Environment.", tag: "Deployment", description: "Review hosting and infrastructure requirements with your team before planning a rollout.", href: "/services/deployment", link: "Review deployment requirements", icon: Server },
   { title: "Managing Cargo Instead?", tag: "Cargo WMS", description: "A separate custom implementation for manifests, locations, tariffs, and controlled cargo release.", href: "/solutions/cargo-wms", link: "Explore Cargo WMS", icon: Ship },
 ] as const;
 
@@ -139,7 +139,7 @@ export default function RolloutShowcase() {
                 {index === 0 ? <MigrationVisual /> : <>
                   <Image src={index === 1 ? deploymentImage : cargoImage} alt={index === 1 ? "Server racks illustrating infrastructure deployment options" : "A container vessel and cranes alongside a working cargo terminal"} fill sizes="(min-width: 1024px) 480px, 85vw" className="object-cover" />
                   <div className="rollout-photo-shade" />
-                  <span className="rollout-visual-note">{index === 1 ? "Public cloud / Private cloud / On-premises" : "Manifests / Locations / Controlled release"}</span>
+                  <span className="rollout-visual-note">{index === 1 ? "Deployment requirements to confirm" : "Manifests / Locations / Controlled release"}</span>
                 </>}
                 <span className="rollout-showcase-tag"><item.icon className="h-3.5 w-3.5" aria-hidden="true" />{item.tag}</span>
               </div>
@@ -157,7 +157,7 @@ export default function RolloutShowcase() {
         <div className="rollout-showcase-navigation">
           <div className="rollout-showcase-progress" aria-hidden="true"><span ref={progressRef} /></div>
           <nav aria-label="Explore rollout offerings">{OFFERINGS.map((item, index) => <button type="button" key={item.tag} aria-current={active === index ? "step" : undefined} onClick={() => navigate(index + 1)}><span>0{index + 1}</span>{item.tag}</button>)}</nav>
-          <p className="rollout-showcase-licensing">One team. One licence. No per-job fees. <Link href="/pricing">See team pricing<ArrowUpRight className="h-3 w-3" aria-hidden="true" /></Link></p>
+          <p className="rollout-showcase-licensing">Team licensing scoped to your survey operation. <Link href="/pricing">See licensing<ArrowUpRight className="h-3 w-3" aria-hidden="true" /></Link></p>
         </div>
       </div>
     </section>

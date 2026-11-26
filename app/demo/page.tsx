@@ -2,12 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Breadcrumbs } from "../components/ui";
 import AppDemoVideoSection from "../components/AppDemoVideoSection";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Interactive Demo & Mobile Walkthrough",
+export const metadata: Metadata = routeMetadata("/demo", {
+  title: "Mobile App Walkthrough",
   description:
-    "Watch the Space BQS mobile deck tool in action, explore our ASTM Table 54B calculation engine, and request a pilot workspace for your survey firm.",
-};
+    "Watch the Space BQS mobile app walkthrough: capture bunker survey readings, review calculations, and see the survey workflow.",
+});
 
 export default function Page() {
   return (

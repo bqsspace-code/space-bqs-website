@@ -51,7 +51,7 @@ const DEVICES = [
     headingTop: "Office Web Portal.",
     headingAccent: "Every Browser.",
     description:
-      "Approve field records and issue locked PDF + Excel certificates from Mac or Windows.",
+      "Review field records and prepare PDF and Excel report outputs from Mac or Windows.",
     mediaType: "image" as const,
     src: officePortalImage,
     poster: "",

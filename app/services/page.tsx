@@ -3,12 +3,13 @@ import Link from "next/link";
 import { Section, AnswerBlock, CtaRow, Faq, Breadcrumbs } from "../components/ui";
 import WaveDivider from "../components/WaveDivider";
 import { ServiceLinks } from "../components/MarketingPage";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "Bunker Survey Workflows & Services",
+export const metadata: Metadata = routeMetadata("/services", {
+  title: "Bunker Survey Software Workflows",
   description:
-    "Bunker survey workflows plus data migration and public-cloud, private-cloud, and on-premises implementation services.",
-};
+    "Explore Space BQS software workflows for bunker delivery, ROB, and debunkering surveys, plus available migration and rollout support.",
+});
 
 export default function Page() {
   return (
@@ -32,8 +33,7 @@ export default function Page() {
           <div className="mt-8">
             <AnswerBlock>
               <p>
-                Each workflow uses the same calculation engine and produces the same locked, immutable certificate.
-                The only difference is what your surveyor measures: fuel in (delivery), fuel already on board (ROB), or fuel removed (debunkering).
+                These software workflows organize bunker delivery, ROB, and debunkering survey records. Your survey firm determines the measurement scope and performs survey attendance.
               </p>
             </AnswerBlock>
           </div>
@@ -116,7 +116,7 @@ export default function Page() {
           <Faq items={[
             { q: "Do you provide surveyors?", a: "No. Survey firms run jobs with their teams; Space BQS is the software they run on." },
             { q: "Do you test fuel quality?", a: "No. Quantity-only. No lab, no sludge, no sampling for quality." },
-            { q: "Can teams run on/off-hire as a pair?", a: "Yes. Each leg gets its own locked record. Keep both certificates with bunker receipts." },
+            { q: "Can teams run on/off-hire as a pair?", a: "Yes. Each leg gets its own finalised record. Keep both reports with the bunker receipts." },
           ]} />
         </div>
       </Section>

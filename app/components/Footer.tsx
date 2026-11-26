@@ -326,6 +326,7 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
                 </p>
                 <ul className="space-y-3 text-sm">
                   <li><Link href="/resources" className="text-slate-300 hover:text-white">Resources</Link></li>
+                  <li><Link href="/markets" className="text-slate-300 hover:text-white">Market guides</Link></li>
                   <li><Link href="/why-independent" className="text-slate-300 hover:text-white">Why independent</Link></li>
                   <li>
                     <Link

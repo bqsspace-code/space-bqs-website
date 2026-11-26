@@ -10,6 +10,7 @@ import { useLenis } from "lenis/react";
 import { ChevronDown, ArrowRight, PhoneCall } from "lucide-react";
 import { FlagUSA, CountryFlag } from "./flags/CountryFlags";
 import ContactDropdownCard from "./ContactDropdownCard";
+import { track } from "../lib/analytics";
 import {
   OFFICE_LOCATIONS,
   MAIN_OFFICE_DISPLAY,
@@ -296,6 +297,7 @@ export default function Header() {
                 {/* Request a Demo Button */}
                 <ShinyButton
                   href="/request-demo"
+                  onClick={() => track("cta_click", { target: "demo", location: "header" })}
                   className="inline-flex items-center gap-1.5 sm:gap-2 rounded-full px-3.5 sm:px-4 xl:px-5 py-2 text-xs sm:text-[13px] font-semibold text-white transition-all duration-300 hover:scale-[1.02] active:scale-[0.98]"
                   style={{
                     boxShadow: "inset 0 1px 0 rgba(255,255,255,0.15), 0 2px 8px rgba(3,42,172,0.18)",

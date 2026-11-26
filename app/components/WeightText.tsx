@@ -488,26 +488,25 @@ export default function WeightText({
                         return (
                           <span
                             key={i}
-                            className="inline-grid text-center"
+                            data-char={letter}
+                            className="weight-char-wrapper inline-grid text-center"
                             style={{
                               gridTemplateAreas: '"char"',
                               verticalAlign: "baseline",
                               lineHeight: "inherit",
-                            }}
+                              "--wt-anchor-weight": activeWeight,
+                            } as React.CSSProperties & { "--wt-anchor-weight": number }}
                           >
-                            {/* Sizing anchor at activeWeight: locks width from initial render so text never moves lines on scroll. Uses CSS pseudo-element without DOM text node to prevent crawler character duplication. */}
+{/* Sizing anchor at activeWeight: locks width from initial render so text never moves lines on scroll. Uses CSS pseudo-element without DOM text node to prevent crawler character duplication. */}
                             <span
                               aria-hidden="true"
                               className="wt-char-sizer"
                               data-char={letter}
-                              style={
-                                {
-                                  "--active-wght": `"wght" ${activeWeight}`,
-                                  "--active-fw": activeWeight,
-                                } as React.CSSProperties
-                              }
+                              style={{
+                                "--active-wght": `"wght" ${activeWeight}`,
+                                "--active-fw": activeWeight,
+                              } as React.CSSProperties}
                             />
-
                             {/* Visible animated letter */}
                             <span
                               data-letter

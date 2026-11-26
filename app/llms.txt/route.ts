@@ -2,22 +2,21 @@ import { SITE_URL, SITE_NAME, CONTACT_EMAIL } from "../lib/site";
 
 export const dynamic = "force-static";
 
-const TEXT = `# ${SITE_NAME} — llms.txt
-> Deterministic Bunker Quantity Survey (BQS) calculation software and offline mobile platform for independent marine fuel surveyors, inspection agencies, and vessel charterers.
+const TEXT = `# ${SITE_NAME}
+> Bunker Quantity Survey (BQS) software for independent marine survey firms and inspection teams. Space BQS provides mobile capture and web review/report workflows; it does not provide survey attendance or fuel-quality testing.
 
-## Core Capabilities
-- ASTM D1250 Table 54B Volume Correction Factor (VCF) engine (density 0.820–1.000 kg/L, 0–90°C)
-- 72-Hour zero-connectivity deck offline lease with cryptographic local storage and cloud auto-sync
-- QR Vessel identification to automatically load official tank calibration strapping curves
-- Cryptographically sealed tamper-evident A4 PDF certificates + 4-sheet transparent Excel calculation pack
-- Three dedicated marine survey workflows: Bunker Delivery vs BDN, On/Off-Hire ROB Settlement, Debunkering Removal
-- Scope Boundary: Strictly Quantity-Only (does not conduct laboratory fuel quality analysis)
+## Product workflows
+- Mobile bunker-survey data capture with offline support and synchronization when connected
+- Web-based survey review and report workflows
+- Bunker delivery, Remaining On Board (ROB), and debunkering survey types
+- PDF and Excel report outputs
+- Quantity-survey software; no vessel attendance or laboratory fuel-quality testing
 
 ## Core URLs & Resources
 - Website: ${SITE_URL}
 - Mobile App (iOS): https://apps.apple.com/sg/app/space-bqs/id6812992991
-- Technical Calculation Methodology: ${SITE_URL}/how-we-measure
-- Worked example (certificate and workbook previews, illustrative data): ${SITE_URL}/sample-report
+- Calculation methodology: ${SITE_URL}/how-we-measure
+- Illustrative sample report layout (fictional values): ${SITE_URL}/sample-report
 - Deployment options: ${SITE_URL}/services/deployment
 - Data migration service: ${SITE_URL}/services/data-migration
 - Commercial Team Pricing: ${SITE_URL}/pricing
@@ -28,13 +27,10 @@ const TEXT = `# ${SITE_NAME} — llms.txt
 - Free Calculation Tools: ${SITE_URL}/tools
 - Evaluation & Pilot Consultation: ${SITE_URL}/request-demo or ${CONTACT_EMAIL}
 
-## Regulatory & Standards Alignment
-- ASTM D1250-04 (Standard Guide for Use of Petroleum Measurement Tables)
-- API MPMS Chapter 11.1
-- ISO 8217:2024 (Marine Fuel Quality Specifications context)
-- ISO 13739:2020 (Commercial Bunkering Procedures)
-- Singapore Standards SS 600:2022 & SS 648:2020 alignment
-- BIMCO Standard Bunker Terms 2018 Quantity Reconciliation
+## Standards references
+- ASTM D1250 is the ASTM/API guide family for temperature and pressure volume correction factors. Confirm the applicable edition and licensed adjunct against the production product release and survey requirements.
+- Singapore MPA publishes information on SS 600:2022 tank gauging and SS 648:2024 mass-flow metering. These are distinct procedures; this site does not claim MPA approval or certification.
+- Standards and contract requirements vary by jurisdiction and measurement method. This summary is not a compliance determination.
 `;
 
 export async function GET() {

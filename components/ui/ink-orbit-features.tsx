@@ -110,16 +110,16 @@ const D_FEATURES: InkFeatures = {
     label: "Manual Deck Transcription",
     title: "Paper that gets retyped",
     bold: "Numbers written on deck are typed again at a desk, and every copy is a chance for a slip.",
-    description: "Soundings transcribed from rain-soaked deck notebooks into office Excel create discrepancies between the surveyor's observation and the final report that are impossible to defend.",
-    solutionTitle: "The Space BQS Fix",
-    solutionDesc: "Soundings recorded on deck link directly to certified vessel strapping tables with zero manual transcription or notebook drift.",
+    description: "Soundings transcribed from deck notebooks into office spreadsheets can create gaps between the surveyor's observation and the final report.",
+    solutionTitle: "The Space BQS approach",
+    solutionDesc: "Soundings recorded on deck stay with the survey record, reducing manual transcription between field notes and office reporting.",
   },
   friction2: {
     badge: "FRICTION 02",
     label: "Formula & Lookup Drift",
     title: "Formulas that quietly break",
     bold: "A spreadsheet copied between jobs carries its mistakes with it.",
-    description: "Pasted strapping tables, hard-coded density lookups, and unverified Table 54B approximations skew metric tonnage without any error warning. Space BQS locks all 4 calculation pillars into a certified math engine.",
+    description: "Pasted strapping tables, hard-coded density lookups, and unchecked volume-correction steps can skew metric tonnage silently. Space BQS keeps the calculation inputs and working available for review.",
     tools: ["Strapping", "ASTM 54B", "BDN Density", "Metric Tons"],
   },
   friction3: {
@@ -127,7 +127,7 @@ const D_FEATURES: InkFeatures = {
     label: "Lost Evidence",
     title: "Files nobody can find",
     bold: "When a claim arrives months later, the proof is somewhere in an inbox.",
-    description: "Charterers or suppliers question quantities 90 days after delivery. Trying to reconstruct the surveyor's exact math from scattered email threads leads to painful settlements. Space BQS preserves immutable proof in the Survey Warehouse.",
+    description: "Charterers or suppliers may question quantities long after delivery. Reconstructing the calculation from scattered email threads is slow. Space BQS keeps the survey record and its working in a searchable register.",
     values: [1248, 1248, 1248, 1248, 1248, 1248, 1248, 1248, 1248, 1248, 1248, 1248],
     forecastFrom: 8,
   },
@@ -349,7 +349,7 @@ function FlowCard({ brand, features, uid, reduced, inView }: { brand: string; fe
     { x: 104, y: 22, name: "Vessel Inspector · Sounding TK 2S" },
     { x: 150, y: 40, name: "Barge Officer · Trim Check" },
     { x: 46, y: 92, name: "Superintendent · Deck Audit" },
-    { x: 146, y: 114, name: "Cargo Officer · Verified" },
+    { x: 146, y: 114, name: "Cargo Officer · Review" },
   ]
   const L1 = "M117,67 C196,67 210,100 262,100"
   const L2 = "M117,73 C186,73 206,120 262,120"
@@ -388,7 +388,7 @@ function FlowCard({ brand, features, uid, reduced, inView }: { brand: string; fe
           </p>
         </div>
 
-        <svg className="ib-diagram" viewBox="0 0 640 178" role="img" aria-label={"Your team's soundings flow through " + brand + " into finished locked reports"}>
+        <svg className="ib-diagram" viewBox="0 0 640 178" role="img" aria-label={"Your team's soundings flow through " + brand + " into finished survey reports"}>
           <defs>
             <radialGradient id={glow} cx="320" cy="110" r="190" gradientUnits="userSpaceOnUse">
               <stop offset="0" stopColor="var(--ib-raise)" stopOpacity="1" />
@@ -474,7 +474,7 @@ function FlowCard({ brand, features, uid, reduced, inView }: { brand: string; fe
                 {k === 0 && (
                   <>
                     <text x="10" y="16" fontSize="7" fill="var(--ib-muted)" fontFamily="var(--ib-mono)">
-                      {"REPORT #" + reports + " · LOCKED"}
+                      {"REPORT #" + reports + " · FINALISED"}
                     </text>
                     <rect x="10" y="24" width="64" height="5" rx="1" fill="var(--ib-ink)" opacity=".75" />
                     <rect x="10" y="33" width="92" height="3" rx="1" fill="var(--ib-line-strong)" />
@@ -576,7 +576,7 @@ function IntegrationsCard({ copy, reduced }: { copy: InkFeatures["friction2"]; r
             </g>
           ))}
           <text x="150" y="112" textAnchor="middle" fontSize="7" fill="var(--ib-faint)" fontFamily="var(--ib-mono)">
-            {on >= 0 ? "locked engine · " + (copy.tools[on] ?? "").toLowerCase() : "4 verified calculation pillars"}
+            {on >= 0 ? "calculation · " + (copy.tools[on] ?? "").toLowerCase() : "4 calculation inputs"}
           </text>
         </svg>
 
@@ -653,7 +653,7 @@ function InsightsCard({ copy, uid, reduced }: { copy: InkFeatures["friction3"]; 
           <g transform={"translate(" + clamp(p[0], 44, W - 44) + "," + (p[1] < 34 ? p[1] + 22 : p[1] - 12) + ")"}>
             <rect x="-42" y="-11" width="84" height="15" rx="2" fill="var(--ib-inv)" />
             <text x="0" y="-1" textAnchor="middle" fontSize="7" fill="var(--ib-inv-ink)" fontFamily="var(--ib-mono)">
-              {"Day " + day + " · Locked Audit"}
+              {"Day " + day + " · Review Trail"}
             </text>
           </g>
         </svg>

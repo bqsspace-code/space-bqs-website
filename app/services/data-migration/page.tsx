@@ -3,8 +3,9 @@ import ServiceSchema from "../../components/ServiceSchema";
 import Link from "next/link";
 import { MarketingHeader, MarketingCard } from "../../components/MarketingPage";
 import { Section } from "../../components/ui";
+import { routeMetadata } from "../../lib/seo-metadata";
 
-export const metadata: Metadata = { title: "Data Migration Services — Space BQS & Cargo WMS", description: "Move survey and warehouse records through mapping, cleansing, trial import, reconciliation, and an approved final import." };
+export const metadata: Metadata = routeMetadata("/services/data-migration", { title: "Marine Survey Data Migration", description: "Plan a survey-data migration with source mapping, trial import, reconciliation, and approval before the final move." });
 
 const STEPS = [
   ["Profile & map", "Review source files, identify duplicates and missing fields, and agree what moves into the new system."],

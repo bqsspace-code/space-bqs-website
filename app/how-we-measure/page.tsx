@@ -4,12 +4,13 @@ import EnginePipelineGraphic from "../components/EnginePipelineGraphic";
 import LiveCalculator from "../components/LiveCalculator";
 import { ShieldCheck, Ruler, Droplets, Thermometer, Scale, AlertOctagon } from "lucide-react";
 import howWeMeasureSchema from "@/schema/03_how_we_measure.json";
+import { routeMetadata } from "../lib/seo-metadata";
 
-export const metadata: Metadata = {
-  title: "How the BQS Calculation Engine Works",
+export const metadata: Metadata = routeMetadata("/how-we-measure", {
+  title: "Bunker Quantity Calculation Method",
   description:
     "Plain-English methodology for survey teams: tank reading, minus water, temperature volume correction, to mass in MT. No guessing.",
-};
+});
 
 export default function Page() {
   return (
@@ -31,7 +32,7 @@ export default function Page() {
           </span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
-          How the engine calculates — in plain words
+          How bunker quantity calculations work
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
           Follow the inputs, correction factor, and mass conversion.
@@ -41,7 +42,7 @@ export default function Page() {
       <div className="mx-auto max-w-6xl px-4">
         <AnswerBlock>
           <p>
-            The Space BQS calculation core converts physical tape measurements (ullage or sounding) into certified metric tonnes through four deterministic steps: (1) 1D linear strapping table lookup without extrapolation, (2) exact free water volume deduction, (3) ASTM D1250 Table 54B volume correction factor (VCF) lookup based on temperature and density, and (4) density-based mass conversion in air or vacuum.
+            A bunker quantity calculation uses the vessel&apos;s tank calibration data to convert a sounding or ullage into volume. The survey record can then account for free water, apply a volume correction factor such as ASTM Table 54B where applicable, and convert corrected volume to mass using the recorded density. Results depend on the source readings, reference tables, and mass basis used.
           </p>
         </AnswerBlock>
       </div>
@@ -65,7 +66,7 @@ export default function Page() {
       </section>
 
       {/* Mathematical Rigor & Proof Standards */}
-      <Section eyebrow="Mathematical Proof" title="Every number shows its origin">
+      <Section eyebrow="Calculation review" title="Inspect the inputs and method">
         <div className="grid gap-6 md:grid-cols-2">
           <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm">
             <h3 className="font-display font-bold text-ocean-950 text-lg">Table 54B Matrix Boundaries</h3>
@@ -110,54 +111,54 @@ export default function Page() {
           </div>
         </div>
 
-        {/* Standards & Regulatory Framework */}
+        {/* Primary references */}
         <div className="mt-8 rounded-2xl border border-slate-200 bg-white p-6 md:p-8 shadow-sm">
           <div className="flex items-center gap-2 mb-2">
             <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800 font-mono">
-              Regulatory Architecture
+              Primary references
             </span>
           </div>
           <h3 className="font-display font-bold text-ocean-950 text-xl">
-            Governing Standards &amp; Calculation References
+            Standards are separate from product claims
           </h3>
           <p className="mt-2 text-xs text-slate-600 leading-relaxed max-w-3xl">
-            Space BQS adheres strictly to international petroleum metrology standards. The engine replaces unstandardized spreadsheet macros with the official ASTM D1250 Table 54B matrix, providing legal defensibility in charterparty disputes and arbitration:
+            Standards describe methods and port procedures; listing a standard here does not mean Space BQS is certified or approved by its publisher or a port authority. Verify the edition and method applicable to each survey with the responsible technical team.
           </p>
 
           <div className="mt-6 grid gap-6 md:grid-cols-2">
             <div className="rounded-xl border border-slate-100 bg-slate-50 p-5">
               <h4 className="font-display font-bold text-ocean-950 text-sm">
-                ASTM D1250-04 &amp; API MPMS Chapter 11.1
+                ASTM D1250
               </h4>
               <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                Implementation of Petroleum Measurement Tables, Volume VIII, Table 54B (Generalized Products). Governs temperature volume corrections for residual fuel oils (HFO, VLSFO) and distillate fuels (LSMGO, MDO) to standard 15°C reference condition using density ranges of 0.820 to 1.000 kg/L and temperatures from 0°C to 90°C.
+                ASTM&apos;s current catalog identifies D1250-25 as the active edition of its guide to temperature and pressure volume correction factors. Space BQS product materials refer to Table 54B; confirm the production engine&apos;s licensed table edition and implementation version with the product team. <a href="https://store.astm.org/d1250-25.html" target="_blank" rel="noreferrer" className="underline">View the ASTM catalog entry</a>.
               </p>
             </div>
 
             <div className="rounded-xl border border-slate-100 bg-slate-50 p-5">
               <h4 className="font-display font-bold text-ocean-950 text-sm">
-                ISO 13739:2020 &amp; Singapore SS 600 / SS 648
+                Singapore MPA bunkering standards
               </h4>
               <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                Alignment with international procedures for bunker fuel transfer by barge or shore pipeline. Supports before-and-after sounding documentation, free water deduction, cross-check against supplier Bunker Delivery Notes (BDN), and alignment with Singapore digital bunkering documentation standards.
+                MPA currently lists SS 600:2022 for tank gauging in specified bunkering circumstances and SS 648:2024 for mass-flow metering. These describe different measurement approaches and do not establish that Space BQS is MPA-approved or replaces either method. <a href="https://www.mpa.gov.sg/port-marine-ops/marine-services/bunkering/bunkering-standards" target="_blank" rel="noreferrer" className="underline">Read MPA&apos;s current standards page</a>.
               </p>
             </div>
 
             <div className="rounded-xl border border-slate-100 bg-slate-50 p-5">
               <h4 className="font-display font-bold text-ocean-950 text-sm">
-                BIMCO Standard Bunker Terms 2018
+                Product boundary
               </h4>
               <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                Structured evidence packets engineered for rapid claim resolution. In custody shortfalls, Space BQS exports locked PDF certificates and 4-sheet transparent Excel packs suitable for immediate attachment to Letters of Protest (LOP) and maritime claims arbitration.
+                Space BQS provides software for survey teams. Contractual rights, letters of protest, survey attendance, legal admissibility, and dispute outcomes are determined outside the software and depend on the relevant parties, evidence, and terms.
               </p>
             </div>
 
             <div className="rounded-xl border border-slate-100 bg-slate-50 p-5">
               <h4 className="font-display font-bold text-ocean-950 text-sm">
-                Bilinear Grid Interpolation &amp; Zero Extrapolation
+                Production implementation details
               </h4>
               <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-                Table 54B factors are calculated via bilinear interpolation across exact standard density and temperature coordinates. The engine enforces an unyielding safety boundary: out-of-range inputs trigger explicit validation exceptions rather than extrapolating speculative values.
+                Public product information reviewed for this page does not establish the exact interpolation algorithm, table adjunct, or out-of-range behavior for each release. Request the current implementation details from the product team before relying on them.
               </p>
             </div>
           </div>

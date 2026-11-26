@@ -1,17 +1,18 @@
 import type { Metadata } from "next";
 import SampleReportClient from "./SampleReportClient";
 import sampleReportSchema from "@/schema/04_sample_report.json";
+import { routeMetadata } from "../lib/seo-metadata";
 
-const description = "Trace an illustrative bunker delivery note discrepancy through an unsigned sample certificate and a four-sheet workbook preview.";
-
-export const metadata: Metadata = {
-  title: "Sample Bunker Certificate & Excel Evidence Package",
-  description,
+export const metadata: Metadata = routeMetadata("/sample-report", {
+  title: "Sample Bunker Survey Report",
+  description:
+    "Explore a sample bunker survey PDF and Excel report to see the measurements and calculation details Space BQS can present.",
   openGraph: {
-    title: "Sample Bunker Certificate & Excel Evidence Package | Space BQS",
-    description,
+    type: "article",
+    title: "Sample Bunker Survey Report | Space BQS",
+    description: "Explore a sample bunker survey PDF and Excel report to see the measurements and calculation details Space BQS can present.",
   },
-};
+});
 
 export default function Page() {
   return (

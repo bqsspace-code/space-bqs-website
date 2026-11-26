@@ -27,7 +27,7 @@ export default function AppDemoVideoSection() {
             Mobile Deck Tool · iOS &amp; Android
           </span>
           <h2 className="font-display text-3xl sm:text-4xl lg:text-5xl font-bold text-[#031038] tracking-tight">
-            The world’s first BQS mobile app. In action.
+            The Space BQS mobile app. In action.
           </h2>
           <p className="text-sm sm:text-base text-[#52657c] max-w-xl mx-auto leading-relaxed">
             Watch the actual app walkthrough: choose a vessel, enter readings, and review the calculation. Mobile capture on deck. Web review in the office.
@@ -75,7 +75,7 @@ export default function AppDemoVideoSection() {
             },
             {
               label: "Reconnect to the office",
-              sub: "A 72-hour offline lease supports field work before syncing for review.",
+              sub: "Offline capture supports field work before syncing for review.",
             },
           ].map((f) => (
             <div key={f.label} className="liquid-glass-ui space-y-2 rounded-2xl p-5 border border-white/60">

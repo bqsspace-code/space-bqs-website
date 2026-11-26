@@ -31,15 +31,15 @@ export default function SampleReportPage() {
         />
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
-            Sample BQS Evidence Package
+            Illustrative preview · fictional data
           </span>
-          <span className="text-xs text-slate-500 font-mono">Illustrative calculation</span>
+          <span className="text-xs text-slate-500 font-mono">Not an issued survey report</span>
         </div>
         <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
           Sample Bunker Quantity Survey Report
         </h1>
         <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          Compare a sample survey total with a supplier’s bunker delivery note, then switch to the workbook to see the figures behind the comparison. The figures illustrate the calculation; they do not establish an actual delivery or shortage.
+          This layout preview uses fictional example values. It is not a real survey, customer record, or issued certificate. Ask the team for a current product output sample.
         </p>
 
         {/* Format Selector Pills */}
@@ -53,7 +53,7 @@ export default function SampleReportPage() {
             }`}
           >
             <FileText className="h-4 w-4" />
-            <span>A4 BQS Certificate (PDF Layout)</span>
+            <span>PDF report layout preview</span>
           </button>
 
           <button
@@ -65,7 +65,7 @@ export default function SampleReportPage() {
             }`}
           >
             <FileSpreadsheet className="h-4 w-4" />
-            <span>4-Sheet Analytical Workbook (Excel Layout)</span>
+            <span>Excel workbook layout preview</span>
           </button>
         </div>
       </div>
@@ -78,13 +78,13 @@ export default function SampleReportPage() {
             {/* Top Toolbar */}
             <div className="flex items-center justify-between border-b border-slate-200 bg-slate-100 px-6 py-3 text-xs text-slate-700">
               <div className="flex items-center gap-2 font-mono">
-                <span className="font-bold text-ocean-950">DOCUMENT: BQS_CERT_PACIFIC_MARINER.pdf</span>
-                <span className="text-slate-400">·</span>
-                <span className="text-slate-500">A4 Single Page · Locked</span>
+                 <span className="font-bold text-ocean-950">DOCUMENT: EXAMPLE_REPORT_LAYOUT.pdf</span>
+                 <span className="text-slate-400">·</span>
+                 <span className="text-slate-500">Illustrative layout</span>
               </div>
               <div className="flex items-center gap-2">
                 <span className="rounded bg-sea-100 px-2 py-0.5 text-[10px] font-bold text-sea-800">
-                  UNSIGNED SAMPLE
+                  PREVIEW ONLY
                 </span>
               </div>
             </div>
@@ -95,19 +95,19 @@ export default function SampleReportPage() {
               <div className="flex flex-col sm:flex-row justify-between items-start gap-4 border-b-2 border-ocean-900 pb-6">
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-widest text-sea-700">
-                    INDEPENDENT MARINE SURVEY CERTIFICATE
+                     ILLUSTRATIVE REPORT LAYOUT
                   </span>
                   <h2 className="font-display text-2xl font-black text-ocean-950 mt-1">
-                    CERTIFICATE OF BUNKER QUANTITY
+                    BUNKER QUANTITY SURVEY REPORT
                   </h2>
                   <p className="text-xs text-slate-500 font-mono mt-0.5">
-                    Survey Reference: <strong>BQS-2026-0142</strong> · Issued Under Space BQS
+                     Example reference: <strong>EXAMPLE-001</strong> · Fictional data
                   </p>
                 </div>
                 <div className="text-right font-mono text-xs text-slate-600 sm:border-l sm:border-slate-200 sm:pl-6">
-                  <p>Date: <strong>16-OCT-2026</strong></p>
-                  <p>Port: <strong>SINGAPORE</strong></p>
-                  <p>Location: <strong>EASTERN ANCHORAGE</strong></p>
+                   <p>Date: <strong>Example date</strong></p>
+                   <p>Port: <strong>Example port</strong></p>
+                   <p>Location: <strong>Not a real survey</strong></p>
                 </div>
               </div>
 
@@ -115,11 +115,11 @@ export default function SampleReportPage() {
               <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 rounded-xl bg-slate-50 p-4 text-xs">
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase block font-semibold">Vessel Name</span>
-                  <span className="font-bold text-slate-900">M/V PACIFIC MARINER</span>
+                   <span className="font-bold text-slate-900">Example vessel</span>
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase block font-semibold">IMO Number</span>
-                  <span className="font-mono font-bold text-slate-900">9412345</span>
+                   <span className="font-mono font-bold text-slate-900">Fictional example</span>
                 </div>
                 <div>
                   <span className="text-[10px] text-slate-400 uppercase block font-semibold">Fuel Grade</span>
@@ -155,7 +155,7 @@ export default function SampleReportPage() {
                       <td className="px-3 py-2.5">245.100</td>
                       <td className="px-3 py-2.5 text-sea-700">0.050</td>
                       <td className="px-3 py-2.5">0.9677</td>
-                      <td className="px-4 py-2.5 text-right font-bold text-ocean-950">225.567</td>
+                      <td className="px-4 py-2.5 text-right font-bold text-ocean-950">225.278</td>
                     </tr>
                     <tr className="bg-slate-50/60">
                       <td className="px-4 py-2.5 font-bold">1S (FO)</td>
@@ -165,16 +165,16 @@ export default function SampleReportPage() {
                       <td className="px-3 py-2.5">252.180</td>
                       <td className="px-3 py-2.5 text-sea-700">0.070</td>
                       <td className="px-3 py-2.5">0.9677</td>
-                      <td className="px-4 py-2.5 text-right font-bold text-ocean-950">232.252</td>
+                      <td className="px-4 py-2.5 text-right font-bold text-ocean-950">231.769</td>
                     </tr>
                   </tbody>
                   <tfoot className="border-t-2 border-ocean-900 bg-ocean-50 text-ocean-950 font-bold">
                     <tr>
                       <td colSpan={7} className="px-4 py-3 text-xs uppercase tracking-wide">
-                    SAMPLE SURVEY TOTAL (IN AIR)
+                       ILLUSTRATIVE SAMPLE TOTAL
                       </td>
                       <td className="px-4 py-3 text-right text-base font-black text-sea-700">
-                        457.819 MT
+                         457.047 MT
                       </td>
                     </tr>
                   </tfoot>
@@ -183,11 +183,15 @@ export default function SampleReportPage() {
 
               {/* Physical BDN Comparison Note */}
               <div className="rounded-xl border border-slate-200 bg-slate-50 p-4 text-xs space-y-1">
-                <span className="font-bold text-ocean-950 block">Cross-Reference vs. Supplier BDN</span>
-                <p className="text-slate-600">
-                  Sample survey total minus the quantity on the bunker delivery note: <strong>457.819 − 460.000 = −2.181 MT</strong>. Relative to the note, that is <strong>−0.47%</strong>.
+                 <span className="font-bold text-ocean-950 block">Illustrative BDN comparison</span>
+                <p className="text-slate-500 max-w-md">
+                   Example BDN figure: <strong>460.000 MT</strong>. Example calculated figure: <strong>457.047 MT</strong>. Arithmetic difference: <strong>−2.953 MT (−0.64%)</strong>. These are fictional values for layout illustration only.
                 </p>
               </div>
+
+               <div className="border-t border-slate-200 pt-4 text-[10px] text-slate-500">
+                 Illustrative report layout only. No survey attendance, approval, signature, or verification is represented.
+               </div>
 
               {/* Signatures & Tamper-Proof Seal */}
               <div className="grid grid-cols-2 gap-8 border-t border-slate-200 pt-6 text-xs">
@@ -221,10 +225,10 @@ export default function SampleReportPage() {
             <div className="flex items-center justify-between border-b border-slate-200 bg-sea-800 px-6 py-3 text-xs text-white">
               <div className="flex items-center gap-2 font-mono">
                 <FileSpreadsheet className="h-4 w-4 text-sea-300" />
-                <span className="font-bold">BQS_ANALYTIC_PACKET_PACIFIC_MARINER.xlsx</span>
+               <span className="font-bold">EXAMPLE_REPORT_LAYOUT.xlsx</span>
               </div>
               <span className="rounded bg-white/20 px-2 py-0.5 text-[10px] font-semibold text-white">
-                4 Sheets Included
+                Example worksheet layout
               </span>
             </div>
 
@@ -254,12 +258,12 @@ export default function SampleReportPage() {
             <div className="p-6">
               {activeExcelSheet === 1 && (
                 <div className="space-y-4 text-xs font-mono">
-                  <p className="font-bold text-slate-900 uppercase">Sheet 1: Survey Overview & Sample Mass</p>
+                  <p className="font-bold text-slate-900 uppercase">Sheet 1: Example survey overview</p>
                   <table className="w-full border border-slate-200 text-left">
                     <tbody className="divide-y divide-slate-100 text-slate-700">
-                      <tr><td className="bg-slate-50 px-3 py-2 font-semibold w-48">SURVEY_NO</td><td className="px-3 py-2">BQS-2026-0142</td></tr>
-                      <tr><td className="bg-slate-50 px-3 py-2 font-semibold">VESSEL_IMO</td><td className="px-3 py-2">9412345</td></tr>
-                        <tr><td className="bg-slate-50 px-3 py-2 font-semibold">SAMPLE_TOTAL_MT</td><td className="px-3 py-2 font-bold text-sea-700">457.819 MT</td></tr>
+                      <tr><td className="bg-slate-50 px-3 py-2 font-semibold w-48">SURVEY_NO</td><td className="px-3 py-2">EXAMPLE-001</td></tr>
+                      <tr><td className="bg-slate-50 px-3 py-2 font-semibold">VESSEL</td><td className="px-3 py-2">Example vessel</td></tr>
+                      <tr><td className="bg-slate-50 px-3 py-2 font-semibold">SAMPLE_RESULT_MT</td><td className="px-3 py-2 font-bold text-sea-700">457.047 MT</td></tr>
                       <tr><td className="bg-slate-50 px-3 py-2 font-semibold">WATER_DEDUCTED_M3</td><td className="px-3 py-2">0.120 m³</td></tr>
                       <tr><td className="bg-slate-50 px-3 py-2 font-semibold">VCF_METHOD</td><td className="px-3 py-2">Table 54B (VCF)</td></tr>
                     </tbody>
@@ -290,8 +294,8 @@ export default function SampleReportPage() {
                       <tr><th className="px-3 py-2">TANK</th><th className="px-3 py-2">GROSS_VOL</th><th className="px-3 py-2">NET_VOL</th><th className="px-3 py-2">VCF_54B</th><th className="px-3 py-2">CORRECTED_VOL</th><th className="px-3 py-2">MASS_MT</th></tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-slate-700">
-                      <tr><td className="px-3 py-2">1P</td><td className="px-3 py-2">245.100</td><td className="px-3 py-2">245.050</td><td className="px-3 py-2">0.9677</td><td className="px-3 py-2">237.135</td><td className="px-3 py-2 font-bold">225.567</td></tr>
-                      <tr><td className="px-3 py-2">1S</td><td className="px-3 py-2">252.180</td><td className="px-3 py-2">252.110</td><td className="px-3 py-2">0.9677</td><td className="px-3 py-2">243.967</td><td className="px-3 py-2 font-bold">232.252</td></tr>
+                      <tr><td className="px-3 py-2">1P</td><td className="px-3 py-2">245.100</td><td className="px-3 py-2">245.050</td><td className="px-3 py-2">0.9677</td><td className="px-3 py-2">237.135</td><td className="px-3 py-2 font-bold">225.278</td></tr>
+                      <tr><td className="px-3 py-2">1S</td><td className="px-3 py-2">252.180</td><td className="px-3 py-2">252.110</td><td className="px-3 py-2">0.9677</td><td className="px-3 py-2">243.967</td><td className="px-3 py-2 font-bold">231.769</td></tr>
                     </tbody>
                   </table>
                 </div>
@@ -299,15 +303,15 @@ export default function SampleReportPage() {
 
               {activeExcelSheet === 4 && (
                 <div className="space-y-4 text-xs font-mono">
-                  <p className="font-bold text-slate-900 uppercase">Sheet 4: Cryptographic Event & Revision History</p>
+                  <p className="font-bold text-slate-900 uppercase">Sheet 4: Example event history layout</p>
                   <table className="w-full border border-slate-200 text-left">
                     <thead className="bg-slate-50 font-bold">
-                      <tr><th className="px-3 py-2">TIMESTAMP</th><th className="px-3 py-2">EVENT</th><th className="px-3 py-2">USER</th><th className="px-3 py-2">SHA256</th></tr>
+                      <tr><th className="px-3 py-2">TIMESTAMP</th><th className="px-3 py-2">EVENT</th><th className="px-3 py-2">USER</th><th className="px-3 py-2">REFERENCE</th></tr>
                     </thead>
                     <tbody className="divide-y divide-slate-100 text-slate-700">
-                      <tr><td className="px-3 py-2">2026-10-16 11:42:09 UTC</td><td className="px-3 py-2 text-sea-700 font-bold">FINALISED</td><td className="px-3 py-2">Demo user</td><td className="px-3 py-2">Example hash</td></tr>
-                      <tr><td className="px-3 py-2">2026-10-16 11:31:14 UTC</td><td className="px-3 py-2 text-ocean-700">UNDER_REVIEW</td><td className="px-3 py-2">Demo user</td><td className="px-3 py-2">Example hash</td></tr>
-                      <tr><td className="px-3 py-2">2026-10-16 11:28:40 UTC</td><td className="px-3 py-2 text-slate-600">CALCULATED</td><td className="px-3 py-2">deck-mobile-01</td><td className="px-3 py-2">4a11...09cf</td></tr>
+                      <tr><td className="px-3 py-2">Example time</td><td className="px-3 py-2 text-sea-700 font-bold">FINALIZED</td><td className="px-3 py-2">Example account</td><td className="px-3 py-2">Fictional</td></tr>
+                      <tr><td className="px-3 py-2">Example time</td><td className="px-3 py-2 text-ocean-700">UNDER REVIEW</td><td className="px-3 py-2">Example account</td><td className="px-3 py-2">Fictional</td></tr>
+                      <tr><td className="px-3 py-2">Example time</td><td className="px-3 py-2 text-slate-600">CALCULATED</td><td className="px-3 py-2">Example account</td><td className="px-3 py-2">Fictional</td></tr>
                     </tbody>
                   </table>
                 </div>

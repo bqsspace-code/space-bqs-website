@@ -2,15 +2,20 @@ import type { Metadata } from "next";
 import QuoteForm from "../components/QuoteForm";
 import { Breadcrumbs } from "../components/ui";
 import { LiquidGlassNav } from "@/components/ui/liquid-glass-nav";
+import { routeMetadata } from "../lib/seo-metadata";
 import "./request-demo.css";
 
-export const metadata: Metadata = {
-  title: "Request a Demo or Implementation Consultation",
+export const metadata: Metadata = routeMetadata("/request-demo", {
+  title: "Request a Demo",
   description:
-    "Request a Space BQS demo, discuss a Cargo WMS implementation, or scope data migration and deployment services.",
-};
+    "Request a bunker quantity survey software demo for your marine survey team. Tell us about your company and survey workflows.",
+});
 
-export default function Page() {
+export default async function Page({ searchParams }: { searchParams: Promise<{ country?: string | string[]; intent?: string | string[] }> }) {
+  const query = await searchParams;
+  const country = typeof query.country === "string" ? query.country.trim().slice(0, 100) : "";
+  const formType = query.intent === "pilot" ? "space-bqs-pilot" : "space-bqs";
+
   return (
     <div className="demo-page relative overflow-hidden">
       <div className="relative mx-auto max-w-6xl px-6 pb-20 pt-32 sm:pb-28 lg:px-8">
@@ -30,7 +35,7 @@ export default function Page() {
             <p className="demo-eyebrow">Start a conversation</p>
             <h2 className="font-display mt-3 text-2xl font-bold tracking-tight text-[#031038] sm:text-3xl">Request a demo</h2>
             <p className="mb-8 mt-2 text-sm leading-6 text-[#52657c]">Share your details and we’ll be in touch. Fields marked * are required.</p>
-            <QuoteForm />
+            <QuoteForm initialCountry={country} formType={formType} />
             </div>
           </LiquidGlassNav>
         </div>
