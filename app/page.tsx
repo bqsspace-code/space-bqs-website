@@ -9,6 +9,7 @@ import { SurveyWarehouseSection, SpreadsheetCompareSection, WhoItsForSection } f
 import { BevelWorkflowCards } from "@/components/ui/bevel-workflow-cards";
 import RolloutShowcase from "./components/RolloutShowcase";
 import ServiceSchema from "./components/ServiceSchema";
+import ProductSchema from "./components/ProductSchema";
 import AppPreviewCard from "./components/AppPreviewCard";
 import WeightText from "./components/WeightText";
 import { routeMetadata } from "./lib/seo-metadata";
@@ -113,6 +114,7 @@ export default function Home() {
 
       {/* 8. Implementation and licensing now share a single decision point. */}
       <RolloutShowcase />
+      <ProductSchema />
       <ServiceSchema offering="deployment" />
       <ServiceSchema offering="data-migration" />
       <WaveTransition variant="sweep" />

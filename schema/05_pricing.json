@@ -2,53 +2,31 @@
   "@context": "https://schema.org",
   "@graph": [
     {
-      "@type": "Product",
-      "@id": "https://aibqs.com/pricing#product",
-      "name": "Space BQS Commercial License",
-      "description": "Enterprise software license for bunker surveying companies and marine inspection firms. Fixed team-based subscription with zero per-job fees, unlimited PDF certificates, full mobile offline access, and cloud survey registry.",
-      "brand": {
-        "@type": "Brand",
-        "name": "Space BQS"
-      },
-      "offers": {
-        "@type": "Offer",
-        "priceCurrency": "USD",
-        "price": "Custom",
-        "priceSpecification": {
-          "@type": "PriceSpecification",
-          "description": "Licensed by active surveyor seat count and monthly survey volume. Includes web portal, mobile app, and PDF certificate generation."
-        },
-        "url": "https://aibqs.com/pricing",
-        "availability": "https://schema.org/InStock",
-        "validFrom": "2026-01-01"
-      }
-    },
-    {
       "@type": "FAQPage",
       "@id": "https://aibqs.com/pricing#faq",
       "mainEntity": [
         {
           "@type": "Question",
-          "name": "Are there per-job fees or transactional report charges in Space BQS?",
+          "name": "Does Space BQS publish fixed prices?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "No. Unlike legacy transactional marine inspection platforms that charge $15 to $50 per certificate issued, Space BQS operates strictly on a predictable team license. Survey firms can generate unlimited bunker delivery, ROB, and debunkering certificates without incremental usage fees."
+            "text": "No fixed prices are listed on this page. Contact Space BQS with your team and workflow requirements to discuss licensing."
           }
         },
         {
           "@type": "Question",
-          "name": "What is included in the Space BQS software subscription?",
+          "name": "What information should I provide for a quote?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Every license includes full access to the offline-first mobile app for iOS and Android, the central web management portal, automated tank calibration table strapping interpolation, ASTM D1250 Table 54B VCF calculation engine, locked PDF certificate builder, 4-sheet Excel export package, and cloud Survey Warehouse archive."
+            "text": "Share your organization type, team size, approximate survey volume, and the delivery, ROB, or debunkering workflows you use. You can provide these details in the demo request form."
           }
         },
         {
           "@type": "Question",
-          "name": "Can we test Space BQS on live vessel surveys before committing?",
+          "name": "Can I request a pilot?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Yes. Space BQS provides qualified independent survey firms and fleet operators with a structured 30-day pilot workspace including test vessel profiles, full offline mobile licenses, and supervisor portal onboarding."
+            "text": "Contact the Space BQS team to discuss whether a pilot is available and what its setup and evaluation scope would be."
           }
         }
       ]

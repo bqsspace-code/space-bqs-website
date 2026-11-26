@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Section, CtaRow, Breadcrumbs, AnswerBlock, Faq } from "../components/ui";
 import Link from "next/link";
 import { ShieldCheck, CheckCircle2, Users, FileSpreadsheet, Lock, HelpCircle, ArrowRight, Layers } from "lucide-react";
+import ProductSchema from "../components/ProductSchema";
 import pricingSchema from "@/schema/05_pricing.json";
 import { routeMetadata } from "../lib/seo-metadata";
 
@@ -48,6 +49,7 @@ export default function Page() {
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(pricingSchema) }}
       />
+      <ProductSchema />
       {/* Header */}
       <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
         <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/pricing", label: "Pricing" }]} />

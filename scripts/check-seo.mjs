@@ -118,12 +118,26 @@ try {
     if (!metaContent(html, "twitter:card")) fail.push(`${pathName} has no Twitter card metadata`);
     if (/spacebqs\.example|www\.spacebqs\.example/i.test(html)) fail.push(`${pathName} HTML contains a placeholder or noncanonical host`);
 
+    const jsonLdEntities = [];
     for (const script of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/gi)) {
       try {
-        JSON.parse(script[1]);
+        const data = JSON.parse(script[1]);
+        if (Array.isArray(data["@graph"])) jsonLdEntities.push(...data["@graph"]);
+        else jsonLdEntities.push(data);
       } catch {
         fail.push(`${pathName} contains invalid JSON-LD`);
       }
+    }
+
+    if (pathName === "/") {
+      const types = new Set(jsonLdEntities.flatMap((entity) =>
+        Array.isArray(entity["@type"]) ? entity["@type"] : [entity["@type"]],
+      ));
+      for (const type of ["Organization", "WebSite", "SoftwareApplication", "Product", "Service", "FAQPage"]) {
+        if (!types.has(type)) fail.push(`homepage is missing ${type} JSON-LD`);
+      }
+      const serviceCount = jsonLdEntities.filter((entity) => entity["@type"] === "Service").length;
+      if (serviceCount < 2) fail.push(`homepage has ${serviceCount} Service entities, expected at least two`);
     }
   }
 
