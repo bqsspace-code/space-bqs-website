@@ -1,6 +1,6 @@
 import { routeMetadata } from "../../lib/seo-metadata";
 import CookiePreferencesButton from "../../components/CookiePreferencesButton";
-import { PageHero, Chapter, Ledger } from "../../components/Editorial";
+import { PageHero, Chapter, Ledger, HeroArt } from "../../components/Editorial";
 
 export const metadata = routeMetadata("/legal/cookies", {
   title: "Cookie and Browser Storage Information",
@@ -17,6 +17,7 @@ export default function Page() {
         eyebrow="Website policy"
         title="Cookies and browser storage."
         description="What the site stores in your browser, and what you control."
+        visual={<HeroArt kind="shield" title="Website policy" caption="What the site stores, and what you control." />}
       />
       <Chapter index="01" eyebrow="Storage" title="What is stored, and why.">
         <div className="space-y-8">

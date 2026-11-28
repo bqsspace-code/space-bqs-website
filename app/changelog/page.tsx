@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { PageHero, Chapter } from "../components/Editorial";
+import { PageHero, Chapter, HeroArt } from "../components/Editorial";
 import { routeMetadata } from "../lib/seo-metadata";
 
 export const metadata: Metadata = routeMetadata("/changelog", {
@@ -15,7 +15,9 @@ const ENTRIES = [
 export default function Page() {
   return (
     <div>
-      <PageHero href="/changelog" crumb="Changelog" eyebrow="What shipped" title="Changelog." description="Only live, customer-visible changes. Newest first." />
+      <PageHero href="/changelog" crumb="Changelog" eyebrow="What shipped" title="Changelog." description="Only live, customer-visible changes. Newest first."
+        visual={<HeroArt kind="flow" title="Release history" caption="Only live, customer-visible changes." />}
+      />
       <Chapter index="01" eyebrow="History" title="Website releases.">
         <ol className="border-t border-[#c9dce8]">
           {ENTRIES.map((e) => (

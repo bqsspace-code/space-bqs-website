@@ -84,6 +84,21 @@ export function HeroFacts({ title, rows }: { title: string; rows: { label: strin
   );
 }
 
+/** Large animated illustration for heroes without a photo or data panel. */
+export function HeroArt({ kind, title, caption }: { kind: ArtKind; title: string; caption?: string }) {
+  return (
+    <div className="relative">
+      <span aria-hidden="true" className="aurora-orb -left-6 top-4 size-44 bg-[#19b5c9]/45" />
+      <span aria-hidden="true" className="aurora-orb -bottom-8 right-0 size-52 bg-[#1b4fd1]/55" />
+      <div className="glass-card-dark relative overflow-hidden rounded-[1.65rem] p-8 sm:p-10">
+        <CardArt kind={kind} tone="dark" className="!h-40 !w-full max-w-xs" />
+        <p className="relative mt-6 font-mono text-[10px] font-semibold uppercase tracking-[.2em] text-[#7de1e5]">{title}</p>
+        {caption && <p className="relative mt-2 max-w-sm font-display text-xl font-semibold leading-snug text-white">{caption}</p>}
+      </div>
+    </div>
+  );
+}
+
 /* ─── Chapter: numbered section with a sticky heading column ─── */
 const tones = {
   light: { fill: "#f7fbfd", accent: "#8fc9d6", bg: "bg-[#f7fbfd]", title: "text-[#031038]", lede: "text-[#52657c]", eyebrow: "text-[#032aac]", num: "text-[#032aac]/15" },
@@ -161,7 +176,7 @@ export function Ledger({
   return (
     <ScrollReveal as="ol" stagger className={`border-t ${dark ? "border-white/15" : "border-[#c9dce8]"}`}>
       {items.map((item, i) => (
-        <li key={item.title} className={`group relative grid gap-x-6 gap-y-2 border-b py-7 sm:grid-cols-[3.5rem_minmax(0,1fr)_auto] sm:py-8 ${dark ? "border-white/15" : "border-[#c9dce8]"}`}>
+        <li key={item.title} className={`ledger-row group relative grid gap-x-6 gap-y-2 border-b py-7 sm:grid-cols-[3.5rem_minmax(0,1fr)_auto] sm:py-8 ${dark ? "border-white/15" : "border-[#c9dce8]"}`}>
           <span className={`font-mono text-xs font-semibold tracking-widest ${dark ? "text-[#7de1e5]" : "text-[#032aac]"}`}>{String(i + 1).padStart(2, "0")}</span>
           <div>
             {item.tag && <p className={`mb-2 font-mono text-[10px] uppercase tracking-[.18em] ${dark ? "text-white/50" : "text-[#176a8e]"}`}>{item.tag}</p>}
@@ -195,6 +210,9 @@ const tileTone = {
   accent: "border-transparent bg-[radial-gradient(ellipse_at_90%_0%,rgba(63,185,230,.4),transparent_60%),linear-gradient(145deg,#0738b9,#032aac_55%,#062066)] text-white",
 } as const;
 
+const DEFAULT_ART: ArtKind[] = ["wave", "nodes", "gauge", "flow", "shield", "sync", "bars", "stack"];
+const hashOf = (value: string) => [...value].reduce((n, c) => (n * 31 + c.charCodeAt(0)) >>> 0, 7);
+
 export function Tile({
   tag,
   title,
@@ -212,13 +230,14 @@ export function Tile({
   cta?: string;
   tone?: keyof typeof tileTone;
   className?: string;
-  art?: ArtKind;
+  art?: ArtKind | false;
 }) {
   const light = tone === "light";
+  const artKind = art === false ? undefined : art ?? DEFAULT_ART[hashOf(title) % DEFAULT_ART.length];
   return (
     <article className={`group relative flex min-h-full flex-col overflow-hidden rounded-[1.6rem] border p-7 transition duration-300 hover:-translate-y-1 motion-reduce:transform-none motion-reduce:transition-none sm:p-9 ${tileTone[tone]} ${light ? "shadow-[0_18px_40px_-30px_rgba(3,42,172,.4)]" : "shadow-[0_30px_70px_-40px_rgba(3,16,56,.9)]"} ${className}`}>
       {!light && <div aria-hidden="true" className="absolute -right-16 -top-16 size-56 rounded-full border border-white/10" />}
-      {art && <CardArt kind={art} tone={light ? "light" : "dark"} className="relative mb-6" />}
+      {artKind && <CardArt kind={artKind} tone={light ? "light" : "dark"} className="relative mb-6" />}
       {tag && <p className={`relative font-mono text-[10px] font-semibold uppercase tracking-[.2em] ${light ? "text-[#176a8e]" : "text-[#7de1e5]"}`}>{tag}</p>}
       <h3 className="relative mt-3 font-display text-2xl font-semibold leading-tight tracking-tight sm:text-[1.7rem]">{title}</h3>
       <div className={`relative mt-3 flex-1 text-[15px] leading-7 ${light ? "text-[#52657c]" : "text-[#c5d2e7]"}`}>{children}</div>
@@ -290,7 +309,7 @@ export function Steps({ items, dark = false }: { items: { title: string; body: R
       <span aria-hidden="true" className={`scroll-line absolute bottom-10 left-[1.65rem] top-10 w-px ${dark ? "bg-white/25" : "bg-[#6fa6c2]"}`} />
       {items.map((item, i) => (
         <li key={item.title} className={`${dark ? "glass-card-dark" : "glass-card"} relative grid grid-cols-[3.3rem_minmax(0,1fr)] gap-4 rounded-[1.4rem] p-5 sm:gap-6 sm:p-7`}>
-          <span aria-hidden="true" className={`relative z-10 grid size-[3.3rem] place-items-center rounded-full font-mono text-sm font-semibold ${dark ? "bg-[#b9f1e8] text-[#062141]" : "bg-[#032aac] text-white shadow-[0_10px_24px_-10px_rgba(3,42,172,.8)]"}`}>{String(i + 1).padStart(2, "0")}</span>
+          <span aria-hidden="true" className={`node-ping relative z-10 grid size-[3.3rem] place-items-center rounded-full font-mono text-sm font-semibold ${dark ? "bg-[#b9f1e8] text-[#062141]" : "bg-[#032aac] text-white shadow-[0_10px_24px_-10px_rgba(3,42,172,.8)]"}`}>{String(i + 1).padStart(2, "0")}</span>
           <div>
             {item.meta && <p className={`font-mono text-[10px] font-semibold uppercase tracking-[.18em] ${dark ? "text-[#7de1e5]" : "text-[#176a8e]"}`}>{item.meta}</p>}
             <h3 className={`mt-1 font-display text-xl font-semibold tracking-tight sm:text-2xl ${dark ? "text-white" : "text-[#031038]"}`}>{item.title}</h3>
@@ -338,7 +357,7 @@ export function Checklist({ title, items, dark = false }: { title?: string; item
       <ScrollReveal as="ul" stagger className={`${title ? "mt-5" : ""} space-y-4`}>
         {items.map((item, i) => (
           <li key={i} className={`flex gap-3 text-[15px] leading-7 ${dark ? "text-[#dbe5f5]" : "text-[#31485f]"}`}>
-            <svg aria-hidden="true" viewBox="0 0 20 20" className={`mt-1 size-5 shrink-0 ${dark ? "text-[#7de1e5]" : "text-[#032aac]"}`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="10" cy="10" r="8" /><path d="m6.5 10.2 2.4 2.4 4.6-5" /></svg>
+            <svg aria-hidden="true" viewBox="0 0 20 20" className={`check-draw mt-1 size-5 shrink-0 ${dark ? "text-[#7de1e5]" : "text-[#032aac]"}`} fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"><circle cx="10" cy="10" r="8" /><path d="m6.5 10.2 2.4 2.4 4.6-5" /></svg>
             <span>{item}</span>
           </li>
         ))}

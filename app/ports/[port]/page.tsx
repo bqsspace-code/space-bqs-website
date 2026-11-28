@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PageHero, Chapter, Tiles, Tile, Checklist, Notice } from "@/app/components/Editorial";
+import { PageHero, Chapter, Tiles, Tile, Checklist, Notice, HeroArt } from "@/app/components/Editorial";
 import { BUNKER_PORTS, ALL_PORTS } from "@/app/lib/ports";
 import { SITE_URL } from "@/app/lib/site";
 import { routeMetadata } from "@/app/lib/seo-metadata";
@@ -71,6 +71,7 @@ export default async function PortHubPage({
         description="General reference for teams researching bunker quantity survey work in this port area. Port requirements, standards editions and available services can change; confirm them with the relevant authorities and your survey stakeholders."
         primaryAction={{ href: "/request-demo", label: "Discuss product scope" }}
         secondaryAction={{ href: "/how-we-measure", label: "How we measure" }}
+        visual={<HeroArt kind="tank" title="Port guide" caption="Context, standards, questions." />}
       />
 
       <Chapter index="01" eyebrow="In short" title={`Planning a survey in ${p.name}.`}>

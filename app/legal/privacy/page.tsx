@@ -1,5 +1,5 @@
 import { routeMetadata } from "../../lib/seo-metadata";
-import { PageHero, Chapter, Ledger, Notice } from "../../components/Editorial";
+import { PageHero, Chapter, Ledger, Notice, HeroArt } from "../../components/Editorial";
 
 export const metadata = routeMetadata("/legal/privacy", {
   title: "Privacy Information",
@@ -16,6 +16,7 @@ export default function Page() {
         eyebrow="Website policy"
         title="Privacy information."
         description="Information about demo inquiries and optional website analytics."
+        visual={<HeroArt kind="shield" title="Website policy" caption="Demo inquiries and optional analytics." />}
       />
       <Chapter index="01" eyebrow="What we collect" title="What happens to what you send.">
         <Ledger items={[

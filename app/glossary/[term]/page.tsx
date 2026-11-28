@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { notFound } from "next/navigation";
-import { PageHero, Chapter, Tiles, Tile, Notice } from "@/app/components/Editorial";
+import { PageHero, Chapter, Tiles, Tile, Notice, HeroArt } from "@/app/components/Editorial";
 import { FaqList, Formula } from "@/app/components/EditorialExtras";
 import { ALL_GLOSSARY_TERMS, getGlossaryTerm } from "@/app/lib/glossary";
 import { SITE_URL } from "@/app/lib/site";
@@ -83,6 +83,7 @@ export default async function GlossaryTermPage({
         description={t.shortDefinition}
         primaryAction={{ href: "/glossary", label: "All terms" }}
         secondaryAction={{ href: "/tools", label: "Try a worksheet" }}
+        visual={<HeroArt kind="doc" title="Glossary" caption="Definition, formula, related terms." />}
       />
 
       <Chapter index="01" eyebrow="Definition" title={`What ${t.term} means.`}>

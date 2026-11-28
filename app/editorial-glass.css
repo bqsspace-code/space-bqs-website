@@ -98,3 +98,20 @@
 .chapter-wave + section { padding-top: calc(5rem + 28px); }
 @media (min-width: 640px) { .chapter-wave + section { padding-top: calc(6rem + 28px); } }
 @media (min-width: 1024px) { .chapter-wave + section { padding-top: calc(7rem + 28px); } }
+
+/* ── Step node ping, ledger rule, check draw-in ── */
+@keyframes node-ping { 0% { box-shadow: 0 0 0 0 rgb(25 181 201 / .55); } 70%, 100% { box-shadow: 0 0 0 14px rgb(25 181 201 / 0); } }
+.node-ping { animation: node-ping 2.8s ease-out infinite; }
+li:nth-child(2) > .node-ping { animation-delay: .5s; } li:nth-child(3) > .node-ping { animation-delay: 1s; } li:nth-child(4) > .node-ping { animation-delay: 1.5s; }
+
+.ledger-row::after { content: ""; position: absolute; left: 0; bottom: -1px; height: 2px; width: 100%; background: linear-gradient(90deg, #19b5c9, #032aac); transform: scaleX(0); transform-origin: left; transition: transform 500ms cubic-bezier(.2,.8,.2,1); }
+.ledger-row:hover::after, .ledger-row:focus-within::after { transform: scaleX(1); }
+@supports (animation-timeline: view()) {
+  .ledger-row::after { animation: line-grow-x linear both; animation-timeline: view(); animation-range: entry 30% entry 100%; transition: none; opacity: .55; }
+  .ledger-row:hover::after { opacity: 1; }
+}
+
+@keyframes check-draw { from { stroke-dashoffset: 24; } to { stroke-dashoffset: 0; } }
+.check-draw path { stroke-dasharray: 24; }
+@supports (animation-timeline: view()) { .check-draw path { animation: check-draw linear both; animation-timeline: view(); animation-range: entry 10% entry 90%; } }
+@media (prefers-reduced-motion: reduce) { .node-ping, .check-draw path, .ledger-row::after { animation: none !important; } .check-draw path { stroke-dasharray: none; } }

@@ -1,5 +1,5 @@
 import { routeMetadata } from "../../lib/seo-metadata";
-import { PageHero, Chapter, Ledger } from "../../components/Editorial";
+import { PageHero, Chapter, Ledger, HeroArt } from "../../components/Editorial";
 
 export const metadata = routeMetadata("/legal/terms", {
   title: "Terms of Use",
@@ -16,6 +16,7 @@ export default function Page() {
         eyebrow="Website policy"
         title="Terms of use."
         description="Product and survey-service boundaries described on this site."
+        visual={<HeroArt kind="shield" title="Website policy" caption="Product and survey-service boundaries." />}
       />
       <Chapter index="01" eyebrow="Product scope" title="What the product is, and is not.">
         <Ledger items={[

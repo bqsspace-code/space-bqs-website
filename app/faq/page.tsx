@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { routeMetadata } from "../lib/seo-metadata";
-import { PageHero, Chapter } from "../components/Editorial";
+import { PageHero, Chapter, HeroArt } from "../components/Editorial";
 
 export const metadata: Metadata = routeMetadata("/faq", {
   title: "Space BQS FAQ: Scope, Calculation, Mobile, Reports, Licensing",
@@ -97,6 +97,7 @@ export default function Page() {
         description="What Space BQS does and does not do, how it calculates, how the app and reports work, and how to get started. Each answer points to the page with the detail."
         primaryAction={{ href: "/request-demo", label: "Ask us something else" }}
         secondaryAction={{ href: "/evaluate", label: "How to evaluate" }}
+        visual={<HeroArt kind="nodes" title="Straight answers" caption="Scope, calculation, mobile, reports and licensing." />}
       />
 
       <nav aria-label="FAQ topics" className="sticky top-16 z-30 border-b border-[#d3e4ee] bg-white/70 backdrop-blur-xl">

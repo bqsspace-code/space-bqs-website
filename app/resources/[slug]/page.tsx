@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { Section, AnswerBlock, Faq } from "../../components/ui";
-import { PageHero } from "../../components/Editorial";
+import { PageHero, HeroArt } from "../../components/Editorial";
 import { RESOURCES, getResource } from "../../lib/resources";
 import { SITE_URL } from "../../lib/site";
 import { routeMetadata } from "../../lib/seo-metadata";
@@ -47,6 +47,7 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
         eyebrow={`Last updated ${r.updated}`}
         title={r.title}
         description={r.description}
+        visual={<HeroArt kind="doc" title="Guide" caption="Plain-language survey context." />}
       />
       <Section eyebrow="Answer" title="In short">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />

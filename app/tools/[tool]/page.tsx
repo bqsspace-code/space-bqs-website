@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { notFound } from "next/navigation";
 import dynamic from "next/dynamic";
 import { Suspense } from "react";
-import { PageHero, Chapter, Checklist } from "../../components/Editorial";
+import { PageHero, Chapter, Checklist, HeroArt } from "../../components/Editorial";
 import { FaqList, Formula } from "../../components/EditorialExtras";
 import { TOOLS } from "../../lib/tools";
 import { routeMetadata } from "../../lib/seo-metadata";
@@ -46,6 +46,7 @@ export default async function Page({ params }: { params: Promise<{ tool: string 
         description={config.description}
         primaryAction={{ href: "#worksheet", label: "Open the worksheet" }}
         secondaryAction={{ href: "/tools", label: "Choose another tool" }}
+        visual={<HeroArt kind="gauge" title="Worksheet" caption="Inputs, formula, result." />}
       />
 
       <Chapter id="worksheet" index="01" eyebrow="Interactive worksheet" title="Edit the inputs. Inspect the result." lede="Values update in your browser. The worksheet displays the formula and provides a CSV download when the inputs are valid.">
