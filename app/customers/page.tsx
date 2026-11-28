@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Section, CtaRow, Breadcrumbs } from "../components/ui";
 import { routeMetadata } from "../lib/seo-metadata";
+import { PageHero, HeroFacts, Chapter, Tiles, Tile, Checklist, Notice } from "../components/Editorial";
 
 export const metadata: Metadata = routeMetadata("/customers", {
   title: "Who Space BQS Is Designed For",
@@ -12,35 +11,61 @@ export const metadata: Metadata = routeMetadata("/customers", {
 export default function Page() {
   return (
     <div>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
-        <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/customers", label: "Customers" }]} />
-        <h1 className="font-display mt-3 text-3xl font-bold sm:text-4xl">For bunker survey firms and marine inspection teams</h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">Space BQS is designed for organizations that perform bunker quantity surveys and want software for field capture, office review, and report workflows.</p>
-      </div>
-      <Section eyebrow="Fit" title="Teams that may evaluate Space BQS">
-        <div className="grid gap-4 md:grid-cols-3">
-          <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-ocean-700">Organization</p>
-            <h2 className="mt-2 font-display text-lg font-bold text-ocean-950">Bunker survey firms</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-600">Explore a shared software workflow for survey records, office review, and report preparation.</p>
-          </article>
-          <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-ocean-700">Field role</p>
-            <h2 className="mt-2 font-display text-lg font-bold text-ocean-950">Survey teams</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-600">Review the mobile capture workflow for delivery, remaining-on-board, and debunkering records.</p>
-          </article>
-          <article className="rounded-2xl border border-slate-200 bg-white p-5 shadow-sm">
-            <p className="font-mono text-[10px] font-semibold uppercase tracking-wider text-ocean-700">Office role</p>
-            <h2 className="mt-2 font-display text-lg font-bold text-ocean-950">Supervisors</h2>
-            <p className="mt-2 text-sm leading-6 text-slate-600">See the web workflow for reviewing survey records and preparing report outputs.</p>
-          </article>
+      <PageHero
+        href="/customers"
+        crumb="Customers"
+        eyebrow="Designed for"
+        title="Built for survey firms and inspection teams."
+        description="Space BQS is designed for organisations that perform bunker quantity surveys and want software for field capture, office review, and report workflows."
+        primaryAction={{ href: "/request-demo", label: "Request a demo" }}
+        secondaryAction={{ href: "/evaluate", label: "How to evaluate" }}
+        visual={<HeroFacts title="Who evaluates Space BQS" rows={[
+          { label: "Organisation", value: "Bunker survey firms" },
+          { label: "Field role", value: "Survey teams" },
+          { label: "Office role", value: "Supervisors" },
+        ]} />}
+      />
+
+      <Chapter index="01" eyebrow="Fit" title="Teams that may evaluate Space BQS." lede="Three groups, one connected record.">
+        <Tiles>
+          <Tile tag="Organisation" title="Bunker survey firms" tone="accent" className="md:col-span-2" href="/request-demo" cta="Request a demo">
+            Explore a shared software workflow for survey records, office review, and report preparation.
+          </Tile>
+          <Tile tag="Field role" title="Survey teams" href="/mobile-app" cta="See the mobile app">
+            Review the mobile capture workflow for delivery, remaining-on-board, and debunkering records.
+          </Tile>
+          <Tile tag="Office role" title="Supervisors" href="/platform" cta="See the platform">
+            See the web workflow for reviewing survey records and preparing report outputs.
+          </Tile>
+        </Tiles>
+      </Chapter>
+
+      <Chapter index="02" eyebrow="By survey type" title="Match the workflow to the work." tone="white" lede="Each survey type has its own page, with the inputs and report content described.">
+        <Tiles cols={3}>
+          <Tile tag="Survey" title="Bunker delivery" href="/services/bunker-delivery-survey" cta="Delivery survey">Record the quantity received and compare it with the supplier's declared figure.</Tile>
+          <Tile tag="Survey" title="Remaining on board" href="/services/rob-survey" cta="ROB survey">Capture what is on board at a point in time, tank by tank.</Tile>
+          <Tile tag="Survey" title="Debunkering" href="/services/debunkering-survey" cta="Debunkering survey">Document fuel removed from a vessel with the same calculation discipline.</Tile>
+        </Tiles>
+      </Chapter>
+
+      <Chapter index="03" eyebrow="Honest fit check" title="When it fits, and when it does not." tone="mist">
+        <div className="grid gap-5 md:grid-cols-2">
+          <Checklist title="Likely a good fit if you" items={[
+            "Perform bunker delivery, ROB or debunkering surveys",
+            "Want surveyors and office staff working from one record",
+            "Need offline capture on deck",
+            "Issue PDF and Excel reports to clients",
+          ]} />
+          <Checklist title="Probably not the right tool if you need" items={[
+            "Someone to attend the vessel for you",
+            "Laboratory fuel testing or quality opinions",
+            "A live client self-service portal today (it is roadmap only)",
+            "Cargo or warehouse workflows. See Cargo WMS instead",
+          ]} />
         </div>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Link href="/who-its-for" className="inline-flex min-h-11 items-center rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-ocean-800 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ocean-700">Explore team roles <span className="ml-2" aria-hidden="true">→</span></Link>
-          <Link href="/sample-report" className="inline-flex min-h-11 items-center rounded-full border border-slate-300 bg-white px-5 py-2 text-sm font-semibold text-ocean-800 hover:bg-slate-50 focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-ocean-700">View illustrative sample report <span className="ml-2" aria-hidden="true">→</span></Link>
-        </div>
-        <div className="mt-6"><CtaRow /></div>
-      </Section>
+        <div className="mt-6"><Notice label="Not sure?">Describe how your surveys run today and we will tell you plainly whether Space BQS covers it.</Notice></div>
+      </Chapter>
+
     </div>
   );
 }

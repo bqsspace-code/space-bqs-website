@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Search, ExternalLink, ArrowUpRight, Globe, Layers, Terminal, BookOpen, Users } from "lucide-react";
 import { SOCIAL_PLATFORMS, SocialPlatform } from "./socialPlatformsData";
 import { PlatformIcon } from "./PlatformIcon";
+import { PageHero } from "../components/Editorial";
 
 type CategoryFilter = "all" | "core" | "dev" | "publishing" | "community";
 
@@ -48,31 +49,13 @@ export default function SocialMediaPlatformsClient() {
       />
 
       {/* Hero Header Section */}
-      <section className="relative pt-28 pb-12 sm:pt-36 sm:pb-16 lg:pt-40 border-b border-[#D3E9F3]/70">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-          {/* Breadcrumb & Badges */}
-          <div className="flex flex-wrap items-center gap-2.5 text-xs">
-            <Link href="/" className="text-[#031038]/60 hover:text-[#032AAC] transition-colors font-medium">
-              Home
-            </Link>
-            <span className="text-[#031038]/30">/</span>
-            <span className="text-[#032AAC] font-semibold">Social Media Platforms</span>
-          </div>
-
-          <div className="mt-6 max-w-3xl space-y-3">
-            <div className="inline-flex items-center gap-2 rounded-full border border-[#b8dbea] bg-[#eaf4f9] px-3.5 py-1 text-xs font-semibold text-[#032aac]">
-              <Globe className="w-4 h-4 text-[#032aac]" aria-hidden="true" />
-              <span>SPACE BQS PROFILES · {categoryCounts.all} LISTINGS</span>
-            </div>
-            <h1 className="font-display text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-[#031038] leading-[1.1]">
-              Find Space BQS <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#032AAC] via-[#1B4FD1] to-[#19B5C9]">Everywhere</span>
-            </h1>
-            <p className="text-base sm:text-lg text-[#52657c] leading-relaxed max-w-2xl">
-              A directory of Space BQS profiles listed by the team across the web. Follow engineering notes, calculation research, and product updates.
-            </p>
-          </div>
-        </div>
-      </section>
+      <PageHero
+        href="/social-media-platforms"
+        crumb="Social Media Platforms"
+        eyebrow={`Space BQS profiles · ${categoryCounts.all} listings`}
+        title="Find Space BQS everywhere."
+        description="A directory of Space BQS profiles listed by the team across the web. Follow engineering notes, calculation research and product updates."
+      />
 
       {/* Filter and Search Bar Section */}
       <section className="sticky top-20 sm:top-24 z-30 bg-[#F7FBFD]/90 backdrop-blur-md border-b border-[#D3E9F3]/80 py-4 shadow-sm">

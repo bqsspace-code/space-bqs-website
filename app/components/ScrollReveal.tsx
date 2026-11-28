@@ -1,10 +1,10 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, type ElementType, type ReactNode } from "react";
 
 /** Progressive enhancement: content is visible during SSR and without JavaScript. */
-export default function ScrollReveal({ children, className = "", stagger = false }: { children: ReactNode; className?: string; stagger?: boolean }) {
-  const ref = useRef<HTMLDivElement>(null);
+export default function ScrollReveal({ children, className = "", stagger = false, as = "div" }: { children: ReactNode; className?: string; stagger?: boolean; as?: "div" | "ol" | "ul" | "dl" | "section" }) {
+  const ref = useRef<HTMLElement>(null);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -23,5 +23,6 @@ export default function ScrollReveal({ children, className = "", stagger = false
     observer.observe(el);
     return () => { observer.disconnect(); animations.forEach(animation => animation.cancel()); preference.removeEventListener("change", stop); };
   }, [stagger]);
-  return <div ref={ref} className={className}>{children}</div>;
+  const Tag = as as ElementType;
+  return <Tag ref={ref} className={className}>{children}</Tag>;
 }

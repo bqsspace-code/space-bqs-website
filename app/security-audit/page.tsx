@@ -5,6 +5,8 @@ import Provably, { type ProvablyCredential } from "@/components/ui/provably";
 import { Breadcrumbs } from "../components/ui";
 import WeightText from "../components/WeightText";
 import SecurityDataBento from "./SecurityDataBento";
+import { LazyMount } from "../components/Motion";
+import { Chapter, Tiles, Tile } from "../components/Editorial";
 import { routeMetadata } from "../lib/seo-metadata";
 import { CONTACT_EMAIL } from "../lib/site";
 import styles from "./security.module.css";
@@ -174,7 +176,7 @@ export default function Page() {
       />
 
       <div className={styles.sectionsBand}>
-        <SecurityDataBento />
+        <LazyMount minHeight={520}><SecurityDataBento /></LazyMount>
         <div className={styles.wrap}>
           <section className={styles.block} id="record-heading-wrap" aria-labelledby="record-heading">
             <p className={styles.kicker}>01 / Survey workflow</p>
@@ -299,6 +301,14 @@ export default function Page() {
           </section>
         </div>
       </div>
+
+      <Chapter index="04" eyebrow="Keep exploring" title="Related evaluation pages." tone="white" lede="Security questions rarely stand alone. These pages cover the neighbouring ones.">
+        <Tiles cols={3}>
+          <Tile art="stack" tag="Hosting" title="Deployment requirements" href="/services/deployment" cta="Deployment">Public, private or on-premises, scoped around your infrastructure.</Tile>
+          <Tile art="nodes" tag="Access" title="Integrations and API" href="/integrations-api" cta="Integrations">Webhooks, keys and MCP tools, issued per organisation.</Tile>
+          <Tile art="doc" tag="Process" title="How to evaluate" href="/evaluate" cta="Evaluation guide">Questions to put to any vendor, including us.</Tile>
+        </Tiles>
+      </Chapter>
     </div>
   );
 }

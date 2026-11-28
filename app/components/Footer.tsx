@@ -329,6 +329,9 @@ export default function Footer({ hideCta = false }: { hideCta?: boolean }) {
                   <li><Link href="/resources" className="text-slate-300 hover:text-white">Resources</Link></li>
                   <li><Link href="/markets" className="text-slate-300 hover:text-white">Market guides</Link></li>
                   <li><Link href="/why-independent" className="text-slate-300 hover:text-white">Why independent</Link></li>
+                  <li><Link href="/evaluate" className="text-slate-300 hover:text-white">How to evaluate</Link></li>
+                  <li><Link href="/compare" className="text-slate-300 hover:text-white">Spreadsheets vs software</Link></li>
+                  <li><Link href="/faq" className="text-slate-300 hover:text-white">FAQ</Link></li>
                   <li>
                     <Link
                       href="/about"

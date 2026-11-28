@@ -1,7 +1,6 @@
-import Link from "next/link";
-import { Breadcrumbs, Section, CtaRow } from "../components/ui";
+import { PageHero, HeroFacts, Chapter, Tiles, Tile, Checklist, Notice } from "../components/Editorial";
+import { InlineLink } from "../components/EditorialExtras";
 import { ALL_PORTS } from "../lib/ports";
-import { MapPin, ArrowRight, ShieldCheck, FileCheck2 } from "lucide-react";
 import { routeMetadata } from "../lib/seo-metadata";
 
 export const metadata = routeMetadata("/ports", {
@@ -11,122 +10,55 @@ export const metadata = routeMetadata("/ports", {
 });
 
 export default function PortsPage() {
+  const byCountry = new Map<string, typeof ALL_PORTS>();
+  for (const port of ALL_PORTS) byCountry.set(port.country, [...(byCountry.get(port.country) ?? []), port]);
+  const countries = [...byCountry.entries()].sort(([a], [b]) => a.localeCompare(b));
+
   return (
-    <div className="space-y-12 pb-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
-        <Breadcrumbs
-          trail={[
-            { href: "/", label: "Home" },
-            { href: "/ports", label: "Ports" },
-          ]}
-        />
-        <div className="mt-4 flex items-center gap-2">
-          <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
-            Bunker Survey Reference
-          </span>
-          <span className="text-xs text-slate-500 font-mono">Independent location guides</span>
-        </div>
-        <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl lg:text-5xl">
-          Bunker Survey Guides by Port
-        </h1>
-        <p className="mt-4 max-w-3xl text-lg text-slate-600">
-          Explore port-specific reference guides covering local terminology, standards references, operating context, and survey workflows. Use the linked authority sources and confirm current requirements with the relevant port and survey stakeholders.
-        </p>
+    <div>
+      <PageHero
+        href="/ports"
+        crumb="Ports"
+        eyebrow="Bunker survey reference"
+        title="Bunker survey guides by port."
+        description="Port-specific reference guides covering local terminology, standards references, operating context and survey workflows. Confirm current requirements with the relevant port and survey stakeholders."
+        primaryAction={{ href: "#port-guides", label: "Browse the guides" }}
+        secondaryAction={{ href: "/markets", label: "Market guides" }}
+        visual={<HeroFacts title="The guides" rows={[
+          { label: "Ports", value: String(ALL_PORTS.length) },
+          { label: "Countries", value: String(countries.length) },
+          { label: "Each covers", value: "Terms, context, standards" },
+        ]} />}
+      />
 
-        {/* Guide scope, not market-volume or product-performance claims */}
-        <div className="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-4">
-          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-            <span className="text-2xl font-bold text-ocean-900">{ALL_PORTS.length} Guides</span>
-            <p className="text-xs text-slate-500 mt-1">Port-specific reference pages</p>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-            <span className="text-2xl font-bold text-ocean-900">Local Context</span>
-            <p className="text-xs text-slate-500 mt-1">Terminology and operating notes</p>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-            <span className="text-2xl font-bold text-ocean-900">Standards</span>
-            <p className="text-xs text-slate-500 mt-1">References to verify with authorities</p>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-4 shadow-xs">
-            <span className="text-2xl font-bold text-ocean-900">Workflows</span>
-            <p className="text-xs text-slate-500 mt-1">Survey process and review topics</p>
-          </div>
-        </div>
-      </div>
-
-      {/* Port Cards Grid */}
-      <section className="mx-auto max-w-6xl px-4 sm:px-6">
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {ALL_PORTS.map((port) => (
-            <div
-              key={port.slug}
-              className="flex flex-col justify-between rounded-2xl border border-slate-200 bg-white p-6 shadow-sm transition hover:border-ocean-600 hover:shadow-md"
-            >
-              <div>
-                <div className="flex items-center justify-between">
-                  <span className="inline-flex items-center gap-1.5 rounded-full bg-slate-100 px-2.5 py-1 text-xs font-medium text-slate-700">
-                    <MapPin className="h-3 w-3 text-ocean-600" />
-                    {port.country}
-                  </span>
-                  <span className="text-xs font-semibold text-ocean-700 font-mono">Port guide</span>
-                </div>
-
-                <h2 className="font-display mt-4 text-xl font-bold text-ocean-950">
-                  <Link href={`/ports/${port.slug}`} className="hover:text-ocean-700">
-                    {port.name}
-                  </Link>
-                </h2>
-
-                <p className="mt-3 text-sm text-slate-600 line-clamp-3">
-                  General reference for teams researching bunker quantity survey work in {port.city}, {port.country}. Verify current local requirements with the relevant authorities.
-                </p>
-              </div>
-
-              <div className="mt-6 pt-4 border-t border-slate-100 flex items-center justify-between">
-                <span className="text-xs text-slate-500">Location guide</span>
-                <Link
-                  href={`/ports/${port.slug}`}
-                  className="inline-flex items-center gap-1 text-sm font-semibold text-ocean-700 hover:text-ocean-900"
-                >
-                  View Guide <ArrowRight className="h-4 w-4" />
-                </Link>
-              </div>
+      <Chapter id="port-guides" index="01" eyebrow="Port guides" title="Choose a port." lede="General reference for teams researching bunker quantity survey work. Guides describe context, not local regulatory approval.">
+        <div className="space-y-12">
+          {countries.map(([country, ports]) => (
+            <div key={country}>
+              <h3 className="mb-4 flex items-center gap-3 font-mono text-xs font-semibold uppercase tracking-[.2em] text-[#176a8e]"><span aria-hidden="true" className="h-px w-8 bg-[#19b5c9]" />{country}</h3>
+              <Tiles cols={2}>
+                {ports.map((port) => (
+                  <Tile key={port.slug} art="tank" tag={`${port.city}, ${port.country}`} title={port.name} href={`/ports/${port.slug}`} cta="View guide">
+                    General reference for teams researching bunker quantity survey work in {port.city}. Verify current local requirements with the relevant authorities.
+                  </Tile>
+                ))}
+              </Tiles>
             </div>
           ))}
         </div>
-      </section>
+      </Chapter>
 
-      {/* General planning guidance, not port-specific regulatory assertions */}
-      <Section eyebrow="Planning reference" title="What to verify before a survey">
-        <div className="grid gap-6 md:grid-cols-3">
-          <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <ShieldCheck className="h-6 w-6 text-ocean-600 mb-2" />
-            <h3 className="font-bold text-ocean-950 text-base">Current requirements</h3>
-            <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Check the relevant port authority's current instructions and confirm which measurement standards and editions apply to the operation.
-            </p>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <MapPin className="h-6 w-6 text-ocean-600 mb-2" />
-            <h3 className="font-bold text-ocean-950 text-base">Agreed survey scope</h3>
-            <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Agree the measurement method, inputs, responsible parties, and records to be retained before the survey begins.
-            </p>
-          </div>
-          <div className="rounded-xl border border-slate-200 bg-white p-5">
-            <FileCheck2 className="h-6 w-6 text-ocean-600 mb-2" />
-            <h3 className="font-bold text-ocean-950 text-base">Product fit</h3>
-            <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Review the published <Link href="/how-we-measure" className="font-semibold text-ocean-700 underline">calculation methodology</Link> and confirm current product scope with the Space BQS team.
-            </p>
-          </div>
+      <Chapter index="02" eyebrow="Planning reference" title="What to verify before a survey." tone="white" lede="General planning guidance, not port-specific regulatory assertions.">
+        <div className="space-y-5">
+          <Checklist items={[
+            "The port authority's current instructions, and which measurement standards and editions apply",
+            "The agreed survey scope: method, inputs, responsible parties and records to be retained",
+            "Product fit: review the published calculation method and confirm current scope with the Space BQS team",
+          ]} />
+          <Notice label="Read with care">These guides are not official port notices or compliance determinations. Read the <InlineLink href="/how-we-measure">calculation methodology</InlineLink> to see what the software does and does not cover.</Notice>
         </div>
-      </Section>
+      </Chapter>
 
-      {/* Call to Action */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <CtaRow />
-      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Caveat:wght@600&display=swap');
 @import "tailwindcss";
 @import "./marine-design.css";
+@import "./editorial-glass.css";
 @import "../components/ui/workflow-scroll-sections.css";
 @import "../components/ui/team-split-cards.css";
 @import "./components/rollout-showcase.css";

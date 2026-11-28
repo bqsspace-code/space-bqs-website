@@ -1,8 +1,6 @@
 import type { Metadata } from "next";
-import { Section, CtaRow, Breadcrumbs, AnswerBlock, Faq } from "../components/ui";
-import Link from "next/link";
-import EditorialHero from "../components/EditorialHero";
-import { ArrowRight, CheckCircle2, ClipboardList, Database, FileSpreadsheet, Users } from "lucide-react";
+import { PageHero, HeroFacts, Chapter, Tiles, Tile, Steps, Checklist, Notice } from "../components/Editorial";
+import { FaqList } from "../components/EditorialExtras";
 import ProductSchema from "../components/ProductSchema";
 import { routeMetadata } from "../lib/seo-metadata";
 
@@ -12,111 +10,72 @@ export const metadata: Metadata = routeMetadata("/pricing", {
     "Learn how Space BQS team licensing is scoped for bunker survey firms. Discuss surveyor seats, volume, and rollout requirements.",
 });
 
-const PRICING_FAQS = [
-  {
-    q: "Does Space BQS publish fixed prices?",
-    a: "No fixed prices are listed on this page. Contact Space BQS with your team and workflow requirements to discuss licensing.",
-  },
-  {
-    q: "What information should I provide for a quote?",
-    a: "Share your organization type, team size, approximate survey volume, and the delivery, ROB, or debunkering workflows you use. You can provide these details in the demo request form.",
-  },
-  {
-    q: "Can I request a pilot?",
-    a: "Contact the Space BQS team to discuss whether a pilot is available and what its setup and evaluation scope would be.",
-  },
+const FAQS = [
+  { q: "Does Space BQS publish fixed prices?", a: "No fixed prices are listed on this page. Contact Space BQS with your team and workflow requirements to discuss licensing." },
+  { q: "What information should I provide for a quote?", a: "Share your organisation type, team size, approximate survey volume, and the delivery, ROB or debunkering workflows you use. You can provide these details in the demo request form." },
+  { q: "Can I request a pilot?", a: "Contact the Space BQS team to discuss whether a pilot is available and what its setup and evaluation scope would be.", more: { href: "/evaluate", label: "How to evaluate" } },
+  { q: "Are migration and deployment included?", a: "They are scoped separately around your source data and infrastructure. Confirm what applies to your project before a purchase decision.", more: { href: "/services/data-migration", label: "Data migration" } },
 ];
 
 export default function Page() {
   return (
-    <div className="bg-[#f7fbfd] pb-16">
+    <div>
       <ProductSchema />
-      <EditorialHero
-        trail={[{ href: "/", label: "Home" }, { href: "/pricing", label: "Pricing" }]}
+      <PageHero
+        href="/pricing"
+        crumb="Pricing"
         eyebrow="Commercial model / team licensing"
         title="Licensing shaped around your survey operation."
-        description="Space BQS does not publish fixed prices on this page. Start a conversation about the people, survey workflows, and rollout requirements your team needs to evaluate."
+        description="Space BQS does not publish fixed prices. Start a conversation about the people, survey workflows and rollout your team needs to evaluate."
         primaryAction={{ href: "/request-demo", label: "Discuss licensing" }}
         secondaryAction={{ href: "/sample-report", label: "Review a sample report" }}
+        visual={<HeroFacts title="Licensing is scoped on" rows={[
+          { label: "People", value: "Surveyors and reviewers" },
+          { label: "Work", value: "Survey types and volume" },
+          { label: "Rollout", value: "Data, hosting, integrations" },
+        ]} />}
       />
 
-      <div className="mx-auto max-w-6xl px-5 pt-10 sm:px-6">
-        <AnswerBlock>
-          <p>
-            Space BQS is bunker quantity survey software for marine survey firms. Licensing is discussed with the team; pricing, availability, and any pilot scope should be confirmed directly before a purchase decision.
-          </p>
-        </AnswerBlock>
-      </div>
+      <Chapter index="01" eyebrow="Evaluation" title="What to bring to the first conversation." lede="A few details help the team understand fit. You do not need a finalised implementation plan to start the discussion.">
+        <Tiles cols={3}>
+          <Tile art="nodes" tag="01 · Team" title="Who will use it?">Your organisation type, approximate number of field surveyors, and who reviews survey records in the office.</Tile>
+          <Tile art="bars" tag="02 · Work" title="What do you survey?">Your delivery, ROB or debunkering workflows, and an approximate survey volume if you know it.</Tile>
+          <Tile art="stack" tag="03 · Rollout" title="What needs evaluating?" tone="dark">Vessel reference data, migration questions, integrations, and hosting or deployment requirements.</Tile>
+        </Tiles>
+      </Chapter>
 
-      <Section eyebrow="Evaluation" title="What to bring to the first conversation" lede="A few details help the team understand fit. You do not need a finalized implementation plan to start the discussion.">
-        <div className="grid gap-4 md:grid-cols-3">
-          <article className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-sm sm:p-7">
-            <span className="grid size-11 place-items-center rounded-xl bg-[#eaf4f9] text-[#176a8e]"><Users aria-hidden="true" className="size-5" /></span>
-            <p className="mt-5 font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-[#16879a]">01 / Team</p>
-            <h2 className="mt-2 font-display text-xl font-semibold text-[#031038]">Who will use it?</h2>
-            <p className="mt-2 text-sm leading-7 text-[#52657c]">Share your organization type, approximate number of field surveyors, and who reviews survey records in the office.</p>
-          </article>
-          <article className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-sm sm:p-7">
-            <span className="grid size-11 place-items-center rounded-xl bg-[#eaf4f9] text-[#176a8e]"><FileSpreadsheet aria-hidden="true" className="size-5" /></span>
-            <p className="mt-5 font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-[#16879a]">02 / Workflow</p>
-            <h2 className="mt-2 font-display text-xl font-semibold text-[#031038]">What work do you do?</h2>
-            <p className="mt-2 text-sm leading-7 text-[#52657c]">Describe your delivery, ROB, or debunkering workflows and an approximate survey volume if you know it.</p>
-          </article>
-          <article className="rounded-2xl border border-[#d3e4ee] bg-white p-6 shadow-sm sm:p-7">
-            <span className="grid size-11 place-items-center rounded-xl bg-[#eaf4f9] text-[#176a8e]"><Database aria-hidden="true" className="size-5" /></span>
-            <p className="mt-5 font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-[#16879a]">03 / Rollout</p>
-            <h2 className="mt-2 font-display text-xl font-semibold text-[#031038]">What needs evaluation?</h2>
-            <p className="mt-2 text-sm leading-7 text-[#52657c]">Mention vessel reference data, migration questions, integrations, and hosting or deployment requirements to discuss.</p>
-          </article>
+      <Chapter index="02" eyebrow="What is being licensed" title="Review the workflows first." tone="white" lede="Understand what you would be buying before the commercial discussion starts.">
+        <div className="space-y-5">
+          <Checklist items={[
+            "Mobile capture for bunker quantity survey work",
+            "Web review and survey record workflows",
+            "PDF and Excel report workflows",
+            "Delivery, ROB and debunkering survey types",
+          ]} />
+          <Notice label="Pilots">A pilot is a discussion, not a published offer. Ask whether one is available and confirm its scope, timing and commercial terms with the team.</Notice>
         </div>
-      </Section>
+      </Chapter>
 
-      <Section bg="mist" eyebrow="Product scope" title="Review the workflows before discussing licensing">
-        <div className="grid gap-6 lg:grid-cols-[1.1fr_.9fr] lg:items-center">
-          <div className="rounded-2xl border border-[#d3e4ee] bg-white p-6 sm:p-8">
-            <ul className="space-y-4">
-              {["Mobile capture for bunker quantity survey work", "Web review and survey record workflows", "PDF and Excel report workflows", "Delivery, ROB, and debunkering survey types"].map((item) => (
-                <li key={item} className="flex items-start gap-3 text-sm leading-6 text-[#405771]"><CheckCircle2 aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-[#148b98]" /><span>{item}</span></li>
-              ))}
-            </ul>
-          </div>
-          <div className="space-y-4">
-            <div className="rounded-2xl border border-[#d3e4ee] bg-white p-5">
-              <span className="grid size-9 place-items-center rounded-lg bg-[#eaf4f9] text-[#176a8e]"><ClipboardList aria-hidden="true" className="size-4" /></span>
-              <h2 className="mt-3 font-display text-lg font-semibold text-[#031038]">A pilot is a discussion, not a published offer</h2>
-              <p className="mt-2 text-sm leading-6 text-[#52657c]">Ask whether a pilot is available and confirm its scope, timing, and commercial terms with the Space BQS team.</p>
-            </div>
-            <p className="text-xs leading-6 text-[#60748a]">Capabilities, pricing, availability, deployment options, and any migration scope should be confirmed for your proposed engagement.</p>
-          </div>
-        </div>
-      </Section>
+      <Chapter index="03" eyebrow="Rollout" title="The work around the licence." tone="mist" lede="Data migration and deployment can be discussed with your team. Confirm hosting and integration scope for your project before deciding.">
+        <Tiles cols={3}>
+          <Tile art="sync" tag="Migration" title="Data migration" href="/services/data-migration" cta="Migration approach">Map, trial-import and reconcile before the final move.</Tile>
+          <Tile art="stack" tag="Hosting" title="Deployment options" href="/services/deployment" cta="Deployment options">Public, private or on-premises, scoped to your infrastructure.</Tile>
+          <Tile art="flow" tag="Custom" title="Cargo WMS" href="/solutions/cargo-wms" cta="Custom scope">A separate offering, with requirements and delivery agreed per project.</Tile>
+        </Tiles>
+      </Chapter>
 
-      {/* Implementation & Infrastructure Services */}
-      <Section eyebrow="Rollout" title="Discuss your implementation requirements">
-        <p className="max-w-3xl text-sm leading-8 text-slate-600">
-          Data migration and deployment requirements can be discussed with your team. Confirm the available hosting and integration scope for your project before making a purchase decision.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-4 text-sm font-semibold">
-          <Link href="/services/data-migration" className="text-ocean-700 hover:text-ocean-900 inline-flex items-center gap-1">
-            Data Migration Services <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-          <Link href="/services/deployment" className="text-ocean-700 hover:text-ocean-900 inline-flex items-center gap-1">
-            Hosting & Deployment Options <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-          <Link href="/solutions/cargo-wms" className="text-ocean-700 hover:text-ocean-900 inline-flex items-center gap-1">
-            Cargo WMS Custom Scope <ArrowRight className="h-3.5 w-3.5" />
-          </Link>
-        </div>
-      </Section>
+      <Chapter index="04" eyebrow="How a conversation goes" title="From first message to a proposal." tone="white">
+        <Steps items={[
+          { title: "Tell us about your operation", body: "Team, survey types, approximate volume, and the questions you want answered." },
+          { title: "See the workflow", body: "A walkthrough against your survey types, so the licence discussion is about something concrete." },
+          { title: "Confirm terms directly", body: "Pricing, availability, deployment and any pilot scope are confirmed with the team for your engagement." },
+        ]} />
+      </Chapter>
 
-      {/* FAQs */}
-      <Section eyebrow="Questions" title="Frequently asked pricing & commercial questions">
-        <Faq items={PRICING_FAQS} />
-      </Section>
+      <Chapter index="05" eyebrow="Questions" title="Pricing and commercial questions." tone="mist">
+        <FaqList items={FAQS} />
+      </Chapter>
 
-      <Section eyebrow="Next step" title="Get a proposal conversation started" lede="Tell us about your operation and the questions you want answered. Confirm all commercial and technical terms with the team.">
-        <CtaRow />
-      </Section>
     </div>
   );
 }

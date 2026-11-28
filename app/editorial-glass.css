@@ -1,0 +1,100 @@
+/* ── Editorial glass: frosted panels that refract the aurora orbs behind them ── */
+.glass-card, .glass-card-dark {
+  position: relative;
+  isolation: isolate;
+  -webkit-backdrop-filter: blur(20px) saturate(165%);
+  backdrop-filter: blur(20px) saturate(165%);
+}
+.glass-card {
+  background: linear-gradient(135deg, rgb(255 255 255 / .78), rgb(238 248 253 / .5) 55%, rgb(214 236 248 / .6));
+  border: 1px solid rgb(255 255 255 / .9);
+  border-bottom-color: rgb(143 178 203 / .35);
+  box-shadow: inset 0 1px 0 #fff, inset 0 -1px 0 rgb(109 161 190 / .14), 0 24px 50px -30px rgb(19 68 111 / .38);
+}
+.glass-card-dark {
+  background: linear-gradient(135deg, rgb(255 255 255 / .14), rgb(255 255 255 / .04) 55%, rgb(125 225 229 / .07));
+  border: 1px solid rgb(255 255 255 / .16);
+  box-shadow: inset 0 1px 0 rgb(255 255 255 / .35), inset 0 -1px 0 rgb(255 255 255 / .06), 0 30px 60px -34px rgb(0 8 32 / .9);
+}
+.glass-card::before, .glass-card-dark::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(ellipse at 18% 0%, rgb(255 255 255 / .55), transparent 55%);
+  opacity: .7;
+}
+.glass-card-dark::before { background: radial-gradient(ellipse at 18% 0%, rgb(255 255 255 / .18), transparent 55%); }
+.glass-lift { transition: transform 300ms cubic-bezier(.2,.8,.2,1), box-shadow 300ms ease, border-color 300ms ease; }
+.glass-lift:hover { transform: translateY(-4px); }
+.aurora-orb { position: absolute; border-radius: 9999px; filter: blur(70px); pointer-events: none; z-index: 0; }
+@media (prefers-reduced-motion: reduce) { .glass-lift, .glass-lift:hover { transform: none; transition: none; } }
+@media (max-width: 639px) { .glass-card, .glass-card-dark { -webkit-backdrop-filter: blur(10px); backdrop-filter: blur(10px); } }
+@supports not (backdrop-filter: blur(1px)) {
+  .glass-card { background: #f0f7fc; }
+  .glass-card-dark { background: #12294f; }
+}
+@media (forced-colors: active) { .glass-card, .glass-card-dark { background: Canvas; border: 1px solid CanvasText; box-shadow: none; } }
+
+/* ── Pointer sheen on glass ── */
+.glass-card::after, .glass-card-dark::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 300ms ease;
+  background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgb(255 255 255 / .6), transparent 70%);
+}
+.glass-card-dark::after { background: radial-gradient(260px circle at var(--mx, 50%) var(--my, 0%), rgb(125 225 229 / .22), transparent 70%); }
+@media (hover: hover) { .glass-card:hover::after, .glass-card-dark:hover::after { opacity: 1; } }
+
+/* ── Animated card art (pure SVG + CSS, paused until hover/focus for calm, always on for touch-less screens at low speed) ── */
+.art { color: #032aac; }
+.art-dark { color: #7de1e5; }
+.art svg { display: block; width: 100%; height: 100%; overflow: visible; }
+@keyframes art-drift { to { stroke-dashoffset: -120; } }
+@keyframes art-bob { 0%, 100% { transform: translateY(0); } 50% { transform: translateY(-6px); } }
+@keyframes art-rise { from { transform: scaleY(.25); } to { transform: scaleY(1); } }
+@keyframes art-ping { 0% { transform: scale(.6); opacity: .8; } 100% { transform: scale(1.9); opacity: 0; } }
+@keyframes art-sweep { 0% { transform: translateX(-30%); } 100% { transform: translateX(130%); } }
+@keyframes art-fill { from { stroke-dashoffset: var(--len, 160); } to { stroke-dashoffset: var(--off, 40); } }
+@keyframes art-blink { 0%, 100% { opacity: .25; } 50% { opacity: 1; } }
+.art .a-drift { stroke-dasharray: 8 12; animation: art-drift 5s linear infinite; }
+.art .a-bob { animation: art-bob 4s ease-in-out infinite; }
+.art .a-bar { transform-box: fill-box; transform-origin: bottom; animation: art-rise 1.4s cubic-bezier(.2,.8,.2,1) both, art-bob 5s ease-in-out 1.4s infinite; }
+.art .a-ping { transform-box: fill-box; transform-origin: center; animation: art-ping 2.6s ease-out infinite; }
+.art .a-fill { stroke-dasharray: var(--len, 160); animation: art-fill 1.8s cubic-bezier(.2,.8,.2,1) both; }
+.art .a-blink { animation: art-blink 2.4s ease-in-out infinite; }
+.art .a-sweep { animation: art-sweep 3.6s ease-in-out infinite; }
+.art .d1 { animation-delay: .15s; } .art .d2 { animation-delay: .3s; } .art .d3 { animation-delay: .45s; } .art .d4 { animation-delay: .6s; }
+@media (prefers-reduced-motion: reduce) { .art * { animation: none !important; } }
+
+/* ── Scroll-linked line growth (progressive: static when unsupported) ── */
+@keyframes line-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+@keyframes line-grow-x { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+.scroll-line { transform-origin: top; }
+.rule-grow { transform-origin: left; }
+@supports (animation-timeline: view()) {
+  .scroll-line { animation: line-grow linear both; animation-timeline: view(); animation-range: entry 20% cover 55%; }
+  .rule-grow { animation: line-grow-x linear both; animation-timeline: view(); animation-range: entry 0% entry 90%; }
+}
+@media (prefers-reduced-motion: reduce) { .scroll-line, .rule-grow { animation: none !important; } }
+
+/* ── Skeleton shimmer + hero entrance ── */
+@keyframes hero-in { from { opacity: 0; transform: translateY(18px); } to { opacity: 1; transform: none; } }
+.hero-in { animation: hero-in 800ms cubic-bezier(.16,1,.3,1) both; }
+.hero-in-2 { animation-delay: 120ms; } .hero-in-3 { animation-delay: 240ms; }
+@media (prefers-reduced-motion: reduce) { .hero-in { animation: none; } }
+
+/* ── Section waves: wrappers are layout-neutral; a chapter's own wave replaces the hero wave when it follows directly ── */
+.chapter-wave, .hero-wave { display: contents; }
+.hero-wave:has(+ .chapter-wave) { display: none; }
+/* Keep the first chapter's content clear of the wave overlapping its top edge */
+.chapter-wave + section { padding-top: calc(5rem + 28px); }
+@media (min-width: 640px) { .chapter-wave + section { padding-top: calc(6rem + 28px); } }
+@media (min-width: 1024px) { .chapter-wave + section { padding-top: calc(7rem + 28px); } }

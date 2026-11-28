@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Breadcrumbs, Section, AnswerBlock, CtaRow } from "../components/ui";
+import { PageHero, Chapter, Steps, Tiles, Tile, Notice } from "../components/Editorial";
 import { QrCode, Cpu, ShieldCheck, CheckCircle2, Lock, ArrowDown, ChevronRight, FileSpreadsheet, FileText } from "lucide-react";
 import { routeMetadata } from "../lib/seo-metadata";
 
@@ -68,113 +68,39 @@ export default function Page() {
 
   return (
     <div>
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
-        <Breadcrumbs
-          trail={[
-            { href: "/", label: "Home" },
-            { href: "/features", label: "Features" },
-            { href: "/order-lifecycle", label: "Order Lifecycle" },
-          ]}
-        />
-        <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
-          Bunker Survey Record Workflow
-        </h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          Follow the product workflow from mobile survey capture to office review and report preparation.
-        </p>
-      </div>
+      <PageHero
+        href="/order-lifecycle"
+        crumb="Order Lifecycle"
+        parent={{ href: "/features", label: "Features" }}
+        eyebrow="Workflow states"
+        title="Bunker survey record workflow."
+        description="Follow the product workflow from mobile survey capture to office review and report preparation."
+        primaryAction={{ href: "/request-demo", label: "Request a demo" }}
+      />
 
-      <div className="mx-auto max-w-6xl px-4 mt-6">
-        <AnswerBlock>
-          <p>
-            Space BQS product materials describe a mobile workflow from draft through submission and a web workflow for calculation, review, and finalization. The exact status labels and review requirements depend on the product release and organization configuration.
-          </p>
-        </AnswerBlock>
-      </div>
+      <Chapter index="01" eyebrow="Workflow states" title="Step-by-step survey workflow." lede="Product materials describe a mobile workflow from draft through submission and a web workflow for calculation, review and finalisation. Status labels depend on the release and organisation configuration.">
+        <Steps items={steps.map((s) => ({
+          meta: `Web: ${s.webState} \u00b7 Mobile: ${s.mobileState}`,
+          title: s.name,
+          body: (<>
+            <p>{s.summary}</p>
+            <ul className="mt-3 space-y-1.5 text-sm">
+              {s.details.map((d) => <li key={d} className="flex gap-2"><span aria-hidden="true" className="mt-2 h-px w-4 shrink-0 bg-[#19b5c9]" />{d}</li>)}
+            </ul>
+          </>),
+        }))} />
+      </Chapter>
 
-      <Section eyebrow="Workflow states" title="Step-by-step survey workflow">
-        <div className="space-y-6">
-          {steps.map((s) => {
-            const Icon = s.icon;
-            return (
-              <div
-                key={s.num}
-                className="relative overflow-hidden rounded-2xl border border-slate-200 bg-white p-6 shadow-sm hover:border-ocean-300 transition"
-              >
-                <div className="flex flex-col md:flex-row md:items-start justify-between gap-4">
-                  <div className="flex items-start gap-4">
-                    <div className="rounded-xl bg-ocean-100 p-3 text-ocean-800 shrink-0">
-                      <Icon className="h-6 w-6" />
-                    </div>
-                    <div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        <span className="font-mono text-xs font-bold text-sea-700">PHASE {s.num}</span>
-                        <span className="text-slate-300">·</span>
-                        <span className="rounded-md bg-slate-100 px-2.5 py-1 text-[11px] font-mono font-bold text-slate-700">
-                          Web: {s.webState}
-                        </span>
-                        <span className="rounded-md bg-ocean-50 px-2.5 py-1 text-[11px] font-mono font-bold text-ocean-800">
-                          Mobile: {s.mobileState}
-                        </span>
-                      </div>
-                      <h3 className="font-display text-xl font-bold text-ocean-950 mt-1">{s.name}</h3>
-                      <p className="mt-2 text-sm text-slate-600 leading-relaxed max-w-2xl">{s.summary}</p>
-
-                      <ul className="mt-4 space-y-2 text-sm leading-6 text-slate-700">
-                        {s.details.map((d, i) => (
-                          <li key={i} className="flex items-start gap-2">
-                            <CheckCircle2 className="mt-1 h-4 w-4 text-sea-600 shrink-0" />
-                            <span>{d}</span>
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  </div>
-
-                </div>
-              </div>
-            );
-          })}
+      <Chapter index="02" eyebrow="Report outputs" title="What the report workflow describes." tone="white">
+        <div className="space-y-5">
+          <Tiles>
+            <Tile art="doc" tag="PDF" title="A4 BQS inspection certificate" href="/sample-report" cta="View sample PDF anatomy">Product materials describe a report for the survey firm's client, with vessel particulars, a BDN comparison note, tank-by-tank figures and review status. Fields vary by release.</Tile>
+            <Tile art="bars" tag="Excel" title="Four-sheet audit workbook" tone="dark" href="/features/calculation-audit" cta="Read the calculation notes">A multi-sheet workbook for review: survey summary, tank measurements, calculation steps and an event record. Confirm the current structure with the team.</Tile>
+          </Tiles>
+          <Notice label="Reminder">Exact status labels and review requirements depend on the product release and organisation configuration.</Notice>
         </div>
-      </Section>
+      </Chapter>
 
-      <Section eyebrow="Report outputs" title="What the report workflow describes">
-        <div className="grid gap-6 md:grid-cols-2">
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="flex items-center gap-2 text-ocean-900 font-bold">
-              <FileText className="h-5 w-5 text-ocean-700" />
-              <span>A4 BQS Inspection Certificate (PDF)</span>
-            </div>
-            <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Product materials describe a report for the survey firm&apos;s client, with vessel particulars, a BDN comparison note, tank-by-tank figures, and review status. Check the illustrative sample report for the current layout; specific fields vary by release.
-            </p>
-            <div className="mt-4">
-              <Link href="/sample-report" className="text-xs font-semibold text-ocean-700 hover:underline">
-                View sample PDF anatomy →
-              </Link>
-            </div>
-          </div>
-
-          <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
-            <div className="flex items-center gap-2 text-sea-900 font-bold">
-              <FileSpreadsheet className="h-5 w-5 text-sea-700" />
-              <span>4-Sheet Audit Workbook (Excel)</span>
-            </div>
-            <p className="mt-2 text-xs text-slate-600 leading-relaxed">
-              Product materials describe a multi-sheet workbook for review. A typical layout includes a survey summary, tank measurements, calculation steps, and an event record. Confirm the current workbook structure with the product team.
-            </p>
-            <div className="mt-4">
-              <Link href="/features/calculation-audit" className="text-xs font-semibold text-sea-700 hover:underline">
-                Read calculation audit spec →
-              </Link>
-            </div>
-          </div>
-        </div>
-
-        <div className="mt-8">
-          <CtaRow />
-        </div>
-      </Section>
     </div>
   );
 }

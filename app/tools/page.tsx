@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
-import EditorialHero from "../components/EditorialHero";
-import { MarketingCard } from "../components/MarketingPage";
-import { Section } from "../components/ui";
+import { PageHero, HeroFacts, Chapter, Tiles, Tile, Notice, Checklist, type ArtKind } from "../components/Editorial";
 import { TOOLS } from "../lib/tools";
 import { routeMetadata } from "../lib/seo-metadata";
 
@@ -10,34 +8,50 @@ export const metadata: Metadata = routeMetadata("/tools", {
   description: "Use browser-based worksheets for volume-to-mass calculations, BDN differences, ROB balance, and marine unit conversions.",
 });
 
+const ART: ArtKind[] = ["gauge", "bars", "sync", "tank", "flow", "wave"];
+
 export default function Page() {
   return (
-    <div className="bg-[#f7fbfd]">
-      <EditorialHero
-        trail={[{ href: "/", label: "Home" }, { href: "/resources", label: "Resources" }, { href: "/tools", label: "Tools" }]}
+    <div>
+      <PageHero
+        href="/tools"
+        crumb="Tools"
+        parent={{ href: "/resources", label: "Resources" }}
         eyebrow="Browser worksheets / no account required"
         title="Check the numbers. See the working."
-        description="Use focused, local worksheets for quantity arithmetic and unit conversion. Adjust the inputs, inspect each formula, and download a CSV copy when the entries are valid."
+        description="Focused, local worksheets for quantity arithmetic and unit conversion. Adjust the inputs, inspect each formula, and download a CSV copy when the entries are valid."
         primaryAction={{ href: "#worksheets", label: "Choose a worksheet" }}
         secondaryAction={{ href: "/how-we-measure", label: "Read the method notes" }}
+        visual={<HeroFacts title="How the worksheets behave" rows={[
+          { label: "Runs", value: "In your browser" },
+          { label: "Shows", value: "Every formula" },
+          { label: "Exports", value: "CSV copy" },
+          { label: "Stores", value: "Nothing" },
+        ]} />}
       />
-      <Section eyebrow="Choose a calculation" title="Four small tools. One clear scope." lede="Each worksheet does one job and shows its arithmetic. Pick the calculation that matches the question in front of you.">
-        <div id="worksheets" className="grid scroll-mt-28 gap-4 md:grid-cols-2">
-          {TOOLS.map((tool, index) => (
-            <div key={tool.slug} className="relative">
-              <span aria-hidden="true" className="absolute right-6 top-5 z-10 font-mono text-[10px] tracking-[.2em] text-[#16879a]">0{index + 1}</span>
-              <MarketingCard title={tool.title} href={`/tools/${tool.slug}`} linkLabel="Open worksheet">
-                {tool.description}
-                <p className="mt-4 border-t border-[#e5eef3] pt-4 text-xs leading-6 text-[#6c8197]">{tool.standards}</p>
-              </MarketingCard>
-            </div>
+
+      <Chapter id="worksheets" index="01" eyebrow="Choose a calculation" title={`${TOOLS.length} small tools. One clear scope.`} lede="Each worksheet does one job and shows its arithmetic. Pick the one that matches the question in front of you.">
+        <Tiles>
+          {TOOLS.map((tool, i) => (
+            <Tile key={tool.slug} art={ART[i % ART.length]} tag={`Worksheet ${String(i + 1).padStart(2, "0")}`} title={tool.title} href={`/tools/${tool.slug}`} cta="Open worksheet" tone={i % 4 === 0 ? "accent" : i % 4 === 3 ? "dark" : "light"}>
+              {tool.description}
+              <span className="mt-4 block border-t border-current/15 pt-3 text-xs leading-6 opacity-70">{tool.standards}</span>
+            </Tile>
           ))}
+        </Tiles>
+      </Chapter>
+
+      <Chapter index="02" eyebrow="Scope" title="What a worksheet is, and is not." tone="white">
+        <div className="space-y-5">
+          <Checklist items={[
+            "Arithmetic helpers, separate from the production survey application",
+            "Run in your browser and create no survey records",
+            "Show the formula so you can check it independently",
+          ]} />
+          <Notice>They do not issue reports or determine contractual outcomes. For how the production calculation is described, read <a className="font-semibold text-[#032aac] underline underline-offset-4" href="/how-we-measure">how we measure</a>.</Notice>
         </div>
-        <div className="mt-8 rounded-2xl border border-[#d3e4ee] bg-[#eaf4f9] p-5 sm:p-6">
-          <p className="font-mono text-[10px] font-semibold uppercase tracking-[.16em] text-[#176a8e]">Scope note</p>
-          <p className="mt-2 max-w-4xl text-sm leading-7 text-[#405771]">These are arithmetic worksheets, separate from the production survey application. They run in your browser, do not create survey records, and do not issue reports or determine contractual outcomes.</p>
-        </div>
-      </Section>
+      </Chapter>
+
     </div>
   );
 }

@@ -1,7 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
-import { Section, AnswerBlock, Faq, Breadcrumbs } from "../../components/ui";
+import { Section, AnswerBlock, Faq } from "../../components/ui";
+import { PageHero } from "../../components/Editorial";
 import { RESOURCES, getResource } from "../../lib/resources";
 import { SITE_URL } from "../../lib/site";
 import { routeMetadata } from "../../lib/seo-metadata";
@@ -39,18 +40,14 @@ export default async function Page({ params }: { params: Promise<{ slug: string 
 
   return (
     <div>
-      <div className="mx-auto max-w-3xl px-4 sm:px-6 pt-28 sm:pt-32">
-        <Breadcrumbs
-          trail={[
-            { href: "/", label: "Home" },
-            { href: "/resources", label: "Resources" },
-            { href: `/resources/${r.slug}`, label: r.title },
-          ]}
-        />
-        <p className="mt-4 text-xs text-slate-500">Last updated: {r.updated} · Space BQS</p>
-        <h1 className="font-display mt-2 text-3xl font-bold sm:text-4xl">{r.title}</h1>
-        <p className="mt-3 text-lg text-slate-600">{r.description}</p>
-      </div>
+      <PageHero
+        href={`/resources/${r.slug}`}
+        crumb={r.title}
+        parent={{ href: "/resources", label: "Resources" }}
+        eyebrow={`Last updated ${r.updated}`}
+        title={r.title}
+        description={r.description}
+      />
       <Section eyebrow="Answer" title="In short">
         <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(structuredData) }} />
         <AnswerBlock><p>{r.answer}</p></AnswerBlock>

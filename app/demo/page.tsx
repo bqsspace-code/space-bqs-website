@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Breadcrumbs } from "../components/ui";
 import AppDemoVideoSection from "../components/AppDemoVideoSection";
+import { PageHero, HeroFacts, Chapter } from "../components/Editorial";
 import { routeMetadata } from "../lib/seo-metadata";
 
 export const metadata: Metadata = routeMetadata("/demo", {
@@ -12,29 +11,24 @@ export const metadata: Metadata = routeMetadata("/demo", {
 
 export default function Page() {
   return (
-    <div className="space-y-8 pb-16">
-      {/* Page Header */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
-        <Breadcrumbs trail={[{ href: "/", label: "Home" }, { href: "/demo", label: "Demo" }]} />
-        <div className="mt-4 flex items-center gap-2">
-          <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
-            Video walkthrough
-          </span>
-          <span className="text-xs text-slate-500 font-mono">Mobile Deck Tool</span>
-        </div>
-        <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl">
-          Space BQS Demo &amp; App Walkthrough
-        </h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          See how surveyors capture tank soundings offline on deck and compute temperature-corrected quantities. For a tailored 1-on-1 team pilot, use{" "}
-          <Link href="/request-demo" className="font-semibold text-ocean-700 underline hover:text-ocean-900">
-            Request a demo
-          </Link>.
-        </p>
+    <div>
+      <PageHero
+        href="/demo"
+        crumb="Demo"
+        eyebrow="Video walkthrough"
+        title="Watch a survey happen on deck."
+        description="See how surveyors capture tank soundings offline on deck and compute temperature-corrected quantities. For a tailored one-to-one team pilot, request a demo."
+        primaryAction={{ href: "/request-demo", label: "Request a demo" }}
+        secondaryAction={{ href: "/mobile-app", label: "About the mobile app" }}
+        visual={<HeroFacts title="In this walkthrough" rows={[
+          { label: "Format", value: "Video" },
+          { label: "Product", value: "Mobile deck tool" },
+          { label: "Shows", value: "Capture and calculation" },
+        ]} />}
+      />
+      <div className="bg-[#f7fbfd] py-10 sm:py-16">
+        <AppDemoVideoSection />
       </div>
-
-      {/* Mobile App Demo Video Player */}
-      <AppDemoVideoSection />
     </div>
   );
 }

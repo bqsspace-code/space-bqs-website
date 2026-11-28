@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { Section, AnswerBlock, Faq } from "../components/ui";
-import WaveDivider from "../components/WaveDivider";
-import { ServiceLinks } from "../components/MarketingPage";
-import EditorialHero, { HeroImage } from "../components/EditorialHero";
 import { routeMetadata } from "../lib/seo-metadata";
+import { PageHero, HeroImage, Chapter, Tiles, Tile, Steps, Notice, Compare } from "../components/Editorial";
+import { FaqList } from "../components/EditorialExtras";
 
 export const metadata: Metadata = routeMetadata("/services", {
   title: "Bunker Survey Software Workflows",
@@ -14,66 +11,71 @@ export const metadata: Metadata = routeMetadata("/services", {
 
 export default function Page() {
   return (
-    <div className="bg-[#f7fbfd]">
-      <EditorialHero
-        trail={[{ href: "/", label: "Home" }, { href: "/services", label: "Services" }]}
+    <div>
+      <PageHero
+        href="/services"
+        crumb="Services"
         eyebrow="Survey workflows · implementation support"
         title="Every bunker movement has its own story."
-        description="Explore software workflows for bunker delivery, remaining on board, and debunkering—plus separately scoped migration and deployment support."
+        description="Software workflows for bunker delivery, remaining on board and debunkering, plus separately scoped migration and deployment support."
         primaryAction={{ href: "/request-demo", label: "Discuss your workflow" }}
         secondaryAction={{ href: "/features", label: "Explore product features" }}
-        visual={<HeroImage src="/assets/videos/tablet-on-deck-poster.webp" alt="Surveyor using a tablet on a vessel deck" caption="Field context, office review, and a clear report trail." position="62% center" />}
+        visual={<HeroImage src="/assets/videos/tablet-on-deck-poster.webp" alt="Surveyor using a tablet on a vessel deck" caption="Field context, office review and a clear report trail." position="62% center" />}
       />
 
-      <section className="mx-auto max-w-7xl px-5 py-12 sm:px-8 sm:py-16 lg:px-10" aria-label="Service scope">
-        <AnswerBlock>
-          <p>Space BQS organizes bunker delivery, ROB, and debunkering survey records. Your survey firm determines the measurement scope and performs survey attendance. The software is for quantity workflows, not laboratory fuel-quality testing.</p>
-        </AnswerBlock>
-      </section>
+      <Chapter id="service-workflows" index="01" eyebrow="Three operational moments" title="Choose the workflow that matches the job." lede="Each starts with a different question. Pick the one you are being asked to document.">
+        <Tiles>
+          <Tile art="tank" tone="accent" tag="Fuel is supplied" title="Bunker delivery" href="/services/bunker-delivery-survey" cta="Delivery workflow" className="md:col-span-2">
+            Before-and-after measurements, observed conditions and the BDN reference, kept together so the supplier's figure and the survey team's figure can be read side by side.
+          </Tile>
+          <Tile art="gauge" tag="At a charter milestone" title="Remaining on board" href="/services/rob-survey" cta="ROB workflow">
+            Fuel on board at the point set by the survey scope, with the period's receipts and transfers laid out for reconciliation.
+          </Tile>
+          <Tile art="flow" tone="dark" tag="Fuel is removed" title="Debunkering" href="/services/debunkering-survey" cta="Debunkering workflow">
+            Opening and closing measurements under the agreed procedure, with scope and assumptions recorded.
+          </Tile>
+        </Tiles>
+      </Chapter>
 
-      <Section id="service-workflows" eyebrow="Three operational moments" title="Choose the workflow that matches the job" lede="Each route begins with a different operational question. Select one to see the records and review context in more detail.">
-        <div className="grid gap-4 lg:grid-cols-3">
-          {[
-            { n: "01", name: "Bunker delivery", when: "Fuel is supplied to the vessel", record: "Before-and-after measurements, observed conditions, and BDN reference.", href: "/services/bunker-delivery-survey", color: "from-[#0c2d64] to-[#0b4972]" },
-            { n: "02", name: "ROB survey", when: "At a defined charter milestone", record: "Fuel-on-board information at the point set by the survey scope.", href: "/services/rob-survey", color: "from-[#071b43] to-[#123b67]" },
-            { n: "03", name: "Debunkering", when: "Fuel is removed from a vessel", record: "Relevant opening and closing measurements under the agreed procedure.", href: "/services/debunkering-survey", color: "from-[#063446] to-[#0b5265]" },
-          ].map((item) => (
-            <Link key={item.href} href={item.href} className={`group relative flex min-h-[330px] flex-col overflow-hidden rounded-[1.5rem] bg-gradient-to-br ${item.color} p-6 text-white shadow-[0_24px_70px_-45px_rgba(3,16,56,.8)] transition hover:-translate-y-1 focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#032aac] motion-reduce:transform-none motion-reduce:transition-none sm:p-7`}>
-              <span aria-hidden="true" className="absolute -right-10 -top-14 font-display text-[11rem] font-semibold leading-none text-white/[.055]">{item.n}</span>
-              <span className="relative font-mono text-[10px] uppercase tracking-[.2em] text-[#8ce4e4]">Workflow / {item.n}</span>
-              <h3 className="relative mt-12 max-w-xs font-display text-3xl font-semibold tracking-tight sm:text-4xl">{item.name}</h3>
-              <div className="relative mt-auto border-t border-white/15 pt-5">
-                <p className="text-[10px] font-mono uppercase tracking-[.16em] text-white/55">When it happens</p>
-                <p className="mt-1 text-sm font-medium text-white">{item.when}</p>
-                <p className="mt-3 max-w-sm text-sm leading-6 text-white/70">{item.record}</p>
-                <span className="mt-5 inline-flex items-center gap-2 text-sm font-semibold text-[#b9f1e8]">Explore workflow <span aria-hidden="true" className="transition-transform group-hover:translate-x-1 motion-reduce:transition-none">↗</span></span>
-              </div>
-            </Link>
-          ))}
-        </div>
-      </Section>
+      <Chapter index="02" eyebrow="Side by side" title="Same discipline. Different questions." tone="white" lede="All three use the same capture, calculation, review and report path. What changes is the question the record answers.">
+        <Compare
+          left="Typically asks"
+          right="Record emphasises"
+          rows={[
+            { topic: "Bunker delivery", a: "How much did the vessel receive?", b: "Before and after readings, observed conditions, BDN reference." },
+            { topic: "ROB", a: "What is on board at this point?", b: "Tanks, fuel grades and period; receipts and transfers for reconciliation." },
+            { topic: "Debunkering", a: "How much was removed?", b: "Opening and closing readings, transfer notes, scope and assumptions." },
+          ]}
+        />
+      </Chapter>
 
-      <Section bg="mist" eyebrow="Implementation support" title="Move the records. Plan the environment." lede="Migration and deployment are scoped to your source data, requirements, and project—rather than assumed as one-size-fits-all services.">
-        <ServiceLinks />
-      </Section>
+      <Chapter index="03" eyebrow="The common path" title="One record from deck to report." tone="mist">
+        <Steps items={[
+          { meta: "Mobile", title: "Capture", body: "Scan the vessel, choose the fuel, enter tank readings. Works offline and syncs when signal returns." },
+          { meta: "Calculation", title: "Calculate", body: "Temperature correction, water deduction and mass conversion run the same way every time." },
+          { meta: "Web", title: "Review", body: "A supervisor checks the inputs and breakdown, then recalculates if something needs correcting." },
+          { meta: "Output", title: "Report", body: "PDF and Excel outputs prepared from the finalised record, with method and version stated." },
+        ]} />
+      </Chapter>
 
-      <WaveDivider
-        layers={2}
-        colors={["#D3E9F3", "#EAF4F9"]}
-        height={75}
-        direction="up"
-      />
+      <Chapter index="04" eyebrow="Implementation support" title="Move the records. Plan the environment." tone="white" lede="Migration and deployment are scoped to your source data and requirements, not assumed as one-size-fits-all.">
+        <Tiles>
+          <Tile art="sync" tag="Before go-live" title="Bring your existing data" href="/services/data-migration" cta="Plan your migration">Map, validate, trial-import and reconcile before the final move.</Tile>
+          <Tile art="stack" tag="Infrastructure" title="Choose your deployment" href="/services/deployment" cta="Compare options">Public cloud, private cloud or on-premises, scoped around your team and infrastructure.</Tile>
+        </Tiles>
+      </Chapter>
 
-      {/* FAQ */}
-      <Section eyebrow="FAQ" title="Services questions">
-        <div className="max-w-3xl">
-          <Faq items={[
+      <Chapter index="05" eyebrow="Boundary" title="What the services are not." tone="light">
+        <div className="space-y-6">
+          <Notice>Your survey firm determines the measurement scope and performs survey attendance. Space BQS is software for quantity workflows, not laboratory fuel-quality testing.</Notice>
+          <FaqList items={[
             { q: "Do you provide surveyors?", a: "No. Survey firms run jobs with their teams; Space BQS is the software they run on." },
-            { q: "Do you test fuel quality?", a: "No. Quantity-only. No lab, no sludge, no sampling for quality." },
-            { q: "Can on-hire and off-hire records be reviewed together?", a: "The survey scope and reporting process determine how the records are prepared and compared. Confirm the current product workflow with the team." },
+            { q: "Do you test fuel quality?", a: "No. Quantity only. There is no lab work and no sampling for quality." },
+            { q: "Can on-hire and off-hire records be reviewed together?", a: "The survey scope and reporting process determine how the records are prepared and compared. Confirm the current product workflow with the team.", more: { href: "/services/rob-survey", label: "ROB workflow" } },
           ]} />
         </div>
-      </Section>
+      </Chapter>
+
     </div>
   );
 }

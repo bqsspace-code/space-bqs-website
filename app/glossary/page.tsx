@@ -1,8 +1,8 @@
-import Link from "next/link";
-import { Breadcrumbs, Section, CtaRow } from "../components/ui";
+import { PageHero, HeroFacts, Chapter, Tiles, Tile } from "../components/Editorial";
+import { SectionNav } from "../components/EditorialExtras";
 import { ALL_GLOSSARY_TERMS } from "../lib/glossary";
-import { BookOpen, Search, ArrowRight, Bookmark, Calculator, ShieldAlert, FlaskConical } from "lucide-react";
 import { routeMetadata } from "../lib/seo-metadata";
+import type { ArtKind } from "../components/Editorial";
 
 export const metadata = routeMetadata("/glossary", {
   title: "Marine Bunker Survey Glossary",
@@ -10,112 +10,52 @@ export const metadata = routeMetadata("/glossary", {
     "Explanations of marine bunker quantity survey terms, including sounding, ullage, tank tables, volume correction factors, BDN, and ROB.",
 });
 
-const CATEGORIES = [
-  "Physical Gauging",
-  "Calculation & ASTM",
-  "Custody & Dispute",
-  "Fuel Sampling & MARPOL"
-] as const;
+const CATEGORIES: { name: string; lede: string; art: ArtKind; tone: "light" | "white" | "mist" }[] = [
+  { name: "Physical Gauging", lede: "How quantity is read from a tank.", art: "gauge", tone: "light" },
+  { name: "Calculation & ASTM", lede: "From an observed volume to a corrected quantity.", art: "bars", tone: "white" },
+  { name: "Custody & Dispute", lede: "Records that matter when figures are compared.", art: "doc", tone: "mist" },
+  { name: "Fuel Sampling & MARPOL", lede: "Sampling terms, kept separate from quantity work.", art: "tank", tone: "white" },
+];
+
+const idOf = (name: string) => name.toLowerCase().replace(/[^a-z0-9]+/g, "-");
 
 export default function GlossaryPage() {
   return (
-    <div className="space-y-12 pb-20">
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
-        <Breadcrumbs
-          trail={[
-            { href: "/", label: "Home" },
-            { href: "/glossary", label: "Glossary" },
-          ]}
-        />
-        <div className="mt-4 flex items-center gap-2">
-          <span className="rounded-full bg-ocean-100 px-3 py-1 text-xs font-semibold text-ocean-800">
-            Maritime Technical Terminology
-          </span>
-          <span className="text-xs text-slate-500 font-mono">20 Core BQS Definitions</span>
-        </div>
-        <h1 className="font-display mt-3 text-3xl font-bold text-ocean-950 sm:text-4xl lg:text-5xl">
-          Marine Sounding &amp; Bunker Quantity Survey Glossary
-        </h1>
-        <p className="mt-4 max-w-3xl text-lg text-slate-600">
-          Clear, definitive explanations of physical tank gauging methods, ASTM D1250 calculation tables, volume correction factors (VCF), custody transfer disputes, and MARPOL sampling standards.
-        </p>
+    <div>
+      <PageHero
+        href="/glossary"
+        crumb="Glossary"
+        eyebrow="Maritime technical terminology"
+        title="The bunker survey glossary."
+        description="Clear explanations of physical tank gauging methods, ASTM D1250 calculation tables, volume correction factors, custody transfer disputes and MARPOL sampling standards."
+        primaryAction={{ href: `#${idOf(CATEGORIES[0].name)}`, label: "Browse terms" }}
+        secondaryAction={{ href: "/tools", label: "Open the worksheets" }}
+        visual={<HeroFacts title="The glossary" rows={[
+          { label: "Terms", value: String(ALL_GLOSSARY_TERMS.length) },
+          { label: "Categories", value: String(CATEGORIES.length) },
+          { label: "Each links to", value: "Related terms and FAQs" },
+        ]} />}
+      />
 
-        {/* Categories Quick Navigation */}
-        <div className="mt-8 flex flex-wrap gap-2">
-          {CATEGORIES.map((cat) => (
-            <a
-              key={cat}
-              href={`#${cat.toLowerCase().replace(/[^a-z0-9]+/g, "-")}`}
-              className="rounded-lg border border-slate-200 bg-white px-3 py-1.5 text-xs font-semibold text-slate-700 hover:border-ocean-600 hover:text-ocean-700 transition"
-            >
-              {cat}
-            </a>
-          ))}
-        </div>
-      </div>
+      <SectionNav label="Glossary categories" items={CATEGORIES.map((c) => ({ id: idOf(c.name), label: c.name }))} />
 
-      {/* Categorized Terms Listing */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 space-y-12">
-        {CATEGORIES.map((cat) => {
-          const catId = cat.toLowerCase().replace(/[^a-z0-9]+/g, "-");
-          const terms = ALL_GLOSSARY_TERMS.filter((t) => t.category === cat);
+      {CATEGORIES.map((c, i) => {
+        const terms = ALL_GLOSSARY_TERMS.filter((t) => t.category === c.name);
+        if (terms.length === 0) return null;
+        return (
+          <Chapter key={c.name} id={idOf(c.name)} index={String(i + 1).padStart(2, "0")} eyebrow={`${terms.length} terms`} title={`${c.name}.`} lede={c.lede} tone={c.tone}>
+            <Tiles>
+              {terms.map((t) => (
+                <Tile key={t.slug} art={c.art} tag={t.standardsReference.split("/")[0].trim()} title={t.term} href={`/glossary/${t.slug}`} cta="Definition">
+                  {t.shortDefinition}
+                  {t.formula && <span className="mt-4 block rounded-lg bg-[#031038]/90 px-3 py-2 font-mono text-[11px] leading-5 text-[#b9f1e8]">{t.formula}</span>}
+                </Tile>
+              ))}
+            </Tiles>
+          </Chapter>
+        );
+      })}
 
-          return (
-            <section key={cat} id={catId} className="scroll-mt-32">
-              <div className="border-b border-slate-200 pb-3 mb-6">
-                <h2 className="font-display text-2xl font-bold text-ocean-950 flex items-center gap-2">
-                  {cat === "Physical Gauging" && <Bookmark className="h-5 w-5 text-ocean-600" />}
-                  {cat === "Calculation & ASTM" && <Calculator className="h-5 w-5 text-sea-600" />}
-                  {cat === "Custody & Dispute" && <ShieldAlert className="h-5 w-5 text-amber-600" />}
-                  {cat === "Fuel Sampling & MARPOL" && <FlaskConical className="h-5 w-5 text-purple-600" />}
-                  {cat}
-                </h2>
-                <p className="text-xs text-slate-500 mt-1">
-                  {terms.length} verified terminology and standard procedures
-                </p>
-              </div>
-
-              <div className="grid gap-4 md:grid-cols-2">
-                {terms.map((t) => (
-                  <Link
-                    key={t.slug}
-                    href={`/glossary/${t.slug}`}
-                    className="group rounded-2xl border border-slate-200 bg-white p-5 transition hover:border-ocean-600 hover:shadow-xs flex flex-col justify-between"
-                  >
-                    <div>
-                      <div className="flex items-center justify-between">
-                        <span className="text-[11px] font-mono text-slate-500">
-                          {t.standardsReference.split("/")[0].trim()}
-                        </span>
-                        <span className="text-xs font-semibold text-ocean-700 group-hover:translate-x-0.5 transition-transform inline-flex items-center gap-1">
-                          Definition <ArrowRight className="h-3 w-3" />
-                        </span>
-                      </div>
-                      <h3 className="font-display mt-2 text-lg font-bold text-ocean-950 group-hover:text-ocean-700">
-                        {t.term}
-                      </h3>
-                      <p className="mt-2 text-xs leading-relaxed text-slate-600">
-                        {t.shortDefinition}
-                      </p>
-                    </div>
-
-                    {t.formula && (
-                      <div className="mt-4 rounded-lg bg-slate-50 p-2.5 text-[11px] font-mono text-ocean-900 border border-slate-100">
-                        {t.formula}
-                      </div>
-                    )}
-                  </Link>
-                ))}
-              </div>
-            </section>
-          );
-        })}
-      </div>
-
-      {/* Call to Action */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6">
-        <CtaRow />
-      </div>
     </div>
   );
 }

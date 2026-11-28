@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import Link from "next/link";
-import { Breadcrumbs, Section, AnswerBlock, CtaRow } from "../components/ui";
+import { Section, AnswerBlock } from "../components/ui";
 import {
   FileText,
   FileSpreadsheet,
@@ -20,30 +20,19 @@ export default function SampleReportPage() {
   const [activeExcelSheet, setActiveExcelSheet] = useState<number>(1);
 
   return (
-    <div className="space-y-12 pb-16">
-      {/* Top Header Banner */}
-      <div className="mx-auto max-w-6xl px-4 sm:px-6 pt-28 sm:pt-32">
-        <Breadcrumbs
-          trail={[
-            { href: "/", label: "Home" },
-            { href: "/sample-report", label: "Sample Report" },
-          ]}
-        />
-        <div className="mt-4 flex flex-wrap items-center gap-2">
-          <span className="rounded-full border border-[#b8dbea] bg-[#eaf4f9] px-3 py-1 text-xs font-semibold text-[#032aac]">
+    <div className="relative space-y-8 overflow-clip bg-[#f1f7fb] py-12 sm:py-16">
+      <span aria-hidden="true" className="aurora-orb -right-24 top-10 size-[26rem] bg-[#7fc4f2]/45" />
+      <span aria-hidden="true" className="aurora-orb -left-28 bottom-40 size-[24rem] bg-[#5fd3d8]/35" />
+      <div className="relative mx-auto max-w-6xl px-4 sm:px-6">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="rounded-full border border-[#b8dbea] bg-white/70 px-3 py-1 text-xs font-semibold text-[#032aac] backdrop-blur">
             Illustrative preview · fictional data
           </span>
           <span className="text-xs text-slate-500 font-mono">Not an issued survey report</span>
         </div>
-        <h1 className="font-display mt-3 text-3xl font-bold text-[#031038] sm:text-4xl">
-          Sample Bunker Quantity Survey Report
-        </h1>
-        <p className="mt-3 max-w-3xl text-lg text-slate-600">
-          This layout preview uses fictional example values. It is not a real survey, customer record, or issued certificate. Ask the team for a current product output sample.
-        </p>
 
         {/* Format Selector Pills */}
-        <div className="mt-6 flex flex-wrap gap-2 border-b border-slate-200 pb-4" role="group" aria-label="Choose a sample report format">
+        <div className="mt-5 flex flex-wrap gap-2 pb-2" role="group" aria-label="Choose a sample report format">
           <button
             type="button"
             onClick={() => setActiveFormat("pdf")}
@@ -75,7 +64,7 @@ export default function SampleReportPage() {
       </div>
 
       {/* Main Interactive Viewer */}
-      <div className="mx-auto max-w-6xl px-4">
+      <div className="relative mx-auto max-w-6xl px-4">
         {activeFormat === "pdf" ? (
           /* PDF Certificate Mock */
           <div id="sample-report-pdf" role="region" aria-label="Illustrative PDF report preview" className="overflow-hidden rounded-2xl border border-[#cddfef] bg-white shadow-[0_24px_70px_-38px_rgba(3,16,56,.42)] max-w-4xl mx-auto">
@@ -325,10 +314,6 @@ export default function SampleReportPage() {
             </div>
           </div>
         )}
-      </div>
-
-      <div className="mx-auto max-w-6xl px-4 pt-4">
-        <CtaRow />
       </div>
     </div>
   );
